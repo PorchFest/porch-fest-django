@@ -1,0 +1,10 @@
+{
+	"editor.tabSize": 4,
+	"emmet.includeLanguages": {
+		"django-html": "html",
+	},
+	"files.associations": {
+		"*.html": "django-html",
+	},
+	"editor.detectIndentation": false
+}
