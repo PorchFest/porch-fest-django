@@ -1,10 +1,11 @@
 {
 	"editor.tabSize": 4,
-	"emmet.includeLanguages": {
-		"django-html": "html",
+	"saveAndRun": {
+		"commands": [{
+			"match": "\\.scss",
+			"cmd": "sass ./porchfestcore/static/porchfestcore/sass/style.scss ./porchfestcore/static/porchfestcore/style.css",
+			"silent": true
+		}]
 	},
-	"files.associations": {
-		"*.html": "django-html",
-	},
-	"editor.detectIndentation": false
+	// "editor.detectIndentation": false
 }
