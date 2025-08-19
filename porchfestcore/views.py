@@ -5,3 +5,6 @@ from django.views.generic 	import TemplateView
 
 class IndexView(TemplateView):
 	template_name = 'porchfestcore/index.html'
+ 
+def map_page(request):
+	return render(request, 'porchfestcore/map.html')

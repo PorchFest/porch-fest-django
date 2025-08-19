@@ -1,26 +1,29 @@
-import 		uuid
-from 		django.db import models
-from 		django.contrib.auth.models import User
+import								uuid
+from django.db 						import models
+from django.conf 					import settings
+from django.contrib.gis.db			import models as gis_models
+from django.contrib.auth.models		import User
 
 class Performer(models.Model):
-    GENRE_CHOICES = [
-        ('rock', 		'Rock'),
-        ('jazz', 		'Jazz'),
-        ('folk', 		'Folk'),
-        ('pop', 		'Pop'),
-        ('classical',	'Classical'),
-        ('hiphop', 		'Hip Hop'),
-        ('other', 		'Other'),
-    ]
+    class Genre(models.TextChoices):
+        ROCK 			= 'rock', 'Rock'
+        JAZZ 			= 'jazz', 'Jazz'
+        FOLK 			= 'folk', 'Folk'
+        POP 			= 'pop', 'Pop'
+        CLASSICAL		= 'classical', 'Classical'
+        HIPHOP 			= 'hiphop', 'Hip Hop'
+        OTHER 			= 'other', 'Other'
 
     id 					= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name 				= models.CharField(max_length=255)
-    genre				= models.CharField(max_length=20, choices=GENRE_CHOICES, default='other')
     bio 				= models.TextField(blank=True)
-    instruments 		= models.TextField(blank=True)
-    availability 		= models.JSONField(default=list)  # Later could be DateTime ranges
-    location_pref		= models.TextField(blank=True)
-    profile_picture		 = models.URLField(blank=True)
+    genre				= models.CharField(max_length=20, choices=Genre.choices, default=Genre.OTHER)
+    member_count 		= models.IntegerField(default=1)
+    instruments 		= models.IntegerField(default=0)
+    link 				= models.URLField(blank=True)
+    # availability 		= models.JSONField()
+    # location_pref		= models.TextField(blank=True)
+    profile_picture		= models.ImageField(upload_to='performers/', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -28,13 +31,22 @@ class Performer(models.Model):
 class Porch(models.Model):
     id 					= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name 				= models.CharField(max_length=255)
-    owner_name 			= models.CharField(max_length=255)
-    address 			= models.CharField(max_length=255)
-    lat 				= models.FloatField(null=True, blank=True)
-    lng 				= models.FloatField(null=True, blank=True)
+    owner				= models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="performance_requests",
+        blank=True,
+        null=True,
+    )
     description 		= models.TextField(blank=True)
-    capacity 			= models.IntegerField(default=0)
-    available_times 	= models.JSONField(default=list)
+    # capacity 			= models.IntegerField(default=0)
+    # available_times 	= models.JSONField(default=list)
+    coordinates 		= gis_models.PointField(geography=True)
+    street_address      = models.CharField(max_length=255)
+    city                = models.CharField(max_length=100)
+    state               = models.CharField(max_length=100)
+    zip_code            = models.CharField(max_length=20)
+    country             = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -87,3 +99,9 @@ class Performance(models.Model):
     start_time 			= models.TimeField()
     end_time 			= models.TimeField()
     created_at 			= models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["start_time"]
+        
+    def __str__(self):
+        return f"{self.performer} at {self.porch} ({self.start_time.strftime('%-I:%M %p')})"
