@@ -37,8 +37,34 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'mapwidgets',
 	'porchfestcore',
 ]
+
+MAP_WIDGETS = {
+    "GoogleMap": {
+        "apiKey": "AIzaSyDcx1ECx0KdrjMwWEvRhDaMZwdltFmpTDw",
+        # https://maps.googleapis.com/maps/api/js?language={}&libraries={}&key={}&v={}"
+        "CDNURLParams": {
+            "language": "en",
+            "libraries": "places,marker",
+            "loading": "defer",
+            "v": "quarterly",
+        },
+        "PointField": {
+            "interactive": {
+                "mapOptions": {
+                    "zoom": 12,
+                    "scrollwheel": False,
+                    "streetViewControl": True,
+                },
+                "GooglePlaceAutocompleteOptions": {},
+                "mapCenterLocationName": "Fresno, CA, USA",
+                "markerFitZoom": 14,
+            },
+        },
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,9 +101,13 @@ WSGI_APPLICATION = 'porchfest.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+		'ENGINE': 		'django.contrib.gis.db.backends.postgis',
+		'NAME': 		'porchfest',
+		'USER': 		'towerporchfest',
+		'PASSWORD': 	'Development',
+		'HOST': 		'localhost',
+		'PORT': 		'5432',
+	}
 }
 
 
@@ -116,6 +146,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
