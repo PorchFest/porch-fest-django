@@ -77,3 +77,11 @@ footer {
 	font-family: "Antonio", sans-serif;
 	// border: 3px dashed blue;
 }
+
+:root {
+	--vh: 100%;
+}
+
+#map{
+	height: calc(var(--vh, 1vh) * 100);
+}
