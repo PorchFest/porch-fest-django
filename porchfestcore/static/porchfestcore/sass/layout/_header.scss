@@ -1,0 +1,31 @@
+$background: #91b1a6;
+$foreground: black;
+
+header {
+	background-color: $background;
+	padding: 20px 200px;
+
+	ul{
+		display: flex;
+		justify-content: space-around;
+
+		list-style: none;
+		li{
+			$menu-padding: 10px;
+			background-color: #F2B814;
+			padding-top: 6px;
+			padding-left: $menu-padding;
+			padding-right: $menu-padding;
+			border-radius: 5px;
+		}
+		a{
+			font-size: 1.5rem;
+			color: $foreground;
+			text-decoration: none;
+
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+	}
+}
