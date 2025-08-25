@@ -1,7 +1,50 @@
+$background-main: #f2b814;
+$background-accent: #212133;
+
 .hero{
 	width: 100%;
 	height: 665px;
-	border: blue dashed 2px;
 	background-position: center;
 	background-size: cover;
+}
+
+.countdown-wrapper{
+	height: 150px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas: 
+		"left right"
+		"left right"
+	;
+	
+	background-color: $background-main;
+	
+	.left{
+		grid-area: left;
+		background-color: $background-accent;
+	}
+
+	.right{
+		grid-area: right;
+		border-top: 75px solid transparent;
+		border-right: unset;
+		border-bottom: 75px solid transparent;
+		border-left: 60px solid $background-accent;
+	}
+
+	@media(max-width: 900px){
+		min-height: 351px;
+		grid-template-rows: 150px 1fr;
+		grid-template-areas: 
+			"left left"
+			"right right"
+		;
+
+		.right{
+			border-left: 50vw solid transparent;
+			border-right: 50vw solid transparent;
+			border-top: 60px solid $background-accent;
+		}
+	}
 }
