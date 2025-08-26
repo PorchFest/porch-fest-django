@@ -8,3 +8,6 @@ class IndexView(TemplateView):
  
 def map_page(request):
 	return render(request, 'porchfestcore/map.html')
+
+def pages(request):
+	return render(request, 'porchfestcore/pages.html')

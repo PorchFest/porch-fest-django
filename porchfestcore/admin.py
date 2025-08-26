@@ -1,9 +1,8 @@
 from django.contrib 		import admin
-from .models 				import Performer, Porch, Request, Performance
-from django.contrib			import admin
 from django.contrib.gis.db 	import models
 from mapwidgets.widgets 	import GoogleMapPointFieldWidget
 from django 				import forms
+from .models 				import Performer, Porch, Request, Performance
 
 # Use HTML5 time input for start and end times
 # ********************************************
