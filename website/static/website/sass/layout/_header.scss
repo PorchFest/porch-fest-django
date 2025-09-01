@@ -1,35 +1,5 @@
 @use "../variables" as *;
 
-// header {
-// 	background-color: $background-content;
-// 	padding: 20px 200px;
-// 	font-family: $font__headers;
-
-// 	ul{
-// 		display: flex;
-// 		justify-content: space-around;
-
-// 		list-style: none;
-// 		li{
-// 			$menu-padding: 10px;
-// 			background-color: #F2B814;
-// 			padding-top: 6px;
-// 			padding-left: $menu-padding;
-// 			padding-right: $menu-padding;
-// 			border-radius: 5px;
-// 		}
-// 		a{
-// 			font-size: 1.5rem;
-// 			color: black;
-// 			text-decoration: none;
-
-// 			&:hover{
-// 				text-decoration: underline;
-// 			}
-// 		}
-// 	}
-// }
-
 $smaller-text: 1rem;
 
 @mixin menu{
@@ -40,7 +10,7 @@ $smaller-text: 1rem;
 
 	li{
 		$menu-padding: 10px;
-		background-color: $background-main;
+		background-color: $color-button-bg;
 		padding: 8px $menu-padding $menu-padding $menu-padding;
 		border-radius: 5px;
 		
@@ -60,16 +30,13 @@ header.main-header{
 	position: sticky;
 	top: 0;
 	z-index: 1000;
-	background-color: $background-content;
+	background-color: $color-section-alt-bg;
 	padding: 1rem;
 	font-family: $font__headers;
-	// font-weight: 400;
-	// font-style: normal;
-	// text-transform: uppercase;
+	font-weight: 400;
+	font-style: normal;
+	text-transform: uppercase;
 	nav{
-		// display: grid;
-		// grid-template-columns: 1fr 1fr;
-		// grid-template-areas: "left right";
 		display: flex;
 		justify-content: center;
 		gap: 1rem;
@@ -100,7 +67,7 @@ header.main-header{
 				display: block;
 				grid-area: right;
 				justify-self: end;
-				background-color: $background-main;
+				background-color: $color-button-bg;
 				padding: 8px 10px 10px 10px;
 				border-radius: 5px;
 				font-size: $smaller-text;

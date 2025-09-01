@@ -17,11 +17,11 @@
 		"left right"
 	;
 	
-	background-color: $background-main;
+	background-color: $color-button-bg;
 	
 	.left{
 		grid-area: left;
-		background-color: $background-accent;
+		background-color: $color-accent-bg;
 	}
 
 	.right{
@@ -29,7 +29,7 @@
 		border-top: 75px solid transparent;
 		border-right: unset;
 		border-bottom: 75px solid transparent;
-		border-left: 60px solid $background-accent;
+		border-left: 60px solid $color-accent-bg;
 	}
 
 	@media(max-width: 900px){
@@ -43,9 +43,26 @@
 		.right{
 			border-left: 50vw solid transparent;
 			border-right: 50vw solid transparent;
-			border-top: 60px solid $background-accent;
+			border-top: 60px solid $color-accent-bg;
 		}
 	}
+}
+
+h1{
+	font-family: $font__headers;
+	font-size: 36px;
+	font-weight: 700;
+	line-height: 47px;
+	letter-spacing: 0em;
+	text-transform: uppercase;
+}
+
+p{
+	font-family: $font__text;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 22px;
+	letter-spacing: 0em;
 }
 
 section.cards{
@@ -53,7 +70,7 @@ section.cards{
 	justify-content: center;
 	gap: 1rem;
 	flex-wrap: wrap;
-	background-color: $background-content;
+	background-color: $color-section-alt-bg;
 	padding: 4rem 2rem 3rem 2rem;
 
 	.card{
@@ -72,7 +89,7 @@ section.cards{
 			width: 100px;
 			height: 100px;
 			rotate: 45deg;
-			background-color: $background-main;
+			background-color: $color-button-bg;
 			border: 8px solid #1A2E47;
 			position: relative;
 			top: -58px;
@@ -91,35 +108,47 @@ section.cards{
 			text-align: center;
 
 			h2{
-				font-family: $font__headers;
-				font-size: 36px;
-				font-weight: 700;
-				line-height: 47px;
-				letter-spacing: 0em;
 				text-align: center;
 				text-transform: uppercase;
 			}
-			p{
-				font-family: $font__text;
-				font-size: 16px;
-				font-weight: 400;
-				line-height: 22px;
-				letter-spacing: 0em;
-			}
 			a{
-				   font-size: 20px;
-    color: $card-link;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 50px;
-    text-decoration: none;
+				font-size: 20px;
+				color: $color-link-special;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				margin-bottom: 50px;
+				text-decoration: none;
 			}
 		}
 	}
 }
 
-.sponsors{
+.sponsors-wrapper{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
 	img{
-		width: 100px;
+		max-width: 240px;
+	}
+}
+
+section.donate{
+	background-color: $color-section-alt-bg;
+	text-align: center;
+	padding: 100px 150px;
+	a{
+		display: inline-block;
+		background-color: $color-button-bg;
+		font-family: $font__headers;
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 26px;
+		letter-spacing: .1em;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: black;
+		padding: .5rem;
+		margin-top: 1rem;
 	}
 }

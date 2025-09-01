@@ -10,7 +10,7 @@ class Sponsor(models.Model):
 
     name 			= models.CharField(max_length=200)
     website 		= models.URLField(blank=True)
-    logo 			= models.ImageField(upload_to="sponsors/logos/", blank=True, null=True)
+    logo 			= models.ImageField(upload_to="sponsors/logos/")
     level 			= models.CharField(
         max_length=20,
         choices=SponsorLevel.choices,

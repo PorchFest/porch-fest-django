@@ -1,9 +1,19 @@
-<div class="sponsors">
-	{% for sponsor in sponsors %}
-		<a href="/">
-			{% if sponsor.logo %}
+<div class="sponsors-wrapper">
+	{% regroup sponsors by level as sponsors_by_level %}
+	{% for group in sponsors_by_level %}
+	<div class="sponsor-level">
+		<h1>{{ group.grouper|title }} Sponsors</h1>
+		<div class="sponsors">
+			{% for sponsor in group.list %}
+			<a href="{{ sponsor.website }}" target="_blank" rel="noopener noreferrer">
+				{% if sponsor.logo %}
 				<img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
-			{% endif %}
-		</a>
+				{% else %}
+				<span>{{ sponsor.name }}</span>
+				{% endif %}
+			</a>
+			{% endfor %}
+		</div>
+	</div>
 	{% endfor %}
 </div>

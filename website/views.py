@@ -7,7 +7,7 @@ class IndexView(TemplateView):
 
 def pages(request):
     sponsors 		= Sponsor.objects.filter(is_active=True).order_by("level", "name")
-    return render(request, 'website/front-page/pages.html', {"sponsors": sponsors})
+    return render(request, 'website/front-page/index.html', {"sponsors": sponsors})
 
 def about(request):
     return render(request, 'website/about.html')
