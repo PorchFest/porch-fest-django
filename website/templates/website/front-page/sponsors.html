@@ -1,0 +1,9 @@
+<div class="sponsors">
+	{% for sponsor in sponsors %}
+		<a href="/">
+			{% if sponsor.logo %}
+				<img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
+			{% endif %}
+		</a>
+	{% endfor %}
+</div>

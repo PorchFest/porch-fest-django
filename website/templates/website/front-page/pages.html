@@ -1,0 +1,15 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %}Pages{% endblock %}
+{% block mainclass %}front-page-styles{% endblock %}
+{% block content %}
+	<div class="hero" style="background-image: url('{% static 'website/images/2025-hero.png' %}');"></div>
+	{% comment %} <div class="countdown-wrapper">
+		<div class="left">
+		</div>
+		<div class="right">
+		</div>
+	</div> {% endcomment %}
+	{% include "website/front-page/ad-cards.html" %}
+	{% include "website/front-page/sponsors.html" %}
+{% endblock %}
