@@ -1,0 +1,120 @@
+@use "../variables" as *;
+
+.hero{
+	width: 100%;
+	height: 665px;
+	background-position: center;
+	background-size: cover;
+}
+
+.countdown-wrapper{
+	height: 150px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas: 
+		"left right"
+		"left right"
+	;
+	
+	background-color: $background-main;
+	
+	.left{
+		grid-area: left;
+		background-color: $background-accent;
+	}
+
+	.right{
+		grid-area: right;
+		border-top: 75px solid transparent;
+		border-right: unset;
+		border-bottom: 75px solid transparent;
+		border-left: 60px solid $background-accent;
+	}
+
+	@media(max-width: 900px){
+		min-height: 351px;
+		grid-template-rows: 150px 1fr;
+		grid-template-areas: 
+			"left left"
+			"right right"
+		;
+
+		.right{
+			border-left: 50vw solid transparent;
+			border-right: 50vw solid transparent;
+			border-top: 60px solid $background-accent;
+		}
+	}
+}
+
+section.cards{
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+	background-color: $background-content;
+	padding: 4rem 2rem 3rem 2rem;
+
+	.card{
+		width: 320px;
+		background-color: white;
+		margin-top: 50px;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.square{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100px;
+			height: 100px;
+			rotate: 45deg;
+			background-color: $background-main;
+			border: 8px solid #1A2E47;
+			position: relative;
+			top: -58px;
+
+			.icon{
+				rotate: -45deg;
+				font-size: 3rem;
+				color: white;
+				padding: 1.5rem;
+			}
+		}
+		.content-wrapper{
+			position: relative;
+			top: -50px;
+			padding: 0 12px;
+			text-align: center;
+
+			h2{
+				font-family: $font__headers;
+				font-size: 36px;
+				font-weight: 700;
+				line-height: 47px;
+				letter-spacing: 0em;
+				text-align: center;
+				text-transform: uppercase;
+			}
+			p{
+				font-family: $font__text;
+				font-size: 16px;
+				font-weight: 400;
+				line-height: 22px;
+				letter-spacing: 0em;
+			}
+			a{
+				   font-size: 20px;
+    color: $card-link;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    text-decoration: none;
+			}
+		}
+	}
+}
+

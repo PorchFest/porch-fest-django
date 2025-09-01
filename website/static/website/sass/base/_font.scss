@@ -1,0 +1,49 @@
+@font-face {
+  font-family: 'Antonio';
+  src: url('/static/porchfestcore/fonts/Antonio-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Italic';
+  src: url('/static/porchfestcore/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/static/porchfestcore/fonts/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+
+
+// For development live server
+// @font-face {
+//   font-family: 'Antonio';
+//   src: url('./fonts/Antonio-VariableFont_wght.ttf') format('truetype');
+//   font-weight: 100 900;
+//   font-stretch: 75% 125%;
+//   font-style: normal;
+// }
+
+// @font-face {
+//   font-family: 'Open Sans Italic';
+//   src: url('./static/porchfestcore/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+//   font-weight: 100 900;
+//   font-stretch: 75% 125%;
+//   font-style: normal;
+// }
+
+// @font-face {
+//   font-family: 'Open Sans';
+//   src: url('./static/porchfestcore/fonts/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+//   font-weight: 100 900;
+//   font-stretch: 75% 125%;
+//   font-style: normal;
+// }
