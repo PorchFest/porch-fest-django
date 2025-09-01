@@ -1,0 +1,13 @@
+{% extends "porchfestcore/base.html" %}
+{% comment %} {% load static %} {% endcomment %}
+{% block title %}Call For Porchfes{% endblock %}
+{% block content %}
+	<div class="form-container">
+		<form method="post">
+			<h1>Submit an Event!</h1>
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Submit Event</button>
+		</form>
+	</div>
+{% endblock %}

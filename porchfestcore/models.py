@@ -31,22 +31,25 @@ class Performer(models.Model):
 class Porch(models.Model):
     id 					= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name 				= models.CharField(max_length=255)
-    owner				= models.ForeignKey(
+    user				= models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="performance_requests",
         blank=True,
         null=True,
     )
+    owner_name 		    = models.CharField(max_length=255)
+    owner_email 		= models.EmailField()
     description 		= models.TextField(blank=True)
     # capacity 			= models.IntegerField(default=0)
     # available_times 	= models.JSONField(default=list)
-    coordinates 		= gis_models.PointField(geography=True)
+    coordinates 		= gis_models.PointField(blank=True, null=True, geography=True)
     street_address      = models.CharField(max_length=255)
-    city                = models.CharField(max_length=100)
-    state               = models.CharField(max_length=100)
-    zip_code            = models.CharField(max_length=20)
-    country             = models.CharField(max_length=100)
+    city                = models.CharField(blank=True, max_length=100)
+    state               = models.CharField(blank=True, max_length=100)
+    zip_code            = models.CharField(blank=True, max_length=20)
+    country             = models.CharField(blank=True, max_length=100)
+    approved       		= models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
