@@ -3,7 +3,7 @@
 	"saveAndRun": {
 		"commands": [{
 			"match": "\\.scss",
-			"cmd": "sass ./porchfestcore/static/porchfestcore/sass/style.scss ./porchfestcore/static/porchfestcore/style.css",
+			"cmd": "sass ./website/static/website/sass/style.scss ./website/static/website/style.css",
 			"silent": true
 		}]
 	},
