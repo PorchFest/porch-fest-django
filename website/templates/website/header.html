@@ -1,9 +1,18 @@
+<div class="mobile-menu hidden" id="mobile_menu">
+	<a href="#close" class="mobile-close" id="mobile_close">Close</a>
+	<nav>
+		<ul class="main-menu">
+			<li><a href="{% url 'pages' %}">Home</a></li>
+			<li><a href="{% url 'about' %}">About</a></li>
+		</ul>
+	</nav>
+</div>
 <header class="main-header">
 	<nav>
 		<ul class="main-menu">
-			<li><a href="/">Home</a></li>
-			<li><a href="/performers">About</a></li>
+			<li><a href="{% url 'pages' %}">Home</a></li>
+			<li><a href="{% url 'about' %}">About</a></li>
 		</ul>
-		<a href="#menu" class="mobile-menu">Menu</a>
+		<a href="#menu" class="mobile-menu-btn" id="mobile_toggle">Menu</a>
 	</nav>
 </header>

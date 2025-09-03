@@ -1,0 +1,34 @@
+@use "../variables" as *;
+
+.about-page-styles{
+	margin: 1rem 0;
+	.hero{
+		display: flex;
+		justify-content: center;
+		img{
+			width: 80%;
+		}
+	}
+	.about-faq{
+		h1{
+			text-align: center;
+			font-family: $font__headers;
+		}
+		.faq-card{
+			padding: 1rem;
+			h2{
+				font-family: $font__headers;
+			}
+			p{
+				font-family: $font__text;
+			}
+			&:nth-child(even){
+	
+				background-color: $color-section-alt-bg;
+			}
+		}
+		.legal-disclaimer{
+			padding: 1rem;
+		}
+	}
+}
