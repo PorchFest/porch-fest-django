@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	})
 	function displayToggle(el){
 		if(!showMenu){
-			// document.body.style.overflow = 'hidden';
+			document.body.style.overflow = 'hidden';
 			el.classList.add('transition')
 			el.clientWidth
 			el.classList.remove('hidden')
