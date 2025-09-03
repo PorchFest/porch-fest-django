@@ -1,6 +1,46 @@
 {% extends "website/base.html" %}
 {% load static %}
 {% block title %}About{% endblock %}
+{% block mainclass %}about-page-styles{% endblock %}
 {% block content %}
-	<div class="hero"></div>
+	{% comment %} <div class="hero" style="background-image: url('{% static 'website/images/about-banner.jpg' %}');">
+	
+	</div> {% endcomment %}
+	<div class="hero">
+		<img src="{% static 'website/images/about-banner.jpg' %}" alt="about-banner">
+	</div>
+	<div class="about-faq">
+		<h1>TOWER PORCHFEST: EVERYTHING YOU NEED TO KNOW</h1>
+		<div class="faq-card">
+			<h2>HOW DO I SIGN UP MY PORCH?</h2>
+			<p>Porch signups are closed. See you next year!</p>
+		</div>
+		<div class="faq-card">
+			<h2>HOW DO I SIGN UP TO PERFORM?</h2>
+			<p>Porches are in charge of their own lineups. We suggest joining and posting to the Friends of Tower Porchfest Facebook group to connect with porches who might host you.</p>
+		</div>
+		<div class="faq-card">
+			<h2>WHAT IS TOWER PORCHFEST?</h2>
+			<p>The Tower Porchfest is a grassroots community music event in Fresno, California where front porches become stages, yards become venues, and radical generosity and good will rule the day. The mission of Tower Porchfest is to build community through music and art. </p>
+			<p>Tower Porchfest is much more an afternoon of coordinated yard performances than it is a conventional festival. There’s no real boss, no specific enclosed or protected area, and everything you see, eat, or experience exists only because someone decided to step up and make it happen. All of our day-of operations and oversight gets delegated to our hundreds of volunteering neighbors and thousands of guests, making every porch, porch host, performer, vendor and attendee a de facto co-creator and real-time manager of the event. The organizing committee, such that it is, exists only to manage basic front-end and day of logistics, coordinate performances, promote the day, and provide communication to all involved in support of a safe and successful day.</p>
+		</div>
+		<div class="faq-card">
+			<h2>WHERE DOES IT TAKE PLACE?</h2>
+			<p>Tower Porchfest takes place in the Historic Tower District neighborhood in Fresno, California. Made up of an incredible array of classic housing types – ranging from granny flats, townhouses, and apartments to craftsman bungalows and mansions. The residents and business owners have a unified sense of pride and ownership in the entire district that makes The Tower a true neighborhood and one of the safest areas in Fresno. The event boundaries are for porches located within Fruit to Blackstone and Belmont to Shields. </p>
+			<p> Our event is spread across the entire neighborhood, filling roughly 3 square miles. </p>
+		</div>
+		<div class="faq-card">
+			<h2>WHO ORGANIZES THIS?</h2>
+			<p>The Tower Porchfest is brought to you by Creative Fresno and the Tower Porchfest Organizing Committee, countless musicians, Tower neighbors, and volunteers.</p>
+		</div>
+		<div class="faq-card">
+			<h2>HOW DOES THIS WORK?</h2>
+			<p>It starts with a neighbor finding a performer to host or a band/performer finding a neighbor who will host them. Either way, once a match is made Porch Hosts register their connection. Join the Friends of Tower Porchfest Facebook Group to share your availability!</p>
+		</div>
+		<div class="legal-disclaimer">
+			<h2>LEGAL DISCLAIMER</h2>
+			<p>The Tower Porchfest is an event that involves private parties on private properties. Creative Fresno and the Tower Porchfest Planning Committee are providing information in the form of a map of all the locations, but each location is being independently organized by the resident of the home that is hosting the individual performances. Creative Fresno and the Tower Porchfest Planning Committee assume no liability for any incidents, accidents, injuries, or damages that may occur at the individual porch locations. The porch locations listed on the official Tower Porchfest map are the only locations that Creative Fresno and the Tower Porchfest Planning Committee are aware of, and all have signed release of liability forms. Attendees and participants are solely responsible for their own safety and conduct at each porch location. Creative Fresno and the Tower Porchfest Planning Committee are not responsible for the actions or omissions of any individuals or organizations participating in the event. By attending or participating in the Tower Porchfest, you agree to assume all risks associated with the event and release Creative Fresno and the Tower Porchfest Planning Committee from any and all liability related to the event.</p>
+		</div>
+	</div>
+
 {% endblock %}
