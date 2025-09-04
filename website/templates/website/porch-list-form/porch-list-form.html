@@ -1,0 +1,56 @@
+<div class="form-container" id="form_container">
+	<h1>Join the Porch Host listserve</h1>
+	<form 
+		hx-post="{% url 'porch-list-signup' %}" 
+        hx-target="#form_container"
+        hx-swap="outerHTML"
+	>
+		{% csrf_token %}
+		<p>
+			<label for="id_street_address">Porch Address</label>
+			{{ form.street_address }}
+			{% if form.street_address.errors %}
+				<ul class="errorlist">
+					{% for error in form.street_address.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</p>
+		<p>
+			<label for="id_owner_name">Your Name</label>
+			{{ form.owner_name }}
+			{% if form.owner_name.errors %}
+				<ul class="errorlist">
+					{% for error in form.owner_name.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</p>
+		<p>
+			<label for="id_owner_email">Your Email</label>
+			{{ form.owner_email }}
+			{% if form.owner_email.errors %}
+				<ul class="errorlist">
+					{% for error in form.owner_email.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</p>
+		<div>
+			{{ form.captcha }}
+			{% if form.captcha.errors %}
+				<ul class="errorlist">
+					{% for error in form.captcha.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+		{% comment %} {{ form.as_p }} {% endcomment %}
+		<button type="submit">Submit</button>
+	</form>
+</div>
+

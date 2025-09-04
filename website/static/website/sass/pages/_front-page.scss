@@ -52,7 +52,7 @@
 		}
 	}
 
-	.thank-you{
+	.success{
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -92,12 +92,10 @@
 			p{
 				width: 80%;
 				margin: 0;
-				&:last-of-type{
-					display: none;
-				}
 			}
-			ul{
+			ul.errorlist{
 				margin-left: 1rem;
+				color: red;
 			}
 			input{
 				width: 280px;

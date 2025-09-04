@@ -25,3 +25,11 @@ class Sponsor(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.level})"
+
+class PorchInterest(models.Model):
+	owner_name		= models.CharField(max_length=255)
+	owner_email		= models.EmailField()
+	street_address	= models.CharField(max_length=255)
+
+	def __str__(self):
+		return f"{self.owner_name}, {self.owner_email}"
