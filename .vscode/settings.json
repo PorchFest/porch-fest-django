@@ -3,15 +3,14 @@
 	"saveAndRun": {
 		"commands": [{
 			"match": "\\.scss",
-			"cmd": "sass ./website/static/website/sass/style.scss ./website/static/website/style.css",
+			"cmd": "sass ./website/sass/style.scss ./website/static/website/style.css",
 			"silent": true
 		}]
 	},
 		"emmet.includeLanguages": {
-		"django-html": "html",
-	},
+			"django-html": "html",
+		},
 	"files.associations": {
 		"*.html": "django-html",
 	},
-	// "editor.detectIndentation": false
 }
