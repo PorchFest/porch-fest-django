@@ -4,8 +4,8 @@ deployweb(){
 	DRY=""
     if [ "$1" = "--dry" ]; then
         DRY="n"   # rsync uses `-n` for dry run
+		echo "DRY DEPLOY"
     fi
-	echo "DRY DEPLOY"
 	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' website/ porchfest:/home/django/porchfest/website/	
 }
 

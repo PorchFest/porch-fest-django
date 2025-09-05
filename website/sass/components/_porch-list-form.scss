@@ -1,7 +1,10 @@
 @use "../variables" as *;
 
 .form-container{
-    min-height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 600px;
 }
 .swap-container.htmx-swapping{
     opacity: 0;
