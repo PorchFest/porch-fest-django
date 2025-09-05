@@ -1,3 +1,11 @@
-<div class="form-container">
+{% load static %}
+<div class="form-container" id="form_container">
     {% include 'website/porch-list-form/porch-list-form.html' %}
 </div>
+{% block footerjavascript %}
+    <script>
+        document.body.addEventListener('htmx:afterSwap', (event)=>{
+            document.getElementById('form_container').style.height = "800px"
+        })
+    </script>
+{% endblock %}
