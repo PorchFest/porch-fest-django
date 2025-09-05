@@ -1,0 +1,76 @@
+@use "../variables" as *;
+
+.form-container{
+    min-height: 550px;
+}
+.swap-container.htmx-swapping{
+    opacity: 0;
+    transform: translateY(-20px);
+}
+.swap-container.htmx-added {
+opacity: 0;
+transform: translateY(80px);
+}
+.swap-container.success{
+    height: 500px;
+}
+.swap-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 1rem;
+
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .5s ease, transform .5s ease;
+
+    h1{
+        font-family: $font__headers;
+        text-transform: uppercase;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+
+        width: 305px;
+
+        background-color: $color-accent-bg;
+        color: white;
+        border-radius: 1rem;
+        padding: 1rem;
+        font-family: $font__text;
+        font-size: 1.5rem;
+
+        p{
+            width: 80%;
+            margin: 0;
+        }
+        ul.errorlist{
+            margin-left: 1rem;
+            color: red;
+        }
+        input{
+            width: 280px;
+            font-size: 1.5rem;
+        }
+        button{
+            align-self: center;
+            font-size: 2rem;
+            padding: .6rem;
+            background-color: $color-button-bg;
+            font-family: $font__headers;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 26px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+}
