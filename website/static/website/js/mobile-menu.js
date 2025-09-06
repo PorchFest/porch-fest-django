@@ -6,34 +6,20 @@ function setVhUnit(){
 }
 setVhUnit()
 
-document.addEventListener('DOMContentLoaded', ()=>{
-	const mobileMenu 	= document.getElementById('mobile_menu')
-	const page 			= document.getElementById('page')
-	let showMenu 		= false
-	document.getElementById('mobile_toggle').addEventListener('click', ()=>{
-		displayToggle(mobileMenu)
+document.addEventListener('DOMContentLoaded', () => {
+	const mobileMenu 	= document.getElementById('mobile_menu');
+	const toggleBtn 	= document.getElementById('mobile_toggle');
+	const closeBtn 		= document.getElementById('mobile_close');
+
+	toggleBtn.addEventListener('click', (e)=>{
+		e.preventDefault()
+		mobileMenu.classList.add('open')
+		document.body.style.overflow = 'hidden'
 	})
-	mobileMenu.addEventListener('click', ()=>{
-		displayToggle(mobileMenu)
+
+	closeBtn.addEventListener('click', (e)=>{
+		e.preventDefault()
+		mobileMenu.classList.remove('open')
+		document.body.style.overflow = ''
 	})
-	mobileMenu.addEventListener('transitionend', ()=>{
-		removeTransition(mobileMenu)
-	})
-	function displayToggle(el){
-		if(!showMenu){
-			document.body.style.overflow = 'hidden';
-			el.classList.add('transition')
-			el.clientWidth
-			el.classList.remove('hidden')
-			showMenu 	= true
-		}else{
-			document.body.style.overflow = '';
-			el.classList.add('transition')
-			el.classList.add('hidden')
-			showMenu 	= false
-		}
-	}
-	function removeTransition(el){
-		el.classList.remove('transition')
-	}
 })
