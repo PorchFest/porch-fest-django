@@ -3,10 +3,7 @@ from django.views.generic 	import TemplateView
 from .forms					import PorchInterestForm
 from .models				import Sponsor
 
-class IndexView(TemplateView):
-    template_name 	= 'website/index.html'
-
-def pages(request):
+def index(request):
     sponsors 		= Sponsor.objects.filter(is_active=True).order_by("level", "name")
     form		= PorchInterestForm()
     return render(request, 'website/front-page/index.html', {"sponsors": sponsors, 'form': form})
