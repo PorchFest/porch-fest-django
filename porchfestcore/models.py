@@ -50,6 +50,8 @@ class Porch(models.Model):
     zip_code            = models.CharField(blank=True, max_length=20)
     country             = models.CharField(blank=True, max_length=100)
     approved       		= models.BooleanField(default=False)
+    created_at          = models.DateTimeField(auto_now_add=True)
+    original_created_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.name

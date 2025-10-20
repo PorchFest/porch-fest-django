@@ -17,6 +17,7 @@ env/
 .idea/
 
 # Other files
+*.json
 *.swp
 *.*~
 .DS_Store
