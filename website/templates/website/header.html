@@ -15,4 +15,21 @@
 		</ul>
 		<a href="#menu" class="mobile-menu-btn" id="mobile_toggle">Menu</a>
 	</nav>
+	{% comment %} <div class="login-section">
+	
+	</div>
+	<a href="{% url 'porchpanel:login' %}" class="login-btn">Login</a> {% endcomment %}
+
+	<div class="login-section">
+		{% if request.user.is_authenticated %}
+			<a href="{% url 'porchpanel:dashboard' %}">Dashboard</a>
+			<form action="{% url 'porchpanel:logout' %}" method="post">
+				{% csrf_token %}
+				<button type="submit">Log out</button>
+			</form>
+		{% else %}
+			<a href="{% url 'porchpanel:login' %}">Login</a>
+		{% endif %}
+	</div>
+
 </header>
