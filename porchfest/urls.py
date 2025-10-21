@@ -20,9 +20,10 @@ from django.conf 				import settings
 from django.conf.urls.static	import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('map/', include('porchfestcore.urls')),
 	path('', include('website.urls')),
+    path('map/', include('porchfestcore.urls')),
+    path('my-porch/', include('porchpanel.urls')),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
