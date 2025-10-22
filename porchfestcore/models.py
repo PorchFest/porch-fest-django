@@ -21,8 +21,6 @@ class Performer(models.Model):
     member_count 		= models.IntegerField(default=1)
     instruments 		= models.IntegerField(default=0)
     link 				= models.URLField(blank=True)
-    # availability 		= models.JSONField()
-    # location_pref		= models.TextField(blank=True)
     profile_picture		= models.ImageField(upload_to='performers/', blank=True, null=True)
 
     def __str__(self):
@@ -41,8 +39,6 @@ class Porch(models.Model):
     owner_name 		    = models.CharField(max_length=255)
     owner_email 		= models.EmailField()
     description 		= models.TextField(blank=True)
-    # capacity 			= models.IntegerField(default=0)
-    # available_times 	= models.JSONField(default=list)
     coordinates 		= gis_models.PointField(blank=True, null=True, geography=True)
     street_address      = models.CharField(max_length=255)
     city                = models.CharField(blank=True, max_length=100)

@@ -1,15 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect
-# from django.forms import modelformset_factory
-from django.forms import inlineformset_factory
-from django.db.models import Q
+from django.shortcuts               import render, get_object_or_404, redirect
+from django.forms                   import inlineformset_factory
+from django.db.models               import Q
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.contrib.auth.models import Group
-from porchfestcore.models import Porch, Performance
-from porchfestcore.forms import PerformanceFormDashboard
-from .forms import PorchForm
+from django.contrib.auth            import authenticate, login
+from django.contrib                 import messages
+from django.contrib.auth.models     import Group
+from porchfestcore.models           import Porch, Performance
+from porchfestcore.forms            import PerformanceFormDashboard
+from .forms                         import PorchForm
 
 def porch_login(request):
     if request.method == "POST":
@@ -17,7 +16,6 @@ def porch_login(request):
         password = request.POST.get("password")
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            # Check if user is a porch operator or superuser
             if user.is_superuser or user.groups.filter(name="Porch Operator").exists():
                 login(request, user)
                 return redirect("porchpanel:dashboard")
@@ -32,10 +30,12 @@ def is_porch_operator(user):
 
 @login_required
 def dashboard(request):
+    if Porch.objects.filter(user=request.user).exists():
+        has_porch = True
     porches = Porch.objects.filter(
         user=request.user,
     ).distinct()
-    return render(request, 'porchpanel/dashboard.html', {'porches': porches})
+    return render(request, 'porchpanel/dashboard.html', {'porches': porches, 'has_porch': has_porch if 'has_porch' in locals() else False})
 
 @login_required
 def porch_edit(request, pk):
@@ -72,6 +72,7 @@ def porch_edit(request, pk):
                 "saved": True,
             })
         else:
+            print(porch_form.errors, formset.errors)
             return render(request, "porchpanel/components/porch_edit_form.html", {
                 "porch_form": porch_form,
                 "formset": formset,
@@ -89,3 +90,19 @@ def porch_edit(request, pk):
             "porch": porch,
         },
     )
+
+@login_required
+def create_porch(request):
+    if Porch.objects.filter(user=request.user).exists():
+        return redirect('porchpanel:porch_edit', Porch.objects.get(user=request.user).id)
+    if request.method == 'POST':
+        form 				= PorchForm(request.POST)
+        if form.is_valid():
+            porch 			= form.save(commit=False)
+            porch.user		= request.user
+            porch.save()
+            messages.success(request, 'Your porch has been created')
+            return redirect('porchpanel:porch_edit', porch.id)
+    else:
+        form 				= PorchForm()
+    return render(request, 'porchpanel/create_porch.html', {'form': form})

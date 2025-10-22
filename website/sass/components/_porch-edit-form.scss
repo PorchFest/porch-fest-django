@@ -41,6 +41,9 @@ main.porch-edit-page{
                 width: 100px;
                 @include button;
             }
+            td{
+                text-align: center;
+            }
         }
     }
 }

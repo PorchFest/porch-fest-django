@@ -2,16 +2,6 @@
 {% block title %}Porch Dashboard{% endblock %}
 {% block content %}
 <h1>Welcome, {{ request.user.username }}</h1>
-{% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
-{% comment %} <a href="{% url 'porchpanel:porch_list' %}">My Porches</a> {% endcomment %}
-{% comment %} <button 
-  hx-post="{% url 'porchpanel:logout' %}" 
-  hx-target="body" 
-  hx-swap="none"
-  class="text-blue-600 hover:underline">
-  Log out
-</button> {% endcomment %}
-
 <ul>
   {% for porch in porches %}
     <li>
@@ -21,4 +11,7 @@
     <li>No porches yet.</li>
   {% endfor %}
 </ul>
+{% if not has_porch %}
+  <a href="{% url 'porchpanel:create_porch' %}">Create Your Porch</a>
+{% endif %}
 {% endblock %}

@@ -65,49 +65,60 @@
                     </thead>
                     <tbody>
                     {% for form in formset %}
+                        {% if form.non_field_errors %}
+                            <tr>
+                                <td colspan="5">
+                                    <ul class="errorlist nonfield">
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endif %}
                         <tr>
-                        {{ form.id.as_hidden }}
-                        <td>
-                            {{ form.performer }}
-                            {% if form.performer.errors %}
-                            <ul class="errorlist">
-                                {% for error in form.performer.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ form.new_performer_name }}
-                            {% if form.new_performer_name.errors %}
-                            <ul class="errorlist">
-                                {% for error in form.new_performer_name.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ form.start_time }}
-                            {% if form.start_time.errors %}
-                            <ul class="errorlist">
-                                {% for error in form.start_time.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ form.end_time }}
-                            {% if form.end_time.errors %}
-                            <ul class="errorlist">
-                                {% for error in form.end_time.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </td>
-                        <td>{{ form.DELETE }}</td>
+                            {{ form.id.as_hidden }}
+                            <td>
+                                {{ form.performer }}
+                                {% if form.performer.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.performer.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ form.new_performer_name }}
+                                {% if form.new_performer_name.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.new_performer_name.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ form.start_time }}
+                                {% if form.start_time.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.start_time.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ form.end_time }}
+                                {% if form.end_time.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.end_time.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </td>
+                            <td>{{ form.DELETE }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
