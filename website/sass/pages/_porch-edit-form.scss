@@ -2,9 +2,20 @@
 
 main.porch-edit-page{
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    padding: 1rem;
     min-height: calc(100vh - 240px);
+
+    .back-btn{
+        @include button;
+        cursor: pointer;
+        font-family: $font__headers;
+        font-weight: 400;
+        font-style: normal;
+        text-transform: uppercase;
+        color: black;
+        align-self: flex-start;
+    }
 
     #porch_edit_form{
         border: solid black 2px;
@@ -12,6 +23,16 @@ main.porch-edit-page{
         padding: 1rem;
         margin-top: 1rem;
 
+        .header{
+            display: flex;
+            #saved_indicator{
+                position: relative;
+                top: -85px;
+                right: 40px;
+                opacity: 1;
+                transition-duration: 1s;
+            }
+        }
         form{
             display: flex;
             flex-direction: column;
@@ -41,8 +62,13 @@ main.porch-edit-page{
                 width: 100px;
                 @include button;
             }
-            td{
-                text-align: center;
+
+            .table-wrapper{
+                width: calc(100vw - 100px);
+                overflow-x: scroll;
+                td{
+                    text-align: center;
+                }
             }
         }
     }

@@ -5,10 +5,34 @@ from django.db.models               import Q
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth            import authenticate, login
 from django.contrib                 import messages
-from django.contrib.auth.models     import Group
+from django.contrib.auth.models     import Group, User
 from porchfestcore.models           import Porch, Performance
 from porchfestcore.forms            import PerformanceFormDashboard
+from django.contrib.auth.forms      import UserCreationForm
 from .forms                         import PorchForm
+from .models                        import Invitation
+
+def accept_invite(request, token):
+    invitation = get_object_or_404(Invitation, token=token)
+
+    if not invitation.is_valid():
+        return render(request, "porchpanel/invite_invalid.html")
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user                = form.save(commit=False)
+            user.email          = invitation.owner_email
+            user.save()
+            invitation.accepted = True
+            invitation.save()
+            login(request, user)
+            return redirect("porchpanel:dashboard")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "porchpanel/accept_invite.html", {"form": form, "email": invitation.owner_email})
+
 
 def porch_login(request):
     if request.method == "POST":
@@ -16,7 +40,7 @@ def porch_login(request):
         password = request.POST.get("password")
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            if user.is_superuser or user.groups.filter(name="Porch Operator").exists():
+            if user.is_superuser or user.groups.filter(name="Porch Host").exists():
                 login(request, user)
                 return redirect("porchpanel:dashboard")
             else:
@@ -25,8 +49,8 @@ def porch_login(request):
             messages.error(request, "Invalid username or password.")
     return render(request, "porchpanel/login.html")
 
-def is_porch_operator(user):
-    return user.groups.filter(name='Porch Operator').exists() or user.is_superuser
+# def is_porch_operator(user):
+#     return user.groups.filter(name='Porch Operator').exists() or user.is_superuser
 
 @login_required
 def dashboard(request):

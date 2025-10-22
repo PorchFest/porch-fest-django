@@ -10,4 +10,5 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(next_page="porchpanel:login"), name="logout"),
     path('porches/<uuid:pk>/edit/', views.porch_edit, name='porch_edit'),
     path("porches/create/", views.create_porch, name="create_porch"),
+    path("invite/<uuid:token>/", views.accept_invite, name="accept_invite"),
 ]

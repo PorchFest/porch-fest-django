@@ -1,8 +1,5 @@
 <div id="porch_edit_form">
     <h2>Edit Porch: {{ porch.name }}</h2>
-    {% if saved %}
-        <h2>Saved</h2>
-    {% endif %}    
     <form
         hx-post="{% url 'porchpanel:porch_edit' porch.id %}"
         hx-target="#porch_edit_form"
@@ -125,6 +122,11 @@
                 </table>
             </div>
         </fieldset>
-        <button type="submit">Save</button>
+        {% if saved %}
+            <button type="submit" id="save_button">Saved!</button>
+            <script>setTimeout(()=>{document.getElementById("save_button").innerText = "Save"}, 2000)</script>
+        {% else %}
+            <button type="submit" id="save_button">Save</button>
+        {% endif %}
     </form>
 </div>
