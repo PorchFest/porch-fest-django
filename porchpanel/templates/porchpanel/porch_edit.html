@@ -1,54 +1,6 @@
 {% extends "website/base.html" %}
 {% block title %}Edit Porch{% endblock %}
+{% block mainclass %}porch-edit-page{% endblock %}
 {% block content %}
-{% comment %} <h2>Edit Porch: {{ porch.name }}</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
-<a href="{% url 'porchpanel:dashboard' %}">Back</a>
-{% endblock %} {% endcomment %}
-
-<h2>Edit Porch: {{ porch.name }}</h2>
-
-<form method="post">
-  {% csrf_token %}
-
-  <!-- Porch fields -->
-  <fieldset>
-    <legend>Porch Details</legend>
-    {{ porch_form.as_p }}
-  </fieldset>
-
-  <!-- Performance fields -->
-  <fieldset>
-    <legend>Performances</legend>
-    {{ formset.management_form }}
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>New Performer Name</th>
-          <th>Start Time</th>
-          <th>End Time</th>
-          <th>Delete?</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for form in formset %}
-          <tr>
-            <td>{{ form.performer }}</td>
-            <td>{{ form.new_performer_name }}</td>
-            <td>{{ form.start_time }}</td>
-            <td>{{ form.end_time }}</td>
-            <td>{{ form.DELETE }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </fieldset>
-
-  <button type="submit">Save</button>
-</form>
+{% include "porchpanel/components/porch_edit_form.html" %}
 {% endblock %}

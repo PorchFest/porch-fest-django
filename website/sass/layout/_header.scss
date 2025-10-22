@@ -1,12 +1,5 @@
 @use "../variables" as *;
 
-$smaller-text: 1rem;
-$menu-padding: 10px;
-@mixin button{
-	background-color: $color-button-bg;
-	padding: 8px $menu-padding $menu-padding $menu-padding;
-	border-radius: 5px;
-}
 @mixin menu{
 	display: flex;
 	gap: 1rem;
@@ -110,7 +103,6 @@ $menu-padding: 10px;
 	}
 }
 
-
 header.main-header{
 	position: sticky;
 	top: 0;
@@ -137,7 +129,7 @@ header.main-header{
 			display: none;
 		}
 		@media(max-width: 900px){
-			grid-template-columns: 2fr 1fr;
+			justify-content: flex-start;
 			ul.main-menu{
 				display: none;
 			}

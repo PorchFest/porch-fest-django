@@ -15,7 +15,6 @@
 <ul>
   {% for porch in porches %}
     <li>
-      {% comment %} {{ porch.name }} — {{ porch.street_address }} {% endcomment %}
       (<a href="{% url 'porchpanel:porch_edit' porch.pk %}">{{ porch.name }} — {{ porch.street_address }}</a>)
     </li>
   {% empty %}

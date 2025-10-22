@@ -44,7 +44,6 @@ def porch_edit(request, pk):
         Q(pk=pk),
         Q(user=request.user),
     )
-
     PerformanceFormSet = inlineformset_factory(
         parent_model=Porch,
         model=Performance,
@@ -52,53 +51,35 @@ def porch_edit(request, pk):
         extra=1,
         can_delete=True
     )
-
-    # PerformanceFormSet = inlineformset_factory(
-    #     Performance,
-    #     form=PerformanceFormDashboard,
-    #     extra=1,
-    #     can_delete=True
-    # )
-    performances_qs = Performance.objects.filter(porch=porch)
-
-    # if request.method == "POST":
-    #     porch_form = PorchForm(request.POST, instance=porch)
-    #     formset = PerformanceFormSet(request.POST, instance=porch)
-
-    #     if porch_form.is_valid() and formset.is_valid():
-    #         porch_form.save()
-
-    #         # Save performances and link them to the porch
-    #         performances = formset.save(commit=False)
-    #         for perf in performances:
-    #             perf.porch = porch
-    #             perf.created_by = request.user
-    #             perf.save()
-    #         for perf in formset.deleted_objects:
-    #             perf.delete()
-
-    #         return redirect("porchpanel:dashboard")
-    #     else:
-    #         print(f"porch: {porch_form.errors}")
-    #         print(formset.errors)
-    # else:
-    #     porch_form = PorchForm(instance=porch)
-    #     formset = PerformanceFormSet(queryset=performances_qs)
     if request.method == "POST":
         porch_form = PorchForm(request.POST, instance=porch)
-        formset = PerformanceFormSet(request.POST, instance=porch)  # <-- bind to porch instance
+        formset = PerformanceFormSet(request.POST, instance=porch)
         if porch_form.is_valid() and formset.is_valid():
             porch_form.save()
-            formset.save()  # automatically sets porch FK
-            return redirect("porchpanel:porch_list")
+            performances = formset.save(commit=False)
+            for perf in performances:
+                perf.porch = porch
+                perf.created_by = request.user
+                perf.save()
+            for perf in formset.deleted_objects:
+                perf.delete()
+            porch_form = PorchForm(instance=porch)
+            formset = PerformanceFormSet(instance=porch)
+            return render(request, "porchpanel/components/porch_edit_form.html", {
+                "porch_form": porch_form,
+                "formset": formset,
+                "porch": porch,
+                "saved": True,
+            })
         else:
-            print(f"porch: {porch_form.errors}")
-            print(formset.errors)
+            return render(request, "porchpanel/components/porch_edit_form.html", {
+                "porch_form": porch_form,
+                "formset": formset,
+                "porch": porch,
+            })
     else:
         porch_form = PorchForm(instance=porch)
         formset = PerformanceFormSet(instance=porch)
-
-
     return render(
         request,
         "porchpanel/porch_edit.html",
