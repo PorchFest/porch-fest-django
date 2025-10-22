@@ -8,6 +8,7 @@
 		<link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" >
 		<link rel="stylesheet" href="{% static "website/style.css" %}">
 		<script src="https://kit.fontawesome.com/aebdbe8212.js" crossorigin="anonymous"></script>
+		{% block head %}{% endblock %}
 	</head>
 	<body>
 		{% include "website/header.html" %}

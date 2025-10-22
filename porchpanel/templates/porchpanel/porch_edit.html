@@ -1,7 +1,44 @@
 {% extends "website/base.html" %}
+{% load static %}
 {% block title %}Edit Porch{% endblock %}
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static "porchfestcore/js/porch-admin.js" %}"></script>
+{{ porch_form.media }}
+{% endblock %}
 {% block mainclass %}porch-edit-page{% endblock %}
 {% block content %}
 <a href="{% url "porchpanel:dashboard" %}" class="back-btn">Back to Dashboard</a>
-{% include "porchpanel/components/porch_edit_form.html" %}
+<h2>Edit Porch: {{ porch.name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {% if porch_form.non_field_errors %}
+    <div class="errorlist nonfield">
+        <ul>
+        {% for error in porch_form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+        <!-- Porch fields -->
+    <fieldset>
+        <legend>Porch Details</legend>
+        {% for field in porch_form %}
+            <div class="field-wrapper">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+                <ul class="errorlist">
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </div>
+        {% endfor %}
+    </fieldset>
+    <button type="submit" name="save_porch">Save</button>
+</form>
+{% include "porchpanel/components/performances_edit_form.html" %}
 {% endblock %}

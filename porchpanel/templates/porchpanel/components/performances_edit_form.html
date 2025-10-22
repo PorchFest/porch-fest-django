@@ -1,21 +1,10 @@
-<div id="porch_edit_form">
-    <h2>Edit Porch: {{ porch.name }}</h2>
+<div id="performances_edit_form">
     <form
         hx-post="{% url 'porchpanel:porch_edit' porch.id %}"
-        hx-target="#porch_edit_form"
+        hx-target="#performances_edit_form"
         hx-swap="outerHTML"
     >
         {% csrf_token %}
-        {% if porch_form.non_field_errors %}
-        <div class="errorlist nonfield">
-            <ul>
-            {% for error in porch_form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
         {% if formset.non_field_errors %}
         <div class="errorlist nonfield">
             <ul>
@@ -25,26 +14,6 @@
             </ul>
         </div>
         {% endif %}
-
-        <!-- Porch fields -->
-        <fieldset>
-            <legend>Porch Details</legend>
-            {% for field in porch_form %}
-                <div class="field-wrapper">
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                    <ul class="errorlist">
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                    </ul>
-                {% endif %}
-                </div>
-            {% endfor %}
-        </fieldset>
-
-        <!-- Performance fields -->
 
         <fieldset>
             <legend>Performances</legend>
@@ -122,11 +91,6 @@
                 </table>
             </div>
         </fieldset>
-        {% if saved %}
-            <button type="submit" id="save_button">Saved!</button>
-            <script>setTimeout(()=>{document.getElementById("save_button").innerText = "Save"}, 2000)</script>
-        {% else %}
-            <button type="submit" id="save_button">Save</button>
-        {% endif %}
+        <button type="submit" name="save_performances" id="save_button">Save Performances</button>
     </form>
 </div>
