@@ -12,6 +12,7 @@ main.porch-edit-page{
 
     .mw-wrap{
         min-width: 0;
+        max-width: 800px;
         width: 100%;
     }
 
@@ -37,19 +38,37 @@ main.porch-edit-page{
         fieldset{
             border-radius: 1rem;
 
+            .mw-btn-add-marker,.mw-btn-my-location,.mw-coordinates-wrap{
+                display: none;
+            }
+            #coordinates-mw-google-address-input{
+                min-width: 280px;
+                max-width: 400px;
+                margin-top: 10px;
+                color: initial;
+                font-size: 1rem;
+                box-sizing: initial;
+                border: 2px black solid;
+                border-radius: 5px !important;
+            }
+            .field-wrapper{
+                display: flex;
+                flex-direction: column;
+            }
             select{
                 text-align: center;
             }
             select,input{
+                max-width: 300px;
                 border-radius: 5px;
                 padding: 5px;
-                // text-align: center;
                 font-size: 1rem;
             }
             input[type="checkbox"]{
                 transform: scale(1.5);
             }
             textarea{
+                max-width: 800px;
                 font-family: $font__text;
                 font-size: 1rem;
             }

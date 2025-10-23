@@ -23,9 +23,12 @@ main.porch-host-dashboard{
             font-family: $font__headers;
             font-weight: 400;
             font-style: normal;
+            font-size: 1.3rem;
             text-transform: uppercase;
             color: black;
             display: block;
+            text-align: center;
+            margin-top: 1rem;
         }
 
         li{list-style: none;}
