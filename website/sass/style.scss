@@ -9,56 +9,6 @@ body{
 	padding: 0;
 }
 
-$background: black;
-$foreground: white;
-
-.grid-main{
-	min-height: 100vh;
-	max-width: 100vw;
-	display: grid;
-	grid-template-rows: auto 1fr auto;
-	grid-template-columns: 1fr;
-	grid-template-areas:
-		"header"
-		"main"
-		"footer";
-}
-
-header.temp{
-	grid-area: header;
-	background-color: $background;
-	color: $foreground;
-	padding: 10px 0;
-	text-align: center;
-	// border: 3px dashed blue;
-	font-family: "Antonio", sans-serif;
-}
-
-main.construction{
-	grid-area: main;
-	background-color: $background;
-
-	.hero-temp{
-		height: 100%;
-		width: 100%;
-		background-image: url('./images/2024-porchfest-logo.jpg');
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-	}
-
-}
-
-footer.construction{
-	grid-area: footer;
-	background-color: $background;
-	color: white;
-	padding: 10px 0;
-	text-align: center;
-	font-family: $font__headers;
-	// border: 3px dashed blue;
-}
-
 :root {
 	--vh: 100%;
 }

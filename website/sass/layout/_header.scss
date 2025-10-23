@@ -1,7 +1,5 @@
 @use "../variables" as *;
 
-$smaller-text: 1rem;
-
 @mixin menu{
 	display: flex;
 	gap: 1rem;
@@ -9,10 +7,7 @@ $smaller-text: 1rem;
 	list-style: none;
 
 	li{
-		$menu-padding: 10px;
-		background-color: $color-button-bg;
-		padding: 8px $menu-padding $menu-padding $menu-padding;
-		border-radius: 5px;
+		@include button;
 		
 		a{
 			font-size: 1.5rem;
@@ -23,6 +18,39 @@ $smaller-text: 1rem;
 				text-decoration: underline;
 			}
 		}
+	}
+}
+
+.login-section{
+	position: absolute;
+	top: 0;
+	right: 10px;
+	height: 100%;
+
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+
+	a,button{
+		@include button;
+		font-size: 1.5rem;
+		color: black;
+		text-decoration: none;
+		@media(max-width: 900px){
+			font-size: $smaller-text;
+		}
+	
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+	button{
+		border: none;
+		cursor: pointer;
+		font-family: $font__headers;
+		font-weight: 400;
+		font-style: normal;
+		text-transform: uppercase;
 	}
 }
 
@@ -75,7 +103,6 @@ $smaller-text: 1rem;
 	}
 }
 
-
 header.main-header{
 	position: sticky;
 	top: 0;
@@ -102,7 +129,7 @@ header.main-header{
 			display: none;
 		}
 		@media(max-width: 900px){
-			grid-template-columns: 2fr 1fr;
+			justify-content: flex-start;
 			ul.main-menu{
 				display: none;
 			}

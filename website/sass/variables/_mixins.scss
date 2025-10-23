@@ -1,0 +1,8 @@
+@use "color" as *;
+$smaller-text: 1rem;
+$menu-padding: 10px;
+@mixin button{
+	background-color: $color-button-bg;
+	padding: 8px $menu-padding $menu-padding $menu-padding;
+	border-radius: 5px;
+}

@@ -1,0 +1,23 @@
+{% extends "website/base.html" %}
+{% block title %}Porch Host Dashboard{% endblock %}
+{% block mainclass %}porch-host-dashboard{% endblock %}
+{% block content %}
+<div class="wrapper">
+  <h1>Welcome, {{ request.user.username }}</h1>
+  <div class="porch">
+    <h2>Your Porch:</h2>
+    <ul>
+      {% for porch in porches %}
+        <li>
+          <a href="{% url 'porchpanel:porch_edit' porch.pk %}">Edit {{ porch.name }} — {{ porch.street_address }}</a>
+        </li>
+      {% empty %}
+        <li>No porches yet.</li>
+      {% endfor %}
+    </ul>
+    {% if not has_porch %}
+      <a href="{% url 'porchpanel:create_porch' %}">Create Your Porch</a>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

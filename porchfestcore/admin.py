@@ -1,29 +1,13 @@
 from django.contrib 		import admin
 from django.contrib.gis.db 	import models
 from mapwidgets.widgets 	import GoogleMapPointFieldWidget
-from django 				import forms
 from .models 				import Performer, Porch, Request, Performance
-
-# Use HTML5 time input for start and end times
-# ********************************************
-class TimeInput(forms.TimeInput):
-	input_type 				= "time"
-
-class PerformanceForm(forms.ModelForm):
-	class Meta:
-		model 				= Performance
-		fields 				= '__all__'
-		widgets 			= {
-			'start_time': 	TimeInput(),
-			'end_time': 	TimeInput(),
-		}
+from .forms 				import PerformanceForm, TimeInput
 
 class PerformanceInline(admin.TabularInline):
     model 					= Performance
     form 					= PerformanceForm
     extra 					= 1
-# ********************************************
-# ********************************************
 
 @admin.register(Porch)
 class PorchAdmin(admin.ModelAdmin):

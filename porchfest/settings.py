@@ -37,7 +37,12 @@ INSTALLED_APPS = [
 	'mapwidgets',
 	'porchfestcore',
 	'website',
+    'porchpanel',
 ]
+
+LOGIN_URL               = "porchpanel:login"
+LOGIN_REDIRECT_URL      = "porchpanel:dashboard"
+LOGOUT_REDIRECT_URL     = "porchpanel:login"
 
 RECAPTCHA_PUBLIC_KEY	= config('RECAPTCHA_PUBLIC')
 RECAPTCHA_PRIVATE_KEY	= config('RECAPTCHA_PRIVATE')
@@ -142,6 +147,7 @@ USE_TZ          = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+BASE_URL            = config('BASE', default="https://towerporchfest.org")
 STATIC_URL          = '/static/'
 STATIC_ROOT         = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS    = [BASE_DIR / "static"]

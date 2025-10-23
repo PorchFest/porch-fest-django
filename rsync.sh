@@ -37,7 +37,6 @@ deployapp(){
 	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' porchfest/ porchfest:/home/django/porchfest/porchfest/
 }
 
-
 if [ "$1" == "deployweb" ]; then
 	shift
 	deployweb "$@"

@@ -1,0 +1,23 @@
+{% extends "website/base.html" %}
+{% block title %}Porch Dashboard{% endblock %}
+{% block mainclass %}login{% endblock %}
+{% block content %}
+<h1>Porch Host Login</h1>
+
+{% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">
+    Log In
+    </button>
+</form>
+{% endblock %}
