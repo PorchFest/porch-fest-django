@@ -2,6 +2,7 @@ import uuid
 from django.conf    import settings
 from django.db      import models
 from django.utils   import timezone
+from django.urls    import reverse
 from datetime       import timedelta
 
 def default_expiration():
@@ -16,6 +17,14 @@ class Invitation(models.Model):
 
     def is_valid(self):
         return not self.accepted and timezone.now() < self.expires_at
+    
+    def invite_url(self, request=None):
+        path = reverse("porchpanel:accept_invite", args=[self.token])
+        base_url = settings.BASE_URL
+        path = f"{base_url}{path}"
+        if request:
+            return request.build_absolute_uri(path)
+        return path
 
     def __str__(self):
         return self.owner_email

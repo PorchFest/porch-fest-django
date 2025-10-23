@@ -32,18 +32,26 @@ main.porch-edit-page{
         gap: 1rem;
 
         font-size: 1.2rem;
+        font-family: $font__text;
 
         fieldset{
             border-radius: 1rem;
 
+            select{
+                text-align: center;
+            }
             select,input{
                 border-radius: 5px;
                 padding: 5px;
-                text-align: center;
+                // text-align: center;
                 font-size: 1rem;
             }
             input[type="checkbox"]{
                 transform: scale(1.5);
+            }
+            textarea{
+                font-family: $font__text;
+                font-size: 1rem;
             }
             @media(max-width: 900px){
                 textarea{
