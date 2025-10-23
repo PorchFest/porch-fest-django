@@ -147,7 +147,7 @@ USE_TZ          = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-BASE_URL            = 'http://0.0.0.0:8300'
+BASE_URL            = config('BASE', default="https://towerporchfest.org")
 STATIC_URL          = '/static/'
 STATIC_ROOT         = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS    = [BASE_DIR / "static"]
