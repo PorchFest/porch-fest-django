@@ -53,7 +53,7 @@ main.front-page-styles{
 	}
 	
 	section{
-		h1{
+		h1,h2{
 			font-family: $font__headers;
 			font-size: 36px;
 			font-weight: 700;
@@ -68,6 +68,23 @@ main.front-page-styles{
 			font-weight: 400;
 			line-height: 22px;
 			letter-spacing: 0em;
+		}
+	}
+
+	section.construction, section.socials{
+		text-align: center;
+		padding: 50px;
+		a{
+			font-size: 2rem;
+			color: $color-link-special;
+		}
+		.icons{
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+		}
+		@media(max-width: 550px){
+			padding: 1rem 1rem 2rem 1rem;
 		}
 	}
 	

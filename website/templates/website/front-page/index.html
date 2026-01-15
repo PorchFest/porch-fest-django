@@ -3,13 +3,29 @@
 {% block title %}Tower Porchfest!{% endblock %}
 {% block mainclass %}front-page-styles{% endblock %}
 {% block content %}
-	<div class="hero" style="background-image: url('{% static 'website/images/2025-hero.png' %}');"></div>
+	{% comment %} <div class="hero" style="background-image: url('{% static 'website/images/2025-hero.png' %}');"></div> {% endcomment %}
 	{% comment %} <div class="countdown-wrapper">
 		<div class="left">
 		</div>
 		<div class="right">
 		</div>
 	</div> {% endcomment %}
+	<section class="construction">
+		<h1>We're Under Construction!</h1>
+		<p>Our website is getting a fresh new look for 2026. Please check back soon for updates on this year's event!</p>
+		<p>Porch Host Signups will be open at the end of January</p>
+	</section>
+	<section class="socials">
+		<h2>Follow us on Social Media!</h2>
+		<div class="icons">
+			<a href="https://instagram.com/towerporchfest" target="_blank">
+				<i role="link" class="fab fa-instagram fa-xl" aria-hidden="true"></i>
+			</a>
+			<a href="https://facebook.com/towerporchfest" target="_blank">
+				<i role="link" class="fab fa-facebook-f fa-xl" aria-hidden="true"></i>
+			</a>
+		</div>
+	</section>
 	{% include 'website/porch-list-form/form-wrapper.html' %}
 	{% include "website/front-page/ad-cards.html" %}
 	{% comment %} {% include "website/front-page/sponsors.html" %} {% endcomment %}
