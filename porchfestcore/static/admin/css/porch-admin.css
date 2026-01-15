@@ -1,0 +1,12 @@
+.pull-right{
+    float: none !important;
+}
+
+.mw-header{
+    display: flex;
+    gap: 10px;
+}
+
+.gm-style .transit-container{
+    color: black;
+}
