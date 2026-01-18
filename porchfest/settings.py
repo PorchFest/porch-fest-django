@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
 	'django_recaptcha',
+    'phonenumber_field',
 	'mapwidgets',
 	'porchfestcore',
 	'website',
