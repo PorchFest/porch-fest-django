@@ -1,0 +1,136 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %}Porch Signup!{% endblock %}
+{% block mainclass %}porch-signup{% endblock %}
+{% block content %}
+    <h1>Apply to be a Porch Host!</h1>
+	<form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_name">Porch Name</label>
+                <p>Have fun with your porch name! &#128540;</p>
+            </div>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <ul class="errorlist">
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="id_street_address">Porch Address</label>
+            {{ form.street_address }}
+            {% if form.street_address.errors %}
+                <ul class="errorlist">
+                    {% for error in form.street_address.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <div class="labe">
+                <label for="id_description">Porch Description</label>
+                <p>Tell us a little about your porch's vibe and what kind of music you plan to have.</p>
+            </div>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <ul class="errorlist">
+                    {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="id_owner_name">Your Name</label>
+            {{ form.owner_name }}
+            {% if form.owner_name.errors %}
+                <ul class="errorlist">
+                    {% for error in form.owner_name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="id_owner_email">Your Email</label>
+            {{ form.owner_email }}
+            {% if form.owner_email.errors %}
+                <ul class="errorlist">
+                    {% for error in form.owner_email.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="id_owner_phone">Your Phone</label>
+            {{ form.owner_phone }}
+            {% if form.owner_phone.errors %}
+                <ul class="errorlist">
+                    {% for error in form.owner_phone.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="id_porch_picture">Porch Picture</label>
+            {{ form.porch_picture }}
+            {% if form.porch_picture.errors %}
+                <ul class="errorlist">
+                    {% for error in form.porch_picture.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <div class="label">
+                <label for="id_vendor">Vendor</label>
+                <p>Will you be selling food, drinks, or merchandise at your porch?</p>
+            </div>
+            {{ form.vendor }}
+            {% if form.vendor.errors %}
+                <ul class="errorlist">
+                    {% for error in form.vendor.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <div class="label">
+                <label for="id_childrens_activities">Childrens Activities</label>
+                <p>will you have child friendly music or things for kids to do?</p>
+            </div>
+            {{ form.childrens_activities }}
+            {% if form.childrens_activities.errors %}
+                <ul class="errorlist">
+                    {% for error in form.childrens_activities.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <div class="label">
+                <label for="id_number_of_performances">Number of performances</label>
+                <p>How many performance sets will you have at your porch during the event?</p>
+            </div>
+            {{ form.number_of_performances }}
+            {% if form.number_of_performances.errors %}
+                <ul class="errorlist">
+                    {% for error in form.number_of_performances.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
