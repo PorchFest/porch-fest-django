@@ -1,0 +1,33 @@
+@use "../variables" as *;
+
+main.porch-signup{
+    min-height: calc(100vh - 240px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem 0;
+    form{
+        max-width: 600px;
+        .form-group{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            p{
+                font-size: 1rem;
+                width: 200px;
+                margin: 0;
+            }
+            input{align-self: flex-start}
+            input[type="checkbox"]{
+                margin-right: 1rem;
+                transform: scale(1.5);
+                -ms-transform: scale(1.5); 
+                -webkit-transform: scale(1.5);
+            }
+        }
+        @include form;
+    }
+}

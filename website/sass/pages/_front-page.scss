@@ -93,7 +93,7 @@ main.front-page-styles{
 		justify-content: center;
 		gap: 1rem;
 		flex-wrap: wrap;
-		background-color: $color-section-alt-bg;
+		background-color: $color-main-bg;
 		padding: 4rem 2rem 3rem 2rem;
 	
 		.card{
@@ -112,7 +112,8 @@ main.front-page-styles{
 				width: 100px;
 				height: 100px;
 				rotate: 45deg;
-				background-color: $color-button-bg;
+				border-radius: 1rem;
+				background-color: #f2b814;
 				border: 8px solid #1A2E47;
 				position: relative;
 				top: -58px;
@@ -157,22 +158,13 @@ main.front-page-styles{
 	}
 	
 	section.donate{
-		background-color: $color-section-alt-bg;
+		background-color: $color-main-bg;
 		text-align: center;
 		padding: 100px 150px;
 		a{
-			display: inline-block;
-			background-color: $color-button-bg;
 			font-family: $font__headers;
-			font-size: 20px;
-			font-weight: 400;
-			line-height: 26px;
-			letter-spacing: .1em;
 			text-transform: uppercase;
-			text-decoration: none;
-			color: black;
-			padding: .5rem;
-			margin-top: 1rem;
+			@include button;
 		}
 		@media(max-width: 550px){
 			padding: 1rem 1rem 2rem 1rem;
