@@ -1,6 +1,7 @@
 import								uuid
 from django.db 						import models
 from django.contrib.gis.db			import models as gis_models
+from phonenumber_field.modelfields  import PhoneNumberField
 from django.conf 					import settings
 from django.contrib.auth.models		import User
 
@@ -27,27 +28,37 @@ class Performer(models.Model):
         return self.name
 
 class Porch(models.Model):
-    id 					= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name 				= models.CharField(blank=True, max_length=255)
-    user				= models.ForeignKey(
+    id 					    = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name 				    = models.CharField(blank=True, max_length=255)
+    user				    = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="performance_requests",
         blank=True,
         null=True,
     )
-    owner_name 		    = models.CharField(max_length=255)
-    owner_email 		= models.EmailField()
-    description 		= models.TextField(blank=True)
-    coordinates 		= gis_models.PointField(blank=True, null=True, geography=True)
-    street_address      = models.CharField(max_length=255)
-    city                = models.CharField(blank=True, max_length=100)
-    state               = models.CharField(blank=True, max_length=100)
-    zip_code            = models.CharField(blank=True, max_length=20)
-    country             = models.CharField(blank=True, max_length=100)
-    approved       		= models.BooleanField(default=False)
-    created_at          = models.DateTimeField(auto_now_add=True)
-    original_created_at = models.DateTimeField(null=True, blank=True)
+    owner_name 		        = models.CharField(max_length=255)
+    owner_email 		    = models.EmailField()
+    owner_phone             = PhoneNumberField(null=True, blank=True)
+    description 		    = models.TextField(blank=True)
+    porch_picture		    = models.ImageField(upload_to='porches/', blank=True, null=True)
+    vendor                  = models.BooleanField(default=False)
+    childrens_activities    = models.BooleanField(default=False)
+    number_of_performances  = models.IntegerField(default=1)
+    after_party             = models.BooleanField(default=False)
+    parking                 = models.BooleanField(default=False)
+    info_booth              = models.BooleanField(default=False)
+    porta_potty             = models.BooleanField(default=False)
+    sponsored               = models.BooleanField(default=False)
+    coordinates 		    = gis_models.PointField(blank=True, null=True, geography=True)
+    street_address          = models.CharField(max_length=255)
+    city                    = models.CharField(blank=True, max_length=100)
+    state                   = models.CharField(blank=True, max_length=100)
+    zip_code                = models.CharField(blank=True, max_length=20)
+    country                 = models.CharField(blank=True, max_length=100)
+    approved       		    = models.BooleanField(default=False)
+    created_at              = models.DateTimeField(auto_now_add=True)
+    original_created_at     = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.name
