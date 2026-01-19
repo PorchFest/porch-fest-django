@@ -117,3 +117,7 @@ class Performance(models.Model):
         
     def __str__(self):
         return f"{self.performer} at {self.porch} ({self.start_time.strftime('%-I:%M %p')})"
+
+class TempUpload(models.Model):
+    image 		= models.ImageField(upload_to='temp_uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)

@@ -41,12 +41,14 @@ INSTALLED_APPS = [
     'porchpanel',
 ]
 
-LOGIN_URL               = "porchpanel:login"
-LOGIN_REDIRECT_URL      = "porchpanel:dashboard"
-LOGOUT_REDIRECT_URL     = "porchpanel:login"
+LOGIN_URL                   = "porchpanel:login"
+LOGIN_REDIRECT_URL          = "porchpanel:dashboard"
+LOGOUT_REDIRECT_URL         = "porchpanel:login"
 
-RECAPTCHA_PUBLIC_KEY	= config('RECAPTCHA_PUBLIC')
-RECAPTCHA_PRIVATE_KEY	= config('RECAPTCHA_PRIVATE')
+RECAPTCHA_PUBLIC_KEY	    = config('RECAPTCHA_PUBLIC')
+RECAPTCHA_PRIVATE_KEY	    = config('RECAPTCHA_PRIVATE')
+
+PHONENUMBER_DEFAULT_REGION  = "US"
 
 MAP_WIDGETS = {
     "GoogleMap": {
