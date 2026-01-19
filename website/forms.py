@@ -28,7 +28,6 @@ class PorchInterestForm(forms.ModelForm):
         return cleaned_data
 
 class PorchSignupForm(forms.ModelForm):
-
     # captcha		= ReCaptchaField(widget=ReCaptchaV2Checkbox)
     class Meta:
         model 	= Porch
@@ -47,7 +46,14 @@ class PorchSignupForm(forms.ModelForm):
         ]
         widgets = {
             'street_address': forms.TextInput(attrs={'placeholder': '1234 Street Ave'}),
+            'number_of_performances': forms.NumberInput(
+                attrs={
+                    'min': 1,
+                    'max': 15,
+                }
+            ),
         }
+        
         def clean(self):
             cleaned_data 	= super().clean()
             owner_name 		= cleaned_data.get("owner_name")

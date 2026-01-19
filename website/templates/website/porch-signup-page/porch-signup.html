@@ -4,7 +4,7 @@
 {% block mainclass %}porch-signup{% endblock %}
 {% block content %}
     <h1>Apply to be a Porch Host!</h1>
-	<form method="post">
+	<form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             <div class="label">
@@ -81,6 +81,10 @@
         <div class="form-group">
             <label for="id_porch_picture">Porch Picture</label>
             {{ form.porch_picture }}
+            {% if temp_image %}
+                <img src="{{ temp_image.image.url }}">
+                <input type="hidden" name="temp_image_id" value="{{ temp_image.id }}">
+            {% endif %}
             {% if form.porch_picture.errors %}
                 <ul class="errorlist">
                     {% for error in form.porch_picture.errors %}
