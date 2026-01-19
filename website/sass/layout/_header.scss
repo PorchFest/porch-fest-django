@@ -53,10 +53,10 @@
 	}
 
 	ul.main-menu {
-		// @include menu;
 		flex-direction: column;
 		gap: 2rem;
 		text-align: center;
+		@include menu;
 	}
 
 	.mobile-close {
