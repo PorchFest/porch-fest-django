@@ -3,6 +3,8 @@ from django.views.generic 	import TemplateView
 from .forms					import PorchInterestForm, PorchSignupForm
 from .models				import Sponsor
 from porchfestcore.models   import TempUpload
+from pathlib                import Path
+from django.core.files.base import ContentFile
 
 def index(request):
     sponsors 		= Sponsor.objects.filter(is_active=True).order_by("level", "name")
@@ -12,22 +14,28 @@ def index(request):
 def porch_signup(request):
     temp_image = None
     if request.method == 'POST':
-        if "porch_picture" in request.FILES:
-            temp_image = TempUpload.objects.create(
-                image=request.FILES["porch_picture"]
-            )
-        elif request.POST.get("temp_image_id"):
-            temp_image = TempUpload.objects.filter(
-                id=request.POST["temp_image_id"]
-            ).first()
         form = PorchSignupForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
-            if temp_image:
-                instance.porch_picture = temp_image.image
+            if request.POST.get("temp_image_id") and not request.FILES.get("porch_picture"):
+                temp_image = TempUpload.objects.filter(
+                    id=request.POST["temp_image_id"]
+                ).first()
+                temp_file = temp_image.image
+                filename = Path(temp_file.name).name
+                instance.porch_picture.save(
+                    filename,
+                    ContentFile(temp_file.read()),
+                    save=False
+                )
                 temp_image.delete()
             instance.save()
             return render(request, 'website/porch-signup-page/success.html')
+        else:
+            if "porch_picture" in request.FILES:
+                temp_image = TempUpload.objects.create(
+                    image=request.FILES["porch_picture"]
+                )
     else:
         form = PorchSignupForm()
 

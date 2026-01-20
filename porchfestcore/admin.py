@@ -11,7 +11,7 @@ class PerformanceInline(admin.TabularInline):
 
 @admin.register(Porch)
 class PorchAdmin(admin.ModelAdmin):
-	list_display			= ('name', 'owner_name', 'owner_email', 'street_address', 'original_created_at',)
+	list_display			= ('name', 'owner_name', 'owner_email', 'street_address', 'created_at',)
 	search_fields 			= ('name', 'city', 'state', 'zip_code', 'country')
 	list_filter 			= ('approved',)
 	formfield_overrides		= {
