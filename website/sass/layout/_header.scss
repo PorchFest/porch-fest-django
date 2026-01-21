@@ -118,18 +118,18 @@ header.main-header{
 			}
 			.mobile-menu-btn{
 				display: block;
-				grid-area: right;
-				justify-self: end;
-				background-color: $color-button-bg;
-				padding: 8px 10px 10px 10px;
-				border-radius: 5px;
-				font-size: $smaller-text;
-				color: black;
-				text-decoration: none;
+				// grid-area: right;
+				// justify-self: end;
+				// background-color: $color-button-bg;
+				// padding: 8px 10px 10px 10px;
+				// border-radius: 5px;
+				// font-size: $smaller-text;
+				// text-decoration: none;
 
-				&:hover{
-					text-decoration: underline;
-				}
+				// &:hover{
+				// 	text-decoration: underline;
+				// }
+				@include button;
 			}
 		}
 	}
