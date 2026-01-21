@@ -13,11 +13,12 @@ class PerformanceInline(admin.TabularInline):
 class PorchAdmin(admin.ModelAdmin):
 	list_display			= ('name', 'owner_name', 'owner_email', 'street_address', 'created_at',)
 	search_fields 			= ('name', 'city', 'state', 'zip_code', 'country')
-	list_filter 			= ('approved',)
+	list_filter 			= ('approved', 'created_at')
 	formfield_overrides		= {
         models.PointField: {"widget": GoogleMapPointFieldWidget},
     }
 	inlines 				= [PerformanceInline]
+	ordering				= ('-created_at',)
 
 	class Media:
 		js 					= ('porchfestcore/js/porch-admin.js',)
