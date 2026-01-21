@@ -2,13 +2,10 @@
 
 main.front-page-styles{
 	.hero{
-		width: 100%;
-		height: 665px;
-		background-position: center;
-		background-size: cover;
-		@media(max-width: 750px){
-			height: 400px;
-		}
+		display: flex;
+		justify-content: center;
+		padding: 1rem;
+		img{max-width: 100%;}
 	}
 	
 	.countdown-wrapper{

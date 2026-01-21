@@ -5,6 +5,8 @@ from .models				import Sponsor
 from porchfestcore.models   import TempUpload
 from pathlib                import Path
 from django.core.files.base import ContentFile
+from django.core.mail       import EmailMessage
+from django.template.loader import render_to_string
 
 def index(request):
     sponsors 		= Sponsor.objects.filter(is_active=True).order_by("level", "name")
@@ -30,6 +32,17 @@ def porch_signup(request):
                 )
                 temp_image.delete()
             instance.save()
+            html = render_to_string('website/emails/porch-signup-email.html', {
+                'name': instance.owner_name,
+            })
+            email = EmailMessage(
+                subject="New Porch Signup",
+                body=html,
+                from_email="info@towerporchfest.org",
+                to=[instance.owner_email],
+            )
+            email.content_subtype = "html"
+            email.send(fail_silently=False)
             return render(request, 'website/porch-signup-page/success.html')
         else:
             if "porch_picture" in request.FILES:
