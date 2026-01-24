@@ -38,7 +38,7 @@ def porch_signup(request):
             email = EmailMessage(
                 subject="New Porch Signup",
                 body=html,
-                from_email="info@towerporchfest.org",
+                from_email="Tower Porchfest <info@towerporchfest.org>",
                 to=[instance.owner_email],
             )
             email.content_subtype = "html"
