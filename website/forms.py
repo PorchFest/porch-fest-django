@@ -28,7 +28,7 @@ class PorchInterestForm(forms.ModelForm):
         return cleaned_data
 
 class PorchSignupForm(forms.ModelForm):
-    # captcha		= ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha		= ReCaptchaField(widget=ReCaptchaV2Checkbox)
     class Meta:
         model 	= Porch
         fields  = [
@@ -42,7 +42,9 @@ class PorchSignupForm(forms.ModelForm):
             'vendor',
             'childrens_activities',
             'number_of_performances',
-            # 'captcha',
+            'neighbors_hosting',
+            'other_info',
+            'captcha',
         ]
         widgets = {
             'street_address': forms.TextInput(attrs={'placeholder': '1234 Street Ave'}),

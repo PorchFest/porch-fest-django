@@ -123,6 +123,21 @@
         </div>
         <div class="form-group">
             <div class="label">
+                <label for="id_neighbors_hosting">Neighbors Hosting?</label>
+                {% comment %} <p>Do you have neighbors also hosting on their porches near you?</p> {% endcomment %}
+                <p>If you have neighbors that will also be hosting near you, have you already planned coordination so that you don't have two performers at once?</p>
+            </div>
+            {{ form.neighbors_hosting }}
+            {% if form.neighbors_hosting.errors %}
+                <ul class="errorlist">
+                    {% for error in form.neighbors_hosting.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <div class="label">
                 <label for="id_number_of_performances">Number of performances</label>
                 <p>How many performance sets will you have at your porch during the event?</p>
             </div>
@@ -130,6 +145,30 @@
             {% if form.number_of_performances.errors %}
                 <ul class="errorlist">
                     {% for error in form.number_of_performances.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <div class="label">
+                <label for="id_other_info">Other Information</label>
+                <p>Is there anything else we should know about your porch?</p>
+            </div>
+            {{ form.other_info }}
+            {% if form.other_info.errors %}
+                <ul class="errorlist">
+                    {% for error in form.other_info.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="captcha-container">
+            {{ form.captcha }}
+            {% if form.captcha.errors %}
+                <ul class="errorlist">
+                    {% for error in form.captcha.errors %}
                         <li>{{ error }}</li>
                     {% endfor %}
                 </ul>

@@ -50,6 +50,8 @@ class Porch(models.Model):
     info_booth              = models.BooleanField(default=False)
     porta_potty             = models.BooleanField(default=False)
     sponsored               = models.BooleanField(default=False)
+    neighbors_hosting       = models.BooleanField(default=False)
+    other_info 		        = models.TextField(blank=True)
     coordinates 		    = gis_models.PointField(blank=True, null=True, geography=True)
     street_address          = models.CharField(max_length=255)
     city                    = models.CharField(blank=True, max_length=100)
