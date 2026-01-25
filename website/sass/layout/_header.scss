@@ -2,10 +2,7 @@
 
 @mixin menu{
 	display: flex;
-	gap: 1rem;
-	
 	list-style: none;
-
 	li a{@include button;}
 }
 
@@ -53,28 +50,62 @@
 	}
 
 	ul.main-menu {
+		display: flex;
+		list-style: none;
 		flex-direction: column;
-		gap: 2rem;
+		gap: 1rem;
 		text-align: center;
-		@include menu;
+		li a{
+			background-color: $color-button-bg;
+			// padding: 8px $menu-padding $menu-padding $menu-padding;
+			padding: 8px 10px 5px 10px;
+			border-radius: 5px;
+			font-size: 1.5rem;
+			color: $color-button-fg;
+			text-decoration: none;
+			// @media(max-width: 900px){
+			// 	font-size: $smaller-text;
+			// }
+
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+		// @include menu;
+		
 	}
 
 	.mobile-close {
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
-		background-color: $color-button-bg;
-		padding: 8px 10px 10px 10px;
-		border-radius: 5px;
-		color: black;
-		font-family: $font__headers;
-		font-weight: 400;
-		font-style: normal;
-		text-transform: uppercase;
-		text-decoration: none;
+		// background-color: $color-button-bg;
+		// padding: 8px 10px 10px 10px;
+		// border-radius: 5px;
+		// color: black;
+		// font-family: $font__headers;
+		// font-weight: 400;
+		// font-style: normal;
+		// text-transform: uppercase;
+		// text-decoration: none;
 
-		&:hover {
-		text-decoration: underline;
+		// &:hover {
+		// text-decoration: underline;
+		// }
+		// @include button;
+		background-color: $color-button-bg;
+		// padding: 8px $menu-padding $menu-padding $menu-padding;
+		padding: 8px 10px 5px 10px;
+		border-radius: 5px;
+		font-size: 1.5rem;
+		color: $color-button-fg;
+		text-decoration: none;
+		@media(max-width: 900px){
+			font-size: $smaller-text;
+		}
+
+		&:hover{
+			text-decoration: underline;
 		}
 	}
 }
@@ -95,11 +126,8 @@ header.main-header{
 		gap: 1rem;
 		ul.main-menu{
 			justify-content: center;
+			gap: 1rem;
 			@include menu;
-		}
-		ul.secondary-menu{
-			// @include menu;
-			justify-content: flex-end;
 		}
 		.mobile-menu-btn{
 			display: none;

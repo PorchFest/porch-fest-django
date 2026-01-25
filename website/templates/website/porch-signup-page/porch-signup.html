@@ -79,6 +79,20 @@
             {% endif %}
         </div>
         <div class="form-group">
+            <div class="label">
+                <label for="id_preferred_contact">Preferred Contact Method</label>
+                <p>How would you prefer we contact you regarding your porch submission?</p>
+            </div>
+            {{ form.preferred_contact }}
+            {% if form.preferred_contact.errors %}
+                <ul class="errorlist">
+                    {% for error in form.preferred_contact.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
             <label for="id_porch_picture">Porch Picture</label>
             {{ form.porch_picture }}
             {% if temp_image %}

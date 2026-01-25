@@ -28,6 +28,11 @@ class Performer(models.Model):
         return self.name
 
 class Porch(models.Model):
+    class ContactMethod(models.TextChoices):
+        EMAIL 			= 'email', 'Email'
+        PHONECALL 		= 'phone', 'Phone Call'
+        TEXTMESSAGE		= 'text', 'Text Message'
+
     id 					    = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name 				    = models.CharField(blank=True, max_length=255)
     user				    = models.ForeignKey(
@@ -40,6 +45,7 @@ class Porch(models.Model):
     owner_name 		        = models.CharField(max_length=255)
     owner_email 		    = models.EmailField()
     owner_phone             = PhoneNumberField(null=True, blank=True)
+    preferred_contact       = models.CharField(max_length=10, choices=ContactMethod.choices, default=ContactMethod.EMAIL)
     description 		    = models.TextField(blank=True)
     porch_picture		    = models.ImageField(upload_to='porches/', blank=True, null=True)
     vendor                  = models.BooleanField(default=False)
