@@ -13,10 +13,9 @@
 		<div class="right">
 		</div>
 	</div> {% endcomment %}
-	<section class="construction">
-		<h1>We're Under Construction!</h1>
-		<p>Our website is getting a fresh new look for 2026. Please check back soon for updates on this year's event!</p>
-		<p>Porch Host Signups will be open at the end of January</p>
+	<section>
+		<h1>Porch Host Signups Are Now Open!</h1>
+		<p>Head <a href="{% url 'porch-signup' %}">here</a> to sign up your porch</p>
 	</section>
 	<section class="socials">
 		<h2>Follow us on Social Media!</h2>
@@ -29,7 +28,7 @@
 			</a>
 		</div>
 	</section>
-	{% include 'website/porch-list-form/form-wrapper.html' %}
+	{% comment %} {% include 'website/porch-list-form/form-wrapper.html' %} {% endcomment %}
 	{% include "website/front-page/ad-cards.html" %}
 	{% comment %} {% include "website/front-page/sponsors.html" %} {% endcomment %}
 	<section class="donate">

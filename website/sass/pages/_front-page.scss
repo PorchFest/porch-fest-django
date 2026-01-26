@@ -5,6 +5,7 @@ main.front-page-styles{
 		display: flex;
 		justify-content: center;
 		padding: 1rem;
+		background-color: $color-main-bg;
 		img{max-width: 100%;}
 	}
 	
@@ -68,6 +69,7 @@ main.front-page-styles{
 		}
 	}
 
+	section.socials{background-color: $color-main-bg;}
 	section.construction, section.socials{
 		text-align: center;
 		padding: 50px;
@@ -83,6 +85,11 @@ main.front-page-styles{
 		@media(max-width: 550px){
 			padding: 1rem 1rem 2rem 1rem;
 		}
+	}
+
+	section{
+		text-align: center;
+		a{color: $color-link-special;}
 	}
 	
 	section.cards{
