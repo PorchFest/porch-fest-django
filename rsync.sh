@@ -19,6 +19,15 @@ deployweb(){
 	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' website/ porchfest:/home/django/porchfest/website/
 }
 
+deploydash(){
+	DRY=""
+    if [ "$1" = "--dry" ]; then
+        DRY="n"
+		echo "DRY DEPLOY"
+    fi
+	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' porchpanel/ porchfest:/home/django/porchfest/porchpanel/
+}
+
 deploycore(){
 	DRY=""
     if [ "$1" = "--dry" ]; then
@@ -40,6 +49,9 @@ deployapp(){
 if [ "$1" == "deployweb" ]; then
 	shift
 	deployweb "$@"
+elif [ "$1" == "deploydash" ]; then
+	shift
+	deploydash "$@"
 elif [ "$1" == "deploycore" ]; then
 	shift
 	deploycore "$@"
