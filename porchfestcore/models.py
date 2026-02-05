@@ -23,6 +23,7 @@ class Performer(models.Model):
     instruments 		= models.IntegerField(default=0)
     link 				= models.URLField(blank=True)
     profile_picture		= models.ImageField(upload_to='performers/', blank=True, null=True)
+    created_by 		    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='performers')
 
     def __str__(self):
         return self.name
@@ -67,6 +68,25 @@ class Porch(models.Model):
     approved       		    = models.BooleanField(default=False)
     created_at              = models.DateTimeField(auto_now_add=True)
     original_created_at     = models.DateTimeField(null=True, blank=True)
+
+    # def save(self, *args, **kwargs):
+    #     is_accepting = False
+
+    #     if not self._state.adding:
+    #         prev = Request.objects.get(pk=self.pk)
+    #         if prev.status != 'accepted' and self.status == 'accepted':
+    #             is_accepting = True
+
+    #     super().save(*args, **kwargs)
+
+    #     if is_accepting:
+    #         Performance.objects.create(
+    #             porch=self.porch,
+    #             performer=self.performer,
+    #             created_by=self.requested_by,
+    #             start_time=self.start_time,
+    #             end_time=self.end_time
+    #         )
 
     def __str__(self):
         return self.name

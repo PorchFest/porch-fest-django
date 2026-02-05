@@ -55,6 +55,11 @@ main.porch-edit-page{
                 display: flex;
                 flex-direction: column;
             }
+            .field-wrapper:has(input[type="checkbox"]){
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+            }
             select{
                 text-align: center;
             }

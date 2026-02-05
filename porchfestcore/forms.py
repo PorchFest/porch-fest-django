@@ -24,8 +24,8 @@ class PerformanceFormDashboard(forms.ModelForm):
         model = Performance
         fields = ['performer', 'start_time', 'end_time']
         widgets = {
-            'start_time': forms.TimeInput(attrs={'type': 'time'}),
-            'end_time': forms.TimeInput(attrs={'type': 'time'}),
+            'start_time': forms.TimeInput(attrs={'type': 'time', 'min': '10:00'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time', 'max': '19:00'}),
         }
 
     def clean(self):
@@ -42,11 +42,19 @@ class PerformanceFormDashboard(forms.ModelForm):
                 "Please either select an existing performer or enter a new one, not both."
             )
         return cleaned_data
+    # def __init__(self, *args, **kwargs):
+    #     self.user = kwargs.pop("user", None)
+    #     super().__init__(*args, **kwargs)
+
+    #     if self.user:
+    #         self.fields["performer"].queryset = Performer.objects.filter(
+    #             created_by=self.user
+    #         )
 
     def save(self, commit=True):
         performer = self.cleaned_data.get('performer')
         new_name = self.cleaned_data.get('new_performer_name')
         if not performer and new_name:
-            performer, _ = Performer.objects.get_or_create(name=new_name)
+            performer, _ = Performer.objects.get_or_create(name=new_name, created_by=self.user)
         self.instance.performer = performer
         return super().save(commit=commit)

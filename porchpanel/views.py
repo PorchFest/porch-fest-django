@@ -1,16 +1,25 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts               import render, get_object_or_404, redirect
 from django.forms                   import inlineformset_factory
+from django.forms.models            import BaseInlineFormSet
 from django.db.models               import Q
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth            import authenticate, login
 from django.contrib                 import messages
 from django.contrib.auth.models     import Group, User
-from porchfestcore.models           import Porch, Performance
+from porchfestcore.models           import Porch, Performance, Performer
 from porchfestcore.forms            import PerformanceFormDashboard
 from django.contrib.auth.forms      import UserCreationForm
-from .forms                         import PorchForm
+from .forms                         import PorchForm, PerformerForm
 from .models                        import Invitation
+
+class PerformanceBaseFormSet(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+
+        for form in self.forms:
+            form.user = self.user
 
 def accept_invite(request, token):
     invitation = get_object_or_404(Invitation, token=token)
@@ -49,9 +58,6 @@ def porch_login(request):
             messages.error(request, "Invalid username or password.")
     return render(request, "porchpanel/login.html")
 
-# def is_porch_operator(user):
-#     return user.groups.filter(name='Porch Operator').exists() or user.is_superuser
-
 @login_required
 def dashboard(request):
     if Porch.objects.filter(user=request.user).exists():
@@ -59,7 +65,36 @@ def dashboard(request):
     porches = Porch.objects.filter(
         user=request.user,
     ).distinct()
-    return render(request, 'porchpanel/dashboard.html', {'porches': porches, 'has_porch': has_porch if 'has_porch' in locals() else False})
+    if Performer.objects.filter(created_by=request.user).exists():
+        has_performer = True
+    performers = Performer.objects.filter(created_by=request.user)
+    return render(request, 'porchpanel/dashboard.html', {'porches': porches, 'has_porch': has_porch if 'has_porch' in locals() else False, 'performers': performers})
+
+@login_required
+def performer_edit(request, pk):
+    performer = get_object_or_404(
+        Performer,
+        Q(pk=pk),
+        Q(created_by=request.user),
+    )
+    if request.method == "POST":
+        performer_form = PerformerForm(request.POST, instance=performer)
+        if performer_form.is_valid():
+            performer_form.save()
+            messages.success(request, 'Performer details updated successfully')
+            return redirect('porchpanel:performer_edit', performer.id)
+        else:
+            messages.error(request, 'Please correct the errors below')
+    else:
+        performer_form = PerformerForm(instance=performer)
+    return render(
+        request,
+        "porchpanel/performer_edit.html",
+        {
+            "performer_form": performer_form,
+            "performer": performer,
+        }
+    )
 
 @login_required
 def porch_edit(request, pk):
@@ -72,6 +107,7 @@ def porch_edit(request, pk):
         parent_model=Porch,
         model=Performance,
         form=PerformanceFormDashboard,
+        formset=PerformanceBaseFormSet,
         extra=1,
         can_delete=True
     )
@@ -102,15 +138,15 @@ def porch_edit(request, pk):
                     }
                 )
         elif 'save_performances' in request.POST:
-            formset = PerformanceFormSet(request.POST, instance=porch)
+            formset = PerformanceFormSet(request.POST, instance=porch, user=request.user)
             if formset.is_valid():
                 performances = formset.save(commit=False)
-                for perf in performances:
-                    perf.porch = porch
-                    perf.created_by = request.user
-                    perf.save()
-                for perf in formset.deleted_objects:
-                    perf.delete()
+                for performance in performances:
+                    performance.porch = porch
+                    performance.created_by = request.user
+                    performance.save()
+                for performance in formset.deleted_objects:
+                    performance.delete()
                 formset = PerformanceFormSet(instance=porch)
                 return render(
                     request,
