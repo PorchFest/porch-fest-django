@@ -69,24 +69,28 @@ class Porch(models.Model):
     created_at              = models.DateTimeField(auto_now_add=True)
     original_created_at     = models.DateTimeField(null=True, blank=True)
 
-    # def save(self, *args, **kwargs):
-    #     is_accepting = False
+    def save(self, *args, **kwargs):
+        is_approved = False
 
-    #     if not self._state.adding:
-    #         prev = Request.objects.get(pk=self.pk)
-    #         if prev.status != 'accepted' and self.status == 'accepted':
-    #             is_accepting = True
+        if not self._state.adding:
+            prev = Porch.objects.get(pk=self.pk)
+            if not prev.approved and self.approved:
+                is_approved = True
 
-    #     super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
-    #     if is_accepting:
-    #         Performance.objects.create(
-    #             porch=self.porch,
-    #             performer=self.performer,
-    #             created_by=self.requested_by,
-    #             start_time=self.start_time,
-    #             end_time=self.end_time
-    #         )
+        if is_approved:
+            html = render_to_string('website/emails/porch-approved-email.html', {
+                'name': self.owner_name,
+            })
+            email = EmailMessage(
+                subject="Your Porch Has Been Approved! 🎉",
+                body=html,
+                from_email="Tower Porchfest <info@towerporchfest.org>",
+                to=[self.owner_email],
+            )
+            email.content_subtype = "html"
+            email.send(fail_silently=False)
 
     def __str__(self):
         return self.name

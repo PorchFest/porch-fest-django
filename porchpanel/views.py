@@ -8,9 +8,8 @@ from django.contrib.auth            import authenticate, login
 from django.contrib                 import messages
 from django.contrib.auth.models     import Group, User
 from porchfestcore.models           import Porch, Performance, Performer
-from porchfestcore.forms            import PerformanceFormDashboard
 from django.contrib.auth.forms      import UserCreationForm
-from .forms                         import PorchForm, PerformerForm
+from .forms                         import PorchForm, PerformerForm, PerformanceFormDashboard
 from .models                        import Invitation
 
 class PerformanceBaseFormSet(BaseInlineFormSet):
