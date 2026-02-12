@@ -57,44 +57,22 @@
 		text-align: center;
 		li a{
 			background-color: $color-button-bg;
-			// padding: 8px $menu-padding $menu-padding $menu-padding;
 			padding: 8px 10px 5px 10px;
 			border-radius: 5px;
 			font-size: 1.5rem;
 			color: $color-button-fg;
 			text-decoration: none;
-			// @media(max-width: 900px){
-			// 	font-size: $smaller-text;
-			// }
-
 			&:hover{
 				text-decoration: underline;
 			}
 		}
-		// @include menu;
-		
 	}
 
 	.mobile-close {
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
-		// background-color: $color-button-bg;
-		// padding: 8px 10px 10px 10px;
-		// border-radius: 5px;
-		// color: black;
-		// font-family: $font__headers;
-		// font-weight: 400;
-		// font-style: normal;
-		// text-transform: uppercase;
-		// text-decoration: none;
-
-		// &:hover {
-		// text-decoration: underline;
-		// }
-		// @include button;
 		background-color: $color-button-bg;
-		// padding: 8px $menu-padding $menu-padding $menu-padding;
 		padding: 8px 10px 5px 10px;
 		border-radius: 5px;
 		font-size: 1.5rem;
@@ -146,17 +124,6 @@ header.main-header{
 			}
 			.mobile-menu-btn{
 				display: block;
-				// grid-area: right;
-				// justify-self: end;
-				// background-color: $color-button-bg;
-				// padding: 8px 10px 10px 10px;
-				// border-radius: 5px;
-				// font-size: $smaller-text;
-				// text-decoration: none;
-
-				// &:hover{
-				// 	text-decoration: underline;
-				// }
 				@include button;
 			}
 		}

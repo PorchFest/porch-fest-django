@@ -1,0 +1,878 @@
+body, ul {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: "Antonio";
+  src: url("/static/website/fonts/Antonio-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans Italic";
+  src: url("/static/website/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/static/website/fonts/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+.login-section {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.login-section a, .login-section button {
+  background-color: #6f91a5;
+  padding: 8px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  .login-section a, .login-section button {
+    font-size: 1rem;
+  }
+}
+.login-section a:hover, .login-section button:hover {
+  text-decoration: underline;
+}
+.login-section button {
+  border: none;
+  cursor: pointer;
+  font-family: "Antonio", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.mobile-menu {
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 0;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
+  background-color: #faf1d5;
+  border-left: 5px black solid;
+  transform: translateX(100%);
+  transition: transform 0.1s ease;
+}
+.mobile-menu.open {
+  transform: translateX(0);
+}
+.mobile-menu ul.main-menu {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+.mobile-menu ul.main-menu li a {
+  background-color: #6f91a5;
+  padding: 8px 10px 5px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+.mobile-menu ul.main-menu li a:hover {
+  text-decoration: underline;
+}
+.mobile-menu .mobile-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #6f91a5;
+  padding: 8px 10px 5px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  .mobile-menu .mobile-close {
+    font-size: 1rem;
+  }
+}
+.mobile-menu .mobile-close:hover {
+  text-decoration: underline;
+}
+
+header.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #212133;
+  padding: 1rem;
+  font-family: "Antonio", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+}
+header.main-header nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+header.main-header nav ul.main-menu {
+  justify-content: center;
+  gap: 1rem;
+  display: flex;
+  list-style: none;
+}
+header.main-header nav ul.main-menu li a {
+  background-color: #6f91a5;
+  padding: 8px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  header.main-header nav ul.main-menu li a {
+    font-size: 1rem;
+  }
+}
+header.main-header nav ul.main-menu li a:hover {
+  text-decoration: underline;
+}
+header.main-header nav .mobile-menu-btn {
+  display: none;
+}
+@media (max-width: 900px) {
+  header.main-header nav {
+    justify-content: flex-start;
+  }
+  header.main-header nav ul.main-menu {
+    display: none;
+  }
+  header.main-header nav ul.secondary-menu {
+    grid-area: left;
+    justify-content: flex-start;
+  }
+  header.main-header nav ul.secondary-menu li a {
+    font-size: 1rem;
+  }
+  header.main-header nav .mobile-menu-btn {
+    display: block;
+    background-color: #6f91a5;
+    padding: 8px 10px 10px 10px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+@media (max-width: 900px) and (max-width: 900px) {
+  header.main-header nav .mobile-menu-btn {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 900px) {
+  header.main-header nav .mobile-menu-btn:hover {
+    text-decoration: underline;
+  }
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #212133;
+  color: white;
+}
+footer h1 {
+  margin: 0;
+}
+footer .socials {
+  display: flex;
+  gap: 2rem;
+  font-size: 2rem;
+}
+footer .socials a {
+  color: white;
+}
+
+main.front-page-styles .hero {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #faf1d5;
+}
+main.front-page-styles .hero img {
+  max-width: 100%;
+}
+main.front-page-styles .countdown-wrapper {
+  height: 150px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "left right" "left right";
+  background-color: #6f91a5;
+}
+main.front-page-styles .countdown-wrapper .left {
+  grid-area: left;
+  background-color: #212133;
+}
+main.front-page-styles .countdown-wrapper .right {
+  grid-area: right;
+  border-top: 75px solid transparent;
+  border-right: unset;
+  border-bottom: 75px solid transparent;
+  border-left: 60px solid #212133;
+}
+@media (max-width: 900px) {
+  main.front-page-styles .countdown-wrapper {
+    min-height: 351px;
+    grid-template-rows: 150px 1fr;
+    grid-template-areas: "left left" "right right";
+  }
+  main.front-page-styles .countdown-wrapper .right {
+    border-left: 50vw solid transparent;
+    border-right: 50vw solid transparent;
+    border-top: 60px solid #212133;
+  }
+}
+main.front-page-styles section h1, main.front-page-styles section h2 {
+  font-family: "Antonio", sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 47px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+}
+main.front-page-styles section p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+}
+main.front-page-styles section.socials {
+  background-color: #faf1d5;
+}
+main.front-page-styles section.construction, main.front-page-styles section.socials {
+  text-align: center;
+  padding: 50px;
+}
+main.front-page-styles section.construction a, main.front-page-styles section.socials a {
+  font-size: 2rem;
+  color: #6F91A5;
+}
+main.front-page-styles section.construction .icons, main.front-page-styles section.socials .icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+@media (max-width: 550px) {
+  main.front-page-styles section.construction, main.front-page-styles section.socials {
+    padding: 1rem 1rem 2rem 1rem;
+  }
+}
+main.front-page-styles section {
+  text-align: center;
+}
+main.front-page-styles section a {
+  color: #6F91A5;
+}
+main.front-page-styles section.cards {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background-color: #faf1d5;
+  padding: 4rem 2rem 3rem 2rem;
+}
+main.front-page-styles section.cards .card {
+  width: 320px;
+  background-color: white;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.front-page-styles section.cards .card .square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  rotate: 45deg;
+  border-radius: 1rem;
+  background-color: #f2b814;
+  border: 8px solid #1A2E47;
+  position: relative;
+  top: -58px;
+}
+main.front-page-styles section.cards .card .square .icon {
+  rotate: -45deg;
+  font-size: 3rem;
+  color: white;
+  padding: 1.5rem;
+}
+main.front-page-styles section.cards .card .content-wrapper {
+  position: relative;
+  top: -50px;
+  padding: 0 12px;
+  text-align: center;
+}
+main.front-page-styles section.cards .card .content-wrapper h2 {
+  text-align: center;
+  text-transform: uppercase;
+}
+main.front-page-styles section.cards .card .content-wrapper a {
+  font-size: 20px;
+  color: #6F91A5;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 50px;
+  text-decoration: none;
+}
+main.front-page-styles .sponsors-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+main.front-page-styles .sponsors-wrapper img {
+  max-width: 240px;
+}
+main.front-page-styles section.donate {
+  background-color: #faf1d5;
+  text-align: center;
+}
+main.front-page-styles section.donate a {
+  font-family: "Antonio", sans-serif;
+  text-transform: uppercase;
+  background-color: #6f91a5;
+  padding: 8px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  main.front-page-styles section.donate a {
+    font-size: 1rem;
+  }
+}
+main.front-page-styles section.donate a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 550px) {
+  main.front-page-styles section.donate {
+    padding: 1rem 1rem 2rem 1rem;
+  }
+}
+
+main.about-page-styles {
+  margin: 1rem 0;
+}
+main.about-page-styles .hero {
+  display: flex;
+  justify-content: center;
+}
+main.about-page-styles .hero img {
+  width: 80%;
+}
+main.about-page-styles .about-faq h1 {
+  text-align: center;
+  font-family: "Antonio", sans-serif;
+}
+main.about-page-styles .about-faq .faq-card {
+  padding: 1rem;
+}
+main.about-page-styles .about-faq .faq-card h2 {
+  font-family: "Antonio", sans-serif;
+}
+main.about-page-styles .about-faq .faq-card p {
+  font-family: "Open Sans", sans-serif;
+}
+main.about-page-styles .about-faq .faq-card:nth-child(even) {
+  background-color: #faf1d5;
+}
+main.about-page-styles .about-faq .legal-disclaimer {
+  padding: 1rem;
+}
+
+main.porch-signup {
+  min-height: calc(100vh - 240px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 0;
+}
+main.porch-signup form {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  background-color: #212133;
+  color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5rem;
+}
+main.porch-signup form .form-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+main.porch-signup form .form-group p {
+  font-size: 1rem;
+  width: 200px;
+  margin: 0;
+}
+main.porch-signup form .form-group input {
+  align-self: flex-start;
+}
+main.porch-signup form .form-group input[type=checkbox] {
+  margin-right: 1rem;
+  transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+}
+main.porch-signup form .form-group select {
+  align-self: flex-start;
+  font-size: 1.3rem;
+}
+main.porch-signup form .form-group img {
+  max-width: 100%;
+}
+main.porch-signup form .captcha-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+main.porch-signup form ul.errorlist {
+  margin-left: 1rem;
+  color: red;
+}
+main.porch-signup form input {
+  width: 280px;
+  font-size: 1.5rem;
+}
+main.porch-signup form input[type=checkbox] {
+  width: auto;
+}
+main.porch-signup form input[type=number] {
+  width: 60px;
+}
+main.porch-signup form textarea {
+  width: 280px;
+  height: 100px;
+  font-size: 1.5rem;
+}
+main.porch-signup form button {
+  align-self: center;
+  font-size: 2rem;
+  padding: 0.6rem;
+  background-color: #6f91a5;
+  color: #fff;
+  font-family: "Antonio", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+main.porch-host-invite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 250px);
+  padding: 1rem 2rem;
+  font-family: "Open Sans", sans-serif;
+}
+main.porch-host-invite h2 {
+  margin: 0;
+}
+main.porch-host-invite form {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+}
+main.porch-host-invite form p {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+main.porch-host-invite form ul {
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  background-color: #212133;
+}
+main.porch-host-invite form ul li {
+  color: #6f91a5;
+  margin-bottom: 10px;
+}
+main.porch-host-invite form ul li:last-child {
+  margin-bottom: 0;
+}
+main.porch-host-invite form select, main.porch-host-invite form input {
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1rem;
+}
+main.porch-host-invite form button[type=submit] {
+  cursor: pointer;
+  font-family: "Antonio", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  align-self: center;
+  width: 180px;
+  background-color: #6f91a5;
+  padding: 8px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  main.porch-host-invite form button[type=submit] {
+    font-size: 1rem;
+  }
+}
+main.porch-host-invite form button[type=submit]:hover {
+  text-decoration: underline;
+}
+
+main.porch-host-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 240px);
+  padding: 0 1rem;
+}
+main.porch-host-dashboard .porch {
+  background-color: #212133;
+  color: white;
+  padding: 1rem 1rem 2rem 1rem;
+  border-radius: 1rem;
+}
+main.porch-host-dashboard .porch h2 {
+  margin: 0;
+  margin-bottom: 0px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+main.porch-host-dashboard .porch a {
+  cursor: pointer;
+  font-family: "Antonio", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  background-color: #6f91a5;
+  padding: 8px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  main.porch-host-dashboard .porch a {
+    font-size: 1rem;
+  }
+}
+main.porch-host-dashboard .porch a:hover {
+  text-decoration: underline;
+}
+main.porch-host-dashboard .porch li {
+  list-style: none;
+}
+
+main.porch-edit-page {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  min-height: calc(100vh - 240px);
+}
+main.porch-edit-page .pull-right {
+  float: none !important;
+}
+main.porch-edit-page .mw-wrap {
+  min-width: 0;
+  max-width: 800px;
+  width: 100%;
+}
+main.porch-edit-page .back-btn {
+  cursor: pointer;
+  font-family: "Antonio", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  color: black;
+  align-self: flex-start;
+  background-color: #6f91a5;
+  padding: 8px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  main.porch-edit-page .back-btn {
+    font-size: 1rem;
+  }
+}
+main.porch-edit-page .back-btn:hover {
+  text-decoration: underline;
+}
+main.porch-edit-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.2rem;
+  font-family: "Open Sans", sans-serif;
+}
+main.porch-edit-page form fieldset {
+  border-radius: 1rem;
+}
+main.porch-edit-page form fieldset .mw-btn-add-marker, main.porch-edit-page form fieldset .mw-btn-my-location, main.porch-edit-page form fieldset .mw-coordinates-wrap {
+  display: none;
+}
+main.porch-edit-page form fieldset #coordinates-mw-google-address-input {
+  min-width: 280px;
+  max-width: 400px;
+  margin-top: 10px;
+  color: initial;
+  font-size: 1rem;
+  box-sizing: initial;
+  border: 2px black solid;
+  border-radius: 5px !important;
+}
+main.porch-edit-page form fieldset .field-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+main.porch-edit-page form fieldset .field-wrapper:has(input[type=checkbox]) {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+main.porch-edit-page form fieldset select {
+  text-align: center;
+}
+main.porch-edit-page form fieldset select, main.porch-edit-page form fieldset input {
+  max-width: 300px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1rem;
+}
+main.porch-edit-page form fieldset input[type=checkbox] {
+  transform: scale(1.5);
+}
+main.porch-edit-page form fieldset textarea {
+  max-width: 800px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+}
+@media (max-width: 900px) {
+  main.porch-edit-page form fieldset textarea {
+    width: 250px;
+  }
+}
+main.porch-edit-page form button[type=submit] {
+  cursor: pointer;
+  font-family: "Antonio", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  align-self: center;
+  width: 200px;
+  background-color: #6f91a5;
+  padding: 8px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  main.porch-edit-page form button[type=submit] {
+    font-size: 1rem;
+  }
+}
+main.porch-edit-page form button[type=submit]:hover {
+  text-decoration: underline;
+}
+main.porch-edit-page form .table-wrapper {
+  width: calc(100vw - 100px);
+  overflow-x: scroll;
+}
+main.porch-edit-page form .table-wrapper td {
+  text-align: center;
+}
+main.porch-edit-page #performances_edit_form {
+  margin-top: 1rem;
+}
+
+main.login {
+  min-height: calc(100vh - 240px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.login form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+main.login form input {
+  font-size: 1rem;
+}
+main.login form button[type=submit] {
+  cursor: pointer;
+  font-family: "Antonio", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  color: black;
+  font-size: 1.5rem;
+  background-color: #6f91a5;
+  padding: 8px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  main.login form button[type=submit] {
+    font-size: 1rem;
+  }
+}
+main.login form button[type=submit]:hover {
+  text-decoration: underline;
+}
+
+.form-container {
+  display: grid;
+  place-items: center;
+  transition: height 0.3s ease;
+  height: 600px;
+}
+
+.swap-container.htmx-swapping {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.swap-container.htmx-added {
+  opacity: 0;
+  transform: translateY(80px);
+}
+
+.swap-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.swap-container h1 {
+  font-family: "Antonio", sans-serif;
+  text-transform: uppercase;
+}
+.swap-container form {
+  width: 305px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  background-color: #212133;
+  color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5rem;
+}
+.swap-container form p {
+  width: 80%;
+  margin: 0;
+}
+.swap-container form ul.errorlist {
+  margin-left: 1rem;
+  color: red;
+}
+.swap-container form input {
+  width: 280px;
+  font-size: 1.5rem;
+}
+.swap-container form input[type=checkbox] {
+  width: auto;
+}
+.swap-container form input[type=number] {
+  width: 60px;
+}
+.swap-container form textarea {
+  width: 280px;
+  height: 100px;
+  font-size: 1.5rem;
+}
+.swap-container form button {
+  align-self: center;
+  font-size: 2rem;
+  padding: 0.6rem;
+  background-color: #6f91a5;
+  color: #fff;
+  font-family: "Antonio", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --vh: 100%;
+}
+
+#map {
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/*# sourceMappingURL=style.css.map */
