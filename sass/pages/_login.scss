@@ -17,7 +17,6 @@ main.login{
         }
 
         button[type="submit"]{
-            @include button;
             cursor: pointer;
             font-family: $font__headers;
             font-weight: 400;
@@ -25,6 +24,7 @@ main.login{
             text-transform: uppercase;
             color: black;
             font-size: 1.5rem;
+            @include button;
         }
     }
 }

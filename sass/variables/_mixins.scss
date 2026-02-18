@@ -1,0 +1,80 @@
+@use "color" as *;
+@use "font" as *;
+$smaller-text: 1rem;
+$menu-padding: 10px;
+
+@mixin header{
+	h1,h2{
+		font-family: $font__headers;
+		font-size: 36px;
+		font-weight: 700;
+		line-height: 47px;
+		letter-spacing: 0em;
+		text-transform: uppercase;
+	}
+}
+
+@mixin button{
+	background-color: $color-button-bg;
+	padding: 8px $menu-padding $menu-padding $menu-padding;
+	border-radius: 5px;
+	font-size: 1.5rem;
+	color: $color-button-fg;
+	text-decoration: none;
+	@media(max-width: 900px){
+		font-size: $smaller-text;
+	}
+
+	&:hover{
+		text-decoration: underline;
+	}
+}
+
+@mixin form{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2rem;
+
+	background-color: $color-accent-bg;
+	color: white;
+	border-radius: 1rem;
+	padding: 1rem;
+	font-family: $font__text;
+	font-size: 1.5rem;
+	ul.errorlist{
+		margin-left: 1rem;
+		color: red;
+	}
+	input{
+		width: 280px;
+		font-size: 1.5rem;
+	}
+	input[type="checkbox"]{
+		width: auto;
+	}
+	input[type="number"]{
+		width: 60px;
+	}
+	textarea{
+		width: 280px;
+		height: 100px;
+		font-size: 1.5rem;
+	}
+	button{
+		align-self: center;
+		font-size: 2rem;
+		padding: .6rem;
+		background-color: $color-button-bg;
+		color: $color-button-fg;
+		font-family: $font__headers;
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 26px;
+		letter-spacing: .1em;
+		text-transform: uppercase;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+}

@@ -34,18 +34,27 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
 	'django_recaptcha',
+    'phonenumber_field',
 	'mapwidgets',
 	'porchfestcore',
 	'website',
     'porchpanel',
+    'anymail',
 ]
 
-LOGIN_URL               = "porchpanel:login"
-LOGIN_REDIRECT_URL      = "porchpanel:dashboard"
-LOGOUT_REDIRECT_URL     = "porchpanel:login"
+LOGIN_URL                   = "porchpanel:login"
+LOGIN_REDIRECT_URL          = "porchpanel:dashboard"
+LOGOUT_REDIRECT_URL         = "porchpanel:login"
 
-RECAPTCHA_PUBLIC_KEY	= config('RECAPTCHA_PUBLIC')
-RECAPTCHA_PRIVATE_KEY	= config('RECAPTCHA_PRIVATE')
+RECAPTCHA_PUBLIC_KEY	    = config('RECAPTCHA_PUBLIC')
+RECAPTCHA_PRIVATE_KEY	    = config('RECAPTCHA_PRIVATE')
+
+PHONENUMBER_DEFAULT_REGION  = "US"
+
+EMAIL_BACKEND               = "anymail.backends.brevo.EmailBackend"
+ANYMAIL                     = {"BREVO_API_KEY": config('BREVO_API_KEY'),}
+DEFAULT_FROM_EMAIL          = "Porch Fest <info@towerporchfest.org>"
+
 
 MAP_WIDGETS = {
     "GoogleMap": {

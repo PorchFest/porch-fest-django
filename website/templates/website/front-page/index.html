@@ -3,17 +3,41 @@
 {% block title %}Tower Porchfest!{% endblock %}
 {% block mainclass %}front-page-styles{% endblock %}
 {% block content %}
-	{% comment %} <div class="hero" style="background-image: url('{% static 'website/images/2025-hero.png' %}');"></div> {% endcomment %}
-	{% comment %} <div class="countdown-wrapper">
-		<div class="left">
+	{% comment %} <div class="hero" style="background-image: url('{% static 'website/images/general-hero.png' %}');"></div> {% endcomment %}
+	<div class="hero">
+		<div class="img-wrapper">
+			<img src="{% static 'website/images/general-hero.png' %}" alt="Tower Porchfest Hero Image">
 		</div>
-		<div class="right">
+		<div class="countdown-wrapper">
+			<div class="left">
+				<h2 class="location">Fresno, CA</h2>
+				<div>
+					<h2 class="date">April 25, 2026</h2>
+					<p class="subtext">A Free Music and Art Community Festival</p>
+				</div>
+			</div>
+			<div class="right">
+				<div class="counter-wrapper">
+					<h2>Countdown</h2>
+					<div id="counter">
+						<span id="days">.</span>
+						<span id="hours">.</span>
+						<span id="minutes">.</span>
+						<span id="seconds">.</span>
+					</div>
+					<div class="labels">
+						<span>Days</span>
+						<span>Hours</span>
+						<span>Minutes</span>
+						<span>Seconds</span>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div> {% endcomment %}
-	<section class="construction">
-		<h1>We're Under Construction!</h1>
-		<p>Our website is getting a fresh new look for 2026. Please check back soon for updates on this year's event!</p>
-		<p>Porch Host Signups will be open at the end of January</p>
+	</div>
+	<section style="padding: 50px;">
+		<h1>Porch Host Signups Are Now Open!</h1>
+		<p>Head <a href="{% url 'porch-signup' %}">here</a> to sign up your porch</p>
 	</section>
 	<section class="socials">
 		<h2>Follow us on Social Media!</h2>
@@ -26,12 +50,12 @@
 			</a>
 		</div>
 	</section>
-	{% include 'website/porch-list-form/form-wrapper.html' %}
+	{% comment %} {% include 'website/porch-list-form/form-wrapper.html' %} {% endcomment %}
 	{% include "website/front-page/ad-cards.html" %}
 	{% comment %} {% include "website/front-page/sponsors.html" %} {% endcomment %}
 	<section class="donate">
 		<h1>Support Tower Porchfest</h1>
-		<p>Porchfest is 100% volunteer run. Every donation goes directly towards enhancing this creative gathering and supporting art programming in our community.</p>
-		<a href="https://www.zeffy.com/en-US/donation-form/support-tower-porchfest" target="_blank">Make a Donation</a>
+		<div style="position:relative;overflow:hidden;height:600px;width:100%;"><iframe title='Donation form powered by Zeffy' style='position: absolute; border: 0; top:0;left:0;bottom:0;right:0;width:100%;height:100%' src='https://www.zeffy.com/embed/donation-form/support-tower-porchfest' allowpaymentrequest allowTransparency="true"></iframe></div>
 	</section>
+	<script src="{% static 'website/js/countdown.js' %}"></script>
 {% endblock %}

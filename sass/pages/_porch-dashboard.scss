@@ -8,7 +8,8 @@ main.porch-host-dashboard{
     padding: 0 1rem;
 
     .porch{
-        background-color: #91b1a6;
+        background-color: $color-accent-bg;
+        color: white;
         padding: 1rem 1rem 2rem 1rem;
         border-radius: 1rem;
         h2{
@@ -18,17 +19,16 @@ main.porch-host-dashboard{
             text-align: center;
         }
         a{
-            @include button;
             cursor: pointer;
             font-family: $font__headers;
             font-weight: 400;
             font-style: normal;
             font-size: 1.3rem;
             text-transform: uppercase;
-            color: black;
             display: block;
             text-align: center;
             margin-top: 1rem;
+            @include button;
         }
 
         li{list-style: none;}

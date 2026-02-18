@@ -1,0 +1,18 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %}Edit Performer{% endblock %}
+{% block head %}
+{% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+{% comment %} <script src="{% static "porchfestcore/js/porch-admin.js" %}"></script> {% endcomment %}
+{% comment %} {{ performer_form.media }} {% endcomment %}
+{% endblock %}
+{% block mainclass %}porch-edit-page{% endblock %}
+{% block content %}
+<a href="{% url "porchpanel:dashboard" %}" class="back-btn">Back to Dashboard</a>
+<h2>Edit Performer: {{ performer.name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ performer_form.as_p }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

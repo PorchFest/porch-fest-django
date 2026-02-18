@@ -17,7 +17,22 @@
     </ul>
     {% if not has_porch %}
       <a href="{% url 'porchpanel:create_porch' %}">Create Your Porch</a>
+    {% endif %}
+  </div>
+  <div class="performers">
+    <h2>Your Performers:</h2>
+    <ul>
+      {% for performer in performers %}
+        <li>
+          <a href="{% url 'porchpanel:performer_edit' performer.pk %}">Edit {{ performer.name }}</a>
+        </li>
+      {% empty %}
+        <li>No performers yet.</li>
+      {% endfor %}
+    </ul>
+    {% if not has_performer %}
+      {% comment %} <a href="{% url 'porchpanel:create_performer' %}">Create Your Performer</a> {% endcomment %}
+    {% endif %} 
   </div>
 </div>
-{% endif %}
 {% endblock %}

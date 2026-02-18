@@ -1,0 +1,41 @@
+@use "../variables" as *;
+
+.form-container{
+    display: grid;
+    place-items: center;
+    transition: height .3s ease;
+    height: 600px;
+}
+.swap-container.htmx-swapping{
+    opacity: 0;
+    transform: translateY(-20px);
+}
+.swap-container.htmx-added {
+opacity: 0;
+transform: translateY(80px);
+}
+.swap-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 1rem;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .5s ease, transform .5s ease;
+
+    h1{
+        font-family: $font__headers;
+        text-transform: uppercase;
+    }
+    form{
+        width: 305px;
+
+        p{
+            width: 80%;
+            margin: 0;
+        }
+        @include form;
+    }
+}

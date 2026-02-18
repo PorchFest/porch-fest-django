@@ -3,7 +3,7 @@
 	"saveAndRun": {
 		"commands": [{
 			"match": "\\.scss",
-			"cmd": "sass ./website/sass/style.scss ./website/static/website/style.css",
+			"cmd": "sass ./sass/style.scss ./static/css/style.css",
 			"silent": true
 		}]
 	},
@@ -13,4 +13,5 @@
 	"files.associations": {
 		"*.html": "django-html",
 	},
+	"liveServer.settings.port": 5501,
 }

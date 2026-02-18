@@ -1,0 +1,194 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %}Porch Signup!{% endblock %}
+{% block mainclass %}porch-signup{% endblock %}
+{% block content %}
+    <h1>Sign up to be a Porch Host!</h1>
+    <p>Signups close on March 25th, 2026!</p>
+	<form id="porch_signup_form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_name">Porch Name</label>
+                <p>Have fun with your porch name! &#128540;</p>
+            </div>
+            {{ form.name }}
+        </div>
+        {% if form.name.errors %}
+            <ul class="errorlist">
+                {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <label for="id_street_address">Porch Address</label>
+            {{ form.street_address }}
+        </div>
+        {% if form.street_address.errors %}
+            <ul class="errorlist">
+                {% for error in form.street_address.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="labe">
+                <label for="id_description">Porch Description</label>
+                <p>Tell us a little about your porch's vibe and what kind of music you plan to have.</p>
+            </div>
+            {{ form.description }}
+        </div>
+        {% if form.description.errors %}
+            <ul class="errorlist">
+                {% for error in form.description.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <label for="id_owner_name">Your Name</label>
+            {{ form.owner_name }}
+        </div>
+        {% if form.owner_name.errors %}
+            <ul class="errorlist">
+                {% for error in form.owner_name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <label for="id_owner_email">Your Email</label>
+            {{ form.owner_email }}
+        </div>
+        {% if form.owner_email.errors %}
+            <ul class="errorlist">
+                {% for error in form.owner_email.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <label for="id_owner_phone">Your Phone</label>
+            {{ form.owner_phone }}
+        </div>
+        {% if form.owner_phone.errors %}
+            <ul class="errorlist">
+                {% for error in form.owner_phone.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_preferred_contact">Preferred Contact Method</label>
+                <p>How would you prefer we contact you regarding your porch submission?</p>
+            </div>
+            {{ form.preferred_contact }}
+        </div>
+        {% if form.preferred_contact.errors %}
+            <ul class="errorlist">
+                {% for error in form.preferred_contact.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <label for="id_porch_picture">Porch Picture</label>
+            {{ form.porch_picture }}
+            {% if temp_image %}
+                <img src="{{ temp_image.image.url }}">
+                <input type="hidden" name="temp_image_id" value="{{ temp_image.id }}">
+            {% endif %}
+        </div>
+        {% if form.porch_picture.errors %}
+            <ul class="errorlist">
+                {% for error in form.porch_picture.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_vendor">Vendor</label>
+                <p>Will you be selling food, drinks, or merchandise at your porch?</p>
+            </div>
+            {{ form.vendor }}
+        </div>
+        {% if form.vendor.errors %}
+            <ul class="errorlist">
+                {% for error in form.vendor.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_childrens_activities">Childrens Activities</label>
+                <p>will you have child friendly music or things for kids to do?</p>
+            </div>
+            {{ form.childrens_activities }}
+        </div>
+        {% if form.childrens_activities.errors %}
+            <ul class="errorlist">
+                {% for error in form.childrens_activities.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_neighbors_hosting">Neighbors Hosting?</label>
+                <p>If you have neighbors that will also be hosting near you, have you already planned coordination to avoid having performers at the same time?</p>
+            </div>
+            {{ form.neighbors_hosting }}
+        </div>
+        {% if form.neighbors_hosting.errors %}
+            <ul class="errorlist">
+                {% for error in form.neighbors_hosting.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_number_of_performances">Number of performances</label>
+                <p>How many performance sets will you have at your porch during the event?</p>
+            </div>
+            {{ form.number_of_performances }}
+        </div>
+        {% if form.number_of_performances.errors %}
+            <ul class="errorlist">
+                {% for error in form.number_of_performances.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_other_info">Other Information</label>
+                <p>Is there anything else we should know about your porch?</p>
+            </div>
+            {{ form.other_info }}
+        </div>
+        {% if form.other_info.errors %}
+            <ul class="errorlist">
+                {% for error in form.other_info.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="captcha-container">
+            {{ form.captcha }}
+        </div>
+        {% if form.captcha.errors %}
+            <ul class="errorlist">
+                {% for error in form.captcha.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <button type="submit" id="form_submit">Submit</button>
+    </form>
+    <script src="{% static 'website/js/porch-signups.js' %}"></script>
+{% endblock %}

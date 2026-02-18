@@ -2,23 +2,8 @@
 
 @mixin menu{
 	display: flex;
-	gap: 1rem;
-	
 	list-style: none;
-
-	li{
-		@include button;
-		
-		a{
-			font-size: 1.5rem;
-			color: black;
-			text-decoration: none;
-
-			&:hover{
-				text-decoration: underline;
-			}
-		}
-	}
+	li a{@include button;}
 }
 
 .login-section{
@@ -31,19 +16,7 @@
 	align-items: center;
 	gap: 1rem;
 
-	a,button{
-		@include button;
-		font-size: 1.5rem;
-		color: black;
-		text-decoration: none;
-		@media(max-width: 900px){
-			font-size: $smaller-text;
-		}
-	
-		&:hover{
-			text-decoration: underline;
-		}
-	}
+	a,button{@include button;}
 	button{
 		border: none;
 		cursor: pointer;
@@ -66,7 +39,7 @@
 	justify-content: center;
 	
 	padding-top: 3rem;
-	background-color: $color-section-alt-bg;
+	background-color: $color-main-bg;
 	border-left: 5px black solid;
 
 	transform: translateX(100%);
@@ -77,10 +50,22 @@
 	}
 
 	ul.main-menu {
-		@include menu;
+		display: flex;
+		list-style: none;
 		flex-direction: column;
-		gap: 2rem;
+		gap: 1rem;
 		text-align: center;
+		li a{
+			background-color: $color-button-bg;
+			padding: 8px 10px 5px 10px;
+			border-radius: 5px;
+			font-size: 1.5rem;
+			color: $color-button-fg;
+			text-decoration: none;
+			&:hover{
+				text-decoration: underline;
+			}
+		}
 	}
 
 	.mobile-close {
@@ -88,17 +73,17 @@
 		top: 1rem;
 		right: 1rem;
 		background-color: $color-button-bg;
-		padding: 8px 10px 10px 10px;
+		padding: 8px 10px 5px 10px;
 		border-radius: 5px;
-		color: black;
-		font-family: $font__headers;
-		font-weight: 400;
-		font-style: normal;
-		text-transform: uppercase;
+		font-size: 1.5rem;
+		color: $color-button-fg;
 		text-decoration: none;
+		@media(max-width: 900px){
+			font-size: $smaller-text;
+		}
 
-		&:hover {
-		text-decoration: underline;
+		&:hover{
+			text-decoration: underline;
 		}
 	}
 }
@@ -107,7 +92,7 @@ header.main-header{
 	position: sticky;
 	top: 0;
 	z-index: 1000;
-	background-color: $color-section-alt-bg;
+	background-color: $color-header-bg;
 	padding: 1rem;
 	font-family: $font__headers;
 	font-weight: 400;
@@ -115,15 +100,10 @@ header.main-header{
 	text-transform: uppercase;
 	nav{
 		display: flex;
-		justify-content: center;
-		gap: 1rem;
 		ul.main-menu{
-			@include menu;
 			justify-content: center;
-		}
-		ul.secondary-menu{
+			gap: 1rem;
 			@include menu;
-			justify-content: flex-end;
 		}
 		.mobile-menu-btn{
 			display: none;
@@ -142,18 +122,7 @@ header.main-header{
 			}
 			.mobile-menu-btn{
 				display: block;
-				grid-area: right;
-				justify-self: end;
-				background-color: $color-button-bg;
-				padding: 8px 10px 10px 10px;
-				border-radius: 5px;
-				font-size: $smaller-text;
-				color: black;
-				text-decoration: none;
-
-				&:hover{
-					text-decoration: underline;
-				}
+				@include button;
 			}
 		}
 	}
