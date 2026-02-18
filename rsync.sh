@@ -10,6 +10,24 @@ rebuild_server(){
 EOF
 }
 
+deploystatic(){
+	DRY=""
+    if [ "$1" = "--dry" ]; then
+        DRY="n"
+		echo "DRY DEPLOY"
+    fi
+	rsync -avz${DRY} static/ porchfest:/home/django/porchfest/static/
+
+	if [ "$1" != "--dry" ]; then
+		ssh porchfest << "EOF"
+		cd /home/django/porchfest
+		source venv/bin/activate
+		python manage.py collectstatic --noinput
+		systemctl reload nginx
+EOF
+	fi
+}
+
 deployweb(){
 	DRY=""
     if [ "$1" = "--dry" ]; then
@@ -17,6 +35,17 @@ deployweb(){
 		echo "DRY DEPLOY"
     fi
 	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' website/ porchfest:/home/django/porchfest/website/
+	rsync -avz${DRY} static/ porchfest:/home/django/porchfest/static/
+
+	if [ "$1" != "--dry" ]; then
+		ssh porchfest << "EOF"
+		cd /home/django/porchfest
+		source venv/bin/activate
+		python manage.py collectstatic --noinput
+		systemctl reload nginx
+		systemctl restart gunicorn
+EOF
+	fi
 }
 
 deploydash(){
@@ -49,6 +78,9 @@ deployapp(){
 if [ "$1" == "deployweb" ]; then
 	shift
 	deployweb "$@"
+elif [ "$1" == "deploystatic" ]; then
+	shift
+	deploystatic "$@"
 elif [ "$1" == "deploydash" ]; then
 	shift
 	deploydash "$@"
