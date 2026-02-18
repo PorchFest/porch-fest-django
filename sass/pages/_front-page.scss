@@ -3,52 +3,134 @@
 main.front-page-styles{
 	.hero{
 		display: flex;
+		flex-direction: column;
+		align-items: center;
 		justify-content: center;
-		padding: 1rem;
 		background-color: $color-main-bg;
-		img{max-width: 100%;}
-	}
-	
-	.countdown-wrapper{
-		height: 150px;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 1fr 1fr;
-		grid-template-areas: 
-			"left right"
-			"left right"
-		;
-		
-		background-color: $color-button-bg;
-		
-		.left{
-			grid-area: left;
-			background-color: $color-accent-bg;
+		.img-wrapper{
+			max-width: 500px;
+			padding: 1rem;
+			img{max-width: 100%;}
 		}
 	
-		.right{
-			grid-area: right;
-			border-top: 75px solid transparent;
-			border-right: unset;
-			border-bottom: 75px solid transparent;
-			border-left: 60px solid $color-accent-bg;
-		}
-	
-		@media(max-width: 900px){
-			min-height: 351px;
-			grid-template-rows: 150px 1fr;
+		.countdown-wrapper{
+			height: 150px;
+			width: 100%;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr 1fr;
 			grid-template-areas: 
-				"left left"
-				"right right"
+				"left right"
+				"left right"
 			;
+			
+			background-color: $color-button-bg;
+			
+			.left{
+				grid-area: left;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				padding-top: 1rem;
 	
+				background-color: $color-accent-bg;
+				color: $color-button-fg;
+	
+				h2,p{margin: 0;}
+				text-align: center;
+				.location{
+					color: $color-text-accent;
+					font-family: $font__text;
+					font-weight: 800;
+					text-transform: uppercase;
+					letter-spacing: 2px;
+				}
+				.date{
+					font-family: $font__headers;
+					text-transform: uppercase;
+					font-size: 36px;
+				}
+				.subtext{
+					font-family: $font__text;
+					text-transform: uppercase;
+					font-size: 12px;
+				}
+			}
+		
 			.right{
-				border-left: 50vw solid transparent;
-				border-right: 50vw solid transparent;
-				border-top: 60px solid $color-accent-bg;
+				grid-area: right;
+				border-top: 75px solid transparent;
+				border-right: unset;
+				border-bottom: 75px solid transparent;
+				border-left: 60px solid $color-accent-bg;
+				color: $color-button-fg;
+
+				// padding: 10px 0;
+
+				h2{
+					font-family: $font__text;
+					font-weight: 800;
+					text-transform: uppercase;
+					letter-spacing: 2px;
+					margin: 0;
+				}
+
+
+
+				.counter-wrapper{
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					position: relative;
+					top: -50px;
+					#counter,.labels{
+						display: grid;
+						grid-template-columns: 1fr 1fr 1fr 1fr;
+						grid-template-rows: 1fr;
+					}
+					span{
+						width: 70px;
+						text-align: center;
+						font-family: $font__headers;
+					}
+					#counter{
+						font-size: 36px;
+  						font-weight: 700;
+					}
+					.labels{
+
+					}
+				}
+			}
+
+			@media(min-width: 900px){
+				.counter-wrapper{
+					align-items: flex-start;
+				}
+			}
+		
+			@media(max-width: 900px){
+				min-height: 351px;
+				grid-template-rows: 150px 1fr;
+				grid-template-areas: 
+					"left left"
+					"right right"
+				;
+		
+				.right{
+					border-left: 50vw solid transparent;
+					border-right: 50vw solid transparent;
+					border-top: 60px solid $color-accent-bg;
+					.counter-wrapper{
+						top: 10px;
+					}
+				}
 			}
 		}
 	}
+	
 	
 	section{
 		h1,h2{
@@ -58,6 +140,8 @@ main.front-page-styles{
 			line-height: 47px;
 			letter-spacing: 0em;
 			text-transform: uppercase;
+			margin: 0;
+			padding-bottom: 10px;
 		}
 		
 		p{
@@ -82,9 +166,6 @@ main.front-page-styles{
 			gap: 1rem;
 			justify-content: center;
 		}
-		@media(max-width: 550px){
-			padding: 1rem 1rem 2rem 1rem;
-		}
 	}
 
 	section{
@@ -103,11 +184,14 @@ main.front-page-styles{
 		.card{
 			width: 320px;
 			background-color: white;
-			margin-top: 50px;
+			margin-top: 80px;
 	
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+
+			// border-radius: 30px;
+			border-radius: 1rem;
 	
 			.square{
 				display: flex;
@@ -127,6 +211,7 @@ main.front-page-styles{
 					font-size: 3rem;
 					color: white;
 					padding: 1.5rem;
+					width: 150px;
 				}
 			}
 			.content-wrapper{
@@ -138,6 +223,7 @@ main.front-page-styles{
 				h2{
 					text-align: center;
 					text-transform: uppercase;
+					margin-top: 10px;
 				}
 				a{
 					font-size: 20px;

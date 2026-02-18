@@ -127,8 +127,6 @@ header.main-header {
 }
 header.main-header nav {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
 }
 header.main-header nav ul.main-menu {
   justify-content: center;
@@ -210,45 +208,151 @@ footer .socials {
 footer .socials a {
   color: white;
 }
+footer h1, footer h2 {
+  font-family: "Antonio", sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 47px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+}
+
+main.page {
+  display: grid;
+  grid-template-columns: 1rem auto 1rem;
+  margin: 1rem 0;
+  min-height: calc(100vh - 240px);
+  font-family: "Open Sans", sans-serif;
+}
+main.page .content {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+main.page .content h1, main.page .content h2, main.page .content h3, main.page .content h4, main.page .content p {
+  margin: 0;
+  font-size: 1.2em;
+}
+main.page .content h1, main.page .content h2 {
+  font-family: "Antonio", sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 47px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+}
 
 main.front-page-styles .hero {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 1rem;
   background-color: #faf1d5;
 }
-main.front-page-styles .hero img {
+main.front-page-styles .hero .img-wrapper {
+  max-width: 500px;
+  padding: 1rem;
+}
+main.front-page-styles .hero .img-wrapper img {
   max-width: 100%;
 }
-main.front-page-styles .countdown-wrapper {
+main.front-page-styles .hero .countdown-wrapper {
   height: 150px;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: "left right" "left right";
   background-color: #6f91a5;
 }
-main.front-page-styles .countdown-wrapper .left {
+main.front-page-styles .hero .countdown-wrapper .left {
   grid-area: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 1rem;
   background-color: #212133;
+  color: #fff;
+  text-align: center;
 }
-main.front-page-styles .countdown-wrapper .right {
+main.front-page-styles .hero .countdown-wrapper .left h2, main.front-page-styles .hero .countdown-wrapper .left p {
+  margin: 0;
+}
+main.front-page-styles .hero .countdown-wrapper .left .location {
+  color: #f2b814;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+main.front-page-styles .hero .countdown-wrapper .left .date {
+  font-family: "Antonio", sans-serif;
+  text-transform: uppercase;
+  font-size: 36px;
+}
+main.front-page-styles .hero .countdown-wrapper .left .subtext {
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+main.front-page-styles .hero .countdown-wrapper .right {
   grid-area: right;
   border-top: 75px solid transparent;
   border-right: unset;
   border-bottom: 75px solid transparent;
   border-left: 60px solid #212133;
+  color: #fff;
+}
+main.front-page-styles .hero .countdown-wrapper .right h2 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+main.front-page-styles .hero .countdown-wrapper .right .counter-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: -50px;
+}
+main.front-page-styles .hero .countdown-wrapper .right .counter-wrapper #counter, main.front-page-styles .hero .countdown-wrapper .right .counter-wrapper .labels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+main.front-page-styles .hero .countdown-wrapper .right .counter-wrapper span {
+  width: 70px;
+  text-align: center;
+  font-family: "Antonio", sans-serif;
+}
+main.front-page-styles .hero .countdown-wrapper .right .counter-wrapper #counter {
+  font-size: 36px;
+  font-weight: 700;
+}
+@media (min-width: 900px) {
+  main.front-page-styles .hero .countdown-wrapper .counter-wrapper {
+    align-items: flex-start;
+  }
 }
 @media (max-width: 900px) {
-  main.front-page-styles .countdown-wrapper {
+  main.front-page-styles .hero .countdown-wrapper {
     min-height: 351px;
     grid-template-rows: 150px 1fr;
     grid-template-areas: "left left" "right right";
   }
-  main.front-page-styles .countdown-wrapper .right {
+  main.front-page-styles .hero .countdown-wrapper .right {
     border-left: 50vw solid transparent;
     border-right: 50vw solid transparent;
     border-top: 60px solid #212133;
+  }
+  main.front-page-styles .hero .countdown-wrapper .right .counter-wrapper {
+    top: 10px;
   }
 }
 main.front-page-styles section h1, main.front-page-styles section h2 {
@@ -258,6 +362,8 @@ main.front-page-styles section h1, main.front-page-styles section h2 {
   line-height: 47px;
   letter-spacing: 0em;
   text-transform: uppercase;
+  margin: 0;
+  padding-bottom: 10px;
 }
 main.front-page-styles section p {
   font-family: "Open Sans", sans-serif;
@@ -282,11 +388,6 @@ main.front-page-styles section.construction .icons, main.front-page-styles secti
   gap: 1rem;
   justify-content: center;
 }
-@media (max-width: 550px) {
-  main.front-page-styles section.construction, main.front-page-styles section.socials {
-    padding: 1rem 1rem 2rem 1rem;
-  }
-}
 main.front-page-styles section {
   text-align: center;
 }
@@ -304,10 +405,11 @@ main.front-page-styles section.cards {
 main.front-page-styles section.cards .card {
   width: 320px;
   background-color: white;
-  margin-top: 50px;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 1rem;
 }
 main.front-page-styles section.cards .card .square {
   display: flex;
@@ -327,6 +429,7 @@ main.front-page-styles section.cards .card .square .icon {
   font-size: 3rem;
   color: white;
   padding: 1.5rem;
+  width: 150px;
 }
 main.front-page-styles section.cards .card .content-wrapper {
   position: relative;
@@ -337,6 +440,7 @@ main.front-page-styles section.cards .card .content-wrapper {
 main.front-page-styles section.cards .card .content-wrapper h2 {
   text-align: center;
   text-transform: uppercase;
+  margin-top: 10px;
 }
 main.front-page-styles section.cards .card .content-wrapper a {
   font-size: 20px;
@@ -420,6 +524,20 @@ main.porch-signup {
   justify-content: flex-start;
   align-items: center;
   padding: 1rem 0;
+}
+main.porch-signup p, main.porch-signup h1 {
+  margin: 0;
+}
+main.porch-signup p {
+  margin-bottom: 1rem;
+}
+main.porch-signup h1, main.porch-signup h2 {
+  font-family: "Antonio", sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 47px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
 }
 main.porch-signup form {
   max-width: 600px;

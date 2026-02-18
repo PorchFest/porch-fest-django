@@ -70,3 +70,9 @@ def porch_list_signup(request):
 
 def about(request):
     return render(request, 'website/about.html')
+def volunteer(request):
+    return render(request, 'website/volunteer.html')
+def sponsorship(request):
+    return render(request, 'website/sponsorship.html')
+def donate(request):
+    return render(request, 'website/donate.html')
