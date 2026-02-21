@@ -25,7 +25,7 @@ admin.site.site_title			= 'Porchfest'
 urlpatterns = [
 	path('', include('website.urls')),
     path('map/', include('porchfestcore.urls')),
-    path('my-porch/', include('porchpanel.urls')),
+    path('dashboard/', include('porchpanel.urls')),
     path('admin/', admin.site.urls),
 ]
 

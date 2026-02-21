@@ -2,7 +2,7 @@
 {% block title %}Porch Host Dashboard{% endblock %}
 {% block mainclass %}porch-host-dashboard{% endblock %}
 {% block content %}
-<div class="wrapper">
+<div class="dashboard-wrapper">
   <h1>Welcome, {{ request.user.username }}</h1>
   <div class="porch">
     <h2>Your Porch:</h2>
@@ -14,12 +14,13 @@
       {% empty %}
         <li>No porches yet.</li>
       {% endfor %}
+      {% if not has_porch %}
+        {% comment %} <a href="{% url 'porchpanel:create_porch' %}">Create Your Porch</a> {% endcomment %}
+        <li>Your porch will be assigned to you soon.</li>
+      {% endif %}
     </ul>
-    {% if not has_porch %}
-      <a href="{% url 'porchpanel:create_porch' %}">Create Your Porch</a>
-    {% endif %}
   </div>
-  <div class="performers">
+  <div class="performer">
     <h2>Your Performers:</h2>
     <ul>
       {% for performer in performers %}
@@ -30,9 +31,9 @@
         <li>No performers yet.</li>
       {% endfor %}
     </ul>
-    {% if not has_performer %}
-      {% comment %} <a href="{% url 'porchpanel:create_performer' %}">Create Your Performer</a> {% endcomment %}
-    {% endif %} 
+    {% comment %} {% if not has_performer %}
+      <a href="{% url 'porchpanel:create_performer' %}">Create Your Performer</a>
+    {% endif %}  {% endcomment %}
   </div>
 </div>
 {% endblock %}

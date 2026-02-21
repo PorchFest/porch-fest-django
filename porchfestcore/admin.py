@@ -1,25 +1,46 @@
-from django.contrib 		import admin
-from django.contrib.gis.db 	import models
 import csv
-from django.http		    import HttpResponse
-from mapwidgets.widgets 	import GoogleMapPointFieldWidget
-from .models 				import Performer, Porch, Request, Performance, TempUpload
-from .forms 				import PerformanceForm, TimeInput
+from django.contrib 		    import admin
+from django.contrib.gis.db 	    import models
+from django.http		        import HttpResponse
+from mapwidgets.widgets 	    import GoogleMapPointFieldWidget
+from django.utils.translation   import gettext_lazy as _
+from .models 				    import Performer, Porch, Request, Performance, TempUpload
+from porchpanel.models          import Invitation
+from .forms 				    import PerformanceForm, TimeInput
 
 class PerformanceInline(admin.TabularInline):
     model 					= Performance
     form 					= PerformanceForm
     extra 					= 1
+class InvitationInline(admin.TabularInline):
+    model 					= Invitation
+    extra 					= 1
+class HasCoordinatesFilter(admin.SimpleListFilter):
+    title = _("Coordinates")
+    parameter_name  = "has_coordinates"
+
+    def lookups(self, request, model_admin):
+        return(
+            ("yes", _("Has Coordinates")),
+            ("no", _("No Coordinates")),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == "yes":
+            return queryset.filter(coordinates__isnull=False)
+        if self.value() == "no":
+            return queryset.filter(coordinates__isnull=True)
+        return queryset
 
 @admin.register(Porch)
 class PorchAdmin(admin.ModelAdmin):
     list_display			= ('name', 'owner_name', 'owner_email', 'street_address', 'created_at',)
     search_fields 			= ('name', 'city', 'state', 'zip_code', 'country')
-    list_filter 			= ('approved', 'created_at')
+    list_filter 			= ('approved', 'created_at', HasCoordinatesFilter,)
     formfield_overrides		= {
         models.PointField: {"widget": GoogleMapPointFieldWidget},
     }
-    inlines 				= [PerformanceInline]
+    inlines 				= [PerformanceInline, InvitationInline]
     ordering				= ('-created_at',)
     actions                 = ['export_as_csv', 'approve_porches']
 

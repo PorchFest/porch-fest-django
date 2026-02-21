@@ -32,6 +32,13 @@ def accept_invite(request, token):
             user                = form.save(commit=False)
             user.email          = invitation.owner_email
             user.save()
+
+            group = Group.objects.get(name="Porch Host")
+            user.groups.add(group)
+
+            invitation.porch.user = user
+            invitation.porch.save()
+
             invitation.accepted = True
             invitation.save()
             login(request, user)
@@ -112,7 +119,7 @@ def porch_edit(request, pk):
     )
     if request.method == "POST":
         if 'save_porch' in request.POST:
-            porch_form = PorchForm(request.POST, instance=porch)
+            porch_form = PorchForm(request.POST, request.FILES, instance=porch)
             if porch_form.is_valid():
                 porch_form.save()
                 porch_form = PorchForm(instance=porch)

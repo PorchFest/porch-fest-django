@@ -10,6 +10,7 @@ def default_expiration():
 
 class Invitation(models.Model):
     owner_email = models.EmailField(unique=True)
+    porch       = models.ForeignKey('porchfestcore.Porch', on_delete=models.CASCADE, related_name='invitations', null=True, blank=True)
     token       = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     created_at  = models.DateTimeField(auto_now_add=True)
     expires_at  = models.DateTimeField(default=default_expiration)

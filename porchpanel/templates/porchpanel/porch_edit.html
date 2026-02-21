@@ -10,7 +10,7 @@
 {% block content %}
 <a href="{% url "porchpanel:dashboard" %}" class="back-btn">Back to Dashboard</a>
 <h2>Edit Porch: {{ porch.name }}</h2>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% if porch_form.non_field_errors %}
     <div class="errorlist nonfield">

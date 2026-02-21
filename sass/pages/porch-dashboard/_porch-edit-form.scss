@@ -1,4 +1,4 @@
-@use "../variables" as *;
+@use "../../variables" as *;
 
 main.porch-edit-page{
     display: flex;
@@ -54,6 +54,9 @@ main.porch-edit-page{
             .field-wrapper{
                 display: flex;
                 flex-direction: column;
+            }
+            .field-wrapper:has(#id_porch_picture){
+                flex-wrap: wrap;
             }
             .field-wrapper:has(input[type="checkbox"]){
                 flex-direction: row;

@@ -2,7 +2,7 @@
 @forward "front-page";
 @forward "about";
 @forward "porch-signup";
-@forward "new-account";
-@forward "porch-dashboard";
-@forward "porch-edit-form";
-@forward "login";
+@forward "porch-dashboard/login";
+@forward "porch-dashboard/new-account";
+@forward "porch-dashboard/porch-dashboard";
+@forward "porch-dashboard/porch-edit-form";

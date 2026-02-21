@@ -1,13 +1,19 @@
 # Run to make executable: chmod +x script.sh
 
 rebuild_server(){
-	ssh porchfest << "EOF"
-	cd /home/django/porchfest
-	source venv/bin/activate
-	python manage.py collectstatic --noinput
-	systemctl restart gunicorn
-	systemctl reload nginx
+	if [ "$1" = "gunicorn" ]; then
+		ssh porchfest << "EOF"
+		systemctl restart gunicorn
 EOF
+	else
+		ssh porchfest << "EOF"
+		cd /home/django/porchfest
+		source venv/bin/activate
+		python manage.py collectstatic --noinput
+		systemctl restart gunicorn
+		systemctl reload nginx
+EOF
+	fi
 }
 
 deploystatic(){
@@ -91,7 +97,8 @@ elif [ "$1" == "deployapp" ]; then
 	shift
 	deployapp "$@"
 elif [ "$1" == "rebuildserver" ]; then
-	rebuild_server
+	shift
+	rebuild_server "$@"
 else
 	echo "$1"
 	echo "Usage: $0 {deploy db | deploy theme | deploy content}"

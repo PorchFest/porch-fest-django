@@ -4,3 +4,6 @@ from django.apps import AppConfig
 class PorchpanelConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'porchpanel'
+
+    def ready(self):
+        import porchpanel.signals
