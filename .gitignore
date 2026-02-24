@@ -4,6 +4,8 @@
 *.pyc
 website/static/website/*.css
 website/static/website/*.css.map
+static/css/*.css
+static/css/*.css.map
 __pycache__/
 local_settings.py
 db.sqlite3
