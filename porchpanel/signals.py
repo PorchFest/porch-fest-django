@@ -13,7 +13,7 @@ def send_invitation_email(sender, instance, created, **kwargs):
             'invite_link': invite_link,
         })
         email = EmailMessage(
-            subject="Register your porchfest user",
+            subject="Welcome to 2026 Tower Porchfest – Important Dates & Host Information",
             body=html,
             from_email="Tower Porchfest <info@towerporchfest.org>",
             to=[instance.owner_email],
