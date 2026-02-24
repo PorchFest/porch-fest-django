@@ -27,23 +27,30 @@
 	}
 }
 
+
+$mobile-menu-width: 160px;
+$mobile-menu-padding: 10px;
+$mobile-menu-border: 5px;
+$mobile-menu-hide: calc(0px - ($mobile-menu-padding * 2) - $mobile-menu-border - $mobile-menu-width);
 .mobile-menu {
 	position: fixed;
 	z-index: 2000;
 	top: 0;
-	right: 0;
+	// right: 0;
+	left: 0;
 	height: calc(var(--vh, 1vh) * 100);
-	width: 100%;
+	// width: 100%;
+	width: $mobile-menu-width;
+	transform: translateX($mobile-menu-hide);
+	transition: transform 0.1s ease;
 
 	display: flex;
 	justify-content: center;
 	
+	border-right: $mobile-menu-border solid black;
 	padding-top: 3rem;
 	background-color: $color-main-bg;
-	border-left: 5px black solid;
-
-	transform: translateX(100%);
-	transition: transform 0.1s ease;
+	// border-left: 5px black solid;
 
 	&.open {
 		transform: translateX(0);
