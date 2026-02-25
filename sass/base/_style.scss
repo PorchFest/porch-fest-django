@@ -2,3 +2,19 @@ body, ul{
 	margin: 0;
 	padding: 0;
 }
+
+.decorpo-tag{
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	width: 110px;
+	text-align: center;
+	background-color: black;
+	color: white;
+	padding: 6px;
+	border-radius: 5px;
+	border: solid white 2px;
+	border-style: outset;
+	a{color:white;&visited{color:white}}
+	p{margin: 0;}
+}
