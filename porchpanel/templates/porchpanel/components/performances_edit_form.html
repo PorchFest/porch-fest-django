@@ -1,4 +1,5 @@
 <div id="performances_edit_form">
+    <div style="margin-left: 50px;"><ul><li>Performances will not save outside of the 10am-6:30pm time window.</li></ul></div>
     <form
         hx-post="{% url 'porchpanel:porch_edit' porch.id %}"
         hx-target="#performances_edit_form"

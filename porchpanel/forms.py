@@ -29,17 +29,18 @@ class PerformerForm(forms.ModelForm):
 
 class PerformanceFormDashboard(forms.ModelForm):
     new_performer_name = forms.CharField(required=False, label="New Performer")
+
     performer = forms.ModelChoiceField(
-        queryset=Performer.objects.all(),
+        queryset=Performer.objects.all().order_by('name'),
         required=False
     )
 
     class Meta:
-        model = Performance
-        fields = ['performer', 'start_time', 'end_time']
+        model   = Performance
+        fields  = ['performer', 'start_time', 'end_time']
         widgets = {
             'start_time': forms.TimeInput(attrs={'type': 'time', 'min': '10:00'}),
-            'end_time': forms.TimeInput(attrs={'type': 'time', 'max': '19:00'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time', 'max': '18:30'}),
         }
 
     def clean(self):
