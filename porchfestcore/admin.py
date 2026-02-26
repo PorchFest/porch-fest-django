@@ -31,21 +31,36 @@ class HasCoordinatesFilter(admin.SimpleListFilter):
         if self.value() == "no":
             return queryset.filter(coordinates__isnull=True)
         return queryset
+
 class HasInvitationFilter(admin.SimpleListFilter):
-    title = _("Has Invitation")
-    parameter_name  = "has_invitation"
+    title           = _("Invitation Status")
+    parameter_name  = "invitation_status"
 
     def lookups(self, request, model_admin):
-        return(
+        return (
             ("yes", _("Has Invitation")),
             ("no", _("No Invitation")),
+            ("accepted", _("Has Accepted Invitation")),
+            ("not_accepted", _("Has Unaccepted Invitation")),
         )
 
     def queryset(self, request, queryset):
         if self.value() == "yes":
             return queryset.filter(invitations__isnull=False).distinct()
+
         if self.value() == "no":
             return queryset.filter(invitations__isnull=True)
+
+        if self.value() == "accepted":
+            return queryset.filter(
+                invitations__accepted=True
+            ).distinct()
+
+        if self.value() == "not_accepted":
+            return queryset.filter(
+                invitations__accepted=False
+            ).distinct()
+
         return queryset
 
 @admin.register(Porch)
