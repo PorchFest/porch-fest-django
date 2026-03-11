@@ -1,0 +1,51 @@
+@use "../variables" as *;
+
+.page-porch-styles{min-height: calc(100vh - 240px);}
+
+.porch-wrapper{
+    font-family: $font__text;
+    .hero{
+        padding: 1rem;
+        background-color: $color-bg-main;
+        display: flex;
+        justify-content: center;
+        .wrapper{
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            .map{
+                align-self: flex-start;
+                margin-bottom: 1rem;
+                color: black;
+            }
+            .img-wrapper{
+                max-width: 500px;
+                img{max-width: 100%;}
+            }
+            .title{
+                align-self: flex-start;
+                h1{font-family: $font__headers;}
+                h1,p{margin: 0;}
+            }
+        }
+    }
+    .lineup{
+        display: flex;
+        justify-content: center;
+        .wrapper{
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            gap: 1rem;
+            max-width: 500px;
+            .card{
+                border: 1px solid #eaeaea;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                padding: 1rem;
+                min-width: 250px;
+                h2,p{margin: 0;}
+                h2{font-family: $font__headers;}
+            }
+        }
+    }
+}

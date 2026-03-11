@@ -1,0 +1,29 @@
+<div class="porch-wrapper">
+    <div class="hero">
+        <div class="wrapper">
+            {% comment %} <a class="map" href="{% url 'map' %}">< Map</a> {% endcomment %}
+            <div class="img-wrapper">
+                <img src="/media/{{ porch.porch_picture }}" alt="Porch Picture">
+            </div>
+            <div class="title">
+                <h1>{{ porch.name }}</h1>
+                <p>{{ porch.street_address }}</p>
+            </div>
+            <p>{{ porch.description }}</p>
+        </div>
+    </div>
+
+    <div class="lineup">
+        <div class="wrapper">
+            {% for performance in porch.performances.all %}
+                <div class="card">
+                    <h2>{{ performance.performer.name }}</h2>
+                    <p>{{ performance.start_time }} - {{ performance.end_time }}</p>
+                    <p>{{ performance.performer.genre }}</p>
+                </div>
+            {% empty %}
+                <p>No performers scheduled.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>

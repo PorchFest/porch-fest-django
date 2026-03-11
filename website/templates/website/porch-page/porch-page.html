@@ -1,0 +1,7 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %}{{ porch.name }}{% endblock %}
+{% block mainclass %}page-porch-styles{% endblock %}
+{% block content %}
+	{% include "website/porch-page/porch-component.html" %}
+{% endblock %}

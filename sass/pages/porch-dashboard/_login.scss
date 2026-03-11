@@ -26,5 +26,8 @@ main.login{
             font-size: 1.5rem;
             @include button;
         }
+        a{
+            color: $color-link-special ;
+        }
     }
 }
