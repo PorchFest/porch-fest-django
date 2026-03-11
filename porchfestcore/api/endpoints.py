@@ -6,7 +6,7 @@ from .serializers               import PorchesSerializer
 from .filters                   import PorchFilter
 from porchfestcore.models       import Porch
 
-class Porches(ListAPIView):
+class PorchMap(ListAPIView):
     queryset            = Porch.objects.filter(approved=True).distinct()
     serializer_class    = PorchesSerializer
     filterset_class     = PorchFilter

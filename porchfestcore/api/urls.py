@@ -2,5 +2,5 @@ from django.urls    import path
 from .              import endpoints
 
 urlpatterns = [
-    path('porches', endpoints.Porches.as_view(), name='porches'),
+    path('porch-map', endpoints.PorchMap.as_view(), name='porch-map'),
 ]

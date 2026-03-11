@@ -30,7 +30,7 @@ class PorchMap{
 		})
 		this.markers = []
 		try{
-			const response = await axios.get("/api/porches/porches", {
+			const response = await axios.get("/api/porches/porch-map", {
 				params: data
 			})
 			const porches = response.data
