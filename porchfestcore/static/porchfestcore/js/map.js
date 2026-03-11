@@ -1,3 +1,10 @@
+function setVhUnit(){
+	const vh = window.innerHeight * 0.01;
+	document.documentElement.style.setProperty('--vh', `${vh}px`)
+}
+setVhUnit()
+window.addEventListener('resize', setVhUnit)
+
 class PorchMap{
 	constructor(){
 		this.map 		= null
@@ -38,6 +45,7 @@ class PorchMap{
 		}
 	}
 }
+
 const map 	= new PorchMap()
 const form 	= document.getElementById("map_filter")
 map.init()
@@ -47,9 +55,3 @@ form.addEventListener("submit", (e)=>{
 	const values 	= Object.fromEntries(formData.entries())
 	map.buildMarkers(values)
 })
-function setVhUnit(){
-	const vh = window.innerHeight * 0.01;
-	document.documentElement.style.setProperty('--vh', `${vh}px`)
-}
-setVhUnit()
-window.addEventListener('resize', setVhUnit)
