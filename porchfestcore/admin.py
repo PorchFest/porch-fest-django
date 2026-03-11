@@ -66,7 +66,7 @@ class HasInvitationFilter(admin.SimpleListFilter):
 @admin.register(Porch)
 class PorchAdmin(admin.ModelAdmin):
     list_display			= ('name', 'owner_name', 'owner_email', 'street_address', 'created_at',)
-    search_fields 			= ('name', 'city', 'state', 'zip_code', 'country')
+    search_fields 			= ('name', 'owner_name', 'owner_email', 'street_address',)
     list_filter 			= ('approved', 'created_at', HasCoordinatesFilter, HasInvitationFilter)
     formfield_overrides		= {
         models.PointField: {"widget": GoogleMapPointFieldWidget},
