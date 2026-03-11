@@ -4,6 +4,7 @@ from django.contrib.gis.db			import models as gis_models
 from phonenumber_field.modelfields  import PhoneNumberField
 from django.conf 					import settings
 from django.contrib.auth.models		import User
+from django.utils.text              import slugify
 
 class Performer(models.Model):
     class Genre(models.TextChoices):
@@ -68,10 +69,11 @@ class Porch(models.Model):
     approved       		    = models.BooleanField(default=False)
     created_at              = models.DateTimeField(auto_now_add=True)
     original_created_at     = models.DateTimeField(null=True, blank=True)
+    slug                    = models.SlugField(unique=True, blank=True, max_length=255)
 
     def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
         is_approved = False
-
         if not self._state.adding:
             prev = Porch.objects.get(pk=self.pk)
             if not prev.approved and self.approved:
