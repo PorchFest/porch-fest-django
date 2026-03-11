@@ -3,9 +3,12 @@ certifi==2026.1.4
 charset-normalizer==3.4.4
 Django==5.2.4
 django-anymail==14.0
+django-filter==25.2
 django-map-widgets==0.5.1
 django-phonenumber-field==8.4.0
 django-recaptcha==4.1.0
+djangorestframework==3.16.1
+djangorestframework-gis==1.2.0
 git-filter-repo==2.47.0
 idna==3.11
 phonenumberslite==9.0.22
