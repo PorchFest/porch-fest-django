@@ -16,14 +16,23 @@
 		<script src="https://unpkg.com/alpinejs" defer></script>
     	<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<link rel="stylesheet" href="{% static 'porchfestcore/style.css' %}">
+		{% comment %} <link rel="stylesheet" href="{% static 'porchfestcore/style.css' %}"> {% endcomment %}
+		<link rel="stylesheet" href="{% static "css/style.css" %}">
+		<style>
+			body, html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="root" x-data="{open: false}">
 			<div class="map-header">
 				<i class="fas fa-home"></i>
 				<a href="https://fresnoschoolwatch.com" target="_blank" class="header-ad"><img src="" alt=""></a>
-				<i class="fas fa-bars" id="map_menu_btn" @click="open = true"></i>
+				<i class="fas fa-bars" @click="open = true"></i>
 			</div>
 			<div id="map"></div>
 			<div class="menu" x-show="open" x-transition>
@@ -75,6 +84,12 @@
 						<input type="button" value="Reset" id="reset_filter">
 					</div>
 				</form>
+			</div>
+			<div class="porch-modal" x-data x-show="$store.porch.open" x-transition>
+				<header>
+					<i class="fas fa-times-circle" @click="$store.porch.open = false"></i>
+				</header>
+				<div x-html="$store.porch.content"></div>
 			</div>
 		</div>
 		{{ porches|json_script:"porches-data" }}

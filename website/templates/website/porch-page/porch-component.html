@@ -2,9 +2,11 @@
     <div class="hero">
         <div class="wrapper">
             {% comment %} <a class="map" href="{% url 'map' %}">< Map</a> {% endcomment %}
-            <div class="img-wrapper">
-                <img src="/media/{{ porch.porch_picture }}" alt="Porch Picture">
-            </div>
+            {% if porch.porch_picture %}
+                <div class="img-wrapper">
+                    <img src="/media/{{ porch.porch_picture }}" alt="Porch Picture">
+                </div>
+            {% endif %}
             <div class="title">
                 <h1>{{ porch.name }}</h1>
                 <p>{{ porch.street_address }}</p>

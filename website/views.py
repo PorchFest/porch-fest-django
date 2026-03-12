@@ -70,6 +70,8 @@ def porch_list_signup(request):
 
 def porch_page(request, slug):
     porch = get_object_or_404(Porch, slug=slug)
+    if request.headers.get("HX-Request"):
+        return render(request, 'website/porch-page/porch-component.html', {"porch": porch})
     return render(request, 'website/porch-page/porch-page.html', {"porch": porch})
 
 def about(request):

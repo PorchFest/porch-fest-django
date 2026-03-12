@@ -37,6 +37,9 @@ class PorchMap{
 			porches.features.forEach(porch=>{
 				const [lon, lat] = porch.geometry.coordinates
 				const marker = L.marker([lat, lon]).addTo(this.map)
+				marker.on("click", e=>{
+					this.loadPorch(porch.properties.slug)
+				})
 				this.markers.push(marker)
 			})
 		}catch(error){
@@ -44,7 +47,27 @@ class PorchMap{
 			return null
 		}
 	}
+	async loadPorch(slug){
+		try{
+			const response = await axios.get(`/porches/${slug}`, {
+				headers: {
+					"HX-Request": "true"
+				}
+			})
+			Alpine.store("porch").content 	= response.data
+			Alpine.store("porch").open 		= true
+		}
+		catch(error){
+			console.error("Error loading porch:", error)
+		}
+	}
 }
+document.addEventListener("alpine:init", ()=>{
+	Alpine.store("porch", {
+		open: false,
+		content: ""
+	})
+})
 
 const map 	= new PorchMap()
 const form 	= document.getElementById("map_filter")
