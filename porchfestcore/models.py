@@ -5,6 +5,8 @@ from phonenumber_field.modelfields  import PhoneNumberField
 from django.conf 					import settings
 from django.contrib.auth.models		import User
 from django.utils.text              import slugify
+from django.template.loader         import render_to_string
+from django.core.mail               import EmailMessage
 
 class Performer(models.Model):
     class Genre(models.TextChoices):
