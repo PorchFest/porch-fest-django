@@ -113,3 +113,6 @@ document.getElementById("reset_filter").addEventListener("click", ()=>{
 	form.reset()
 	map.buildMarkers()
 })
+document.getElementById("home_icon").addEventListener("click", ()=>{
+	window.location.href = "/"
+})
