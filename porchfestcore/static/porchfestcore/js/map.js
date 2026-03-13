@@ -86,6 +86,8 @@ form.addEventListener("submit", (e)=>{
 		})
 		values.after = time
 	}
+	if(values.sponsored)values.sponsored 	= true
+	if(values.vendor)values.vendor			= true
 	map.buildMarkers(values)
 })
 

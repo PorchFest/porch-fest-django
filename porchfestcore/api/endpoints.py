@@ -22,7 +22,6 @@ class PorchMap(ListAPIView):
             }
             qs = filterset.qs
             if active_filters:
-                print(active_filters)
                 performance_filters = {}
                 if "genre" in active_filters:
                     performance_filters["performer__genre__iexact"] = active_filters["genre"]
