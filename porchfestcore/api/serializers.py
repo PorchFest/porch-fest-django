@@ -6,4 +6,4 @@ class PorchMapSerializer(GeoFeatureModelSerializer):
     class Meta:
         model       = Porch
         geo_field   = "coordinates"
-        fields      = ("slug", "coordinates",)
+        fields      = ("slug", "coordinates", "performances",)
