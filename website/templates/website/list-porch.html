@@ -1,0 +1,14 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %}Porches{% endblock %}
+{% block mainclass %}list-porch-styles{% endblock %}
+{% block content %}
+	{% for porch in porches %}
+        <div class="porch-card">
+            <a href="{% url 'porch_page' porch.slug %}">
+                <h2>{{ porch.name }}</h2>
+                <p>{{ porch.description|truncatechars:100 }}</p>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}
