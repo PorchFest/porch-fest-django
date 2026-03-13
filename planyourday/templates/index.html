@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-J1XM2TE7QX"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-J1XM2TE7QX");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan Your Day</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/static/images/favicon.png"
+    />
+    <script
+      src="https://kit.fontawesome.com/aebdbe8212.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <style>
+    main.planyourday {
+        margin: 1rem;
+        gap: 1rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "filters"
+          "performances"
+          "itinerary";
+        font-family: "Open Sans", sans-serif;
+    }
+    @media screen and (min-width: 900px) {
+        main.planyourday {
+          grid-template-columns: 1fr 2fr 1fr;
+          grid-template-areas: "filters performances itinerary";
+        }
+    }
+    .filters {
+        grid-area: filters;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .performances {
+        grid-area: performances;
+    }
+    .itinerary {
+        grid-area: itinerary;
+    }
+    input{
+        max-width: 100%;
+    }
+    .overflow-hidden{
+        overflow: hidden;
+    }
+    .border{
+        border: solid 1px #777777;
+    }
+    .border-none{
+        border: none;
+    }
+    .border-top-1{
+        border-top: solid 1px #777777;
+    }
+    .border-bottom-1{
+        border-bottom: solid 1px #777777;
+    }
+    .border-y-1{
+        border-top: solid 1px #777777;
+        border-bottom: solid 1px #777777;
+    }
+    .border-x-1{
+        border-left: solid 1px #777777;
+        border-right: solid 1px #777777;
+    }
+    .border-ghost{
+        border: solid 1px #EEEEEE;
+    }
+    .border-light{
+        border: solid 1px #777777;
+    }
+    .background-white {
+        background-color: #FFFFFF;
+    }
+    .background-light {
+        background-color: #EEEEEE;
+    }
+    .background-yellow {
+        background-color: #f2b814;
+    }
+    .inline-block {
+        display: inline-block;
+    }
+    .row{
+        display: flex;
+    }
+    .column{
+        display: flex;
+        flex-direction: column;
+    }
+    .gutter-1{
+        gap: 0.2rem;
+    }
+    .gutter-2{
+        gap: 0.5em;
+    }
+    .gutter-3{
+        gap: 1em;
+    }
+    .row.gutter-3{
+        margin: -1rem;
+    }
+    .col-6{
+        width: 50%;
+    }
+    .col-12{
+        width: 100%;
+    }
+    .grow-1{
+        flex-grow: 1;
+    }
+    .tiny{
+        font-size: 0.7rem;
+    }
+    .small{
+        font-size: 0.85rem;
+    }
+    .nowrap{
+        white-space: nowrap;
+    }
+    .width-100{
+        width: 100%;
+    }
+    .margin-0{
+        margin: 0;
+    }
+    .margin-1{
+        margin: 0.2rem;
+    }
+    .margin-2{
+        margin: 0.5rem;
+    }
+    .margin-3{
+        margin: 1rem;
+    }
+    .margin-y-0{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .margin-y-1{
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
+    }
+    .margin-y-2{
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .margin-y-3{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .margin-bottom-0{
+        margin-bottom: 0;
+    }
+    .margin-bottom-1{
+        margin-bottom: 0.2rem;
+    }
+    .margin-bottom-2{
+        margin-bottom: 0.5rem;
+    }
+    .margin-bottom-3{
+        margin-bottom: 1rem;
+    }
+    .padding-y-0{
+        padding: 0;
+    }
+    .padding-1{
+        padding: 0.2rem;
+    }
+    .padding-2{
+        padding: 0.5rem;
+    }
+    .padding-3{
+        padding: 1rem;
+    }
+    .padding-4{
+        padding: 2rem;
+    }
+    .padding-y-0{
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .padding-y-1{
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+    }
+    .padding-y-2{
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    .padding-y-3{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .padding-x-0{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .padding-x-1{
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+    }
+    .padding-x-2{
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .padding-x-3{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .round{
+        border-radius: 50%;
+    }
+    .rounded-0{
+        border-radius: 0.2rem;
+    }
+    .rounded,.rounded-1{
+        border-radius: 0.2rem;
+    }
+    .rounded-2{
+        border-radius: 0.5rem;
+    }
+    .rounded-3{
+        border-radius: 1rem;
+    }
+    .chip {
+        border-radius: 0.5rem;
+        color: black;
+        display: inline-block;
+    }
+    button {
+        padding: 8px 10px 10px 10px;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        text-decoration: none;
+    }
+    button.default {
+        background-color: #6f91a5;
+        color: #FFF;
+    }
+    button.white {
+        background-color: #FFFFFF;
+        border: none;
+        color: #000;
+    }
+    button.yellow {
+        background-color: #f2b814;
+        border: none;
+        color: #000;
+    }
+    button.small {
+        font-size: 0.85rem;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="mobile-menu hidden" id="mobile_menu">
+      <a href="#close" class="mobile-close" id="mobile_close">Close</a>
+      <nav>
+        <ul class="main-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">FAQ</a></li>
+          <li><a href="/porch-signup/">Porch Signups</a></li>
+          <li><a href="/volunteer/">Volunteer</a></li>
+          <li><a href="/sponsorship/">Sponsorship</a></li>
+          <li><a href="/donate/">Donate</a></li>
+        </ul>
+      </nav>
+    </div>
+    <header class="main-header">
+      <nav>
+        <ul class="main-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">FAQ</a></li>
+          <li><a href="/porch-signup/">Porch Signups</a></li>
+          <li><a href="/volunteer/">Volunteer</a></li>
+          <li><a href="/sponsorship/">Sponsorship</a></li>
+          <li><a href="/donate/">Donate</a></li>
+        </ul>
+        <a href="#menu" class="mobile-menu-btn" id="mobile_toggle">Menu</a>
+      </nav>
+      <div class="login-section">
+        <a href="/dashboard/login/">Login</a>
+      </div>
+    </header>
+    <main class="planyourday">
+      <div class="filters border-ghost rounded-2 padding-3">
+        <div>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search" />
+        </div>
+        <div class="timerange">
+          <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4>
+          <div class="row gutter-2 margin-y-2">
+            <div class="col-6">
+                <label>
+                    <small>Start Time</small><br />
+                    <input type="time" name="starttime" />
+                </label>
+            </div>
+            <div class="col-6">
+                <label>
+                <small>End Time</small><br />
+                    <input type="time" name="endtime" />
+                </label>
+            </div>
+          </div>
+        </div>
+        <div class="genres">
+          <h4 class="margin-0">Genres</h4>
+          <div class="margin-y-2">
+            <span class="chip background-yellow small padding-2 margin-y-1">Accoustic</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Americana</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Country</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">DJ</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Dance/Electric/House</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Folk</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Hip-Hop/Rap</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Indie</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Jazz</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Pop</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Punk</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Rock</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Singer Songwriter</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Ska</span>
+            <span class="chip background-yellow small padding-2 margin-y-1">Yoga</span>
+          </div>
+        </div>
+        <div class"additionalfilters">
+            <h4 class="margin-0">Additional Filters</h4>
+            <div class="margin-y-2">
+                <div><label><input type="checkbox" name="food-available"> Food available</label></div>
+                <div><label><input type="checkbox" name="kid-friendly"> Kid Friendly</label></div>
+            </div>
+        </div>
+        <button class="small yellow">Reset Filters</button>
+      </div>
+      <div class="performances border-ghost rounded-2 padding-3">
+        <div class="row width-100">
+            <h4 class="margin-0 grow-1">Performances</h4>
+            <p class="margin-0">29 results</p>
+        </div>
+        <div class="rounded-2 border-light margin-y-2 overflow-hidden">
+            <div class="background-light padding-2">
+                <small><i class="fa-regular fa-clock"></i> 10:00 AM</small>
+            </div>
+            <div class="row gutter-2 padding-2 border-bottom-1">
+                <div class="col grow-1">
+                    <div class="column gutter-1">
+                        <h4 class="margin-0">Call Me James</h4>
+                        <div>Great Porch!</div>
+                        <div>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Folk</span>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Indie</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="small round background-yellow border-none padding-2 inline-block"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="row gutter-2 padding-2">
+                <div class="col grow-1">
+                    <div class="column gutter-1">
+                        <h4 class="margin-0">GypsyBeanYoga</h4>
+                        <div>The Gypsy Porch</div>
+                        <div>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Yoga</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="small round background-light border-none padding-2 inline-block"><i class="fa-solid fa-check"></i></button>
+                </div>
+            </div>
+            <div class="background-light padding-2">
+                <small><i class="fa-regular fa-clock"></i> 11:00 AM</small>
+            </div>
+            <div class="row gutter-2 padding-2 border-bottom-1">
+                <div class="col grow-1">
+                    <div class="column gutter-1">
+                        <h4 class="margin-0">Manny Kelsey</h4>
+                        <div>The Gypsy Porch</div>
+                        <div>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Country</span>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Folk</span>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Indie</span>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Singer Songwriter</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="small round background-light border-none padding-2 inline-block"><i class="fa-solid fa-check"></i></button>
+                </div>
+            </div>
+            <div class="background-light padding-2">
+                <small><i class="fa-regular fa-clock"></i> 11:15 AM</small>
+            </div>
+            <div class="row gutter-2 padding-2 border-bottom-1">
+                <div class="col grow-1">
+                    <div class="column gutter-1">
+                        <h4 class="margin-0">Private Tears</h4>
+                        <div>Great Porch!</div>
+                        <div>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Rock</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="small round background-light border-none padding-2 inline-block"><i class="fa-solid fa-check"></i></button>
+                </div>
+            </div>
+            <div class="background-light padding-2">
+                <small><i class="fa-regular fa-clock"></i> 11:30 AM</small>
+            </div>
+            <div class="row gutter-2 padding-2 border-bottom-1">
+                <div class="col grow-1">
+                    <div class="column gutter-1">
+                        <h4 class="margin-0">Nas</h4>
+                        <div>The Gypsy Porch</div>
+                        <div>
+                            <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Accoustic</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="small round background-yellow border-none padding-2 inline-block"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="itinerary border-ghost rounded-2 padding-3">
+        <div class="row gutter-2 width-100">
+            <h4 class="margin-0 margin-y-1 grow-1">My Itinerary</h4>
+            <button class="small ghost padding-2"><i class="fa-solid fa-share-nodes"></i></button>
+            <button class="small ghost padding-2"><i class="fa-regular fa-calendar"></i></button>
+            <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+        </div>
+        <div class="column border rounded-2 margin-y-3">
+            <div class="padding-2 border-bottom-1 margin-bottom-2">
+                <div class="row gutter-2 width-100">
+                    <h5 class="margin-0 padding-1 grow-1">GypsyBeanYoga</h5>
+                    <button class="small ghost padding-1"><i class="fa-regular fa-calendar"></i></button>
+                    <button class="small ghost padding-1"><i class="fa-regular fa-trash-can"></i></button>
+                </div>
+                <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 10:00 AM - 10:30 AM</small></p>
+                <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</small></p>
+            </div>
+            <div class="padding-2 border-bottom-1 margin-bottom-2">
+                <div class="row gutter-2 width-100">
+                    <h5 class="margin-0 padding-1 grow-1">Many Kelsey</h5>
+                    <button class="small ghost padding-1"><i class="fa-regular fa-calendar"></i></button>
+                    <button class="small ghost padding-1"><i class="fa-regular fa-trash-can"></i></button>
+                </div>
+                <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 11:00 AM - 11:30 AM</small></p>
+                <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</small></p>
+            </div>
+            <div class="padding-2">
+                <div class="row gutter-2 width-100">
+                    <h5 class="margin-0 padding-1 grow-1">Private Tears</h5>
+                    <button class="small ghost padding-1"><i class="fa-regular fa-calendar"></i></button>
+                    <button class="small ghost padding-1"><i class="fa-regular fa-trash-can"></i></button>
+                </div>
+                <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 11:15 AM - 12:00 PM</small></p>
+                <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> Great Porch!</small></p>
+            </div>
+        </div>
+        <div class="background-light rounded-2 padding-2">
+            <h5 class="margin-0 margin-bottom-2">Export Your Itinerary</h5>
+            <button class="background-white border-light small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Download .ics file</button>
+            <button class="background-white border-light small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Google Calendar</button>
+            <button class="background-white border-light small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Apple/Outlook</button>
+            <button class="background-white border-light small padding-y-1 margin-y-1"><i class="fa-solid fa-download"></i> Export CSV</button>
+            <button class="background-white border-light small padding-y-1 margin-y-1"><i class="fa-solid fa-print"></i> Print</button>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <h1>Tower Porchfest</h1>
+      <div class="socials">
+        <a href="https://instagram.com/towerporchfest" target="_blank">
+          <i role="link" class="fab fa-instagram fa-xl" aria-hidden="true"></i>
+        </a>
+        <a href="https://facebook.com/towerporchfest" target="_blank">
+          <i role="link" class="fab fa-facebook-f fa-xl" aria-hidden="true"></i>
+        </a>
+      </div>
+    </footer>
+    <script src="/static/website/js/mobile-menu.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+  </body>
+</html>
