@@ -1,30 +1,4 @@
-@font-face {
-  font-family: 'Antonio';
-  src: url('/static/website/fonts/Antonio-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-stretch: 75% 125%;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Open Sans Italic';
-  src: url('/static/website/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-stretch: 75% 125%;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  src: url('/static/website/fonts/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-stretch: 75% 125%;
-  font-style: normal;
-}
-/* $font__headers: "Antonio", sans-serif;
-$font__text: "Open Sans", sans-serif; */
-
-
+@use "../variables" as *;
 
 :root {
 	--vh: 100%;
@@ -80,7 +54,7 @@ $font__text: "Open Sans", sans-serif; */
 	background-color: black;
 	color: white;
 
-	font-family: "Open Sans", sans-serif;
+	font-family: $font__text;
 
 	#close_menu{
 		align-self: end;
@@ -93,6 +67,15 @@ $font__text: "Open Sans", sans-serif; */
 .porch-modal{
 	overflow-y: auto;
     background-color: white;
+
+    header{
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+        font-size: 1.5rem;
+        background-color: $color-bg-main;
+        .fas{cursor:pointer;}
+    }
 }
 
 #map_filter{

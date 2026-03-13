@@ -44,8 +44,8 @@
 							<input type="text" name="search" id="filter_search">
 						</div>
 						<div class="filter-time filter">
-							<label for="time">Time:</label>
-							<input type="time" name="time" id="filter_time">
+							<label for="after">Time:</label>
+							<input type="time" name="after" id="filter_time">
 						</div>
 						<div class="filter-now filter">
 							<label for="now_time">Playing Now:</label>
@@ -68,7 +68,7 @@
 						<div class="filter-genre filter">
 							<label for="genre">Genre:</label>
 							<select name="genre" id="filter_genre">
-								<option selected value="none">none</option>
+								<option selected value="">Any</option>
 								{% for value, label in genres %}
 									<option value="{{ value }}">{{ label }}</option>
 								{% endfor %}
@@ -81,7 +81,7 @@
 					</div>
 					<div class="filter-submit">
 						<input type="submit" value="Filter" @click="open = false">
-						<input type="button" value="Reset" id="reset_filter">
+						<input type="button" value="Reset" id="reset_filter" @click="open = false">
 					</div>
 				</form>
 			</div>
@@ -92,7 +92,6 @@
 				<div x-html="$store.porch.content"></div>
 			</div>
 		</div>
-		{{ porches|json_script:"porches-data" }}
 		<script src="{% static 'porchfestcore/js/map.js' %}"></script>
 	</body>
 </html>
