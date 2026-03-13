@@ -31,6 +31,22 @@ class HasCoordinatesFilter(admin.SimpleListFilter):
         if self.value() == "no":
             return queryset.filter(coordinates__isnull=True)
         return queryset
+class HasPerformancesFilter(admin.SimpleListFilter):
+    title = _("Performances")
+    parameter_name  = "has_performances"
+
+    def lookups(self, request, model_admin):
+        return(
+            ("yes", _("Has Performances")),
+            ("no", _("No Performances")),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == "yes":
+            return queryset.filter(performances__isnull=False).distinct()
+        if self.value() == "no":
+            return queryset.filter(performances__isnull=True)
+        return queryset
 
 class HasInvitationFilter(admin.SimpleListFilter):
     title           = _("Invitation Status")
@@ -67,7 +83,7 @@ class HasInvitationFilter(admin.SimpleListFilter):
 class PorchAdmin(admin.ModelAdmin):
     list_display			= ('name', 'owner_name', 'owner_email', 'street_address', 'created_at',)
     search_fields 			= ('name', 'owner_name', 'owner_email', 'street_address',)
-    list_filter 			= ('approved', 'created_at', HasCoordinatesFilter, HasInvitationFilter)
+    list_filter 			= ('approved', 'created_at', HasCoordinatesFilter, HasInvitationFilter, HasPerformancesFilter)
     formfield_overrides		= {
         models.PointField: {"widget": GoogleMapPointFieldWidget},
     }
