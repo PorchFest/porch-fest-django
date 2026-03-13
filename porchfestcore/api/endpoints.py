@@ -7,7 +7,6 @@ from .filters                   import PorchMapFilter
 from porchfestcore.models       import Porch, Performance
 from django.db.models import Prefetch
 
-
 class PorchMap(ListAPIView):
     filterset_class     = PorchMapFilter
     serializer_class    = PorchMapSerializer
@@ -29,7 +28,8 @@ class PorchMap(ListAPIView):
                     performance_filters["start_time__gte"]          = active_filters["after"]
                 if "search" in active_filters:
                     performance_filters["performer__name__icontains"] = active_filters["search"]
-                performance_qs = Performance.objects.filter(**performance_filters)
+                if performance_filters:
+                    performance_qs = Performance.objects.filter(**performance_filters)
         qs = qs.prefetch_related(
             Prefetch("performances", queryset=performance_qs)
         )
