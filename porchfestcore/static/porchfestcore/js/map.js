@@ -21,7 +21,6 @@ class PorchMap{
 			attributionControl: false,
 			zoomControl: false
 		}).setView(this.center, 16)
-
 		L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(this.map)
 	}
 	async buildMarkers(data){
@@ -35,10 +34,10 @@ class PorchMap{
 			})
 			const porches = response.data
 			porches.features.forEach(porch=>{
-				const [lon, lat] = porch.geometry.coordinates
-				const marker = L.marker([lat, lon]).addTo(this.map)
+				const [lon, lat] 	= porch.geometry.coordinates
+				const marker 		= L.marker([lat, lon]).addTo(this.map)
 				marker.on("click", e=>{
-					this.loadPorch(porch.properties.slug)
+					this.loadPorch(porch)
 				})
 				this.markers.push(marker)
 			})
@@ -47,11 +46,14 @@ class PorchMap{
 			return null
 		}
 	}
-	async loadPorch(slug){
+	async loadPorch(porch){
 		try{
-			const response = await axios.get(`/porches/${slug}`, {
+			const response = await axios.get(`/porches/${porch.properties.slug}`, {
 				headers: {
 					"HX-Request": "true"
+				},
+				params: {
+					performances: porch.properties.performances.join(",")
 				}
 			})
 			Alpine.store("porch").content 	= response.data
@@ -76,5 +78,18 @@ form.addEventListener("submit", (e)=>{
 	e.preventDefault()
 	const formData 	= new FormData(form)
 	const values 	= Object.fromEntries(formData.entries())
+	if(values.now_time){
+		const time = new Date().toLocaleTimeString([], {
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false
+		})
+		values.after = time
+	}
 	map.buildMarkers(values)
+})
+
+document.getElementById("reset_filter").addEventListener("click", ()=>{
+	form.reset()
+	map.buildMarkers()
 })
