@@ -2,7 +2,7 @@ from django.shortcuts 		import render, get_object_or_404
 from django.views.generic 	import TemplateView
 from .forms					import PorchInterestForm, PorchSignupForm
 from .models				import Sponsor
-from porchfestcore.models   import TempUpload, Porch
+from porchfestcore.models   import TempUpload, Porch, Performance
 from pathlib                import Path
 from django.core.files.base import ContentFile
 from django.core.mail       import EmailMessage
@@ -71,8 +71,15 @@ def porch_list_signup(request):
 def porch_page(request, slug):
     porch = get_object_or_404(Porch, slug=slug)
     if request.headers.get("HX-Request"):
+        performances = request.GET.get("performances")
+        if performances:
+            performances = Performance.objects.filter(id__in=performances.split(","))
+            return render(request, 'website/porch-page/porch-component.html', {"porch": porch,"performances": performances})
         return render(request, 'website/porch-page/porch-component.html', {"porch": porch})
     return render(request, 'website/porch-page/porch-page.html', {"porch": porch})
+def list_porch(request):
+    porches = Porch.objects.filter(approved=True).order_by("name")
+    return render(request, 'website/list-porch.html', {"porches": porches})
 
 def about(request):
     return render(request, 'website/about.html')
