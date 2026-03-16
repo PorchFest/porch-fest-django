@@ -1,11 +1,8 @@
 from rest_framework.generics    import ListAPIView
-from rest_framework.views       import APIView
-from rest_framework.response    import Response
-from django.http                import JsonResponse
 from .serializers               import PorchMapSerializer
 from .filters                   import PorchMapFilter
 from porchfestcore.models       import Porch, Performance
-from django.db.models import Prefetch
+from django.db.models           import Prefetch
 
 class PorchMap(ListAPIView):
     filterset_class     = PorchMapFilter
