@@ -32,7 +32,10 @@ class PorchMap{
 			attributionControl: false,
 			zoomControl: false
 		}).setView(this.center, 16)
-		L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(this.map)
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; OpenStreetMap contributors',
+			crossOrigin: true
+		}).addTo(this.map)
 	}
 	async buildMarkers(data){
 		this.markers.forEach(marker=>{
