@@ -2,6 +2,8 @@
 @use "sass:color";
 
 main.plan-your-day {
+    // min-height: calc(var(--vh, 1vh) * 100);
+    min-height: calc(100vh - 240px);
     background-color: $color-bg-main;
     padding: 1rem;
     gap: 1rem;
@@ -11,7 +13,8 @@ main.plan-your-day {
         "filters"
         "performances"
         "itinerary";
-    font-family: "Open Sans", sans-serif;
+
+    font-family: $font__text;
 
     @media screen and (min-width: 900px) {
         grid-template-columns: 1fr 2fr 1fr;

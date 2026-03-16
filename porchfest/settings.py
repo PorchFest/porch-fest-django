@@ -26,6 +26,7 @@ INSTALLED_APPS = [
 	'porchfestcore',
 	'website',
     'porchpanel',
+    'planyourday',
     'anymail',
     'rest_framework',
     'rest_framework_gis',
