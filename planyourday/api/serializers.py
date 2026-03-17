@@ -16,7 +16,7 @@ class PerformanceSerializer(serializers.ModelSerializer):
     performer = PerformerSerializer()
     class Meta:
         model       = Performance
-        fields      = ("performer", "porch", "start_time", "end_time")
+        fields      = ("id", "performer", "porch", "start_time", "end_time")
 
 
 
