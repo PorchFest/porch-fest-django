@@ -8,6 +8,10 @@
 	height: calc(var(--vh, 1vh) * 100);
 }
 
+.porch-marker{
+    height: 40px;
+}
+
 .map-header{
 	position: absolute;
 	z-index: 2000;

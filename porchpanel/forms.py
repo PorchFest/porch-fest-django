@@ -39,8 +39,8 @@ class PerformanceFormDashboard(forms.ModelForm):
         model   = Performance
         fields  = ['performer', 'start_time', 'end_time']
         widgets = {
-            'start_time': forms.TimeInput(attrs={'type': 'time', 'min': '10:00'}),
-            'end_time': forms.TimeInput(attrs={'type': 'time', 'max': '18:30'}),
+            'start_time': forms.TimeInput(attrs={'type': 'time', 'min': '10:00', 'max': '18:30'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time', 'max': '19:00'}),
         }
 
     def clean(self):

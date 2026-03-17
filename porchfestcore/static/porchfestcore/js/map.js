@@ -7,9 +7,20 @@ window.addEventListener('resize', setVhUnit)
 
 class PorchMap{
 	constructor(){
-		this.map 		= null
-		this.markers 	= null
-		this.center 	= [36.7639, -119.8]
+		this.map 			= null
+		this.markers 		= null
+		this.activeMarker 	= null
+		this.center 		= [36.7639, -119.8]
+		this.icon 			= L.icon({
+			iconUrl: "/static/porchfestcore/images/glyph.svg",
+			className: "porch-marker",
+			iconAnchor:	[15, 40],
+		})
+		this.activeIcon 	= L.icon({
+			iconUrl: "/static/porchfestcore/images/glyph-active.svg",
+			className: "porch-marker active",
+			iconAnchor:	[15, 40],
+		})
 	}
 	async init(){
 		this.markers = []
@@ -21,7 +32,10 @@ class PorchMap{
 			attributionControl: false,
 			zoomControl: false
 		}).setView(this.center, 16)
-		L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(this.map)
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; OpenStreetMap contributors',
+			crossOrigin: true
+		}).addTo(this.map)
 	}
 	async buildMarkers(data){
 		this.markers.forEach(marker=>{
@@ -35,9 +49,17 @@ class PorchMap{
 			const porches = response.data
 			porches.features.forEach(porch=>{
 				const [lon, lat] 	= porch.geometry.coordinates
-				const marker 		= L.marker([lat, lon]).addTo(this.map)
+				const marker 		= L.marker([lat, lon], {
+					icon: this.icon
+				}).addTo(this.map)
 				marker.on("click", e=>{
 					this.loadPorch(porch)
+					if(this.activeMarker){
+						this.activeMarker.setIcon(this.icon)
+					}
+					marker.setIcon(this.activeIcon)
+					this.activeMarker = marker
+					this.map.panTo([lat, lon])
 				})
 				this.markers.push(marker)
 			})
@@ -86,10 +108,14 @@ form.addEventListener("submit", (e)=>{
 		})
 		values.after = time
 	}
+	if(values.sponsored)values.sponsored 	= true
+	if(values.vendor)values.vendor			= true
 	map.buildMarkers(values)
 })
-
 document.getElementById("reset_filter").addEventListener("click", ()=>{
 	form.reset()
 	map.buildMarkers()
+})
+document.getElementById("home_icon").addEventListener("click", ()=>{
+	window.location.href = "/"
 })

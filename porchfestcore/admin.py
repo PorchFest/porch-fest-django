@@ -130,8 +130,5 @@ class PerformanceAdmin(admin.ModelAdmin):
 @admin.register(Performer)
 class PerformerAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_by',)
-    # search_fields = ('name', 'genre')
-    # list_filter = ('genre', 'created_at')
-    # ordering = ('-created_at',)
 admin.site.register(Request)
 admin.site.register(TempUpload)
