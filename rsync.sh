@@ -54,6 +54,15 @@ EOF
 	fi
 }
 
+deploypyd(){
+	DRY=""
+    if [ "$1" = "--dry" ]; then
+        DRY="n"
+		echo "DRY DEPLOY"
+    fi
+	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' planyourday/ porchfest:/home/django/porchfest/planyourday/
+}
+
 deploydash(){
 	DRY=""
     if [ "$1" = "--dry" ]; then
@@ -90,6 +99,9 @@ elif [ "$1" == "deploystatic" ]; then
 elif [ "$1" == "deploydash" ]; then
 	shift
 	deploydash "$@"
+elif [ "$1" == "deploypyd" ]; then
+	shift
+	deploypyd "$@"
 elif [ "$1" == "deploycore" ]; then
 	shift
 	deploycore "$@"
