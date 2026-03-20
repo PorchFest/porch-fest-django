@@ -33,19 +33,12 @@ def index(request):
 #     style="width: 100px;height: 100px;background-color: blue;color: white;"
 #     hx-post="http://localhost:8300/plan-your-day/add-performance"
 #     hx-trigger="click"
-#     hx-target="#main_target"
 #     hx-vals='{"performance_id": "83460f22-298a-47d0-8d94-1503060aa7bf"}'
 #     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
 # >
 #     click here
 # </div>
-# <div id="main_target">
-
-# </div>
-
-# <div id="itinerary_sidebar">
-
-# </div>
+# <div id="itinerary_sidebar"></div>
 
 class PerformancesListView(ListView):
     template_name       = 'planyourday/performance-list.html'
