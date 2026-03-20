@@ -1,0 +1,18 @@
+<div class="row gutter-2 padding-2 border-bottom-1" hx-swap-oob="false">
+    <div class="col grow-1">
+        <div class="column gutter-1">
+            <h4 class="margin-0">{{ performance.performer.name }}</h4>
+            <div class="small"><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</div>
+            <div>
+                <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">{{ performance.performer.genre }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <button class="small round yellow border-none padding-2 inline-block"><i class="fa-solid fa-plus"></i></button>
+    </div>
+</div>
+
+<div id="itinerary_sidebar" hx-swap-oob="true">
+    {% include "planyourday/itinerary-list.html" %}
+</div>

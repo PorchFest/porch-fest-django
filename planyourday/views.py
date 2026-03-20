@@ -20,6 +20,8 @@ def index(request):
 # /plan-your-day/add-performance/740897a5-0765-4056-8336-fda6842ffdb2 (itinerary id)
 # With a body/form data {performance_id: 94747a76-72d5-4ac9-8f50-99a0e624f1bb}
 
+# I added some more stuff so that we can eventually update the itinerary when a performance gets added (or removed :P) I'm commiting the html files so that the idea makes sense
+
 class PerformancesListView(ListView):
     template_name = 'planyourday/performance-list.html'
     context_object_name = 'performances'
@@ -44,7 +46,7 @@ def add_performance(request, itinerary_id):
 
     context = {
         "performance": performance,
-        "itinerary": itinerary,
+        "itinerary": itinerary.ordered_performances(),
     }
 
     return render(request, "planyourday/performance-detail.html", context)
