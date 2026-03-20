@@ -1,15 +1,15 @@
-# from rest_framework.generics    import ListAPIView
+from rest_framework.generics    import ListAPIView
 from django.http import JsonResponse
-# from .serializers               import PerformanceSerializer
-# from .filters                   import PerformanceFilter
-# from porchfestcore.models       import Performance
+from .serializers               import PerformanceSerializer
+from .filters                   import PerformanceFilter
+from porchfestcore.models       import Performance
 from planyourday.models         import Itinerary
 # from django.views.decorators.csrf import csrf_exempt
 
-# class Performances(ListAPIView):
-#     queryset            = Performance.objects.filter(porch__approved=True).distinct()
-#     filterset_class     = PerformanceFilter
-#     serializer_class    = PerformanceSerializer
+class Performances(ListAPIView):
+    queryset            = Performance.objects.filter(porch__approved=True).distinct()
+    filterset_class     = PerformanceFilter
+    serializer_class    = PerformanceSerializer
 
 def create_itinerary(request):
     itinerary = Itinerary.objects.create()
