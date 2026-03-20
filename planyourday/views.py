@@ -4,7 +4,7 @@ from porchfestcore.models       import Performance
 from planyourday.api.filters    import PerformanceFilter
 from planyourday.models         import Itinerary
 
-def index(request):
+def plan_your_day(request):
     performances    = Performance.objects.filter(porch__approved=True).distinct()
     itinerary       = get_or_create_itinerary(request)
     return render(request, 'planyourday/index.html', {'performances': performances, 'itinerary': itinerary.ordered_performances()})
