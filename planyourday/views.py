@@ -3,12 +3,10 @@ from django.views.generic       import ListView
 from porchfestcore.models       import Performance
 from planyourday.api.filters    import PerformanceFilter
 from planyourday.models         import Itinerary
-# remove from production:
-from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
-    performances = Performance.objects.filter(porch__approved=True).distinct()
-    itinerary = get_or_create_itinerary(request)
+    performances    = Performance.objects.filter(porch__approved=True).distinct()
+    itinerary       = get_or_create_itinerary(request)
     return render(request, 'planyourday/index.html', {'performances': performances, 'itinerary': itinerary.ordered_performances()})
 
 # Notes for rebuilt performances view with add to itinerary logic
@@ -33,10 +31,11 @@ def index(request):
 
 # <div
 #     style="width: 100px;height: 100px;background-color: blue;color: white;"
-#     hx-post="http://localhost:8300/plan-your-day/remove-performance"
+#     hx-post="http://localhost:8300/plan-your-day/add-performance"
 #     hx-trigger="click"
 #     hx-target="#main_target"
-#     hx-vals='{"performance_id": "94747a76-72d5-4ac9-8f50-99a0e624f1bb"}'
+#     hx-vals='{"performance_id": "83460f22-298a-47d0-8d94-1503060aa7bf"}'
+#     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
 # >
 #     click here
 # </div>
@@ -58,7 +57,6 @@ class PerformancesListView(ListView):
             return self.filterset.qs
         return qs
 
-@csrf_exempt
 def add_performance(request):
     itinerary       = get_or_create_itinerary(request)
     performance_id  = request.POST.get('performance_id')
@@ -71,7 +69,6 @@ def add_performance(request):
     }
     return render(request, "planyourday/performance-detail-update.html", context)
 
-@csrf_exempt
 def remove_performance(request):
     itinerary       = get_or_create_itinerary(request)
     performance_id  = request.POST.get('performance_id')
