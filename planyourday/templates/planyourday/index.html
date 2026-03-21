@@ -35,7 +35,7 @@
             <div class="genres">
             <h4 class="margin-0">Genres</h4>
             <div class="margin-y-2">
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Accoustic</span>
+                {% comment %} <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Accoustic</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Americana</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Country</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">DJ</span>
@@ -49,7 +49,8 @@
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Rock</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Singer Songwriter</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Ska</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Yoga</span>
+                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Yoga</span> {% endcomment %}
+                
             </div>
             </div>
             <div class"additionalfilters">
@@ -63,60 +64,29 @@
         </div>
     </form>
     <div class="performances border-ghost rounded-2 padding-3">
-    <div class="row width-100">
-        <h4 class="margin-0 grow-1">Performances</h4>
-        <p class="margin-0 small">29 results</p>
-    </div>
-    <div class="rounded-2 border-light margin-y-2 overflow-hidden" id="results">
-        <!-- <div class="background-light padding-2">
-            <small><i class="fa-regular fa-clock"></i> 10:00 AM</small>
-        </div> -->
-        {% include "planyourday/performances.html" %}
-    </div>
+        <div class="row width-100">
+            <h4 class="margin-0 grow-1">Performances</h4>
+            <p class="margin-0 small">29 results</p>
+        </div>
+        <div class="rounded-2 border-light margin-y-2 overflow-hidden" id="results">
+            {% include "planyourday/performance-list.html" %}
+        </div>
     </div>
     <div class="itinerary border-ghost rounded-2 padding-3">
-    <div class="row gutter-2 width-100">
-        <h4 class="margin-0 margin-y-1 grow-1">My Itinerary</h4>
-        <button class="small white padding-2"><i class="fa-solid fa-share-nodes"></i></button>
-        <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
-        <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
-    </div>
-    <div class="column border rounded-2 margin-y-3">
-        <div class="padding-2 border-bottom-1">
-            <div class="row gutter-2 width-100">
-                <h5 class="margin-0 padding-1 grow-1">GypsyBeanYoga</h5>
-                <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
-                <button class="small white padding-1"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-            <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 10:00 AM - 10:30 AM</small></p>
-            <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</small></p>
+        <div class="row gutter-2 width-100">
+            <h4 class="margin-0 margin-y-1 grow-1">My Itinerary</h4>
+            <button class="small white padding-2"><i class="fa-solid fa-share-nodes"></i></button>
+            <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
+            <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
         </div>
-        <div class="padding-2 border-bottom-1">
-            <div class="row gutter-2 width-100">
-                <h5 class="margin-0 padding-1 grow-1">Many Kelsey</h5>
-                <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
-                <button class="small white padding-1"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-            <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 11:00 AM - 11:30 AM</small></p>
-            <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</small></p>
+        {% include "planyourday/itinerary-list.html" %}
+        <div class="background-light rounded-2 padding-2">
+            <h5 class="margin-0 margin-bottom-2">Export Your Itinerary</h5>
+            <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Download .ics file</button>
+            <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Google Calendar</button>
+            <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Apple/Outlook</button>
+            <button class="white small padding-y-1 margin-y-1"><i class="fa-solid fa-download"></i> Export CSV</button>
+            <button class="white small padding-y-1 margin-y-1"><i class="fa-solid fa-print"></i> Print</button>
         </div>
-        <div class="padding-2">
-            <div class="row gutter-2 width-100">
-                <h5 class="margin-0 padding-1 grow-1">Private Tears</h5>
-                <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
-                <button class="small white padding-1"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-            <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 11:15 AM - 12:00 PM</small></p>
-            <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> Great Porch!</small></p>
-        </div>
-    </div>
-    <div class="background-light rounded-2 padding-2">
-        <h5 class="margin-0 margin-bottom-2">Export Your Itinerary</h5>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Download .ics file</button>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Google Calendar</button>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Apple/Outlook</button>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-solid fa-download"></i> Export CSV</button>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-solid fa-print"></i> Print</button>
-    </div>
     </div>
 {% endblock %}
