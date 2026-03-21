@@ -15,6 +15,7 @@
 - create a PostgresSLQ database
     - On Windows (cmd) `createdb -U postgres porch_fest`
     - On macOS/Linux `sudo -u postgres createdb porch_fest`
+- You also need to install the POSTGIS Plugin in your postgres database
 - Add the username and password you created to your `.env` file
 - Download and install OSGeo4W from `https://trac.osgeo.org/osgeo4w/`
 - `pip install -r requirements.txt`
