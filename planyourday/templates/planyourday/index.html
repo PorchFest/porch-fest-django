@@ -34,11 +34,14 @@
                 </div>
             </div>
             <div class="genres">
-            <h4 class="margin-0">Genres</h4>
-                <div class="margin-y-2">
-                    {% for value, label in genres %}
-                    <span id="{{ value }}" class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"> {{ label }}</span>
-                    {% endfor %}
+                <h4 class="margin-0"><label for="genre">Genre</label></h4>
+                <div class="margin-bottom-2">
+                    <select name="genre" id="filter_genre">
+                        <option selected value="">All</option>
+                        {% for value, label in genres %}
+                            <option value="{{ value }}">{{ label }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class"additionalfilters">
