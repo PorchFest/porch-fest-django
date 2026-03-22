@@ -34,9 +34,13 @@
                 </div>
             </div>
             <div class="genres">
-                <h4 class="margin-0"><label for="genre">Genre</label></h4>
+                <h4 class="margin-0">
+                    <label for="genre">
+                        <i class="fa-solid fa-tag"></i> Genre
+                    </label>
+                </h4>
                 <div class="margin-bottom-2">
-                    <select name="genre" id="filter_genre">
+                    <select id="genre" name="genre" id="filter_genre">
                         <option selected value="">All</option>
                         {% for value, label in genres %}
                             <option value="{{ value }}">{{ label }}</option>
@@ -61,9 +65,11 @@
     <div class="itinerary border-ghost rounded-2 padding-3">
     <div class="row gutter-2 width-100">
         <h4 class="margin-0 margin-y-1 grow-1">My Itinerary</h4>
-        <button class="small white padding-2"><i class="fa-solid fa-share-nodes"></i></button>
-        <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
-        <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+        <div>
+            <button class="small white padding-2"><i class="fa-solid fa-share-nodes"></i></button>
+            <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
+            <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+        </div>
     </div>
     <div class="column border rounded-2 margin-y-3">
         <div class="padding-2 border-bottom-1">

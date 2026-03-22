@@ -59,16 +59,11 @@
       </div>
     </header>
     <main class="plan-your-day">
-      <form
-        hx-get="/plan-your-day/performances/"
-        hx-target="#results"
-        hx-trigger="change delay:300ms, keyup delay:300ms"
-        onsubmit="event.preventDefault()"
-        class="filters border-ghost rounded-2 padding-3">
+      <form class="filters border-ghost rounded-2 padding-3">
         <div class="field-group white rounded">
             <label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
             <input id="search" name="search" type="text" class="grow-1 padding-2" placeholder="Search" />
-            <button class="display-md-none" onclick="console.log('clicked');document.getElementById('search-filters').classList.toggle('display-sm-none');"><i class="fa-solid fa-sliders"></i></button>
+            <button class="display-md-none"><i class="fa-solid fa-sliders"></i></button>
         </div>
         <div id="search-filters" class="display-sm-none display-md-flex gutter-2 margin-top-3">
             <div class="timerange">
@@ -91,7 +86,7 @@
             <div class="genres">
             <h4 class="margin-0">Genres</h4>
             <div class="margin-y-2">
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Accoustic</span>
+                <!-- {% comment %} <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Accoustic</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Americana</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Country</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">DJ</span>
@@ -105,7 +100,55 @@
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Rock</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Singer Songwriter</span>
                 <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Ska</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Yoga</span>
+                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Yoga</span> {% endcomment %} -->
+                <div x-data="genrePicker()">
+                    <div class="flex flex-wrap gap-2" style="display:flex;flex-wrap:wrap;gap:2rem;">
+                        <template x-for="genre in orderedGenres()" :key="genre">
+                            <!-- <button
+                                @click="toggle(genre)"
+                                :class="isSelected(genre) ? 'bg-blue-500 text-white' : 'bg-gray-200'"
+                                class="px-3 py-1 rounded-full text-sm transition"
+                            >
+                                <span x-text="genre"></span>
+                            </button> -->
+                            <span
+                                class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
+                                x-text="genre"
+                                @click="toggle(genre)"
+                            ></span>
+                        </template>
+                    </div>
+                </div>
+
+                <script>
+                    function genrePicker() {
+                        return {
+                            genres: ['Rock', 'Jazz', 'Folk', 'Pop', 'Classical', 'Hip Hop'],
+                            selected: [],
+
+                            toggle(genre) {
+                                if (this.selected.includes(genre)) {
+                                    this.selected = this.selected.filter(g => g !== genre)
+                                } else {
+                                    // add to FRONT so it appears at top
+                                    this.selected.unshift(genre)
+                                }
+                            },
+
+                            isSelected(genre) {
+                                return this.selected.includes(genre)
+                            },
+
+                            orderedGenres() {
+                                // selected first, then the rest
+                                return [
+                                    ...this.selected,
+                                    ...this.genres.filter(g => !this.selected.includes(g))
+                                ]
+                            }
+                        }
+                    }
+                </script>
             </div>
             </div>
             <div class"additionalfilters">
@@ -123,7 +166,7 @@
             <h4 class="margin-0 grow-1">Performances</h4>
             <p class="margin-0 small">29 results</p>
         </div>
-        <div class="rounded-2 border-light margin-y-2 overflow-hidden" id="results">
+        <div class="rounded-2 border-light margin-y-2 overflow-hidden">
             <div class="background-light padding-2">
                 <small><i class="fa-regular fa-clock"></i> 10:00 AM</small>
             </div>
@@ -215,11 +258,9 @@
       <div class="itinerary border-ghost rounded-2 padding-3">
         <div class="row gutter-2 width-100">
             <h4 class="margin-0 margin-y-1 grow-1">My Itinerary</h4>
-            <div>
-                <button class="small white padding-2"><i class="fa-solid fa-share-nodes"></i></button>
-                <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
-                <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
-            </div>
+            <button class="small white padding-2"><i class="fa-solid fa-share-nodes"></i></button>
+            <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
+            <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
         </div>
         <div class="column border rounded-2 margin-y-3">
             <div class="padding-2 border-bottom-1">
@@ -273,5 +314,6 @@
     </footer>
     <script src="/static/website/js/mobile-menu.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
   </body>
 </html>
