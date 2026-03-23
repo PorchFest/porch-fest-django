@@ -71,7 +71,7 @@ def remove_performance(request):
         "performance": performance,
         "itinerary": itinerary.ordered_performances(),
     }
-    return render(request, "planyourday/performance-detail-update.html", context)
+    return render(request, "planyourday/itinerary-list-update.html", context)
 
 def get_or_create_itinerary(request):
     itinerary_id    = request.session.get("itinerary_id")
