@@ -1,5 +1,7 @@
-{% include "planyourday/itinerary-list.html" %}
+<div class="performance-list column rounded-2 margin-y-3" id="itinerary_sidebar">
+    {% include "planyourday/itinerary-list.html" %}
+</div>
 
-<div class="row gutter-2 padding-2 border-bottom-1" id="performance_{{ performance.id }}" hx-swap-oob="true">
+<div class="row gutter-2 padding-2 performance" id="performance_{{ performance.id }}" hx-swap-oob="true">
     {% include "planyourday/performance-detail.html" %}
 </div>

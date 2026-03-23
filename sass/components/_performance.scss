@@ -1,0 +1,10 @@
+@use "../variables" as *;
+
+.performance-list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .performance{
+        @include performance;
+    }
+}

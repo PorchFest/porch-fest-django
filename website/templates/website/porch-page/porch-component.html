@@ -15,9 +15,9 @@
         </div>
     </div>
     <div class="lineup">
-        <div class="wrapper">
+        <div class="performance-list">
             {% for performance in porch.performances.all %}
-                <div class="card {% for filtered in performances %}{% if performance.id == filtered.id %}highlight{% endif %}{% endfor %}">
+                <div class="performance {% for filtered in performances %}{% if performance.id == filtered.id %}highlight{% endif %}{% endfor %}">
                     <h2>{{ performance.performer.name }}</h2>
                     <p>{{ performance.start_time }} - {{ performance.end_time }}</p>
                     <p>{{ performance.performer.genre }}</p>

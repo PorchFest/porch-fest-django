@@ -68,7 +68,7 @@
             <h4 class="margin-0 grow-1">Performances</h4>
             <p class="margin-0 small">29 results</p>
         </div>
-        <div class="rounded-2 border-light margin-y-2 overflow-hidden" id="results">
+        <div class="rounded-2 margin-y-2 performance-list" id="results">
             {% include "planyourday/performance-list.html" %}
         </div>
     </div>
@@ -79,7 +79,9 @@
             <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
             <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
         </div>
-        {% include "planyourday/itinerary-list.html" %}
+        <div class="performance-list column rounded-2 margin-y-3" id="itinerary_sidebar">
+            {% include "planyourday/itinerary-list.html" %}
+        </div>
         <div class="background-light rounded-2 padding-2">
             <h5 class="margin-0 margin-bottom-2">Export Your Itinerary</h5>
             <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Download .ics file</button>

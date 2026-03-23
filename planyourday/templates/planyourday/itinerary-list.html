@@ -1,5 +1,3 @@
-<div class="column border rounded-2 margin-y-3" id="itinerary_sidebar">
-    {% for detail in itinerary %}
-        {% include "planyourday/itinerary-detail.html" %}
-    {% endfor %}
-</div>
+{% for detail in itinerary %}
+    {% include "planyourday/itinerary-detail.html" %}
+{% endfor %}
