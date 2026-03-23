@@ -6,7 +6,7 @@
             class="small white padding-1"
             hx-post="/plan-your-day/remove-performance"
             hx-trigger="click"
-            hx-vals='{"performance_id": "{{ detail.id }}"}'
+            hx-vals='{"performance_id": "{{ performance.id }}"}'
             hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
             hx-target="#itinerary_sidebar"
             hx-swap="outerHTML"
