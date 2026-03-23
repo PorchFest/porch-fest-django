@@ -12,7 +12,7 @@ urlpatterns = [
     path('obscure-map/', include('porchfestcore.urls')),
     path('plan-your-day/', include('planyourday.urls')),
     path('dashboard/', include('porchpanel.urls')),
-    path('admin/', admin.site.urls),
+    path('porchfestpeeps/', admin.site.urls),
     path('api/porches/', include('porchfestcore.api.urls')),
     path('api/plan-your-day/', include('planyourday.api.urls')),
     path(
