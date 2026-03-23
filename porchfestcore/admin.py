@@ -93,6 +93,7 @@ class PorchAdmin(admin.ModelAdmin):
 
     class Media:
         js 					= ('porchfestcore/js/porch-admin.js',)
+        css					= {'all':['admin/css/porch-admin.css']}
     def approve_porches(self, request, queryset):
         queryset.update(approved=True)
     approve_porches.short_description = "Approve selected porches"
