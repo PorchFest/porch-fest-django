@@ -15,8 +15,8 @@
         <li>No porches yet.</li>
       {% endfor %}
       {% if not has_porch %}
-        {% comment %} <a href="{% url 'porchpanel:create_porch' %}">Create Your Porch</a> {% endcomment %}
-        <li>Your porch will be assigned to you soon.</li>
+        <a href="{% url 'porchpanel:create_porch' %}">Create Your Porch</a>
+        {% comment %} <li>Your porch will be assigned to you soon.</li> {% endcomment %}
       {% endif %}
     </ul>
   </div>
