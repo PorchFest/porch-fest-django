@@ -4,8 +4,9 @@
 {% block mainclass %}porch-signup{% endblock %}
 {% block content %}
     <h1>Sign up to be a Porch Host!</h1>
-    <p>Signups close on March 25th, 2026!</p>
-	<form id="porch_signup_form" method="post" enctype="multipart/form-data">
+    {% comment %} <p>Signups close on March 25th, 2026!</p> {% endcomment %}
+    <h1>We've reached 120 porches! Signups are closed.</h1>
+	{% comment %} <form id="porch_signup_form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             <div class="label">
@@ -189,6 +190,6 @@
             </ul>
         {% endif %}
         <button type="submit" id="form_submit">Submit</button>
-    </form>
+    </form> {% endcomment %}
     <script src="{% static 'website/js/porch-signups.js' %}"></script>
 {% endblock %}
