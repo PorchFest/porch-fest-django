@@ -8,75 +8,18 @@ from django.utils.text              import slugify
 from django.template.loader         import render_to_string
 from django.core.mail               import EmailMessage
 
-class Performer(models.Model):
-    class Genre(models.TextChoices):
-        AERIALIST             = 'aerialist', 'Aerialist'
-        ACOUSTIC              = 'acoustic', 'Acoustic'
-        ALTERNATIVE           = 'alternative', 'Alternative'
-        AMERICANA             = 'americana', 'Americana'
-        BELLYDANCE            = 'bellydance', 'Bellydance'
-        BLUEGRASS             = 'bluegrass', 'Bluegrass'
-        BLUES                 = 'blues', 'Blues'
-        CAJUN                 = 'cajun', 'Cajun'
-        CLASSICAL             = 'classical', 'Classical'
-        CLASSIC_ROCK          = 'classic_rock', 'Classic Rock'
-        COMEDY                = 'comedy', 'Comedy'
-        CONTEMPORARY          = 'contemporary', 'Contemporary'
-        COUNTRY               = 'country', 'Country'
-        DANCE_ELECTRONIC      = 'dance_electronic', 'Dance / Electronic / House'
-        DARK_JAZZ             = 'dark_jazz', 'Dark Jazz'
-        DJ                    = 'dj', 'DJ'
-        DRAG                  = 'drag', 'Drag'
-        DRUMMING              = 'drumming', 'Drumming'
-        DUBSTEP               = 'dubstep', 'Dubstep'
-        ECLECTIC              = 'eclectic', 'Eclectic'
-        ELECTRONIC            = 'electronic', 'Electronic'
-        FLAMENCO              = 'flamenco', 'Flamenco'
-        FOLK                  = 'folk', 'Folk'
-        FUNK                  = 'funk', 'Funk'
-        HARDCORE              = 'hardcore', 'Hardcore'
-        HIP_HOP_RAP           = 'hip_hop_rap', 'Hip-Hop / Rap'
-        HOUSE                 = 'house', 'House'
-        INDIE                 = 'indie', 'Indie'
-        JAZZ                  = 'jazz', 'Jazz'
-        LATIN                 = 'latin', 'Latin'
-        MARIACHI              = 'mariachi', 'Mariachi'
-        MEDICINE_DRUM         = 'medicine_drum', 'Medicine Drum'
-        METAL                 = 'metal', 'Metal'
-        PAINTER               = 'painter', 'Painter'
-        PIANO                 = 'piano', 'Piano'
-        POETRY_SPOKEN_WORD    = 'poetry_spoken_word', 'Poetry / Spoken Word'
-        POP                   = 'pop', 'Pop'
-        POST_HUMAN_ROCK       = 'post_human_rock', 'Post Human Civilization Rock'
-        PROG_ROCK             = 'prog_rock', 'Prog Rock'
-        PSYCHEDELIC_ROCK      = 'psychedelic_rock', 'Psychedelic Rock'
-        PUNK                  = 'punk', 'Punk'
-        RNB                   = 'rnb', 'R & B'
-        REGGAE                = 'reggae', 'Reggae'
-        ROCK                  = 'rock', 'Rock'
-        ROCK_AND_ROLL         = 'rock_and_roll', 'Rock and Roll'
-        ROCKABILLY            = 'rockabilly', 'Rockabilly'
-        SHOEGAZE              = 'shoegaze', 'Shoegaze'
-        SKA                   = 'ska', 'Ska'
-        SALSA_CUMBIA          = 'salsa_cumbia', 'Salsa / Cumbia'
-        SOUL_BLUES            = 'soul_blues', 'Soul / Blues'
-        SOUND_BATH            = 'sound_bath', 'Sound Bath Practitioner'
-        SINGER_SONGWRITER     = 'singer_songwriter', 'Singer Songwriter'
-        SWING                 = 'swing', 'Swing'
-        TECH_HOUSE            = 'tech_house', 'Tech House'
-        TECHNO                = 'techno', 'Techno'
-        THRASH_METAL          = 'thrash_metal', 'Thrash Metal'
-        TRAP                  = 'trap', 'Trap'
-        TRIP_HOP              = 'trip_hop', 'Trip Hop'
-        VOCALS                = 'vocals', 'Vocals'
-        YOGA                  = 'yoga', 'Yoga'
-        ZYDECO                = 'zydeco', 'Zydeco'
-        OTHER                 = 'other', 'Other'
+class Genre(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
 
+    def __str__(self):
+        return self.name
+
+class Performer(models.Model):
     id 					= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name 				= models.CharField(max_length=255)
     bio 				= models.TextField(blank=True)
-    genre				= models.CharField(max_length=20, choices=Genre.choices, default=Genre.OTHER)
+    genres              = models.ManyToManyField(Genre, blank=True)
     member_count 		= models.IntegerField(default=1)
     instruments 		= models.IntegerField(default=0)
     link 				= models.URLField(blank=True)
@@ -127,6 +70,10 @@ class Porch(models.Model):
     created_at              = models.DateTimeField(auto_now_add=True)
     original_created_at     = models.DateTimeField(null=True, blank=True)
     slug                    = models.SlugField(unique=True, blank=True, max_length=255)
+
+    class Meta:
+        verbose_name = "Porch"
+        verbose_name_plural = "Porches"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
