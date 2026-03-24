@@ -8,29 +8,30 @@
         hx-target="#results"
         hx-trigger="change delay:300ms, keyup delay:300ms"
         class="filters border-ghost rounded-2 padding-3"
+        hx-on:submit="event.preventDefault();"
     >
         <div class="field-group white rounded">
             <label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
             <input id="search" name="search" type="text" class="grow-1 padding-2" placeholder="Search" />
-            <button class="display-md-none"><i class="fa-solid fa-sliders"></i></button>
+            <button class="display-md-none" hx-on:click="htmx.toggleClass(htmx.find('#search-filters'), 'display-sm-none');"><i class="fa-solid fa-sliders"></i></button>
         </div>
         <div id="search-filters" class="display-sm-none display-md-flex gutter-2 margin-top-3">
             <div class="timerange">
-            <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4>
-            <div class="row gutter-2 margin-y-2">
-                <div class="col-6">
-                    <label>
-                        <small>Start Time</small><br />
-                        <input type="time" name="starttime" />
-                    </label>
+                <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4>
+                <div class="row gutter-2 margin-y-2">
+                   <div class="col-6">
+                       <label>
+                           <small>Start Time</small><br />
+                           <input type="time" name="starttime" />
+                       </label>
+                   </div>
+                   <div class="col-6">
+                       <label>
+                       <small>End Time</small><br />
+                           <input type="time" name="endtime" />
+                       </label>
+                   </div>
                 </div>
-                <div class="col-6">
-                    <label>
-                    <small>End Time</small><br />
-                        <input type="time" name="endtime" />
-                    </label>
-                </div>
-            </div>
             </div>
             <div class="genres">
             <h4 class="margin-0">Genres</h4>
@@ -53,13 +54,13 @@
                 
             </div>
             </div>
-            <div class"additionalfilters">
+            <!--<div class"additionalfilters">
                 <h4 class="margin-0">Additional Filters</h4>
                 <div class="margin-y-2">
                     <div><label><input type="checkbox" name="food-available"> Food available</label></div>
                     <div><label><input type="checkbox" name="kid-friendly"> Kid Friendly</label></div>
                 </div>
-            </div>
+            </div>-->
             <button class="yellow small">Reset Filters</button>
         </div>
     </form>
