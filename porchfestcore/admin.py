@@ -11,6 +11,7 @@ from .forms 				    import PerformanceForm, TimeInput
 class PerformanceInline(admin.TabularInline):
     model 					= Performance
     form 					= PerformanceForm
+    autocomplete_fields		= ['performer']
     extra 					= 1
 class InvitationInline(admin.TabularInline):
     model 					= Invitation
@@ -127,9 +128,11 @@ class PerformanceAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TimeField: {'widget': TimeInput},
     }
+    autocomplete_fields		= ['performer']
 
 @admin.register(Performer)
 class PerformerAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_by',)
+    search_fields = ['name']
 admin.site.register(Request)
 admin.site.register(TempUpload)
