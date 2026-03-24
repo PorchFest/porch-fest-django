@@ -1,5 +1,4 @@
 from django.shortcuts           import render, get_object_or_404
-from datetime import datetime, date, timedelta
 from django.views.generic       import ListView
 from porchfestcore.models       import Performance
 from planyourday.api.filters    import PerformanceFilter

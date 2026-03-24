@@ -29,6 +29,8 @@ main.plan-your-day {
     .performances {
         background-color: white;
         grid-area: performances;
+        max-height: 100vh;
+        overflow-y: scroll;
     }
 
     .itinerary {
