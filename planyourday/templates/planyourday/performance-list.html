@@ -1,4 +1,12 @@
 {% for performance in performances %}
+    {% if performance.show_time %}
+        <div class="background-light padding-2">
+            <small>
+                <i class="fa-regular fa-clock"></i>
+                {{ performance.start_time|date:"g:i A" }}
+            </small>
+        </div>
+    {% endif %}
     <div class="row gutter-2 padding-2 performance" id="performance_{{ performance.id }}">
         {% include "planyourday/performance-detail.html" %}
     </div>

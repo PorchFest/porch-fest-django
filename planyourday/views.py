@@ -1,11 +1,12 @@
 from django.shortcuts           import render, get_object_or_404
+from datetime import datetime, date, timedelta
 from django.views.generic       import ListView
 from porchfestcore.models       import Performance
 from planyourday.api.filters    import PerformanceFilter
 from planyourday.models         import Itinerary
 
 def plan_your_day(request):
-    performances    = Performance.objects.filter(porch__approved=True).distinct()
+    performances    = with_show_time(get_filtered_performances(request))
     itinerary       = get_or_create_itinerary(request)
     return render(request, 'planyourday/index.html', {'performances': performances, 'itinerary': itinerary.ordered_performances()})
 
@@ -13,11 +14,32 @@ class PerformancesListView(ListView):
     template_name       = 'planyourday/performance-list.html'
     context_object_name = 'performances'
     def get_queryset(self):
-        qs              = Performance.objects.filter(porch__approved=True).distinct()
-        self.filterset  = PerformanceFilter(self.request.GET, queryset=qs)
-        if self.filterset.is_valid():
-            return self.filterset.qs
-        return qs
+        return get_filtered_performances(self.request)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['performances'] = with_show_time(context['performances'])
+        return context
+
+def get_filtered_performances(request):
+    qs              = Performance.objects.filter(porch__approved=True).distinct()
+    filterset  = PerformanceFilter(request.GET, queryset=qs)
+    if filterset.is_valid():
+        return filterset.qs.order_by('start_time')
+    return qs
+
+def with_show_time(performances_qs):
+    performances = list(performances_qs)
+    previous_hour = None
+    for p in performances:
+        if p.start_time is None:
+            continue
+        current_hour = p.start_time.hour
+        if previous_hour is None or current_hour != previous_hour:
+            p.show_time = True
+        else:
+            p.show_time = False
+        previous_hour = current_hour
+    return performances
 
 def add_performance(request):
     itinerary       = get_or_create_itinerary(request)
