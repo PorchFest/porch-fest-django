@@ -1,13 +1,18 @@
 from django.shortcuts           import render, get_object_or_404
 from django.views.generic       import ListView
-from porchfestcore.models       import Performance
+from porchfestcore.models       import Performance, Genre
 from planyourday.api.filters    import PerformanceFilter
 from planyourday.models         import Itinerary
 
 def plan_your_day(request):
     performances    = with_show_time(get_filtered_performances(request))
     itinerary       = get_or_create_itinerary(request)
-    return render(request, 'planyourday/index.html', {'performances': performances, 'itinerary': itinerary.ordered_performances()})
+    genres          = Genre.objects.all()
+    return render(request, 'planyourday/index.html', {
+        'performances':     performances,
+        'itinerary':        itinerary.ordered_performances(),
+        'genres':           genres,
+    })
 
 class PerformancesListView(ListView):
     template_name       = 'planyourday/performance-list.html'
@@ -19,13 +24,25 @@ class PerformancesListView(ListView):
         context['performances'] = with_show_time(context['performances'])
         return context
 
-def get_filtered_performances(request):
-    qs              = Performance.objects.filter(porch__approved=True).distinct()
-    filterset  = PerformanceFilter(request.GET, queryset=qs)
-    if filterset.is_valid():
-        return filterset.qs.order_by('start_time')
-    return qs
+# Helper Function
+# def get_filtered_performances(request):
+#     qs = Performance.objects.filter(porch__approved=True).distinct()
+#     filterset  = PerformanceFilter(request.GET, queryset=qs)
+#     if filterset.is_valid():
+#         return filterset.qs.order_by('start_time')
+#     return qs
 
+def get_filtered_performances(request):
+    qs = Performance.objects.filter(porch__approved=True)
+
+    filterset = PerformanceFilter(request.GET, queryset=qs)
+
+    if filterset.is_valid():
+        return filterset.qs.order_by('start_time').distinct()
+
+    return qs.distinct()
+
+# Helper Function
 def with_show_time(performances_qs):
     performances = list(performances_qs)
     previous_hour = None

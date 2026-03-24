@@ -4,7 +4,8 @@
 {% block mainclass %}plan-your-day{% endblock %}
 {% block content %}
     <form
-        hx-get="/plan-your-day/performances/"
+        x-data="{ selectedGenres: [] }"
+        hx-get="{% url 'performances' %}"
         hx-target="#results"
         hx-trigger="change delay:300ms, keyup delay:300ms"
         class="filters border-ghost rounded-2 padding-3"
@@ -34,25 +35,36 @@
                 </div>
             </div>
             <div class="genres">
-            <h4 class="margin-0">Genres</h4>
-            <div class="margin-y-2">
-                {% comment %} <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Accoustic</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Americana</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Country</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">DJ</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Dance/Electric/House</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Folk</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Hip-Hop/Rap</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Indie</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Jazz</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Pop</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Punk</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Rock</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Singer Songwriter</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Ska</span>
-                <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Yoga</span> {% endcomment %}
-                
-            </div>
+                <h4 class="margin-0">Genres</h4>
+                <div class="margin-y-2 rounded-0 padding-2 genre-list border">
+                    {% for genre in genres %}
+                        <span
+                            class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
+                            @click="
+                                selectedGenres.includes('{{ genre.slug }}')
+                                ? selectedGenres = selectedGenres.filter(g => g !== '{{ genre.slug }}')
+                                : selectedGenres.push('{{ genre.slug }}')
+                                $dispatch('change')
+                            "
+                            :class="selectedGenres.includes('{{ genre.slug }}') ? 'active' : ''"
+                            :style="selectedGenres.includes('{{ genre.slug }}') 
+                                ? `order: ${selectedGenres.indexOf('{{ genre.slug }}') - 100}` 
+                                : 'order: 0'"
+                        >
+                            {{ genre.name }}
+                        </span>
+                    {% endfor %}
+                    <template
+                        x-for="genre in selectedGenres"
+                        :key="genre"
+                    >
+                        <input
+                            type="hidden"
+                            name="genres"
+                            :value="genre"
+                        >
+                    </template>
+                </div>
             </div>
             <!--<div class"additionalfilters">
                 <h4 class="margin-0">Additional Filters</h4>
