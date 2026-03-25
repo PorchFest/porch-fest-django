@@ -69,9 +69,26 @@
 							<label for="genre">Genre:</label>
 							<select name="genre" id="filter_genre">
 								<option selected value="">Any</option>
-								{% for value, label in genres %}
-									<option value="{{ value }}">{{ label }}</option>
+								{% for genre in genres %}
+									<option value="{{ genre.slug }}">{{ genre.name }}</option>
 								{% endfor %}
+								{% comment %} {% for genre in genres %}
+									<span
+										class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
+										@click="
+											selectedGenres.includes('{{ genre.slug }}')
+											? selectedGenres = selectedGenres.filter(g => g !== '{{ genre.slug }}')
+											: selectedGenres.push('{{ genre.slug }}')
+											$dispatch('change')
+										"
+										:class="selectedGenres.includes('{{ genre.slug }}') ? 'active' : ''"
+										:style="selectedGenres.includes('{{ genre.slug }}') 
+											? `order: ${selectedGenres.indexOf('{{ genre.slug }}') - 100}` 
+											: 'order: 0'"
+									>
+										{{ genre.name }}
+									</span>
+								{% endfor %} {% endcomment %}
 							</select>
 						</div>
 					</div>
