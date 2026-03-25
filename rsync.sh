@@ -40,17 +40,21 @@ deployweb(){
         DRY="n"
 		echo "DRY DEPLOY"
     fi
-	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' website/ porchfest:/home/django/porchfest/website/
-	rsync -avz${DRY} static/ porchfest:/home/django/porchfest/static/
+	if [ "$1" = "rebuild" ]; then
+		rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' website/ porchfest:/home/django/porchfest/website/
+		rsync -avz${DRY} static/ porchfest:/home/django/porchfest/static/
 
-	if [ "$1" != "--dry" ]; then
-		ssh porchfest << "EOF"
-		cd /home/django/porchfest
-		source venv/bin/activate
-		python manage.py collectstatic --noinput
-		systemctl reload nginx
-		systemctl restart gunicorn
+		if [ "$1" != "--dry" ]; then
+			ssh porchfest << "EOF"
+			cd /home/django/porchfest
+			source venv/bin/activate
+			python manage.py collectstatic --noinput
+			systemctl reload nginx
+			systemctl restart gunicorn
 EOF
+		fi
+	else
+		rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' website/ porchfest:/home/django/porchfest/website/
 	fi
 }
 
