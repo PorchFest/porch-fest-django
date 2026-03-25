@@ -84,7 +84,7 @@ def performer_edit(request, pk):
         Q(created_by=request.user),
     )
     if request.method == "POST":
-        performer_form = PerformerForm(request.POST, instance=performer)
+        performer_form = PerformerForm(request.POST, request.FILES, instance=performer)
         if performer_form.is_valid():
             performer_form.save()
             messages.success(request, 'Performer details updated successfully')
