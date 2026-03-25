@@ -26,4 +26,7 @@ class PorchInterestAdmin(admin.ModelAdmin):
         return response
     export_as_csv.short_description = "Export selected Porch Interests to CSV"
 
-admin.site.register(Sponsor)
+# admin.site.register(Sponsor)
+@admin.register(Sponsor)
+class SponsorAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['porch']
