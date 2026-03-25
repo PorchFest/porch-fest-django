@@ -76,14 +76,8 @@
             <button class="yellow small">Reset Filters</button>
         </div>
     </form>
-    <div class="performances border-ghost rounded-2 padding-3">
-        <div class="row width-100">
-            <h4 class="margin-0 grow-1">Performances</h4>
-            <p class="margin-0 small">29 results</p>
-        </div>
-        <div class="rounded-2 margin-y-2 performance-list" id="results">
-            {% include "planyourday/performance-list.html" %}
-        </div>
+    <div class="performances border-ghost rounded-2 padding-3" id="results">
+        {% include "planyourday/performance-list.html" %}
     </div>
     <div class="itinerary border-ghost rounded-2 padding-3">
         <div class="row gutter-2 width-100">
