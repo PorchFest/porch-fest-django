@@ -32,9 +32,13 @@ class PorchMap{
 			attributionControl: false,
 			zoomControl: false
 		}).setView(this.center, 16)
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; OpenStreetMap contributors',
-			crossOrigin: true
+		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+			attribution: '© Mapbox © OpenStreetMap',
+			maxZoom: 20,
+			id: 'mapbox/streets-v11',
+			tileSize: 512,
+			zoomOffset: -1,
+			accessToken: MAPBOX_PUBLIC_KEY
 		}).addTo(this.map)
 	}
 	async buildMarkers(data){
@@ -48,9 +52,19 @@ class PorchMap{
 			})
 			const porches = response.data
 			porches.features.forEach(porch=>{
+				console.log(porch)
 				const [lon, lat] 	= porch.geometry.coordinates
+				let icon 			= this.icon
+				if(porch.properties.sponsor_logo){
+					icon 			= L.icon({
+						iconUrl: porch.properties.sponsor_logo,
+						className: "sponsor-logo",
+						iconAnchor:	[15, 40],
+					})
+				}
+				console.log(icon)
 				const marker 		= L.marker([lat, lon], {
-					icon: this.icon
+					icon
 				}).addTo(this.map)
 				marker.on("click", e=>{
 					this.loadPorch(porch)

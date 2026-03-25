@@ -19,8 +19,8 @@ class PorchMap(ListAPIView):
             qs = filterset.qs
             if active_filters:
                 performance_filters = {}
-                if "genre" in active_filters:
-                    performance_filters["performer__genre__iexact"] = active_filters["genre"]
+                # if "genres" in active_filters:
+                #     performance_filters["performer__genre__iexact"] = active_filters["genre"]
                 if "after" in active_filters:
                     performance_filters["start_time__gte"]          = active_filters["after"]
                 if "search" in active_filters:

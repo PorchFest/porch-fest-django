@@ -109,6 +109,7 @@
 				<div x-html="$store.porch.content"></div>
 			</div>
 		</div>
+		<script>const MAPBOX_PUBLIC_KEY = "{{ MAPBOX_PUBLIC_KEY|escapejs }}"</script>
 		<script src="{% static 'porchfestcore/js/map.js' %}"></script>
 	</body>
 </html>
