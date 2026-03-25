@@ -8,7 +8,7 @@ urlpatterns = [
     path('volunteer/', views.volunteer, name='volunteer'),
     path('sponsorship/', views.sponsorship, name='sponsorship'),
     path('donate/', views.donate, name='donate'),
-    path('porch-signup/', views.porch_signup, name='porch-signup'),
+    # path('porch-signup/', views.porch_signup, name='porch-signup'),
     path('porches/', views.list_porch, name='list-porch'),
     path('porches/<slug:slug>/', views.porch_page, name='porch_page'),
 ]

@@ -9,7 +9,7 @@ from django.core.mail       import EmailMessage
 from django.template.loader import render_to_string
 
 def index(request):
-    sponsors 		= Sponsor.objects.filter(is_active=True).order_by("level", "name")
+    sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
     form		= PorchSignupForm()
     return render(request, 'website/front-page/index.html', {"sponsors": sponsors, 'form': form})
 

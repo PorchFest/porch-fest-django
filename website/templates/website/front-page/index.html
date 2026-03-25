@@ -35,10 +35,10 @@
 			</div>
 		</div>
 	</div>
-	<section style="padding: 50px;">
+	{% comment %} <section style="padding: 50px;">
 		<h1>Porch Host Signups Are Now Open!</h1>
 		<p>Head <a href="{% url 'porch-signup' %}">here</a> to sign up your porch</p>
-	</section>
+	</section> {% endcomment %}
 	<section style="padding: 0 50px 50px 50px;">
 		<h1>Sign Up to be a Volunteer!</h1>
 		<p>We are always looking for volunteers to help make Tower Porchfest a success! Sign up <a href="{% url 'volunteer' %}">here</a></p>
@@ -56,7 +56,7 @@
 	</section>
 	{% comment %} {% include 'website/porch-list-form/form-wrapper.html' %} {% endcomment %}
 	{% include "website/front-page/ad-cards.html" %}
-	{% comment %} {% include "website/front-page/sponsors.html" %} {% endcomment %}
+	{% include "website/front-page/sponsors.html" %}
 	<section class="donate">
 		<h1>Support Tower Porchfest</h1>
 		<div style="position:relative;overflow:hidden;height:600px;width:100%;"><iframe title='Donation form powered by Zeffy' style='position: absolute; border: 0; top:0;left:0;bottom:0;right:0;width:100%;height:100%' src='https://www.zeffy.com/embed/donation-form/support-tower-porchfest' allowpaymentrequest allowTransparency="true"></iframe></div>
