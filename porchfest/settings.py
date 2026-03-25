@@ -3,8 +3,10 @@ from decouple 	import config
 
 BASE_DIR        = Path(__file__).resolve().parent.parent
 SECRET_KEY 		= config('SECRET_KEY')
-DEBUG 			= config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS 	= config('ALLOWED_HOSTS', default='towerporchfest.org,www.towerporchfest.org').split(',')
+# DEBUG 			= config('DEBUG', default=False, cast=bool)
+DEBUG = False
+# ALLOWED_HOSTS 	= config('ALLOWED_HOSTS', default='towerporchfest.org,www.towerporchfest.org').split(',')
+ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -33,9 +35,14 @@ LOGOUT_REDIRECT_URL         = "porchpanel:login"
 RECAPTCHA_PUBLIC_KEY	    = config('RECAPTCHA_PUBLIC')
 RECAPTCHA_PRIVATE_KEY	    = config('RECAPTCHA_PRIVATE')
 
+MAPBOX_PUBLIC_KEY           = config('MAPBOX_PUBLIC_KEY')
+
 PHONENUMBER_DEFAULT_REGION  = "US"
 
-EMAIL_BACKEND               = "anymail.backends.brevo.EmailBackend"
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 ANYMAIL                     = {"BREVO_API_KEY": config('BREVO_API_KEY'),}
 DEFAULT_FROM_EMAIL          = "Porch Fest <info@towerporchfest.org>"
 REST_FRAMEWORK              = {
