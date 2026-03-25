@@ -1,16 +1,18 @@
 <div class="padding-2 performance">
     <div class="row gutter-2 width-100">
         <h5 class="margin-0 padding-1 grow-1">{{ performance.performer.name }}</h5>
-        <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
-        <button 
-            class="small white padding-1"
-            hx-post="/plan-your-day/remove-performance"
-            hx-trigger="click"
-            hx-vals='{"performance_id": "{{ performance.id }}"}'
-            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-            hx-target="#itinerary_sidebar"
-            hx-swap="outerHTML"
-        ><i class="fa-regular fa-trash-can"></i></button>
+        <div class="buttons">
+            <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
+            <button 
+                class="small white padding-1"
+                hx-post="{% url 'remove_performance' itinerary_id %}"
+                hx-trigger="click"
+                hx-vals='{"performance_id": "{{ performance.id }}"}'
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-target="#itinerary_sidebar"
+                hx-swap="outerHTML"
+            ><i class="fa-regular fa-trash-can"></i></button>
+        </div>
     </div>
     <p class="margin-1"><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
     <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</small></p>

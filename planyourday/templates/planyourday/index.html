@@ -7,7 +7,8 @@
         x-data="{ selectedGenres: [] }"
         hx-get="{% url 'performances' %}"
         hx-target="#results"
-        hx-trigger="change delay:300ms, keyup delay:300ms"
+        {% comment %} hx-trigger="change delay:300ms, keyup delay:300ms" {% endcomment %}
+        hx-trigger="change delay:300ms, input delay:300ms"
         class="filters border-ghost rounded-2 padding-3"
         hx-on:submit="event.preventDefault();"
     >
@@ -18,20 +19,20 @@
         </div>
         <div id="search-filters" class="display-sm-none display-md-flex gutter-2 margin-top-3">
             <div class="timerange">
-                <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4>
+                {% comment %} <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4> {% endcomment %}
                 <div class="row gutter-2 margin-y-2">
                    <div class="col-6">
                        <label>
-                           <small>Start Time</small><br />
-                           <input type="time" name="starttime" />
+                           <small>After</small><br/>
+                           <input type="time" name="after"/>
                        </label>
                    </div>
-                   <div class="col-6">
+                   {% comment %} <div class="col-6">
                        <label>
                        <small>End Time</small><br />
                            <input type="time" name="endtime" />
                        </label>
-                   </div>
+                   </div> {% endcomment %}
                 </div>
             </div>
             <div class="genres">
@@ -73,7 +74,10 @@
                     <div><label><input type="checkbox" name="kid-friendly"> Kid Friendly</label></div>
                 </div>
             </div>-->
-            <button class="yellow small">Reset Filters</button>
+            <button
+                class="yellow small"
+                @click="$el.closest('form').reset(); $dispatch('change')"
+            >Reset Filters</button>
         </div>
     </form>
     <div class="performances border-ghost rounded-2 padding-3" id="results">
