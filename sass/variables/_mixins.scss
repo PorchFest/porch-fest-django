@@ -4,13 +4,20 @@ $smaller-text: 1rem;
 $menu-padding: 10px;
 
 @mixin performance{
-	border: 1px solid #eaeaea;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-	border-radius: 8px;
-	padding: 1rem;
-	min-width: 250px;
-	h2,p{margin: 0;}
-	h2{font-family: $font__headers;}
+	.performance{
+		border: 1px solid #eaeaea;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+		border-radius: 8px;
+		padding: 1rem;
+		min-width: 250px;
+		h2,p{margin: 0;}
+		h2{font-family: $font__headers;}
+		.buttons{
+			display: flex;
+			align-items: flex-start;
+			gap: 5px;
+		}
+    }
 	.highlight{
 		background-color: $color-bg-main;
 	}

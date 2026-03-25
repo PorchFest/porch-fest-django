@@ -24,6 +24,23 @@ main.plan-your-day {
     .filters {
         background-color: white;
         grid-area: filters;
+
+        .genre-list{
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 5px;
+            max-height: 100px;
+            overflow-y: scroll;
+
+            .chip{
+                transition: all 0.2s ease;
+            }
+
+            .active{
+                background-color: green;
+            }
+        }
     }
 
     .performances {

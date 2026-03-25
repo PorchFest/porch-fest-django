@@ -5,7 +5,5 @@
     flex-direction: column;
     gap: 8px;
     flex: 0 1 500px;
-    .performance{
-        @include performance;
-    }
+    @include performance;
 }
