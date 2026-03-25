@@ -8,8 +8,12 @@
 	height: calc(var(--vh, 1vh) * 100);
 }
 
-.porch-marker{
+.porch-marker,.sponsor-logo{
     height: 40px;
+}
+.sponsor-logo{
+	border: black 3px solid;
+	border-radius: 3px;
 }
 
 .map-header{
