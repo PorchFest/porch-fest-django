@@ -28,7 +28,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="root" x-data="{showFilter: false}">
+		<div id="root" x-data x-init="$store.filter = {showFilter: false}">
 			<div class="map-header main-header">
 				{% comment %} <i class="fas fa-home" id="home_icon"></i> {% endcomment %}
 				<div class="button-wrap">
@@ -41,27 +41,28 @@
 				@input.debounce.300ms="updateResults()"
 				@change.debounce.300ms="updateResults()"
 				@submit.prevent
-				@keydown.enter.prevent="updateResults()"
+				@keydown.enter.prevent="updateResults(true)"
 				class="search-and-filter"
 				action=""
 				id="map_filter">
 				<div class="field-group white rounded map-search">
 					<label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
 					<input
-						@focus="showFilter = true"
+						@focus="$store.filter.showFilter = true"
+						@click="$store.filter.showFilter = true"
 						id="search"
 						name="search"
 						type="text"
 						class="grow-1 padding-2"
 						placeholder="Search" />
 					<button
-						@click="showFilter = !showFilter"
+						@click="$store.filter.showFilter = !$store.filter.showFilter"
 						type="button"
 						class="display-md-none"
 					><i class="fa-solid fa-sliders"></i></button>
 				</div>
 				<div
-					x-show="showFilter"
+					x-show="$store.filter.showFilter"
 					x-transition
 					x-transition.scale.origin.top
 					id="search_filters"
@@ -107,10 +108,15 @@
 					>Reset Filters</button>
 				</div>
 			</form>
-			<div id="map" @click="showFilter = false"></div>
-			<div class="porch-modal" x-data x-show="$store.porch.open" x-transition>
+			<div id="map" @click="$store.filter.showFilter = false"></div>
+			<div
+			x-data="modalHistory()"
+			x-show="$store.porch.open"
+			x-transition
+			class="porch-modal"
+			>
 				<header>
-					<i class="fas fa-times-circle" @click="$store.porch.open = false"></i>
+					<i class="fas fa-times-circle" @click="closeModal()"></i>
 				</header>
 				<div x-html="$store.porch.content"></div>
 			</div>

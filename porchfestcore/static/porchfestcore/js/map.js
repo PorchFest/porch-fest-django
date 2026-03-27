@@ -114,7 +114,12 @@ const map 	= new PorchMap()
 const form 	= document.getElementById("map_filter")
 map.init()
 
-function updateResults(){
+function updateResults(close=false){
+	if(close){
+		Alpine.store("filter", {
+			showFilter: false,
+		})
+	}
 	const formData 	= new FormData(form)
 	const values 	= Object.fromEntries(formData.entries())
 	if(values.now_time){
@@ -128,4 +133,27 @@ function updateResults(){
 	if(values.sponsored)values.sponsored 	= true
 	if(values.vendor)values.vendor			= true
 	map.buildMarkers(values)
+}
+
+function modalHistory(){
+    return{
+        init(){
+            window.addEventListener('popstate', ()=>{
+                if(this.$store.porch.open){
+                    this.$store.porch.open = false
+                }
+            })
+            this.$watch('$store.porch.open', (isOpen)=>{
+                if(isOpen){
+                    history.pushState({modal: true}, '')
+                }
+            })
+        },
+        closeModal(){
+            this.$store.porch.open = false
+            if(history.state && history.state.modal){
+                history.back()
+            }
+        }
+    }
 }

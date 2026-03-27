@@ -152,10 +152,17 @@ $header-height: 40px;
     header{
         display: flex;
         justify-content: flex-end;
-        padding: 10px;
+        padding: 5px;
+		height: 15px;
         font-size: 1.5rem;
         background-color: $color-bg-main;
-        .fas{cursor:pointer;}
+        .fas{
+			position: fixed;
+			background-color: white;
+			padding: 2px;
+			border-radius: 50%;
+			cursor:pointer;
+		}
     }
 }
 
