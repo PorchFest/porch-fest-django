@@ -3,9 +3,8 @@ from decouple 	import config
 
 BASE_DIR        = Path(__file__).resolve().parent.parent
 SECRET_KEY 		= config('SECRET_KEY')
-# DEBUG 			= config('DEBUG', default=False, cast=bool)
-DEBUG = False
-# ALLOWED_HOSTS 	= config('ALLOWED_HOSTS', default='towerporchfest.org,www.towerporchfest.org').split(',')
+DEBUG 			= config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS 	= config('ALLOWED_HOSTS', default='towerporchfest.org,www.towerporchfest.org').split(',')
 ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = [
