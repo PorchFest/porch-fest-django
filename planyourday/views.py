@@ -5,18 +5,27 @@ from planyourday.api.filters    import PerformanceFilter
 from planyourday.models         import Itinerary
 
 def plan_your_day(request, itinerary_id=None):
-    performances = with_show_time(get_filtered_performances(request))
+    performances        = with_show_time(get_filtered_performances(request))
+    genres              = Genre.objects.all()
+    itinerary           = None
     if itinerary_id:
-        itinerary = get_object_or_404(Itinerary, id=itinerary_id)
+        itinerary       = get_object_or_404(Itinerary, id=itinerary_id)
+    elif request.session.get('itinerary_id'):
+        itinerary       = get_or_create_itinerary(request)
+
+    if itinerary:
+        context = {
+            'performances': performances,
+            'itinerary':    itinerary.ordered_performances(),
+            'itinerary_id': itinerary.id,
+            'genres':       genres,
+        }
     else:
-        itinerary = get_or_create_itinerary(request)
-    genres = Genre.objects.all()
-    return render(request, 'planyourday/index.html', {
-        'performances':     performances,
-        'itinerary':        itinerary.ordered_performances(),
-        'itinerary_id':     itinerary.id,
-        'genres':           genres,
-    })
+        context = {
+            'performances': performances,
+            'genres':       genres,
+        }
+    return render(request, 'planyourday/index.html', context)
 
 class PerformancesListView(ListView):
     template_name       = 'planyourday/performance-list.html'
@@ -55,8 +64,11 @@ def with_show_time(performances_qs):
         previous_hour = current_hour
     return performances
 
-def add_performance(request, itinerary_id):
-    itinerary       = get_object_or_404(Itinerary, id=itinerary_id)
+def add_performance(request, itinerary_id=None):
+    if itinerary_id:
+        itinerary   = get_object_or_404(Itinerary, id=itinerary_id)
+    else:
+        itinerary   = get_or_create_itinerary(request)
     performance_id  = request.POST.get('performance_id')
     performance     = get_object_or_404(Performance, id=performance_id)
     if not itinerary.performances.filter(id=performance.id).exists():
@@ -69,7 +81,10 @@ def add_performance(request, itinerary_id):
     return render(request, "planyourday/performance-detail-update.html", context)
 
 def remove_performance(request, itinerary_id=None):
-    itinerary       = get_object_or_404(Itinerary, id=itinerary_id)
+    if itinerary_id:
+        itinerary   = get_object_or_404(Itinerary, id=itinerary_id)
+    else:
+        itinerary   = get_or_create_itinerary(request)
     performance_id  = request.POST.get('performance_id')
     performance     = get_object_or_404(Performance, id=performance_id)
     itinerary.performances.remove(performance)

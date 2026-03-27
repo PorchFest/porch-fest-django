@@ -13,7 +13,11 @@
 <div class="col">
     <button
         class="small round yellow border-none padding-2 inline-block"
-        hx-post="{% url 'add_performance' itinerary_id %}"
+        {% if itinerary_id %}
+            hx-post="{% url 'add_performance_shared' itinerary_id %}"
+        {% else %}
+            hx-post={% url 'add_performance' %}
+        {% endif %}
         hx-trigger="click"
         hx-vals='{"performance_id": "{{ performance.id }}"}'
         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
