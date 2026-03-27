@@ -1,5 +1,7 @@
 @use "../variables" as *;
 
+$header-height: 40px;
+
 :root {
 	--vh: 100%;
 }
@@ -20,9 +22,14 @@
 	position: absolute;
 	z-index: 2000;
 	width: 100%;
-	height: 60px;
-	background-color: black;
-	color: white;
+	height: $header-height;
+	// background-color: #000000;
+	// color: white;
+	background-color: $color-header-bg;
+	font-family: $font__headers;
+	font-weight: 400;
+	font-style: normal;
+	text-transform: uppercase;
 
 	display: flex;
 	justify-content: space-between;
@@ -39,12 +46,44 @@
 	.fa-bars{
 		margin-right: 10px;
 	}
-	a{
+	a.header-ad{
 		background-color: white;
 		width: 100%;
 		height: 100%;
 	}
+	.button-wrap{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100px;
+		height: 100%;
+		a.home-button{
+			// padding: 5px;
+			@include button(5px);
+		}
+	}
 }
+
+.search-and-filter{
+	z-index: 2000;
+	position: absolute;
+	top: calc($header-height + 10px);
+	left: 10px;
+	width: 300px;
+	.map-search{
+		border-radius: 0.2rem;
+		label{padding: 0.5rem;background-color:$color-fg-button;}
+		input{padding:0.5rem;flex-grow: 1;}
+		@include search;
+	}
+	#search_filters{
+		display: none;
+		background-color: $color-bg-main;
+		font-family: $font__text;
+		&.show{display: block;}
+	}
+}
+
 
 .menu, .porch-modal{
 	position: absolute;
@@ -86,7 +125,7 @@
     }
 }
 
-#map_filter{
+#map_filter_deprecate{
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;

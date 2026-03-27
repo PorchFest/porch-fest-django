@@ -112,6 +112,10 @@ const form 	= document.getElementById("map_filter")
 map.init()
 form.addEventListener("submit", (e)=>{
 	e.preventDefault()
+	updateResults()
+})
+
+function updateResults(){
 	const formData 	= new FormData(form)
 	const values 	= Object.fromEntries(formData.entries())
 	if(values.now_time){
@@ -125,11 +129,4 @@ form.addEventListener("submit", (e)=>{
 	if(values.sponsored)values.sponsored 	= true
 	if(values.vendor)values.vendor			= true
 	map.buildMarkers(values)
-})
-document.getElementById("reset_filter").addEventListener("click", ()=>{
-	form.reset()
-	map.buildMarkers()
-})
-document.getElementById("home_icon").addEventListener("click", ()=>{
-	window.location.href = "/"
-})
+}

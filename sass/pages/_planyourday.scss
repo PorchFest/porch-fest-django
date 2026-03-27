@@ -411,25 +411,6 @@ main.plan-your-day {
     }
 
     .field-group {
-        display: flex;
-        gap: 0;
-        overflow: hidden;
-
-        & input,
-        & button {
-            font-size: inherit;
-            border-width: 0 1px 0 0;
-            border-radius: 0;
-        }
-
-        &.white {
-            background-color: $color-fg-button;
-            border: solid 1px $color-bg-accent;
-            color: black;
-
-            &:hover {
-                background-color: color.adjust($color-fg-button, $lightness: -5%);
-            }
-        }
+        @include search;
     }
 }

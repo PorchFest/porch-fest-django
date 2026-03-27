@@ -1,5 +1,6 @@
 @use "color" as *;
 @use "font" as *;
+@use "sass:color";
 $smaller-text: 1rem;
 $menu-padding: 10px;
 
@@ -23,6 +24,29 @@ $menu-padding: 10px;
 	}
 }
 
+@mixin search{
+	display: flex;
+	gap: 0;
+	overflow: hidden;
+
+	& input,
+	& button {
+		font-size: inherit;
+		border-width: 0 1px 0 0;
+		border-radius: 0;
+	}
+
+	&.white {
+		background-color: $color-fg-button;
+		border: solid 1px $color-bg-accent;
+		color: black;
+
+		&:hover {
+			background-color: color.adjust($color-fg-button, $lightness: -5%);
+		}
+	}
+}
+
 @mixin header{
 	h1,h2{
 		font-family: $font__headers;
@@ -34,9 +58,9 @@ $menu-padding: 10px;
 	}
 }
 
-@mixin button{
+@mixin button($padding:10px){
 	background-color: $color-button-bg;
-	padding: 8px $menu-padding $menu-padding $menu-padding;
+	padding: calc($padding - 2px) $padding $padding $padding;
 	border-radius: 5px;
 	font-size: 1.5rem;
 	color: $color-button-fg;
