@@ -86,7 +86,27 @@
     <div class="itinerary border-ghost rounded-2 padding-3">
         <div class="row gutter-2 width-100">
             <h4 class="margin-0 margin-y-1 grow-1">My Itinerary</h4>
-            <button class="small white padding-2"><i class="fa-solid fa-share-nodes"></i></button>
+            <button
+                class="small white padding-2" 
+                x-data="{
+                    share(){
+                        if(navigator.share){
+                            navigator.share({
+                                title: document.title,
+                                url: '{% url 'shared_itinerary' itinerary_id %}'
+                            })
+                        }else{
+                            navigator.clipboard.writeText('{% url 'shared_itinerary' itinerary_id %}')
+                            .then(() => {
+                                alert('Itinerary address copied to clipboard');
+                            });
+                        }
+                    }
+                }"
+                @click="share()"
+            >
+                <i class="fa-solid fa-share-nodes"></i>
+            </button>
             <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
         </div>
         <div class="performance-list column rounded-2 margin-y-3" id="itinerary_sidebar">
