@@ -25,7 +25,7 @@ main.plan-your-day {
         background-color: white;
         grid-area: filters;
 
-        .genre-list{
+        .genre-list {
             display: flex;
             align-items: flex-start;
             flex-wrap: wrap;
@@ -33,11 +33,11 @@ main.plan-your-day {
             max-height: 100px;
             overflow-y: scroll;
 
-            .chip{
+            .chip {
                 transition: all 0.2s ease;
             }
 
-            .active{
+            .active {
                 background-color: green;
             }
         }
@@ -413,7 +413,6 @@ main.plan-your-day {
     .field-group {
         display: flex;
         gap: 0;
-        overflow: hidden;
 
         & input,
         & button {
@@ -431,5 +430,49 @@ main.plan-your-day {
                 background-color: color.adjust($color-fg-button, $lightness: -5%);
             }
         }
+
+        &.rounded *:first-child {
+            border-top-left-radius: 0.2rem;
+            border-bottom-left-radius: 0.2rem;
+        }
+
+        &.rounded *:last-child {
+            border-top-right-radius: 0.2rem;
+            border-bottom-right-radius: 0.2rem;
+        }
     }
+
+    /* Container for the tooltip trigger */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+
+        &:hover .tooltiptext,
+        &:active .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            padding: 0.2rem;
+
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    }
+
 }

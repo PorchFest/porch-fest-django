@@ -15,7 +15,13 @@
         <div class="field-group white rounded">
             <label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
             <input id="search" name="search" type="text" class="grow-1 padding-2" placeholder="Search" />
-            <button class="display-md-none" hx-on:click="htmx.toggleClass(htmx.find('#search-filters'), 'display-sm-none');"><i class="fa-solid fa-sliders"></i></button>
+            <button
+                class="tooltip display-md-none"
+                hx-on:click="htmx.toggleClass(htmx.find('#search-filters'), 'display-sm-none');"
+            >
+                <i class="fa-solid fa-sliders"></i>
+                <span class="tooltiptext">More search filters</span>
+            </button>
         </div>
         <div id="search-filters" class="display-sm-none display-md-flex gutter-2 margin-top-3">
             <div class="timerange">
@@ -87,7 +93,7 @@
         <div class="row gutter-2 width-100">
             <h4 class="margin-0 margin-y-1 grow-1">My Itinerary</h4>
             <button
-                class="small white padding-2" 
+                class="small white padding-2 tooltip" 
                 x-data="{
                     share(){
                         if(navigator.share){
@@ -106,8 +112,14 @@
                 @click="share()"
             >
                 <i class="fa-solid fa-share-nodes"></i>
+                <span class="tooltiptext">Share itinerary</span>
             </button>
-            <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
+            {% comment %}
+            <button class="small white padding-2 tooltip">
+                <i class="fa-regular fa-calendar"></i>
+                <span class="tooltiptext">Add to calendar</span>
+            </button>
+            {% endcomment %}
         </div>
         <div class="performance-list column rounded-2 margin-y-3" id="itinerary_sidebar">
             {% include "planyourday/itinerary-list.html" %}

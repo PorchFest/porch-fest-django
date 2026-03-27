@@ -12,12 +12,15 @@
 </div>
 <div class="col">
     <button
-        class="small round yellow border-none padding-2 inline-block"
+        class="small round yellow border-none padding-2 inline-block tooltip"
         hx-post="{% url 'add_performance' itinerary_id %}"
         hx-trigger="click"
         hx-vals='{"performance_id": "{{ performance.id }}"}'
         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
         hx-target="#performance_{{ performance.id }}"
         hx-swap="outerHTML"
-    ><i class="fa-solid fa-plus"></i></button>
+    >
+        <i class="fa-solid fa-plus"></i>
+        <span class="tooltiptext">Add to<br>itinerary</span>
+    </button>
 </div>
