@@ -47,7 +47,7 @@
 				<div class="field-group white rounded map-search">
 					<label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
 					<input id="search" name="search" type="text" class="grow-1 padding-2" placeholder="Search" />
-					<button class="display-md-none" hx-on:click="htmx.toggleClass(htmx.find('#search_filters'), 'show');"><i class="fa-solid fa-sliders"></i></button>
+					<button type="button" class="display-md-none" hx-on:click="htmx.toggleClass(htmx.find('#search_filters'), 'show');"><i class="fa-solid fa-sliders"></i></button>
 				</div>
 				<div id="search_filters" class="gutter-2 margin-top-3">
 					<div class="timerange">

@@ -52,7 +52,7 @@ class PorchMap{
 			})
 			const porches = response.data
 			porches.features.forEach(porch=>{
-				console.log(porch)
+				// console.log(porch)
 				const [lon, lat] 	= porch.geometry.coordinates
 				let icon 			= this.icon
 				if(porch.properties.sponsor_logo){
@@ -112,7 +112,7 @@ const form 	= document.getElementById("map_filter")
 map.init()
 form.addEventListener("submit", (e)=>{
 	e.preventDefault()
-	updateResults()
+	// updateResults()
 })
 
 function updateResults(){
