@@ -62,7 +62,7 @@ class PorchMap{
 						iconAnchor:	[15, 40],
 					})
 				}
-				console.log(icon)
+				// console.log(icon)
 				const marker 		= L.marker([lat, lon], {
 					icon
 				}).addTo(this.map)
@@ -71,8 +71,10 @@ class PorchMap{
 					if(this.activeMarker){
 						this.activeMarker.setIcon(this.icon)
 					}
-					marker.setIcon(this.activeIcon)
-					this.activeMarker = marker
+					if(!porch.properties.sponsor_logo){	
+						marker.setIcon(this.activeIcon)
+						this.activeMarker = marker
+					}
 					this.map.panTo([lat, lon])
 				})
 				this.markers.push(marker)
@@ -100,6 +102,7 @@ class PorchMap{
 		}
 	}
 }
+
 document.addEventListener("alpine:init", ()=>{
 	Alpine.store("porch", {
 		open: false,
@@ -110,10 +113,6 @@ document.addEventListener("alpine:init", ()=>{
 const map 	= new PorchMap()
 const form 	= document.getElementById("map_filter")
 map.init()
-form.addEventListener("submit", (e)=>{
-	e.preventDefault()
-	// updateResults()
-})
 
 function updateResults(){
 	const formData 	= new FormData(form)

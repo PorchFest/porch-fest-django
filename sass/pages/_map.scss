@@ -1,4 +1,5 @@
 @use "../variables" as *;
+@use "sass:color";
 
 $header-height: 40px;
 
@@ -76,11 +77,44 @@ $header-height: 40px;
 		input{padding:0.5rem;flex-grow: 1;}
 		@include search;
 	}
-	#search_filters{
-		display: none;
+	.filter-wrapper{
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
 		background-color: $color-bg-main;
 		font-family: $font__text;
-		&.show{display: block;}
+		padding: 5px;
+		border-radius: 5px;
+  		border: 1px solid black;
+		.filter{
+			display: flex;
+			gap: 1rem;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.filter-column{
+			display: flex;
+			flex-direction: column;
+
+		}
+		
+		input[type="text"]{
+			width: 170px;
+			font-size: 2rem;
+		}
+
+		input[type="checkbox"]{
+			transform: scale(1.5);
+			-ms-transform: scale(1.5); 
+			-webkit-transform: scale(1.5);
+		}
+
+		input{
+			padding: 8px;
+			border-radius: 8px;
+		}
+		@include pydbutton;
 	}
 }
 

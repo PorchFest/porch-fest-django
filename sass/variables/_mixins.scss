@@ -74,6 +74,59 @@ $menu-padding: 10px;
 	}
 }
 
+@mixin pydbutton{
+	button {
+        padding: 8px 10px 10px 10px;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        text-decoration: none;
+        cursor: pointer;
+
+        &.default {
+            background-color: $color-bg-button;
+            color: $color-fg-button;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.white {
+            background-color: $color-fg-button;
+            border: solid 1px $color-bg-accent;
+            color: black;
+
+            &:hover {
+                background-color: color.adjust($color-fg-button, $lightness: -5%);
+            }
+        }
+
+        &.light {
+            background-color: $color-bg-main;
+            border: none;
+            color: black;
+
+            &:hover {
+                background-color: color.adjust($color-bg-main, $lightness: -10%);
+            }
+        }
+
+        &.yellow {
+            background-color: $color-fg-accent;
+            border: none;
+            color: black;
+
+            &:hover {
+                background-color: color.adjust($color-fg-accent, $lightness: 10%);
+            }
+        }
+
+        &.small {
+            font-size: 0.85rem;
+        }
+    }
+}
+
 @mixin form{
 	display: flex;
 	flex-direction: column;
