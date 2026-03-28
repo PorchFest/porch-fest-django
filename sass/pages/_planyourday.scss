@@ -2,28 +2,12 @@
 @use "sass:color";
 
 main.plan-your-day {
-    // min-height: calc(var(--vh, 1vh) * 100);
-    min-height: calc(100vh - 240px);
     background-color: $color-bg-main;
     padding: 1rem;
-    gap: 1rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-        "filters"
-        "performances"
-        "itinerary";
-
     font-family: $font__text;
-
-    @media screen and (min-width: 900px) {
-        grid-template-columns: 1fr 2fr 1fr;
-        grid-template-areas: "filters performances itinerary";
-    }
 
     .filters {
         background-color: white;
-        grid-area: filters;
 
         .genre-list {
             display: flex;
@@ -46,17 +30,24 @@ main.plan-your-day {
 
     .performances {
         background-color: white;
-        grid-area: performances;
-        max-height: 100vh;
         overflow-y: scroll;
     }
 
-    .itinerary {
+    #itinerary {
         background-color: white;
-        grid-area: itinerary;
+        z-index: 1;
+        width: 70dvw;
+        max-height: calc(100dvh - 116px);
+        overflow: hidden;
+        overflow-y: auto;
+
+        @media screen and (min-width:900px) {
+            width: 30%;
+        }
     }
 
-    #search-filters {
+    #search_filters {
+        display: flex;
         flex-direction: column;
     }
 
@@ -64,8 +55,16 @@ main.plan-your-day {
         max-width: 100%;
     }
 
+    .position-relative {
+        position: relative;
+    }
+
     .position-absolute {
         position: absolute;
+    }
+
+    .position-fixed {
+        position: fixed;
     }
 
     .display-none {
@@ -78,6 +77,10 @@ main.plan-your-day {
 
     .display-flex {
         display: flex;
+    }
+
+    .space-between {
+        justify-content: space-between;
     }
 
     .display-sm-none {
@@ -104,6 +107,18 @@ main.plan-your-day {
 
     .overflow-hidden {
         overflow: hidden;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
     }
 
     .border {
