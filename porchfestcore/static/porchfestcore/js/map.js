@@ -52,7 +52,7 @@ class PorchMap{
 			})
 			const porches = response.data
 			porches.features.forEach(porch=>{
-				console.log(porch)
+				// console.log(porch)
 				const [lon, lat] 	= porch.geometry.coordinates
 				let icon 			= this.icon
 				if(porch.properties.sponsor_logo){
@@ -62,7 +62,7 @@ class PorchMap{
 						iconAnchor:	[15, 40],
 					})
 				}
-				console.log(icon)
+				// console.log(icon)
 				const marker 		= L.marker([lat, lon], {
 					icon
 				}).addTo(this.map)
@@ -71,8 +71,10 @@ class PorchMap{
 					if(this.activeMarker){
 						this.activeMarker.setIcon(this.icon)
 					}
-					marker.setIcon(this.activeIcon)
-					this.activeMarker = marker
+					if(!porch.properties.sponsor_logo){	
+						marker.setIcon(this.activeIcon)
+						this.activeMarker = marker
+					}
 					this.map.panTo([lat, lon])
 				})
 				this.markers.push(marker)
@@ -100,6 +102,7 @@ class PorchMap{
 		}
 	}
 }
+
 document.addEventListener("alpine:init", ()=>{
 	Alpine.store("porch", {
 		open: false,
@@ -110,8 +113,13 @@ document.addEventListener("alpine:init", ()=>{
 const map 	= new PorchMap()
 const form 	= document.getElementById("map_filter")
 map.init()
-form.addEventListener("submit", (e)=>{
-	e.preventDefault()
+
+function updateResults(close=false){
+	if(close){
+		Alpine.store("filter", {
+			showFilter: false,
+		})
+	}
 	const formData 	= new FormData(form)
 	const values 	= Object.fromEntries(formData.entries())
 	if(values.now_time){
@@ -125,11 +133,27 @@ form.addEventListener("submit", (e)=>{
 	if(values.sponsored)values.sponsored 	= true
 	if(values.vendor)values.vendor			= true
 	map.buildMarkers(values)
-})
-document.getElementById("reset_filter").addEventListener("click", ()=>{
-	form.reset()
-	map.buildMarkers()
-})
-document.getElementById("home_icon").addEventListener("click", ()=>{
-	window.location.href = "/"
-})
+}
+
+function modalHistory(){
+    return{
+        init(){
+            window.addEventListener('popstate', ()=>{
+                if(this.$store.porch.open){
+                    this.$store.porch.open = false
+                }
+            })
+            this.$watch('$store.porch.open', (isOpen)=>{
+                if(isOpen){
+                    history.pushState({modal: true}, '')
+                }
+            })
+        },
+        closeModal(){
+            this.$store.porch.open = false
+            if(history.state && history.state.modal){
+                history.back()
+            }
+        }
+    }
+}

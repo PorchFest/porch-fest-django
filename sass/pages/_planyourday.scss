@@ -440,6 +440,8 @@ main.plan-your-day {
             border-top-right-radius: 0.2rem;
             border-bottom-right-radius: 0.2rem;
         }
+
+        @include search;
     }
 
     /* Container for the tooltip trigger */
