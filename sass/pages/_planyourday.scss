@@ -39,6 +39,7 @@ main.plan-your-day {
 
             .active {
                 background-color: green;
+                color: white;
             }
         }
     }
@@ -61,6 +62,10 @@ main.plan-your-day {
 
     input {
         max-width: 100%;
+    }
+
+    .position-absolute {
+        position: absolute;
     }
 
     .display-none {
