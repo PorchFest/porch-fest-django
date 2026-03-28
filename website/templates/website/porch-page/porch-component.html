@@ -15,33 +15,9 @@
         </div>
     </div>
     <div class="lineup">
-        <div class="performance-list" x-data="itineraryHandler()">
+        <div class="performance-list">
             {% for performance in porch.performances.all %}
-                <div class="performance {% for filtered in performances %}{% if performance.id == filtered.id %}highlight{% endif %}{% endfor %}">
-                    <div class="info">
-                        <h2>{{ performance.performer.name }}</h2>
-                        <div class="genres">
-                            {% for genre in performance.performer.genres.all %}
-                                <span class="chip">{{ genre }}</span>
-                            {% endfor %}
-                        </div>
-                        <div class="time">
-                            <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
-                        </div>
-                    </div>
-                    {% comment %} <div x-data="itineraryHandler()">
-                        <button @click="addPerformance(123)">
-                            Add to Itinerary
-                        </button>
-
-                        <p x-show="message" x-text="message" class="success"></p>
-                    </div> {% endcomment %}
-                    <button
-                        class="itinerary-add"
-                        @click="addPerformance('{{ performance.id }}')"
-                    ><i class="fa-solid fa-plus"></i></button>
-                </div>
-                {% comment %} {% include 'planyourday/performance-detail.html' %} {% endcomment %}
+                {% include 'website/porch-page/performance-detail.html' %}
             {% empty %}
                 <p>No performers scheduled.</p>
             {% endfor %}
