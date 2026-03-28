@@ -7,6 +7,7 @@ from pathlib                import Path
 from django.core.files.base import ContentFile
 from django.core.mail       import EmailMessage
 from django.template.loader import render_to_string
+from planyourday.views      import get_or_create_itinerary
 
 def index(request):
     sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
@@ -70,13 +71,18 @@ def porch_list_signup(request):
 
 def porch_page(request, slug):
     porch = get_object_or_404(Porch, slug=slug)
+    context = {"porch": porch}
+    if request.session.get('itinerary_id'):
+        itinerary = get_or_create_itinerary(request).ordered_performances()
+        context["itinerary"] = itinerary
     if request.headers.get("HX-Request"):
         performances = request.GET.get("performances")
         if performances:
             performances = Performance.objects.filter(id__in=performances.split(","))
-            return render(request, 'website/porch-page/porch-component.html', {"porch": porch,"performances": performances})
-        return render(request, 'website/porch-page/porch-component.html', {"porch": porch})
-    return render(request, 'website/porch-page/porch-page.html', {"porch": porch})
+            context["performances"] = performances
+        return render(request, 'website/porch-page/porch-component.html', context)
+    return render(request, 'website/porch-page/porch-page.html', context)
+
 def list_porch(request):
     porches = Porch.objects.filter(approved=True).order_by("name")
     return render(request, 'website/list-porch.html', {"porches": porches})

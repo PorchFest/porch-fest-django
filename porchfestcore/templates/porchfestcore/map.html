@@ -104,7 +104,7 @@
 					</div>
 					<button
 						class="yellow small"
-						@click="$el.closest('form').reset(); $dispatch('change')"
+						@click="$el.closest('form').reset(); $dispatch('change'); $store.filter.showFilter = false;"
 					>Reset Filters</button>
 				</div>
 			</form>
