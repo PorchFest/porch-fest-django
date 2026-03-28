@@ -3,10 +3,7 @@
         <div class="wrapper">
             {% comment %} <a class="map" href="{% url 'map' %}">< Map</a> {% endcomment %}
             <div class="title">
-                {% comment %} <h1>{{ porch.name }}</h1> {% endcomment %}
-                {% if itinerary %}
-                <h1>yes itinerary mhm</h1>
-                {% endif %}
+                <h1>{{ porch.name }}</h1>
                 <p>{{ porch.street_address }}</p>
             </div>
             {% if porch.porch_picture %}
@@ -29,7 +26,6 @@
                             {% endfor %}
                         </div>
                         <div class="time">
-                            {% comment %} <p>{{ performance.start_time }} - {{ performance.end_time }}</p> {% endcomment %}
                             <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
                         </div>
                     </div>
@@ -49,6 +45,9 @@
             {% empty %}
                 <p>No performers scheduled.</p>
             {% endfor %}
+            {% if itinerary %}
+                <a href="{% url 'plan_your_day' %}"><h3>View your itinerary in Plan Your Day</h3></a>
+            {% endif %}
         </div>
     </div>
 </div>
