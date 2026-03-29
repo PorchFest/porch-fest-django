@@ -117,17 +117,15 @@
             x-collapse
             x-transition.scale.origin.right
             @blur="showItinerary = false"
-            id="itinerary"
-            class="itinerary position-fixed background-white border rounded-1 padding-3"
+            id="itinerary_slideout"
             style="right:1em;"
         >
-            <div class="row gutter-2 width-100">
-                <h4 class="margin-0 margin-y-1">
+            <div class="slideout_header">
+                <h4>
                     <i class="fa-solid fa-route"></i>
                     My Itinerary
                 </h4>
                 <button
-                    class="small white padding-2 tooltip" 
                     x-data="{
                         share(){
                             if(navigator.share){
@@ -146,24 +144,22 @@
                     @click="share()"
                 >
                     <i class="fa-solid fa-share-nodes"></i>
-                    <span class="tooltiptext">Share itinerary</span>
                 </button>
                 {% comment %}
-                <button class="small white padding-2 tooltip">
+                <button>
                     <i class="fa-regular fa-calendar"></i>
                     <span class="tooltiptext">Add to calendar</span>
                 </button>
                 {% endcomment %}
-                <div class="grow-1 text-right">
+                <div class="grow-1">
                     <button
-                        class="small white padding-2"
                         @click="showItinerary = false"
                     >
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
             </div>
-            <div class="performance-list column rounded-2 margin-y-3" id="itinerary_sidebar">
+            <div class="performance-list slideout_body" id="itinerary_sidebar">
                 {% include "planyourday/itinerary-list.html" %}
             </div>
             <div class="background-light rounded-2 padding-2">
