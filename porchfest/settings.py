@@ -1,11 +1,22 @@
 from pathlib 	import Path
 from decouple 	import config
 
-BASE_DIR        = Path(__file__).resolve().parent.parent
+import os
+if os.name == 'nt':
+    GDAL_LIBRARY_PATH = os.path.join(config('PROJECT_PATH'), r'porch-fest-django\venv\Lib\site-packages\osgeo\gdal.dll')
+    GEOS_LIBRARY_PATH = os.path.join(config('PROJECT_PATH'), r'porch-fest-django\venv\Lib\site-packages\osgeo\geos_c.dll')
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+
 SECRET_KEY 		= config('SECRET_KEY')
 DEBUG 			= config('DEBUG', default=False, cast=bool)
+# DEBUG = False
 ALLOWED_HOSTS 	= config('ALLOWED_HOSTS', default='towerporchfest.org,www.towerporchfest.org').split(',')
-ALLOWED_HOSTS = ['localhost']
+# ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -110,8 +121,8 @@ WSGI_APPLICATION = 'porchfest.wsgi.application'
 DATABASES = {
     'default': {
 		'ENGINE': 		'django.contrib.gis.db.backends.postgis',
-		'NAME': 		'porchfest',
-		'USER': 		'towerporchfest',
+		'NAME': 		config('DB_NAME'),
+		'USER': 		config('DATABASE_USER'),
 		'PASSWORD': 	config('DATABASE_PASS'),
 		'HOST': 		'localhost',
 		'PORT': 		'5432',

@@ -2,7 +2,9 @@
     <div class="row gutter-2 width-100">
         <h5 class="margin-0 padding-1 grow-1">{{ performance.performer.name }}</h5>
         <div class="buttons nowrap">
+            {% comment %}
             <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
+            {% endcomment %}
             <button 
                 class="small white padding-1"
                 {% if itinerary_id %}
@@ -18,6 +20,9 @@
             ><i class="fa-regular fa-trash-can"></i></button>
         </div>
     </div>
-    <p class="margin-1"><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
     <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</small></p>
+    {% for genre in performance.performer.genres.all %}
+        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">{{ genre.name }}</span>
+    {% endfor %}
+    <p class="margin-1"><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
 </div>

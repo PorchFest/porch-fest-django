@@ -7,6 +7,8 @@ from django.contrib.auth.models		import User
 from django.utils.text              import slugify
 from django.template.loader         import render_to_string
 from django.core.mail               import EmailMessage
+from decouple                       import config
+import os
 
 class Genre(models.Model):
     name = models.CharField(max_length=100)
@@ -85,18 +87,19 @@ class Porch(models.Model):
 
         super().save(*args, **kwargs)
 
-        if is_approved:
-            html = render_to_string('website/emails/porch-approved-email.html', {
-                'name': self.owner_name,
-            })
-            email = EmailMessage(
-                subject="Your Porch Has Been Approved! 🎉",
-                body=html,
-                from_email="Tower Porchfest <info@towerporchfest.org>",
-                to=[self.owner_email],
-            )
-            email.content_subtype = "html"
-            email.send(fail_silently=False)
+        if config('DEBUG') == False:
+            if is_approved:
+                html = render_to_string('website/emails/porch-approved-email.html', {
+                    'name': self.owner_name,
+                })
+                email = EmailMessage(
+                    subject="Your Porch Has Been Approved! 🎉",
+                    body=html,
+                    from_email="Tower Porchfest <info@towerporchfest.org>",
+                    to=[self.owner_email],
+                )
+                email.content_subtype = "html"
+                email.send(fail_silently=False)
 
     def __str__(self):
         return self.name
@@ -154,7 +157,9 @@ class Performance(models.Model):
         ordering = ["start_time"]
         
     def __str__(self):
-        return f"{self.performer} at {self.porch} ({self.start_time.strftime('%-I:%M %p')})"
+        # conversion when using windows for local development
+        time_format = '%#I:%M %p' if os.name == 'nt' else '%-I:%M %p'
+        return f"{self.performer} at {self.porch} ({self.start_time.strftime(time_format)})"
 
 class TempUpload(models.Model):
     image 		= models.ImageField(upload_to='temp_uploads/')
