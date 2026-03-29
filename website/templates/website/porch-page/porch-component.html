@@ -21,9 +21,7 @@
             {% empty %}
                 <p>No performers scheduled.</p>
             {% endfor %}
-            {% if itinerary %}
-                <a href="{% url 'plan_your_day' %}"><h3>View your itinerary in Plan Your Day</h3></a>
-            {% endif %}
+            <h3>Create or Edit your Itinerary in <a href="{% url 'plan_your_day' %}">Plan Your Day</a></h3>
         </div>
     </div>
 </div>
