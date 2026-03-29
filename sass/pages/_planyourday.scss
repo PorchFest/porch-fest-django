@@ -36,7 +36,7 @@ main.plan-your-day {
     #itinerary {
         background-color: white;
         z-index: 1;
-        width: 70dvw;
+        width: calc(100dvw - 4rem);
         max-height: calc(100dvh - 116px);
         overflow: hidden;
         overflow-y: auto;
