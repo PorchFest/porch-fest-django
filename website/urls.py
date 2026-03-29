@@ -11,4 +11,5 @@ urlpatterns = [
     # path('porch-signup/', views.porch_signup, name='porch-signup'),
     path('porches/', views.list_porch, name='list-porch'),
     path('porches/<slug:slug>/', views.porch_page, name='porch_page'),
+    path('add-performance/', views.add_performance, name='add_performance_porch')
 ]
