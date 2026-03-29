@@ -7,6 +7,8 @@ window.addEventListener('resize', setVhUnit)
 
 class PorchMap{
 	constructor(){
+		const queryParams 	= new URLSearchParams(window.location.search)
+		this.activePorch 	= queryParams.get("porch") || null
 		this.map 			= null
 		this.markers 		= null
 		this.activeMarker 	= null
@@ -46,6 +48,7 @@ class PorchMap{
 			this.map.removeLayer(marker)
 		})
 		this.markers = []
+		console.log(this.activePorch)
 		try{
 			const response = await axios.get("/api/porches/porch-map", {
 				params: data
@@ -55,6 +58,10 @@ class PorchMap{
 				// console.log(porch)
 				const [lon, lat] 	= porch.geometry.coordinates
 				let icon 			= this.icon
+				if(porch.properties.slug === this.activePorch){
+					icon = this.activeIcon
+					this.map.panTo([lat, lon])
+				}
 				if(porch.properties.sponsor_logo){
 					icon 			= L.icon({
 						iconUrl: porch.properties.sponsor_logo,

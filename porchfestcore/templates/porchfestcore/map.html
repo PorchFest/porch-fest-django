@@ -28,7 +28,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="root" x-data x-init="$store.filter = {showFilter: false}">
+		<div id="root" x-data="{showFilter: true}" x-init="$store.filter = {showFilter: false}">
 			<div class="map-header main-header">
 				{% comment %} <i class="fas fa-home" id="home_icon"></i> {% endcomment %}
 				<div class="button-wrap">
@@ -110,20 +110,26 @@
 			</form>
 			<div id="map" @click="$store.filter.showFilter = false"></div>
 			<div
-			x-data="modalHistory()"
-			x-show="$store.porch.open"
-			x-transition
-			class="porch-modal"
-			x-effect="
-				if($store.porch.content){
-					$nextTick(()=>htmx.process($el))
-				}
-			"
+				x-data="modalHistory()"
+				x-show="$store.porch.open"
+				x-transition
+				class="porch-modal"
+				x-effect="
+					if($store.porch.content){
+						$nextTick(()=>htmx.process($el))
+					}
+				"
 			>
 				<header>
 					<i class="fas fa-times-circle" @click="closeModal()"></i>
 				</header>
 				<div x-html="$store.porch.content"></div>
+			</div>
+			<div id="itinerary" :class="showFilter ? 'open' : ''">
+				<div class="close-button">
+					<i class="fa-solid fa-angle-right" @click="showFilter = false"></i>
+				</div>
+				{% include 'planyourday/itinerary-list.html' %}
 			</div>
 		</div>
 		<script>const MAPBOX_PUBLIC_KEY = "{{ MAPBOX_PUBLIC_KEY|escapejs }}"</script>
