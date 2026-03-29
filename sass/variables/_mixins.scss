@@ -195,6 +195,18 @@ $menu-padding: 10px;
 }
 
 @mixin itinerary_slideout {
+    #itinerary_slideout_button {
+        position: fixed;
+        padding: 0.5rem;
+        border-radius: 5px;
+        background-color: $color-fg-accent;
+        border: none;
+        color: black;
+        font-size: 0.85rem;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
     #itinerary_slideout {
         position: fixed;
         background-color: white;

@@ -8,12 +8,11 @@
     >
         <button
             @click="showItinerary = !showItinerary"
-            class="yellow small tooltip"
+            id="itinerary_slideout_button"
             style="position:fixed;right:1rem;"
         >
             <i class="fa-solid fa-angle-left"></i>
             <i class="fa-solid fa-route"></i>
-            <span class="tooltiptext">My Itinerary</span>
         </button>
         <form
             @submit.prevent
