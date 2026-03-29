@@ -12,7 +12,7 @@ class PorchMap{
 		this.map 			= null
 		this.markers 		= null
 		this.activeMarker 	= null
-		this.center 		= [36.7639, -119.8]
+		this.center 		= [36.74895351606961, -119.80482994526444]
 		this.icon 			= L.icon({
 			iconUrl: "/static/porchfestcore/images/glyph.svg",
 			className: "porch-marker",
@@ -33,7 +33,7 @@ class PorchMap{
 		this.map = L.map("map", {
 			attributionControl: false,
 			zoomControl: false
-		}).setView(this.center, 16)
+		}).setView(this.center, 14)
 		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 			attribution: '© Mapbox © OpenStreetMap',
 			maxZoom: 20,

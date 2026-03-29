@@ -28,6 +28,13 @@ $header-height: 40px;
 	}
 
 }
+.itinerary-button-wrap{
+	position: absolute;
+	z-index: 2500;
+	top: calc($header-height + 10px);
+	right: 10px;
+	width: 20%;
+}
 
 .porch-marker,.sponsor-logo{
     height: 40px;
@@ -88,7 +95,8 @@ $header-height: 40px;
 	position: absolute;
 	top: calc($header-height + 10px);
 	left: 10px;
-	width: 300px;
+	// width: 300px;
+	width: 70%;
 	.map-search{
 		border-radius: 0.2rem;
 		label{padding: 0.5rem;background-color:$color-fg-button;}

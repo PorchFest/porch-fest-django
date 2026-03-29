@@ -28,7 +28,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="root" x-data="{showFilter: true}" x-init="$store.filter = {showFilter: false}">
+		<div id="root" x-data="{showItinerary: false}" x-init="$store.filter = {showFilter: false}">
 			<div class="map-header main-header">
 				{% comment %} <i class="fas fa-home" id="home_icon"></i> {% endcomment %}
 				<div class="button-wrap">
@@ -36,6 +36,16 @@
 				</div>
 				<a href="https://fresnoschoolwatch.com" target="_blank" class="header-ad"><img src="" alt=""></a>
 				{% comment %} <i class="fas fa-bars" @click="open = true"></i> {% endcomment %}
+			</div>
+			<div class="itinerary-button-wrap">
+				<button
+					@click="showItinerary = true"
+					class="yellow small tooltip"
+				>
+					<i class="fa-solid fa-angle-left"></i>
+					<i class="fa-solid fa-route"></i>
+					<span class="tooltiptext">My Itinerary</span>
+				</button>
 			</div>
 			<form
 				@input.debounce.300ms="updateResults()"
@@ -125,9 +135,9 @@
 				</header>
 				<div x-html="$store.porch.content"></div>
 			</div>
-			<div id="itinerary" :class="showFilter ? 'open' : ''">
+			<div id="itinerary" :class="showItinerary ? 'open' : ''">
 				<div class="close-button">
-					<i class="fa-solid fa-angle-right" @click="showFilter = false"></i>
+					<i class="fa-solid fa-angle-right" @click="showItinerary = false"></i>
 				</div>
 				{% include 'planyourday/itinerary-list.html' %}
 			</div>
