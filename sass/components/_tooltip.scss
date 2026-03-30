@@ -1,0 +1,32 @@
+/* Container for the tooltip trigger */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+
+    &:hover .tooltiptext,
+    &:active .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        font-size: 0.875rem;
+        border-radius: 0.5rem;
+        padding: 0.2rem;
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+}
