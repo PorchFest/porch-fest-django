@@ -28,7 +28,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="root" x-data x-init="$store.filter = {showFilter: false}">
+		<div id="root" x-data="{showItinerary: false}" x-init="$store.filter = {showFilter: false}">
 			<div class="map-header main-header">
 				{% comment %} <i class="fas fa-home" id="home_icon"></i> {% endcomment %}
 				<div class="button-wrap">
@@ -36,6 +36,16 @@
 				</div>
 				<a href="https://fresnoschoolwatch.com" target="_blank" class="header-ad"><img src="" alt=""></a>
 				{% comment %} <i class="fas fa-bars" @click="open = true"></i> {% endcomment %}
+			</div>
+			<div class="itinerary-button-wrap">
+				<button
+					@click="showItinerary = true"
+					class="yellow small tooltip"
+				>
+					<i class="fa-solid fa-angle-left"></i>
+					<i class="fa-solid fa-route"></i>
+					<span class="tooltiptext">My Itinerary</span>
+				</button>
 			</div>
 			<form
 				@input.debounce.300ms="updateResults()"
@@ -110,20 +120,68 @@
 			</form>
 			<div id="map" @click="$store.filter.showFilter = false"></div>
 			<div
-			x-data="modalHistory()"
-			x-show="$store.porch.open"
-			x-transition
-			class="porch-modal"
-			x-effect="
-				if($store.porch.content){
-					$nextTick(()=>htmx.process($el))
-				}
-			"
+				x-data="modalHistory()"
+				x-show="$store.porch.open"
+				x-transition
+				class="porch-modal"
+				x-effect="
+					if($store.porch.content){
+						$nextTick(()=>htmx.process($el))
+					}
+				"
 			>
 				<header>
 					<i class="fas fa-times-circle" @click="closeModal()"></i>
 				</header>
 				<div x-html="$store.porch.content"></div>
+			</div>
+			<div
+				id="itinerary"
+				:class="showItinerary ? 'open' : ''"
+			>
+				<div class="slideout_header">
+					<h4>
+						<i class="fa-solid fa-route"></i>
+						My Itinerary
+					</h4>
+					{% comment %} <button
+						x-data="{
+							share(){
+								if(navigator.share){
+									navigator.share({
+										title: document.title,
+										url: '{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
+									})
+								}else{
+									navigator.clipboard.writeText('{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}')
+									.then(() => {
+										alert('Itinerary address copied to clipboard');
+									});
+								}
+							}
+						}"
+						@click="share()"
+					>
+						<i class="fa-solid fa-share-nodes"></i>
+					</button> {% endcomment %}
+					{% comment %}
+					<button>
+						<i class="fa-regular fa-calendar"></i>
+						<span class="tooltiptext">Add to calendar</span>
+					</button>
+					{% endcomment %}
+					<div class="grow-1">
+						<button
+							@click="showItinerary = false"
+						>
+							{% comment %} <i class="fa-solid fa-xmark"></i> {% endcomment %}
+							<i class="fa-solid fa-angle-right"></i>
+						</button>
+					</div>
+				</div>
+				<div class="performance-list slideout_body" id="itinerary_sidebar">
+					{% include "planyourday/itinerary-list.html" %}
+				</div>
 			</div>
 		</div>
 		<script>const MAPBOX_PUBLIC_KEY = "{{ MAPBOX_PUBLIC_KEY|escapejs }}"</script>

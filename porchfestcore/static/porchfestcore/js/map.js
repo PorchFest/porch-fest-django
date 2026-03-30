@@ -7,10 +7,12 @@ window.addEventListener('resize', setVhUnit)
 
 class PorchMap{
 	constructor(){
+		const queryParams 	= new URLSearchParams(window.location.search)
+		this.activePorch 	= queryParams.get("porch") || null
 		this.map 			= null
 		this.markers 		= null
 		this.activeMarker 	= null
-		this.center 		= [36.7639, -119.8]
+		this.center 		= [36.74895351606961, -119.80482994526444]
 		this.icon 			= L.icon({
 			iconUrl: "/static/porchfestcore/images/glyph.svg",
 			className: "porch-marker",
@@ -31,7 +33,7 @@ class PorchMap{
 		this.map = L.map("map", {
 			attributionControl: false,
 			zoomControl: false
-		}).setView(this.center, 16)
+		}).setView(this.center, 14)
 		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 			attribution: '© Mapbox © OpenStreetMap',
 			maxZoom: 20,
@@ -46,6 +48,7 @@ class PorchMap{
 			this.map.removeLayer(marker)
 		})
 		this.markers = []
+		console.log(this.activePorch)
 		try{
 			const response = await axios.get("/api/porches/porch-map", {
 				params: data
@@ -55,6 +58,10 @@ class PorchMap{
 				// console.log(porch)
 				const [lon, lat] 	= porch.geometry.coordinates
 				let icon 			= this.icon
+				if(porch.properties.slug === this.activePorch){
+					icon = this.activeIcon
+					this.map.panTo([lat, lon])
+				}
 				if(porch.properties.sponsor_logo){
 					icon 			= L.icon({
 						iconUrl: porch.properties.sponsor_logo,
