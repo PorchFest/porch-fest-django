@@ -15,5 +15,3 @@ def map_page(request):
         itinerary = get_or_create_itinerary(request).ordered_performances()
         context["itinerary"] = set(item.id for item in itinerary)
     return render(request, 'porchfestcore/map.html', context)
-
-

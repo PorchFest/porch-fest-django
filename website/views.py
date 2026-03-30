@@ -93,7 +93,7 @@ def add_performance(request):
         "performance":  performance,
         "itinerary":    set(item.id for item in itinerary.ordered_performances()),
     }
-    return render(request, "website/porch-page/performance-detail.html", context)
+    return render(request, "website/porch-page/performance-detail-update.html", context)
 
 def list_porch(request):
     porches = Porch.objects.filter(approved=True).order_by("name")
