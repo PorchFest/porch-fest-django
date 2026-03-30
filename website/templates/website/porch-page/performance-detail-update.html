@@ -1,33 +1,4 @@
-<div class="performance {% for filtered in performances %}{% if performance.id == filtered.id %}highlight{% endif %}{% endfor %}" id="performance_{{ performance.id }}">
-    <div class="info">
-        <h2>{{ performance.performer.name }}</h2>
-        <div class="genres">
-            {% for genre in performance.performer.genres.all %}
-                <span class="chip">{{ genre }}</span>
-            {% endfor %}
-        </div>
-        <div class="time">
-            <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
-        </div>
-    </div>
-    {% if performance.id in itinerary %}
-        <div class="itinerary-add">
-            <i class="fa-solid fa-check"></i>
-        </div>
-    {% else %}
-        <button
-            class="itinerary-add"
-            hx-post="{% url 'add_performance_porch' %}"
-            hx-trigger="click"
-            hx-vals='{"performance_id": "{{ performance.id }}"}'
-            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-            hx-target="#performance_{{ performance.id }}"
-            hx-swap="outerHTML"
-        >
-            <i class="fa-solid fa-plus"></i>
-        </button>
-    {% endif %}
-</div>
+{% include "website/porch-page/performance-detail.html" %}
 
 <div class="performance-list slideout_body" id="itinerary_sidebar" hx-swap-oob="true">
     {% include "planyourday/itinerary-list.html" %}

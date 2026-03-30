@@ -74,7 +74,8 @@ def porch_page(request, slug):
     context = {"porch": porch}
     if request.session.get('itinerary_id'):
         itinerary = get_or_create_itinerary(request).ordered_performances()
-        context["itinerary"] = set(item.id for item in itinerary)
+        context["itinerary"] = itinerary
+        context["itinerary_test"] = set(item.id for item in itinerary)
     if request.headers.get("HX-Request"):
         performances = request.GET.get("performances")
         if performances:
@@ -91,7 +92,8 @@ def add_performance(request):
         itinerary.performances.add(performance)
     context = {
         "performance":  performance,
-        "itinerary":    set(item.id for item in itinerary.ordered_performances()),
+        "itinerary_test":    set(item.id for item in itinerary.ordered_performances()),
+        "itinerary":    itinerary.ordered_performances(),
     }
     return render(request, "website/porch-page/performance-detail-update.html", context)
 

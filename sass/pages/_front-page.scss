@@ -177,44 +177,47 @@ main.front-page-styles{
 		gap: 1rem;
 		flex-wrap: wrap;
 		background-color: $color-main-bg;
-		padding: 4rem 2rem 3rem 2rem;
+		padding: 0 2rem 3rem 2rem;
 	
 		.card{
-			width: 320px;
+			max-width: 320px;
 			background-color: white;
-			margin-top: 80px;
+			margin-top: 40px;
 	
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 
-			// border-radius: 30px;
 			border-radius: 1rem;
-	
-			.square{
+			
+			.square-wrapper{
+				height: 170px;
+  				width: 100%;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				width: 100px;
-				height: 100px;
-				rotate: 45deg;
-				border-radius: 1rem;
-				background-color: #f2b814;
-				border: 8px solid #1A2E47;
-				position: relative;
-				top: -58px;
+  				overflow: hidden;
+				.square{
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 100px;
+					height: 100px;
+					rotate: 45deg;
+					border-radius: 1rem;
+					background-color: #f2b814;
+					border: 8px solid #1A2E47;
 	
-				.icon{
-					rotate: -45deg;
-					font-size: 3rem;
-					color: white;
-					padding: 1.5rem;
-					width: 150px;
+					.icon{
+						rotate: -45deg;
+						font-size: 3rem;
+						color: white;
+						padding: 1.5rem;
+						width: 150px;
+					}
 				}
 			}
 			.content-wrapper{
-				position: relative;
-				top: -50px;
 				padding: 0 12px;
 				text-align: center;
 	

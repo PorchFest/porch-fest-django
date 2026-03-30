@@ -12,6 +12,6 @@ def map_page(request):
         'MAPBOX_PUBLIC_KEY': settings.MAPBOX_PUBLIC_KEY
     }
     if request.session.get('itinerary_id'):
-        itinerary = get_or_create_itinerary(request).ordered_performances()
-        context["itinerary"] = set(item.id for item in itinerary)
+        context['itinerary'] = get_or_create_itinerary(request).ordered_performances()
+
     return render(request, 'porchfestcore/map.html', context)
