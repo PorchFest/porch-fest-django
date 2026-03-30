@@ -144,32 +144,6 @@
 						<i class="fa-solid fa-route"></i>
 						My Itinerary
 					</h4>
-					{% comment %} <button
-						x-data="{
-							share(){
-								if(navigator.share){
-									navigator.share({
-										title: document.title,
-										url: '{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
-									})
-								}else{
-									navigator.clipboard.writeText('{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}')
-									.then(() => {
-										alert('Itinerary address copied to clipboard');
-									});
-								}
-							}
-						}"
-						@click="share()"
-					>
-						<i class="fa-solid fa-share-nodes"></i>
-					</button> {% endcomment %}
-					{% comment %}
-					<button>
-						<i class="fa-regular fa-calendar"></i>
-						<span class="tooltiptext">Add to calendar</span>
-					</button>
-					{% endcomment %}
 					<div class="grow-1">
 						<button
 							@click="showItinerary = false"
