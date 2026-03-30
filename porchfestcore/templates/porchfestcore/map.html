@@ -26,86 +26,87 @@
 				</div>
 				<a href="https://fresnoschoolwatch.com" target="_blank" class="header-ad"><img src="" alt=""></a>
 			</div>
-			<div class="itinerary-button-wrap">
+			<div class="map-toolbar">
+				<form
+					@input.debounce.300ms="updateResults()"
+					@change.debounce.300ms="updateResults()"
+					@submit.prevent
+					@keydown.enter.prevent="updateResults(true)"
+					class="search-and-filter"
+					action=""
+					id="map_filter">
+					<div class="field-group white rounded map-search">
+						<label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
+						<input
+							@focus="$store.filter.showFilter = true"
+							@click="$store.filter.showFilter = true"
+							id="search"
+							name="search"
+							type="text"
+							class="grow-1 padding-2"
+							placeholder="Search" />
+						<button
+							@click="$store.filter.showFilter = !$store.filter.showFilter"
+							type="button"
+							class="display-md-none"
+						><i class="fa-solid fa-sliders"></i></button>
+					</div>
+					<div
+						x-show="$store.filter.showFilter"
+						x-transition
+						x-transition.scale.origin.top
+						id="search_filters"
+						class="gutter-2 margin-top-3 filter-wrapper"
+					>
+						<div class="filter-time filter">
+							<label for="after">Time:</label>
+							<input type="time" name="after" id="filter_time">
+						</div>
+						<div class="filter-now filter">
+							<label for="now_time">Playing Now:</label>
+							<input type="checkbox" name="now_time" id="filter_now_time">
+						</div>
+						<div class="genres filter-column">
+							<label for="genres">Genres (hold Ctrl/Cmd to select multiple):</label>
+							<select id="genres" name="genres" multiple size="4">
+								{% for genre in genres %}
+									<option value="{{ genre.slug }}">{{ genre.name }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="other-options">
+							<div class="filter-vendor filter">
+								<label for="vendor">Vendor:</label>
+								<input type="checkbox" name="vendor" id="filter_vendor">
+							</div>
+							<div class="filter-porta filter">
+								<label for="porta">Bathroom:</label>
+								<input type="checkbox" name="porta" id="filter_porta">
+							</div>
+							<div class="filter-sponsored filter">
+								<label for="sponsored">Sponsored:</label>
+								<input type="checkbox" name="sponsored" id="filter_sponsor">
+							</div>
+						</div>
+						<div class="bus filter">
+							<label for="show_bus">Show Trolley:</label>
+							<input type="checkbox" name="show_bus" id="show_bus">
+						</div>
+						<button
+							class="yellow small"
+							@click="$el.closest('form').reset(); $dispatch('change'); $store.filter.showFilter = false;"
+						>Reset Filters</button>
+					</div>
+				</form>
 				<button
 					@click="showItinerary = true"
+					id="itinerary_slideout_button"
 				>
 					<i class="fa-solid fa-angle-left"></i>
 					<i class="fa-solid fa-route"></i>
-					<span class="tooltiptext">My Itinerary</span>
+					<span class="tooltiptext">Itinerary</span>
 				</button>
 			</div>
-			<form
-				@input.debounce.300ms="updateResults()"
-				@change.debounce.300ms="updateResults()"
-				@submit.prevent
-				@keydown.enter.prevent="updateResults(true)"
-				class="search-and-filter"
-				action=""
-				id="map_filter">
-				<div class="field-group white rounded map-search">
-					<label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
-					<input
-						@focus="$store.filter.showFilter = true"
-						@click="$store.filter.showFilter = true"
-						id="search"
-						name="search"
-						type="text"
-						class="grow-1 padding-2"
-						placeholder="Search" />
-					<button
-						@click="$store.filter.showFilter = !$store.filter.showFilter"
-						type="button"
-						class="display-md-none"
-					><i class="fa-solid fa-sliders"></i></button>
-				</div>
-				<div
-					x-show="$store.filter.showFilter"
-					x-transition
-					x-transition.scale.origin.top
-					id="search_filters"
-					class="gutter-2 margin-top-3 filter-wrapper"
-				>
-					<div class="filter-time filter">
-						<label for="after">Time:</label>
-						<input type="time" name="after" id="filter_time">
-					</div>
-					<div class="filter-now filter">
-						<label for="now_time">Playing Now:</label>
-						<input type="checkbox" name="now_time" id="filter_now_time">
-					</div>
-					<div class="genres filter-column">
-						<label for="genres">Genres (hold Ctrl/Cmd to select multiple):</label>
-						<select id="genres" name="genres" multiple size="4">
-							{% for genre in genres %}
-								<option value="{{ genre.slug }}">{{ genre.name }}</option>
-							{% endfor %}
-						</select>
-					</div>
-					<div class="other-options">
-						<div class="filter-vendor filter">
-							<label for="vendor">Vendor:</label>
-							<input type="checkbox" name="vendor" id="filter_vendor">
-						</div>
-						<div class="filter-porta filter">
-							<label for="porta">Bathroom:</label>
-							<input type="checkbox" name="porta" id="filter_porta">
-						</div>
-						<div class="filter-sponsored filter">
-							<label for="sponsored">Sponsored:</label>
-							<input type="checkbox" name="sponsored" id="filter_sponsor">
-						</div>
-					</div>
-					<div class="bus filter">
-						<label for="show_bus">Show Trolley:</label>
-						<input type="checkbox" name="show_bus" id="show_bus">
-					</div>
-					<button
-						class="yellow small"
-						@click="$el.closest('form').reset(); $dispatch('change'); $store.filter.showFilter = false;"
-					>Reset Filters</button>
-				</div>
-			</form>
 			<div id="map" @click="$store.filter.showFilter = false"></div>
 			<div
 				x-data="modalHistory()"

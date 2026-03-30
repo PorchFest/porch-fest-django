@@ -21,13 +21,6 @@ $header-height: 40px;
         width: calc(100% - 2rem);
     }
 }
-.itinerary-button-wrap{
-	position: absolute;
-	z-index: 2500;
-	top: calc($header-height + 10px);
-	right: 10px;
-	width: 20%;
-}
 
 .plan-your-day-itinerary{
     position: fixed;
@@ -44,7 +37,8 @@ $header-height: 40px;
 }
 
 #itinerary_slideout_button {
-    position: fixed;
+    // position: fixed;
+    height: 50px;
     padding: 0.5rem;
     border-radius: 5px;
     background-color: $color-fg-accent;

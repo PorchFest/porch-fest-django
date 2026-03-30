@@ -30,8 +30,6 @@ $header-height: 40px;
     z-index: 2000;
     width: 100%;
     height: $header-height;
-    // background-color: #000000;
-    // color: white;
     background-color: $color-header-bg;
     font-family: $font__headers;
     font-weight: 400;
@@ -76,72 +74,78 @@ $header-height: 40px;
     }
 }
 
-.search-and-filter {
-    z-index: 2000;
-    position: absolute;
-    top: calc($header-height + 10px);
-    left: 10px;
-    // width: 300px;
-    width: 70%;
+.map-toolbar{
+	z-index: 2000;
+	position: absolute;
+	top: calc($header-height + 10px);
+	left: 10px;
+	right: 10px;
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 10px;
+	height: 50px;
+	
+	.map-search {
+		border-radius: 0.2rem;
+		// height: 100%;
+		height: 50px;
 
-    .map-search {
-        border-radius: 0.2rem;
+		label {
+			padding: 0.5rem;
+			background-color: $color-fg-button;
+		}
 
-        label {
-            padding: 0.5rem;
-            background-color: $color-fg-button;
-        }
+		input {
+			padding: 0.5rem;
+			flex-grow: 1;
+		}
 
-        input {
-            padding: 0.5rem;
-            flex-grow: 1;
-        }
+		@include search;
+	}
 
-        @include search;
-    }
+	.filter-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		background-color: $color-bg-main;
+		font-family: $font__text;
+		padding: 5px;
+		border-radius: 5px;
+		border: 1px solid black;
 
-    .filter-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        background-color: $color-bg-main;
-        font-family: $font__text;
-        padding: 5px;
-        border-radius: 5px;
-        border: 1px solid black;
+		.filter {
+			display: flex;
+			gap: 1rem;
+			justify-content: space-between;
+			align-items: center;
+		}
 
-        .filter {
-            display: flex;
-            gap: 1rem;
-            justify-content: space-between;
-            align-items: center;
-        }
+		.filter-column {
+			display: flex;
+			flex-direction: column;
 
-        .filter-column {
-            display: flex;
-            flex-direction: column;
+		}
 
-        }
+		input[type="text"] {
+			width: 170px;
+			font-size: 2rem;
+		}
 
-        input[type="text"] {
-            width: 170px;
-            font-size: 2rem;
-        }
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			-ms-transform: scale(1.5);
+			-webkit-transform: scale(1.5);
+		}
 
-        input[type="checkbox"] {
-            transform: scale(1.5);
-            -ms-transform: scale(1.5);
-            -webkit-transform: scale(1.5);
-        }
+		input {
+			padding: 8px;
+			border-radius: 8px;
+		}
 
-        input {
-            padding: 8px;
-            border-radius: 8px;
-        }
-
-        @include pydbutton;
-    }
+		@include pydbutton;
+	}
 }
+
 
 
 .menu,
