@@ -147,7 +147,7 @@ class Request(models.Model):
 class Performance(models.Model):
     id 					= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     porch 				= models.ForeignKey(Porch, on_delete=models.CASCADE, related_name='performances')
-    performer 			= models.ForeignKey(Performer, on_delete=models.CASCADE)
+    performer 			= models.ForeignKey(Performer, on_delete=models.CASCADE, related_name='performances')
     created_by 			= models.ForeignKey(User, on_delete=models.CASCADE, related_name='performances')
     start_time 			= models.TimeField()
     end_time 			= models.TimeField()

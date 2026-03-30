@@ -129,10 +129,45 @@ class PerformanceAdmin(admin.ModelAdmin):
         models.TimeField: {'widget': TimeInput},
     }
     autocomplete_fields		= ['performer']
+    list_filter 			= (HasCoordinatesFilter, HasInvitationFilter, HasPerformancesFilter)
+
+# class PerformerHasPerformances(admin.SimpleListFilter):
+#     title = _("Performances")
+#     parameter_name  = "has_performances"
+
+#     def lookups(self, request, model_admin):
+#         return(
+#             ("yes", _("Has Performances")),
+#             ("no", _("No Performances")),
+#         )
+
+#     def queryset(self, request, queryset):
+#         if self.value() == "yes":
+#             return queryset.filter(performances__isnull=False).distinct()
+#         if self.value() == "no":
+#             return queryset.filter(performances__isnull=True)
+#         return queryset
 
 @admin.register(Performer)
 class PerformerAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_by',)
     search_fields = ['name']
+    actions = ['export_as_csv',]
+    # list_filter = (PerformerHasPerformances,)
+    list_filter = (HasPerformancesFilter,)
+    def export_as_csv(self, request, queryset):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="performers.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['Name',])
+        for obj in queryset:
+            # if not obj.performance_set.exists():
+            #     continue
+            writer.writerow([
+                obj.name,
+            ])
+
+        return response
+    export_as_csv.short_description = "Export selected Porch to CSV"
 admin.site.register(Request)
 admin.site.register(TempUpload)
