@@ -10,12 +10,13 @@ $header-height: 70px;
     right: 1rem;
 }
 
-.map-toolbar.plan-your-day{
+.map-toolbar.plan-your-day {
     background-color: $color-bg-main;
     padding: 10px 5px 10px 5px;
     border: black 1px solid;
     border-radius: 5px;
-    .search{
+
+    .search {
         height: 50px;
     }
 }
@@ -48,7 +49,7 @@ $header-height: 70px;
 
 .plan-your-day-itinerary {
     position: fixed;
-    z-index: 1;
+    z-index: 2000;
     width: calc(100dvw - 4rem);
     max-height: calc(100dvh - 116px);
 
@@ -65,6 +66,7 @@ $header-height: 70px;
 #itinerary_slideout_button {
     // position: fixed;
     height: 50px;
+    width: 50px;
     padding: 0.5rem;
     border-radius: 5px;
     background-color: $color-fg-accent;
@@ -73,6 +75,20 @@ $header-height: 70px;
     font-size: 0.85rem;
     text-decoration: none;
     cursor: pointer;
+    justify-self: right;
+
+    @media screen and (min-width:600px) {
+        width: 150px;
+    }
+
+    .label {
+        display: none;
+
+        @media screen and (min-width:600px) {
+            display: inline-block;
+        }
+    }
+
 }
 
 #itinerary_slideout,
@@ -83,6 +99,10 @@ $header-height: 70px;
     padding: 1rem;
     overflow: hidden;
     overflow-y: auto;
+
+    @media screen and (min-width:900px) {
+        max-width: 30%;
+    }
 
     .slideout_header {
         display: flex;

@@ -76,6 +76,10 @@ main.plan-your-day {
         display: block;
     }
 
+    .display-inline-block {
+        display: inline-block;
+    }
+
     .display-flex {
         display: flex;
     }
@@ -97,6 +101,12 @@ main.plan-your-day {
     .display-md-block {
         @media screen and (min-width:900px) {
             display: block;
+        }
+    }
+
+    .display-md-inline-block {
+        @media screen and (min-width:900px) {
+            display: inline-block;
         }
     }
 
