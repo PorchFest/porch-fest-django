@@ -10,6 +10,16 @@ $header-height: 70px;
     right: 1rem;
 }
 
+.map-toolbar.plan-your-day{
+    background-color: $color-bg-main;
+    padding: 10px 5px 10px 5px;
+    border: black 1px solid;
+    border-radius: 5px;
+    .search{
+        height: 50px;
+    }
+}
+
 .map-itinerary {
     position: fixed;
     z-index: 3000;
