@@ -6,111 +6,113 @@
     <div
         x-data="{ selectedGenres: [], showItinerary: false, search_filters: false }"
     >
-        <button
-            @click="showItinerary = !showItinerary"
-            id="itinerary_slideout_button"
-            style="right:1rem;"
-        >
-            <i class="fa-solid fa-angle-left"></i>
-            <i class="fa-solid fa-route"></i>
-        </button>
-        <form
-            @submit.prevent
-            hx-get="{% url 'performances' %}"
-            hx-target="#performances"
-            {% comment %} hx-trigger="change delay:300ms, keyup delay:300ms" {% endcomment %}
-            hx-trigger="change delay:300ms, input delay:300ms"
-            class="filters position-fixed"
-        >
-            <div class="field-group white rounded">
-                <label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
-                <input
-                    @focus="search_filters = true"
-                    @click="search_filters = true"
-                    id="search"
-                    name="search"
-                    type="text"
-                    class="padding-2 grow-1"
-                    placeholder="Search"
-                />
-            </div>
-            <div
-                x-show="search_filters"
-                x-collapse
-                x-transition
-                @blur="search_filters = false"
-                id="search_filters"
-                class="gutter-2 padding-3 border rounded-1 position-relative"
+        <div class="map-toolbar plan-your-day">
+            <form
+                @submit.prevent
+                hx-get="{% url 'performances' %}"
+                hx-target="#performances"
+                {% comment %} hx-trigger="change delay:300ms, keyup delay:300ms" {% endcomment %}
+                hx-trigger="change delay:300ms, input delay:300ms"
+                class="filters"
             >
-                <button
-                    @click="search_filters = false"
-                    class="small white padding-2 margin-1 position-absolute"
-                    style="top:0;right:0;"
+                <div class="field-group white rounded">
+                    <label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
+                    <input
+                        @focus="search_filters = true"
+                        @click="search_filters = true"
+                        id="search"
+                        name="search"
+                        type="text"
+                        class="padding-2 grow-1"
+                        placeholder="Search"
+                    />
+                </div>
+                <div
+                    x-show="search_filters"
+                    x-collapse
+                    x-transition
+                    @blur="search_filters = false"
+                    id="search_filters"
+                    class="gutter-2 padding-3 border rounded-1 position-relative"
                 >
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-                <div class="timerange">
-                    {% comment %} <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4> {% endcomment %}
-                    <div class="row gutter-2 margin-y-2">
-                    <div class="col-6">
-                        <label>
-                            <h4 class="margin-0">After</h4>
-                            <input type="time" name="after"/>
-                        </label>
+                    <button
+                        @click="search_filters = false"
+                        class="small white padding-2 margin-1 position-absolute"
+                        style="top:0;right:0;"
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <div class="timerange">
+                        {% comment %} <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4> {% endcomment %}
+                        <div class="row gutter-2 margin-y-2">
+                        <div class="col-6">
+                            <label>
+                                <h4 class="margin-0">After</h4>
+                                <input type="time" name="after"/>
+                            </label>
+                        </div>
+                        {% comment %} <div class="col-6">
+                            <label>
+                            <small>End Time</small><br />
+                                <input type="time" name="endtime" />
+                            </label>
+                        </div> {% endcomment %}
+                        </div>
                     </div>
-                    {% comment %} <div class="col-6">
-                        <label>
-                        <small>End Time</small><br />
-                            <input type="time" name="endtime" />
-                        </label>
-                    </div> {% endcomment %}
-                    </div>
-                </div>
-                <div class="genres">
-                    <h4 class="margin-0">Genres</h4>
-                    <div class="margin-y-2 rounded-0 padding-2 genre-list border">
-                        {% for genre in genres %}
-                            <span
-                                class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
-                                @click="
-                                    selectedGenres.includes('{{ genre.slug }}')
-                                    ? selectedGenres = selectedGenres.filter(g => g !== '{{ genre.slug }}')
-                                    : selectedGenres.push('{{ genre.slug }}')
-                                    $dispatch('change')
-                                "
-                                :class="selectedGenres.includes('{{ genre.slug }}') ? 'active' : ''"
-                                :style="selectedGenres.includes('{{ genre.slug }}') 
-                                    ? `order: ${selectedGenres.indexOf('{{ genre.slug }}') - 100}` 
-                                    : 'order: 0'"
+                    <div class="genres">
+                        <h4 class="margin-0">Genres</h4>
+                        <div class="margin-y-2 rounded-0 padding-2 genre-list border">
+                            {% for genre in genres %}
+                                <span
+                                    class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
+                                    @click="
+                                        selectedGenres.includes('{{ genre.slug }}')
+                                        ? selectedGenres = selectedGenres.filter(g => g !== '{{ genre.slug }}')
+                                        : selectedGenres.push('{{ genre.slug }}')
+                                        $dispatch('change')
+                                    "
+                                    :class="selectedGenres.includes('{{ genre.slug }}') ? 'active' : ''"
+                                    :style="selectedGenres.includes('{{ genre.slug }}') 
+                                        ? `order: ${selectedGenres.indexOf('{{ genre.slug }}') - 100}` 
+                                        : 'order: 0'"
+                                >
+                                    {{ genre.name }}
+                                </span>
+                            {% endfor %}
+                            <template
+                                x-for="genre in selectedGenres"
+                                :key="genre"
                             >
-                                {{ genre.name }}
-                            </span>
-                        {% endfor %}
-                        <template
-                            x-for="genre in selectedGenres"
-                            :key="genre"
-                        >
-                            <input
-                                type="hidden"
-                                name="genres"
-                                :value="genre"
-                            >
-                        </template>
+                                <input
+                                    type="hidden"
+                                    name="genres"
+                                    :value="genre"
+                                >
+                            </template>
+                        </div>
                     </div>
+                    <!--<div class"additionalfilters">
+                        <h4 class="margin-0">Additional Filters</h4>
+                        <div class="margin-y-2">
+                            <div><label><input type="checkbox" name="food-available"> Food available</label></div>
+                            <div><label><input type="checkbox" name="kid-friendly"> Kid Friendly</label></div>
+                        </div>
+                    </div>-->
+                    <button
+                        class="yellow small"
+                        @click="$el.closest('form').reset(); $dispatch('change')"
+                    >Reset Filters</button>
                 </div>
-                <!--<div class"additionalfilters">
-                    <h4 class="margin-0">Additional Filters</h4>
-                    <div class="margin-y-2">
-                        <div><label><input type="checkbox" name="food-available"> Food available</label></div>
-                        <div><label><input type="checkbox" name="kid-friendly"> Kid Friendly</label></div>
-                    </div>
-                </div>-->
-                <button
-                    class="yellow small"
-                    @click="$el.closest('form').reset(); $dispatch('change')"
-                >Reset Filters</button>
-            </div>
-        </form>
+            </form>
+            <button
+                @click="showItinerary = !showItinerary"
+                id="itinerary_slideout_button"
+            >
+                <i class="fa-solid fa-angle-left"></i>
+                <i class="fa-solid fa-route"></i>
+                Itinerary
+            </button>
+        </div>
         <div
             x-show="showItinerary"
             x-collapse

@@ -11,8 +11,8 @@ $header-height: 40px;
     height: calc(var(--vh, 1vh) * 100);
 }
 
-#root{
-	overflow: hidden;
+#root {
+    overflow: hidden;
 }
 
 .porch-marker,
@@ -74,76 +74,76 @@ $header-height: 40px;
     }
 }
 
-.map-toolbar{
-	z-index: 2000;
-	position: absolute;
-	top: calc($header-height + 10px);
-	left: 10px;
-	right: 10px;
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	gap: 10px;
-	height: 50px;
-	
-	.map-search {
-		border-radius: 0.2rem;
-		// height: 100%;
-		height: 50px;
+.map-toolbar {
+    z-index: 2000;
+    position: absolute;
+    top: calc($header-height + 10px);
+    left: 10px;
+    right: 10px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    height: 50px;
 
-		label {
-			padding: 0.5rem;
-			background-color: $color-fg-button;
-		}
+    .map-search {
+        border-radius: 0.2rem;
+        // height: 100%;
+        height: 50px;
 
-		input {
-			padding: 0.5rem;
-			flex-grow: 1;
-		}
+        label {
+            padding: 0.5rem;
+            background-color: $color-fg-button;
+        }
 
-		@include search;
-	}
+        input {
+            padding: 0.5rem;
+            flex-grow: 1;
+        }
 
-	.filter-wrapper {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		background-color: $color-bg-main;
-		font-family: $font__text;
-		padding: 5px;
-		border-radius: 5px;
-		border: 1px solid black;
+        @include search;
+    }
 
-		.filter {
-			display: flex;
-			gap: 1rem;
-			justify-content: space-between;
-			align-items: center;
-		}
+    .filter-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: $color-bg-main;
+        font-family: $font__text;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
 
-		.filter-column {
-			display: flex;
-			flex-direction: column;
+        .filter {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-		}
+        .filter-column {
+            display: flex;
+            flex-direction: column;
 
-		input[type="text"] {
-			width: 170px;
-			font-size: 2rem;
-		}
+        }
 
-		input[type="checkbox"] {
-			transform: scale(1.5);
-			-ms-transform: scale(1.5);
-			-webkit-transform: scale(1.5);
-		}
+        input[type="text"] {
+            width: 170px;
+            font-size: 2rem;
+        }
 
-		input {
-			padding: 8px;
-			border-radius: 8px;
-		}
+        input[type="checkbox"] {
+            transform: scale(1.5);
+            -ms-transform: scale(1.5);
+            -webkit-transform: scale(1.5);
+        }
 
-		@include pydbutton;
-	}
+        input {
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        @include pydbutton;
+    }
 }
 
 
