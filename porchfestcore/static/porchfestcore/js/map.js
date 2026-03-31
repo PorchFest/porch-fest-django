@@ -51,7 +51,18 @@ class PorchMap{
 		console.log(this.activePorch)
 		try{
 			const response = await axios.get("/api/porches/porch-map", {
-				params: data
+				params: data,
+				paramsSerializer: params=>{
+					const searchParams = new URLSearchParams()
+					Object.entries(params).forEach(([key, value])=>{
+						if(Array.isArray(value)){
+							value.forEach(v=>searchParams.append(key, v))
+						}else if(value !== undefined && value !== null){
+							searchParams.append(key, value)
+						}
+					})
+					return searchParams.toString()
+				}
 			})
 			const porches = response.data
 			porches.features.forEach(porch=>{
@@ -128,7 +139,11 @@ function updateResults(close=false){
 		})
 	}
 	const formData 	= new FormData(form)
-	const values 	= Object.fromEntries(formData.entries())
+	// const values 	= Object.fromEntries(formData.entries())
+	const values = {
+		...Object.fromEntries(formData.entries()),
+		genres: formData.getAll("genres")
+	}
 	if(values.now_time){
 		const time = new Date().toLocaleTimeString([], {
 			hour: '2-digit',

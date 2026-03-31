@@ -19,9 +19,11 @@
             {% for performance in porch.performances.all %}
                 {% include 'website/porch-page/performance-detail.html' %}
             {% empty %}
-                <p>No performers scheduled.</p>
+                <div class="performance">
+                    <h2>No performers scheduled.</h2>
+                </div>
             {% endfor %}
-            <h3>Create or Edit your Itinerary in <a href="{% url 'plan_your_day' %}">Plan Your Day</a></h3>
+            <h3>Look at all performances in <a href="{% url 'plan_your_day' %}">Plan Your Day</a></h3>
         </div>
     </div>
 </div>
