@@ -17,9 +17,14 @@
     	<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<link rel="stylesheet" href="{% static "css/style.css" %}">
+		<style>
+			body{
+				overflow: hidden;
+			}
+		</style>
 	</head>
 	<body>
-		<div id="root" x-data="{showItinerary: false}" x-init="$store.filter = {showFilter: false}">
+		<div id="root" x-data="{showItinerary: false, selectedGenres: []}" x-init="$store.filter = {showFilter: true}">
 			<div class="map-header main-header">
 				<div class="button-wrap">
 					<a href="/" class="home-button">Home</a>
@@ -45,11 +50,11 @@
 							type="text"
 							class="grow-1 padding-2"
 							placeholder="Search" />
-						<button
+						{% comment %} <button
 							@click="$store.filter.showFilter = !$store.filter.showFilter"
 							type="button"
 							class="display-md-none"
-						><i class="fa-solid fa-sliders"></i></button>
+						><i class="fa-solid fa-sliders"></i></button> {% endcomment %}
 					</div>
 					<div
 						x-show="$store.filter.showFilter"
@@ -66,13 +71,44 @@
 							<label for="now_time">Playing Now:</label>
 							<input type="checkbox" name="now_time" id="filter_now_time">
 						</div>
-						<div class="genres filter-column">
-							<label for="genres">Genres (hold Ctrl/Cmd to select multiple):</label>
-							<select id="genres" name="genres" multiple size="4">
+						<div class="genres">
+							<h4 class="margin-0">Genres</h4>
+							<div id="selected_genres">
+								<template x-for="genre in selectedGenres" :key="genre">
+									<span class="chip active">
+										<span x-text="genre"></span>
+										<i
+											class="fa-solid fa-x"
+											@click="
+												selectedGenres = selectedGenres.filter(g => g !== genre);
+												$dispatch('change')
+											"
+										></i>
+									</span>
+								</template>
+							</div>
+							<div class="margin-y-2 rounded-0 padding-2 genre-list border">
 								{% for genre in genres %}
-									<option value="{{ genre.slug }}">{{ genre.name }}</option>
+									<span
+										class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
+										{% comment %} x-show="!selectedGenres.includes('{{ genre.slug }}')" {% endcomment %}
+										@click="
+											selectedGenres.push('{{ genre.slug }}');
+											$dispatch('change')
+										"
+									>
+										{{ genre.name }}
+									</span>
 								{% endfor %}
-							</select>
+
+								<template x-for="genre in selectedGenres" :key="genre">
+									<input
+										type="hidden"
+										name="genres"
+										:value="genre"
+									>
+								</template>
+							</div>
 						</div>
 						<div class="other-options">
 							<div class="filter-vendor filter">
