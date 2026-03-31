@@ -41,7 +41,8 @@
 					action=""
 					id="map_filter">
 					<div class="field-group white rounded map-search">
-						<label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
+						{% comment %} <label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
+						<label for="search"></label> {% endcomment %}
 						<input
 							@focus="$store.filter.showFilter = true"
 							@click="$store.filter.showFilter = true"
@@ -50,11 +51,11 @@
 							type="text"
 							class="grow-1 padding-2"
 							placeholder="Search" />
-						{% comment %} <button
+						<button
 							@click="$store.filter.showFilter = !$store.filter.showFilter"
 							type="button"
 							class="display-md-none"
-						><i class="fa-solid fa-sliders"></i></button> {% endcomment %}
+						><i class="fa-solid fa-sliders"></i></button>
 					</div>
 					<div
 						x-show="$store.filter.showFilter"
