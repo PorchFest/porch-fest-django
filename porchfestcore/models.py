@@ -72,6 +72,7 @@ class Porch(models.Model):
     created_at              = models.DateTimeField(auto_now_add=True)
     original_created_at     = models.DateTimeField(null=True, blank=True)
     slug                    = models.SlugField(unique=True, blank=True, max_length=255)
+    number                  = models.SmallIntegerField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Porch"
