@@ -205,6 +205,10 @@ function modalHistory(){
 				if(isOpen){
 					if(!history.state || history.state.modal !== 'porch'){
 						history.pushState({modal: 'porch'}, '')
+					}else{
+						if(history.state && history.state.modal === 'porch'){
+							history.back()
+						}
 					}
 				}
 			})
@@ -212,6 +216,10 @@ function modalHistory(){
 				if(isOpen){
 					if(!history.state || history.state.modal !== 'itinerary'){
 						history.pushState({modal: 'itinerary'}, '')
+					}else{
+						if(history.state && history.state.modal === 'itinerary'){
+							history.back()
+						}
 					}
 				}
 			})
