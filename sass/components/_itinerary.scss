@@ -24,7 +24,7 @@ $header-height: 70px;
 .map-itinerary {
     position: fixed;
     z-index: 3000;
-    top: calc($map-header-height + 10px);
+    top: $map-header-height;
     right: 0;
     height: calc(100dvh - ($map-header-height + 2rem));
     width: 500px;

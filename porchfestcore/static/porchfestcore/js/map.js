@@ -12,7 +12,7 @@ class PorchMap{
 		this.map 			= null
 		this.markers 		= null
 		this.activeMarker 	= null
-		this.center 		= [36.74895351606961, -119.80482994526444]
+		this.center 		= [36.765, -119.805]
 		this.icon 			= L.icon({
 			iconUrl: "/static/porchfestcore/images/glyph.svg",
 			className: "porch-marker",
@@ -74,9 +74,35 @@ class PorchMap{
 					this.map.panTo([lat, lon])
 				}
 				if(porch.properties.sponsor_logo){
+					if(!porch.properties.vendor){
+						icon 		= L.icon({
+							iconUrl: porch.properties.sponsor_logo,
+							className: "sponsor-logo",
+							iconAnchor:	[15, 40],
+						})
+					}else{
+						icon 		= L.icon({
+							iconUrl: "/static/porchfestcore/images/glyph-vendor-sponsor.svg",
+							className: "porch-marker",
+							iconAnchor:	[15, 40],
+						})
+					}
+				}else if(porch.properties.porta_potty){
 					icon 			= L.icon({
-						iconUrl: porch.properties.sponsor_logo,
-						className: "sponsor-logo",
+						iconUrl: "/static/porchfestcore/images/glyph-porta.svg",
+						className: "porch-marker",
+						iconAnchor:	[15, 40],
+					})
+				}else if(porch.properties.vendor){
+					icon 			= L.icon({
+						iconUrl: "/static/porchfestcore/images/glyph-vendor.svg",
+						className: "porch-marker",
+						iconAnchor:	[15, 40],
+					})
+				}else if(porch.properties.parking){
+					icon 			= L.icon({
+						iconUrl: "/static/porchfestcore/images/glyph-parking.svg",
+						className: "porch-marker",
 						iconAnchor:	[15, 40],
 					})
 				}
@@ -86,13 +112,13 @@ class PorchMap{
 				}).addTo(this.map)
 				marker.on("click", e=>{
 					this.loadPorch(porch)
-					if(this.activeMarker){
-						this.activeMarker.setIcon(this.icon)
-					}
-					if(!porch.properties.sponsor_logo){	
-						marker.setIcon(this.activeIcon)
-						this.activeMarker = marker
-					}
+					// if(this.activeMarker){
+					// 	this.activeMarker.setIcon(this.icon)
+					// }
+					// if(!porch.properties.sponsor_logo){	
+					// 	marker.setIcon(this.activeIcon)
+					// 	this.activeMarker = marker
+					// }
 					this.map.panTo([lat, lon])
 				})
 				this.markers.push(marker)
@@ -134,7 +160,7 @@ map.init()
 
 function updateResults(close=false){
 	if(close){
-		Alpine.store("filter", {
+		Alpine.store("ui", {
 			showFilter: false,
 		})
 	}
@@ -160,19 +186,43 @@ function updateResults(close=false){
 function modalHistory(){
     return{
         init(){
-            window.addEventListener('popstate', ()=>{
-                if(this.$store.porch.open){
-                    this.$store.porch.open = false
-                }
-            })
-            this.$watch('$store.porch.open', (isOpen)=>{
-                if(isOpen){
-                    history.pushState({modal: true}, '')
-                }
-            })
-        },
+			window.addEventListener('popstate', (event)=>{
+				if(!event.state || !event.state.modal){
+					this.$store.porch.open = false
+					this.$store.ui.showItinerary = false
+					return
+				}
+				if(event.state.modal === 'porch'){
+					this.$store.porch.open = true
+					this.$store.ui.showItinerary = false
+				}
+				if(event.state.modal === 'itinerary'){
+					this.$store.porch.open = false
+					this.$store.ui.showItinerary = true
+				}
+			})
+			this.$watch('$store.porch.open', (isOpen)=>{
+				if(isOpen){
+					if(!history.state || history.state.modal !== 'porch'){
+						history.pushState({modal: 'porch'}, '')
+					}
+				}
+			})
+			this.$watch('$store.ui.showItinerary', (isOpen)=>{
+				if(isOpen){
+					if(!history.state || history.state.modal !== 'itinerary'){
+						history.pushState({modal: 'itinerary'}, '')
+					}
+				}
+			})
+		},
         closeModal(){
-            this.$store.porch.open = false
+			if(this.$store.porch.open){
+				this.$store.porch.open = false
+			}
+			if(this.$store.ui.showItinerary){
+				this.$store.ui.showItinerary = false
+			}
             if(history.state && history.state.modal){
                 history.back()
             }
