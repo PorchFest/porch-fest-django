@@ -12,6 +12,9 @@ class PorchMapSerializer(GeoFeatureModelSerializer):
             "coordinates",
             "performances",
             "sponsor_logo",
+            "porta_potty",
+            "vendor",
+            "parking",
         )
     def get_sponsor_logo(self, obj):
         if hasattr(obj, "sponsor") and obj.sponsor and obj.sponsor.map_icon:
