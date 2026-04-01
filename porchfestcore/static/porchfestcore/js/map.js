@@ -165,7 +165,6 @@ function updateResults(close=false){
 		})
 	}
 	const formData 	= new FormData(form)
-	// const values 	= Object.fromEntries(formData.entries())
 	const values = {
 		...Object.fromEntries(formData.entries()),
 		genres: formData.getAll("genres")

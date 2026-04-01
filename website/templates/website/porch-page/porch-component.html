@@ -19,7 +19,7 @@
             {% for performance in porch.performances.all %}
                 {% include 'website/porch-page/performance-detail.html' %}
             {% empty %}
-                <div class="performance">
+                <div class="performance-card">
                     <h2>No performers scheduled.</h2>
                 </div>
             {% endfor %}
