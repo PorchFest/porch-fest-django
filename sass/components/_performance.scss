@@ -6,52 +6,65 @@
     flex-direction: column;
     gap: 8px;
     flex: 0 1 500px;
-    h3{margin: 0 1rem;}
+
+    h3 {
+        margin: 0 1rem;
+    }
 }
 
-.performance {
+.performance-card {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    gap: 0.2rem;
     border: 1px solid #eaeaea;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     padding: 1rem;
     min-width: 250px;
+    width: 100%;
+    max-width: calc(100% - 2rem);
+    font-family: $font__text;
 
     h2,
+    h3,
+    h4,
+    h5,
     p {
         margin: 0;
     }
 
-    h2 {
-        font-family: $font__headers;
+    .performance-header {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+        align-items: center;
+
+        h2,
+        h3,
+        h4,
+        h5 {
+            flex-grow: 1;
+        }
     }
 
-    .info {
+    .performance-body {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 0.2rem;
 
         .genres {
             display: flex;
-            gap: 10px;
+            gap: 0.2rem;
 
             .chip {
                 border-radius: 1rem;
                 color: black;
                 background-color: $color-bg-main;
-                padding-top: .2rem;
-                padding-bottom: .2rem;
-                padding-left: .5rem;
-                padding-right: .5rem;
+                padding: 0.2rem 0.5rem;
+                font-size: 0.7rem;
             }
         }
-    }
-
-    .buttons {
-        display: flex;
-        align-items: flex-start;
-        gap: 5px;
     }
 
     .itinerary-add {

@@ -52,5 +52,10 @@
         display: flex;
         justify-content: center;
         padding: 1rem 0;
+
+        h2,
+        h5 {
+            font-family: $font__headers;
+        }
     }
 }

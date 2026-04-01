@@ -34,6 +34,10 @@ main.plan-your-day {
         overflow-y: scroll;
     }
 
+    .performance-card {
+        max-width: calc(100% - 2rem);
+    }
+
     #itinerary {
         background-color: white;
         z-index: 1;

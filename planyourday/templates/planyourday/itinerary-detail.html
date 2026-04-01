@@ -1,7 +1,7 @@
-<div class="padding-2 margin-bottom-2 card performance">
-    <div class="row gutter-2 width-100">
-        <h5 class="margin-0 padding-1 grow-1">{{ performance.performer.name }}</h5>
-        <div class="buttons nowrap">
+<div class="performance-card">
+    <div class="performance-header">
+        <h5>{{ performance.performer.name }}</h5>
+        <div class="buttons">
             {% comment %}
             <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
             {% endcomment %}
@@ -20,9 +20,13 @@
             ><i class="fa-regular fa-trash-can"></i></button>
         </div>
     </div>
-    <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</small></p>
-    {% for genre in performance.performer.genres.all %}
-        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">{{ genre.name }}</span>
-    {% endfor %}
-    <p class="margin-1"><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
+    <div class="performance-body">
+        <p><small><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</small></p>
+        <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
+        <div class="genres">
+            {% for genre in performance.performer.genres.all %}
+                <span class="chip">{{ genre.name }}</span>
+            {% endfor %}
+        </div>
+    </div>
 </div>

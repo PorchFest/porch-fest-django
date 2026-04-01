@@ -24,7 +24,7 @@ $header-height: 70px;
 .map-itinerary {
     position: fixed;
     z-index: 3000;
-    top: $map-header-height;
+    top: calc($map-header-height + 10px);
     right: 0;
     height: calc(100dvh - ($map-header-height + 2rem));
     width: 500px;
@@ -50,7 +50,7 @@ $header-height: 70px;
 .plan-your-day-itinerary {
     position: fixed;
     z-index: 2000;
-    width: calc(100dvw - 4rem);
+    width: calc(100dvw - 5rem);
     max-height: calc(100dvh - 116px);
 
     .grow-1 {
@@ -78,7 +78,7 @@ $header-height: 70px;
     justify-self: right;
 
     @media screen and (min-width:600px) {
-        width: 150px;
+        width: 110px;
     }
 
     .label {
@@ -99,6 +99,7 @@ $header-height: 70px;
     padding: 1rem;
     overflow: hidden;
     overflow-y: auto;
+    font-family: $font__text;
 
     @media screen and (min-width:900px) {
         max-width: 30%;
@@ -132,4 +133,5 @@ $header-height: 70px;
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
+
 }

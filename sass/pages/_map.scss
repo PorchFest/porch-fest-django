@@ -100,8 +100,8 @@ $header-height: 40px;
             flex-grow: 1;
         }
 
-        button{
-            @media(max-width: 400px){
+        button {
+            @media(max-width: 400px) {
                 display: none;
             }
         }
@@ -109,7 +109,7 @@ $header-height: 40px;
         @include search;
     }
 
-    .button-wrap{
+    .button-wrap {
         display: flex;
         justify-content: flex-end;
     }
@@ -136,7 +136,7 @@ $header-height: 40px;
         .genres {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 0.2rem;
 
             h4 {
                 margin: 0;
@@ -154,6 +154,7 @@ $header-height: 40px;
                     }
                 }
             }
+
             .genre-list {
                 display: flex;
                 align-items: flex-start;
