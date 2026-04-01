@@ -135,14 +135,16 @@
 						>Reset Filters</button>
 					</div>
 				</form>
-				<button
-					@click="showItinerary = true"
-					id="itinerary_slideout_button"
-				>
-					<i class="fa-solid fa-angle-left"></i>
-					<i class="fa-solid fa-route"></i>
-					<span class="label">Itinerary</span>
-				</button>
+				<div class="button-wrap">
+					<button
+						@click="showItinerary = !showItinerary"
+						id="itinerary_slideout_button"
+					>
+						<i class="fa-solid fa-angle-left"></i>
+						<i class="fa-solid fa-route"></i>
+						<span class="label">Itinerary</span>
+					</button>
+				</div>
 			</div>
 			<div id="map" @click="$store.filter.showFilter = false"></div>
 			<div

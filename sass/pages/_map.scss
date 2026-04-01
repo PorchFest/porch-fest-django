@@ -100,7 +100,18 @@ $header-height: 40px;
             flex-grow: 1;
         }
 
+        button{
+            @media(max-width: 400px){
+                display: none;
+            }
+        }
+
         @include search;
+    }
+
+    .button-wrap{
+        display: flex;
+        justify-content: flex-end;
     }
 
     .filter-wrapper {
@@ -114,6 +125,7 @@ $header-height: 40px;
         padding: 5px;
         border-radius: 5px;
         border: 1px solid black;
+        max-width: 350px;
 
         @media (max-width: 768px) {
             height: 40dvh;
@@ -142,11 +154,6 @@ $header-height: 40px;
                     }
                 }
             }
-
-            // .active {
-            // 	background-color: green;
-            // 	color: white;
-            // }
             .genre-list {
                 display: flex;
                 align-items: flex-start;
