@@ -122,26 +122,36 @@
                     <i class="fa-solid fa-route"></i>
                     My Itinerary
                 </h4>
-                <button
-                    x-data="{
-                        share(){
-                            if(navigator.share){
-                                navigator.share({
-                                    title: document.title,
-                                    url: '{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
-                                })
-                            }else{
-                                navigator.clipboard.writeText('{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}')
-                                .then(() => {
-                                    alert('Itinerary address copied to clipboard');
-                                });
+                {% if not itinerary_id %}
+                    <button
+                        id="share_itinerary"
+                        style="background-color: gray;cursor:default;"
+                    >
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                {% else %}
+                    <button
+                        id="share_itinerary"
+                        x-data="{
+                            share(){
+                                if(navigator.share){
+                                    navigator.share({
+                                        title: document.title,
+                                        url: '{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
+                                    })
+                                }else{
+                                    navigator.clipboard.writeText('{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}')
+                                    .then(() => {
+                                        alert('Itinerary address copied to clipboard');
+                                    });
+                                }
                             }
-                        }
-                    }"
-                    @click="share()"
-                >
-                    <i class="fa-solid fa-share-nodes"></i>
-                </button>
+                        }"
+                        @click="share()"
+                    >
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                {% endif %}
                 {% comment %}
                 <button>
                     <i class="fa-regular fa-calendar"></i>
