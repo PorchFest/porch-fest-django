@@ -183,7 +183,7 @@ function modalHistory(){
         init(){
 			this.isPopping = false
 
-			window.addEventListener('popstate', (event)=>{
+			window.addEventListener('popstate', event=>{
 				this.isPopping = true
 
 				if(!event.state || !event.state.modal){
@@ -200,24 +200,26 @@ function modalHistory(){
 				this.$nextTick(()=>this.isPopping = false)
 			})
 
-			this.$watch('$store.ui.showItinerary', (isOpen)=>{
+			this.$watch('$store.porch.open', (isOpen)=>{
 				if(this.isPopping) return
 
 				if(isOpen){
-					if(!history.state || history.state.modal !== 'itinerary'){
-						history.pushState({modal: 'itinerary'}, '')
+					if(history.state && history.state.modal){
+						history.replaceState({modal: 'porch'}, '')
+					}else{
+						history.pushState({modal: 'porch'}, '')
 					}
 				}
 			})
 
-			this.$watch('$store.porch.open', (isOpen)=>{
+			this.$watch('$store.ui.showItinerary', (isOpen)=>{
+				if(this.isPopping) return
+
 				if(isOpen){
-					if(!history.state || history.state.modal !== 'porch'){
-						history.pushState({modal: 'porch'}, '')
+					if(history.state && history.state.modal){
+						history.replaceState({modal: 'itinerary'}, '')
 					}else{
-						if(history.state && history.state.modal === 'porch'){
-							history.back()
-						}
+						history.pushState({modal: 'itinerary'}, '')
 					}
 				}
 			})
