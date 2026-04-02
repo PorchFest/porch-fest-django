@@ -1,7 +1,6 @@
 @use "../variables" as *;
 @use "sass:color";
-
-$header-height: 40px;
+$map-header-height: 40px;
 
 :root {
     --vh: 100%;
@@ -29,7 +28,7 @@ $header-height: 40px;
     position: absolute;
     z-index: 2000;
     width: 100%;
-    height: $header-height;
+    height: $map-header-height;
     background-color: $color-header-bg;
     font-family: $font__headers;
     font-weight: 400;
@@ -74,10 +73,10 @@ $header-height: 40px;
     }
 }
 
-.map-toolbar {
+.toolbar {
     z-index: 2000;
     position: absolute;
-    top: calc($header-height + 10px);
+    top: calc($map-header-height + 10px);
     left: 10px;
     right: 10px;
     display: grid;

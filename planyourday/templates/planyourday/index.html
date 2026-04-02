@@ -4,9 +4,9 @@
 {% block mainclass %}plan-your-day{% endblock %}
 {% block content %}
     <div
-        x-data="{ selectedGenres: [], showItinerary: false, search_filters: false }"
+        x-data="{ selectedGenres: [], search_filters: false }"
     >
-        <div class="map-toolbar">
+        <div class="toolbar">
             <form
                 @submit.prevent
                 hx-get="{% url 'performances' %}"
@@ -105,7 +105,7 @@
                 </div>
             </form>
             <button
-                @click="showItinerary = !showItinerary"
+                onclick="htmx.toggleClass(htmx.find('#itinerary_slideout'), 'open');"
                 id="itinerary_slideout_button"
             >
                 <i class="fa-solid fa-angle-left"></i>
@@ -114,13 +114,8 @@
             </button>
         </div>
         <div
-            x-show="showItinerary"
-            x-collapse
-            x-transition.scale.origin.right
-            @blur="showItinerary = false"
             id="itinerary_slideout"
-            style="right:1em;"
-            class="plan-your-day-itinerary"
+            class="itinerary_slideout plan-your-day-itinerary"
         >
             <div class="slideout_header">
                 <h4>
@@ -155,7 +150,7 @@
                 {% endcomment %}
                 <div class="grow-1">
                     <button
-                        @click="showItinerary = false"
+                        onclick="htmx.toggleClass(htmx.find('#itinerary_slideout'), 'open');"
                     >
                         <i class="fa-solid fa-xmark"></i>
                     </button>
@@ -174,7 +169,7 @@
             </div>
         </div>
         <div
-            @click="search_filters = false; showItinerary = false"
+            @click="search_filters = false; showItinerary=''"
             id="performances"
             class="performances border-ghost rounded-2 padding-3"
             style="padding-top:5rem;"

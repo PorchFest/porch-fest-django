@@ -1,10 +1,47 @@
 @use "../variables" as *;
 @use "sass:color";
+$header-height: 64px;
 
 main.plan-your-day {
     background-color: $color-bg-main;
     padding: 1rem;
     font-family: $font__text;
+
+    .toolbar {
+        position: fixed;
+        top: calc($header-height + 1rem);
+        left: 1rem;
+        right: 1rem;
+        background-color: white;
+        padding: 1rem;
+
+        &::before {
+            content: '';
+            display: block;
+            position: fixed;
+            background-color: $color-bg-main;
+            top: $header-height;
+            left: 0;
+            right: 0;
+            height: 2rem;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            position: fixed;
+            background-color: white;
+            left: 1rem;
+            right: 1rem;
+            height: 1rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            top: calc($header-height + 1rem);
+        }
+    }
+
+    .search {
+        height: 50px;
+    }
 
     .filters {
         background-color: white;
@@ -49,6 +86,11 @@ main.plan-your-day {
         @media screen and (min-width:900px) {
             width: 30%;
         }
+    }
+
+    .itinerary_slideout.open {
+        top: calc($header-height + 1rem);
+        right: 1rem;
     }
 
     #search_filters {

@@ -31,7 +31,7 @@
 				</div>
 				<a href="https://fresnoschoolwatch.com" target="_blank" class="header-ad"><img src="" alt=""></a>
 			</div>
-			<div class="map-toolbar">
+			<div class="toolbar">
 				<form
 					@input.debounce.300ms="updateResults()"
 					@change.debounce.300ms="updateResults()"
@@ -164,7 +164,7 @@
 				<div x-html="$store.porch.content"></div>
 			</div>
 			<div
-				class="map-itinerary"
+				class="itinerary_slideout"
 				id="itinerary"
 				:class="$store.ui.showItinerary ? 'open' : ''"
 			>
