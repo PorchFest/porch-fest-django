@@ -166,7 +166,10 @@
                     </button>
                 </div>
             </div>
-            <div class="performance-list slideout_body" id="itinerary_sidebar">
+            <div
+                id="itinerary_sidebar"
+                class="performance-list slideout_body"
+            >
                 {% include "planyourday/itinerary-list.html" %}
             </div>
             <div class="background-light rounded-2 padding-2">
@@ -179,7 +182,8 @@
             </div>
         </div>
         <div
-            @click="search_filters = false; showItinerary=''"
+            @click="search_filters = false"
+            onclick="htmx.removeClass(htmx.find('#itinerary_slideout'), 'open');"
             id="performances"
             class="performances border-ghost rounded-2 padding-3"
             style="padding-top:5rem;"
