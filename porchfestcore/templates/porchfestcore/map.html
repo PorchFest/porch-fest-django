@@ -24,7 +24,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="root" x-data="{selectedGenres: []}" x-init="$store.ui = {showFilter: false, showItinerary: false}">
+		<div id="root" x-data="{selectedGenres: []}" x-init="$store.ui = {showFilter: true, showItinerary: false}">
 			<div class="map-header main-header">
 				<div class="button-wrap">
 					<a href="/" class="home-button">Home</a>
@@ -72,45 +72,6 @@
 							<label for="now_time">Playing Now:</label>
 							<input type="checkbox" name="now_time" id="filter_now_time">
 						</div>
-						<div class="genres">
-							<h4 class="margin-0">Genres</h4>
-							<div id="selected_genres">
-								<template x-for="genre in selectedGenres" :key="genre">
-									<span class="chip active">
-										<span x-text="genre"></span>
-										<i
-											class="fa-solid fa-x"
-											@click="
-												selectedGenres = selectedGenres.filter(g => g !== genre);
-												$dispatch('change')
-											"
-										></i>
-									</span>
-								</template>
-							</div>
-							<div class="margin-y-2 rounded-0 padding-2 genre-list border">
-								{% for genre in genres %}
-									<span
-										class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
-										{% comment %} x-show="!selectedGenres.includes('{{ genre.slug }}')" {% endcomment %}
-										@click="
-											selectedGenres.push('{{ genre.slug }}');
-											$dispatch('change')
-										"
-									>
-										{{ genre.name }}
-									</span>
-								{% endfor %}
-
-								<template x-for="genre in selectedGenres" :key="genre">
-									<input
-										type="hidden"
-										name="genres"
-										:value="genre"
-									>
-								</template>
-							</div>
-						</div>
 						<div class="other-options">
 							<div class="filter-vendor filter">
 								<label for="vendor">Vendor:</label>
@@ -128,6 +89,48 @@
 						<div class="bus filter">
 							<label for="show_bus">Show Trolley:</label>
 							<input type="checkbox" name="show_bus" id="show_bus">
+						</div>
+						<div class="genres">
+							<h4 class="margin-0">Genres</h4>
+							<div id="selected_genres">
+								<template x-for="genre in selectedGenres" :key="genre.slug">
+									<span
+										class="chip active" 
+										@click="
+											selectedGenres = selectedGenres.filter(g => g.slug !== genre.slug);
+											$dispatch('change')
+										"
+									>
+										<span x-text="genre.name"></span>
+										<i class="fa-solid fa-x"></i>
+									</span>
+								</template>
+							</div>
+							<span class="chip active" x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')" style="align-self: flex-start;">Clear Genres <i class="fa-solid fa-x"></i></span>
+							<div class="margin-y-2 rounded-0 padding-2 genre-list border">
+								{% for genre in genres %}
+									<span
+										class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
+										{% comment %} x-show="!selectedGenres.includes('{{ genre.slug }}')" {% endcomment %}
+										@click="
+											selectedGenres.push({
+												slug: '{{ genre.slug }}',
+												name: '{{ genre.name }}',
+											});
+											$dispatch('change')
+										"
+									>
+										{{ genre.name }}
+									</span>
+								{% endfor %}
+								<template x-for="genre in selectedGenres" :key="genre.slug">
+									<input
+										type="hidden"
+										name="genres"
+										:value="genre.slug"
+									>
+								</template>
+							</div>
 						</div>
 						<button
 							class="yellow small"
