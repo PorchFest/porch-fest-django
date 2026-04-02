@@ -9,10 +9,14 @@ class PorchMap{
 	constructor(){
 		const queryParams 	= new URLSearchParams(window.location.search)
 		this.activePorch 	= queryParams.get("porch") || null
-		this.map 			= null
-		this.markers 		= null
-		this.activeMarker 	= null
+		this.markers 		= []
 		this.center 		= [36.765, -119.805]
+		this.map 			= L.map("map", {
+			attributionControl: false,
+			zoomControl: false
+		}).setView(this.center, 14)
+		this.activeMarker 	= null
+		
 		this.icon 			= L.icon({
 			iconUrl: "/static/porchfestcore/images/glyph.svg",
 			className: "porch-marker",
@@ -25,15 +29,6 @@ class PorchMap{
 		})
 	}
 	async init(){
-		this.markers = []
-		this.buildMap()
-		this.buildMarkers()
-	}
-	buildMap(){
-		this.map = L.map("map", {
-			attributionControl: false,
-			zoomControl: false
-		}).setView(this.center, 14)
 		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 			attribution: '© Mapbox © OpenStreetMap',
 			maxZoom: 20,
@@ -42,6 +37,7 @@ class PorchMap{
 			zoomOffset: -1,
 			accessToken: MAPBOX_PUBLIC_KEY
 		}).addTo(this.map)
+		this.buildMarkers()
 	}
 	async buildMarkers(data){
 		this.markers.forEach(marker=>{
@@ -185,38 +181,41 @@ function updateResults(close=false){
 function modalHistory(){
     return{
         init(){
+			this.isPopping = false
+
 			window.addEventListener('popstate', (event)=>{
+				this.isPopping = true
+
 				if(!event.state || !event.state.modal){
 					this.$store.porch.open = false
 					this.$store.ui.showItinerary = false
-					return
-				}
-				if(event.state.modal === 'porch'){
+				}else if(event.state.modal === 'itinerary'){
+					this.$store.ui.showItinerary = true
+					this.$store.porch.open = false
+				}else if(event.state.modal === 'porch'){
 					this.$store.porch.open = true
 					this.$store.ui.showItinerary = false
 				}
-				if(event.state.modal === 'itinerary'){
-					this.$store.porch.open = false
-					this.$store.ui.showItinerary = true
+
+				this.$nextTick(()=>this.isPopping = false)
+			})
+
+			this.$watch('$store.ui.showItinerary', (isOpen)=>{
+				if(this.isPopping) return
+
+				if(isOpen){
+					if(!history.state || history.state.modal !== 'itinerary'){
+						history.pushState({modal: 'itinerary'}, '')
+					}
 				}
 			})
+
 			this.$watch('$store.porch.open', (isOpen)=>{
 				if(isOpen){
 					if(!history.state || history.state.modal !== 'porch'){
 						history.pushState({modal: 'porch'}, '')
 					}else{
 						if(history.state && history.state.modal === 'porch'){
-							history.back()
-						}
-					}
-				}
-			})
-			this.$watch('$store.ui.showItinerary', (isOpen)=>{
-				if(isOpen){
-					if(!history.state || history.state.modal !== 'itinerary'){
-						history.pushState({modal: 'itinerary'}, '')
-					}else{
-						if(history.state && history.state.modal === 'itinerary'){
 							history.back()
 						}
 					}
