@@ -1,20 +1,38 @@
 @use "../variables" as *;
 @use "sass:color";
 $map-header-height: 40px;
-$header-height: 70px;
+$header-height: 64px;
 
 .plan-your-day .map-toolbar {
     position: fixed;
-    top: calc($header-height + 10px);
+    top: calc($header-height + 1rem);
     left: 1rem;
     right: 1rem;
-}
+    background-color: white;
+    padding: 1rem;
 
-.map-toolbar.plan-your-day {
-    background-color: $color-bg-main;
-    padding: 10px 5px 10px 5px;
-    border: black 1px solid;
-    border-radius: 5px;
+    &::before {
+        content: '';
+        display: block;
+        position: fixed;
+        background-color: $color-bg-main;
+        top: $header-height;
+        left: 0;
+        right: 0;
+        height: 2rem;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        position: fixed;
+        background-color: white;
+        left: 1rem;
+        right: 1rem;
+        height: 1rem;
+        border-radius: 0.5rem 0.5rem 0 0;
+        top: calc($header-height + 1rem);
+    }
 
     .search {
         height: 50px;

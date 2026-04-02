@@ -6,7 +6,7 @@
     <div
         x-data="{ selectedGenres: [], showItinerary: false, search_filters: false }"
     >
-        <div class="map-toolbar plan-your-day">
+        <div class="map-toolbar">
             <form
                 @submit.prevent
                 hx-get="{% url 'performances' %}"
@@ -177,7 +177,7 @@
             @click="search_filters = false; showItinerary = false"
             id="performances"
             class="performances border-ghost rounded-2 padding-3"
-            style="padding-top:3rem;"
+            style="padding-top:5rem;"
         >
             {% include "planyourday/performance-list.html" %}
         </div>
