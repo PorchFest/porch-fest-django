@@ -77,6 +77,7 @@ def add_performance(request, itinerary_id=None):
         "performance":  performance,
         "itinerary":    itinerary.ordered_performances(),
         "itinerary_id": itinerary.id,
+        "itinerary_test": set(item.id for item in itinerary.ordered_performances()),
     }
     return render(request, "planyourday/performance-detail-update.html", context)
 
