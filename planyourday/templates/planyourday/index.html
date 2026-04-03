@@ -44,11 +44,11 @@
                         <input type="time" name="after"/>
                     </div>
                     <div class="genres">
-                        <div>
+                        <div class="title">
                             <b>Genres:</b>
-                            <span class="chip active" x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')" style="align-self: flex-start;">
-                                <i class="fa-solid fa-x"></i>
+                            <span x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')" style="align-self: flex-start;">
                                 Clear Genres
+                                <i class="fa-solid fa-x"></i>
                             </span>
                         </div>
                         <div id="selected_genres">
@@ -60,8 +60,8 @@
                                         $dispatch('change')
                                     "
                                 >
-                                    <i class="fa-solid fa-x"></i>
                                     <span x-text="genre.name"></span>
+                                    <i class="fa-solid fa-x"></i>
                                 </span>
                             </template>
                         </div>
