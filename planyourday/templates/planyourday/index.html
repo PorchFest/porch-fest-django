@@ -13,7 +13,8 @@
                 hx-target="#performances"
                 hx-indicator="#loading"
                 {% comment %} hx-trigger="change delay:300ms, keyup delay:300ms" {% endcomment %}
-                hx-trigger="change delay:300ms, input delay:300ms"
+                {% comment %} hx-trigger="change delay:300ms, input delay:300ms" {% endcomment %}
+                hx-trigger="input delay:300ms"
                 class="filters"
             >
                 <div class="field-group white rounded search">
@@ -42,12 +43,12 @@
                     {% endcomment %}
                     <div class="filter">
                         <label for="after">After:</label>
-                        <input type="time" name="after"/>
+                        <input @change="$dispatch('input')" type="time" name="after"/>
                     </div>
                     <div class="genres">
                         <div class="title">
                             <b>Genres:</b>
-                            <span x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')" style="align-self: flex-start;">
+                            <span x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('input')" style="align-self: flex-start;">
                                 Clear Genres
                                 <i class="fa-solid fa-x"></i>
                             </span>
@@ -58,7 +59,7 @@
                                     class="chip active" 
                                     @click="
                                         selectedGenres = selectedGenres.filter(g => g.slug !== genre.slug);
-                                        $dispatch('change')
+                                        $dispatch('input')
                                     "
                                 >
                                     <span x-text="genre.name"></span>
@@ -76,7 +77,7 @@
                                             slug: '{{ genre.slug }}',
                                             name: '{{ genre.name }}',
                                         });
-                                        $dispatch('change')
+                                        $dispatch('input')
                                     "
                                 >
                                     {{ genre.name }}
@@ -93,7 +94,7 @@
                     </div>
                     <button
                         class="yellow small"
-                        @click="$el.closest('form').reset(); $dispatch('change')"
+                        @click="$el.closest('form').reset(); $dispatch('input')"
                     >Reset Filters</button>
                 </div>
             </form>
