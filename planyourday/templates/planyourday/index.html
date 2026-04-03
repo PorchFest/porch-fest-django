@@ -44,36 +44,50 @@
                         <input type="time" name="after"/>
                     </div>
                     <div class="genres">
-                        <b>Genres:</b>
+                        <div>
+                            <b>Genres:</b>
+                            <span class="chip active" x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')" style="align-self: flex-start;">
+                                <i class="fa-solid fa-x"></i>
+                                Clear Genres
+                            </span>
+                        </div>
                         <div id="selected_genres">
                             <template x-for="genre in selectedGenres" :key="genre.slug">
-                                <span class="chip active" @click="
-                                    selectedGenres = selectedGenres.filter(g =&gt; g.slug !== genre.slug);
-                                    $dispatch('change')
-                                ">
-                                    <span x-text="genre.name"></span>
+                                <span
+                                    class="chip active" 
+                                    @click="
+                                        selectedGenres = selectedGenres.filter(g => g.slug !== genre.slug);
+                                        $dispatch('change')
+                                    "
+                                >
                                     <i class="fa-solid fa-x"></i>
+                                    <span x-text="genre.name"></span>
                                 </span>
                             </template>
                         </div>
-                        <div class="margin-y-2 rounded-0 padding-2 genre-list border">
+                        <div class="genre-list">
                             {% for genre in genres %}
                                 <span
                                     class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
+                                    {% comment %} x-show="!selectedGenres.includes('{{ genre.slug }}')" {% endcomment %}
                                     @click="
-                                        selectedGenres.includes('{{ genre.slug }}')
-                                        ? selectedGenres = selectedGenres.filter(g => g !== '{{ genre.slug }}')
-                                        : selectedGenres.push('{{ genre.slug }}')
+                                        selectedGenres.push({
+                                            slug: '{{ genre.slug }}',
+                                            name: '{{ genre.name }}',
+                                        });
                                         $dispatch('change')
                                     "
-                                    :class="selectedGenres.includes('{{ genre.slug }}') ? 'active' : ''"
-                                    :style="selectedGenres.includes('{{ genre.slug }}') 
-                                        ? `order: ${selectedGenres.indexOf('{{ genre.slug }}') - 100}` 
-                                        : 'order: 0'"
                                 >
                                     {{ genre.name }}
                                 </span>
                             {% endfor %}
+                            <template x-for="genre in selectedGenres" :key="genre.slug">
+                                <input
+                                    type="hidden"
+                                    name="genres"
+                                    :value="genre.slug"
+                                >
+                            </template>
                         </div>
                     </div>
                     <button

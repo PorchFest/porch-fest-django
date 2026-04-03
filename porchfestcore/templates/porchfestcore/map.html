@@ -99,7 +99,13 @@
 							<input type="checkbox" name="show_bus" id="show_bus">
 						</div>
 						<div class="genres">
-							<b>Genres</b>
+                            <div>
+                                <b>Genres:</b>
+                                <span class="chip active" x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')" style="align-self: flex-start;">
+                                    <i class="fa-solid fa-x"></i>
+                                    Clear Genres 
+                                </span>
+                            </div>
 							<div id="selected_genres">
 								<template x-for="genre in selectedGenres" :key="genre.slug">
 									<span
@@ -109,12 +115,11 @@
 											$dispatch('change')
 										"
 									>
-										<span x-text="genre.name"></span>
 										<i class="fa-solid fa-x"></i>
+										<span x-text="genre.name"></span>
 									</span>
 								</template>
 							</div>
-							<span class="chip active" x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')" style="align-self: flex-start;">Clear Genres <i class="fa-solid fa-x"></i></span>
 							<div class="margin-y-2 rounded-0 padding-2 genre-list border">
 								{% for genre in genres %}
 									<span
