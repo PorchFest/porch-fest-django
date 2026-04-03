@@ -11,11 +11,13 @@ class PorchMap{
 		this.activePorch 	= queryParams.get("porch") || null
 		this.markers 		= []
 		this.center 		= [36.765, -119.805]
+		this.userLocation	= {}
 		this.map 			= L.map("map", {
 			attributionControl: false,
 			zoomControl: false
 		}).setView(this.center, 14)
 		this.activeMarker 	= null
+		this.locationButton = document.getElementById("use_location")
 	}
 	async init(){
 		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -27,6 +29,9 @@ class PorchMap{
 			accessToken: MAPBOX_PUBLIC_KEY
 		}).addTo(this.map)
 		this.buildMarkers()
+		this.locationButton.addEventListener("click", ()=>{
+			this.getUserLocation()
+		})
 	}
 	async buildMarkers(data){
 		this.markers.forEach(marker=>{
@@ -119,6 +124,28 @@ class PorchMap{
 		}
 		catch(error){
 			console.error("Error loading porch:", error)
+		}
+	}
+	async getUserLocation(){
+		if(navigator.geolocation){
+			try{
+				const position = await new Promise((resolve, reject)=>{
+					navigator.geolocation.getCurrentPosition(resolve, reject)
+				})
+				this.userLocation = position.coords
+				const marker = L.marker([this.userLocation.latitude, this.userLocation.longitude], {
+					icon: L.icon({
+						iconUrl: "/static/porchfestcore/images/person.png",
+						className: "porch-marker",
+						iconSize: [16, 30],
+						iconAnchor:	[8, 30],
+					})
+				}).addTo(this.map)
+			}catch(error){
+				console.error("Error getting location: ", error)
+			}
+		}else{
+			console.error("Geolocation not supported")
 		}
 	}
 }

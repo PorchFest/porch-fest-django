@@ -221,6 +221,21 @@ $map-header-height: 40px;
     }
 }
 
+#use_location{
+    position: fixed;
+    z-index: 1001;
+    bottom: 8px;
+    left: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    background-color: white;
+    font-size: 20px;
+    font-size: 12px;
+    img{height: 30px;}
+}
+
 /* Map legend styles - glassmorphism, position fixed top left */
 #map-legend {
     position: fixed;
