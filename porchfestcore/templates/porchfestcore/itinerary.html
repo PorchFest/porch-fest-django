@@ -1,0 +1,22 @@
+<div
+    class="itinerary_slideout"
+    id="itinerary"
+    :class="$store.ui.showItinerary ? 'open' : ''"
+>
+    <div class="slideout_header">
+        <h4>
+            <i class="fa-solid fa-route"></i>
+            My Itinerary
+        </h4>
+        <div class="grow-1">
+            <button
+                @click="$store.ui.showItinerary = false"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+    <div class="performance-list slideout_body" id="itinerary_sidebar">
+        {% include "planyourday/itinerary-list.html" %}
+    </div>
+</div>
