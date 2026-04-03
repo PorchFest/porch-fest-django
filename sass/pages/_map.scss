@@ -130,6 +130,7 @@ $map-header-height: 40px;
             height: 40dvh;
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         .genres {

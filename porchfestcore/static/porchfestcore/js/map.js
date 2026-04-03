@@ -44,7 +44,7 @@ class PorchMap{
 			this.map.removeLayer(marker)
 		})
 		this.markers = []
-		console.log(this.activePorch)
+		// console.log(this.activePorch)
 		try{
 			const response = await axios.get("/api/porches/porch-map", {
 				params: data,
