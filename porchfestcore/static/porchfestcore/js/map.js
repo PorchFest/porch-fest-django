@@ -141,6 +141,7 @@ class PorchMap{
 						iconAnchor:	[8, 30],
 					})
 				}).addTo(this.map)
+				this.map.panTo([this.userLocation.latitude, this.userLocation.longitude])
 			}catch(error){
 				console.error("Error getting location: ", error)
 			}
