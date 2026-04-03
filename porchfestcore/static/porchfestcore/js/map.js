@@ -16,15 +16,9 @@ class PorchMap{
 			zoomControl: false
 		}).setView(this.center, 14)
 		this.activeMarker 	= null
-		
 		this.icon 			= L.icon({
 			iconUrl: "/static/porchfestcore/images/glyph.svg",
 			className: "porch-marker",
-			iconAnchor:	[15, 40],
-		})
-		this.activeIcon 	= L.icon({
-			iconUrl: "/static/porchfestcore/images/glyph-active.svg",
-			className: "porch-marker active",
 			iconAnchor:	[15, 40],
 		})
 	}
@@ -44,7 +38,6 @@ class PorchMap{
 			this.map.removeLayer(marker)
 		})
 		this.markers = []
-		// console.log(this.activePorch)
 		try{
 			const response = await axios.get("/api/porches/porch-map", {
 				params: data,
@@ -62,13 +55,8 @@ class PorchMap{
 			})
 			const porches = response.data
 			porches.features.forEach(porch=>{
-				// console.log(porch)
 				const [lon, lat] 	= porch.geometry.coordinates
 				let icon 			= this.icon
-				if(porch.properties.slug === this.activePorch){
-					icon = this.activeIcon
-					this.map.panTo([lat, lon])
-				}
 				if(porch.properties.sponsor_logo){
 					if(!porch.properties.vendor){
 						icon 		= L.icon({
@@ -102,19 +90,20 @@ class PorchMap{
 						iconAnchor:	[15, 40],
 					})
 				}
-				// console.log(icon)
 				const marker 		= L.marker([lat, lon], {
 					icon
 				}).addTo(this.map)
+				if(porch.properties.slug === this.activePorch){
+					L.DomUtil.addClass(marker._icon, "active")
+					this.map.panTo([lat, lon])
+				}
 				marker.on("click", e=>{
 					this.loadPorch(porch)
-					// if(this.activeMarker){
-					// 	this.activeMarker.setIcon(this.icon)
-					// }
-					// if(!porch.properties.sponsor_logo){	
-					// 	marker.setIcon(this.activeIcon)
-					// 	this.activeMarker = marker
-					// }
+					if(this.activeMarker){
+						L.DomUtil.removeClass(this.activeMarker._icon, "active")
+					}
+					L.DomUtil.addClass(marker._icon, "active");
+					this.activeMarker = marker
 					this.map.panTo([lat, lon])
 				})
 				this.markers.push(marker)
