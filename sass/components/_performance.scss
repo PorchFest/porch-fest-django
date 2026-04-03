@@ -68,6 +68,8 @@
         }
     }
 
+    
+
     .itinerary-add {
         border-radius: 50%;
         background-color: $color-fg-accent;
@@ -75,6 +77,10 @@
         padding: .5rem;
         align-self: center;
         cursor: pointer;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        vertical-align: middle;
 
         &:hover {
             background-color: color.adjust($color-fg-accent, $lightness: 10%);
