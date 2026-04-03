@@ -29,11 +29,13 @@
                 <a href="{% url 'map' %}?porch={{ performance.porch.slug }}"><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</a>
             </small>
         </p>
-        <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
+        <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time|date:"g:i A" }} - {{ performance.end_time|date:"g:i A" }}</small></p>
         <div class="genres">
-            {% for genre in performance.performer.genres.all %}
-                <span class="chip">{{ genre.name }}</span>
-            {% endfor %}
+            {% with performance.performer.genres.all as genres %}
+                {% for genre in genres %}
+                    <span class="chip">{{ genre.name }}</span>
+                {% endfor %}
+            {% endwith %}
         </div>
     </div>
 </div>

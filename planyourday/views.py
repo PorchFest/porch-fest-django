@@ -5,7 +5,12 @@ from planyourday.api.filters    import PerformanceFilter
 from planyourday.models         import Itinerary
 
 def plan_your_day(request, itinerary_id=None):
-    performances        = with_show_time(get_filtered_performances(request))
+    # performances        = with_show_time(get_filtered_performances(request))
+    performances = (
+        Performance.objects
+        .select_related('porch', 'performer')
+        .prefetch_related('performer__genres')
+    )
     genres              = Genre.objects.all()
     itinerary           = None
     if itinerary_id:
@@ -32,11 +37,20 @@ class PerformancesListView(ListView):
     template_name       = 'planyourday/performance-list.html'
     context_object_name = 'performances'
     def get_queryset(self):
-        return get_filtered_performances(self.request)
+        return (
+            get_filtered_performances(self.request)
+            .select_related('porch', 'performer')
+            .prefetch_related('performer__genres')
+        )
+    # def get_queryset(self):
+    #     return get_filtered_performances(self.request)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.request.session.get('itinerary_id'):
+            itinerary       = get_or_create_itinerary(self.request)
+            context["itinerary_test"] = set(item.id for item in itinerary.ordered_performances())
+            context['itinerary_id'] = self.request.session.get('itinerary_id')
         context['performances'] = with_show_time(context['performances'])
-        context['itinerary_id'] = self.request.session.get('itinerary_id')
         return context
 
 # Helper Function
