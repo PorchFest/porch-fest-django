@@ -1,25 +1,34 @@
 <div class="performance-card">
     <div class="performance-header">
         <h4>{{ performance.performer.name }}</h4>
-        <button
-            class="small round yellow border-none padding-2 inline-block tooltip"
-            {% if itinerary_id %}
-                hx-post="{% url 'add_performance_shared' itinerary_id %}"
-            {% else %}
-                hx-post={% url 'add_performance' %}
-            {% endif %}
-            hx-trigger="click"
-            hx-vals='{"performance_id": "{{ performance.id }}"}'
-            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-            hx-target="#performance_{{ performance.id }}"
-            hx-swap="outerHTML"
-        >
-            <i class="fa-solid fa-plus"></i>
-            <span class="tooltiptext">Add to<br>itinerary</span>
-        </button>
+        {% if performance.id in itinerary_test %}
+            <div class="itinerary-add">
+                <i class="fa-solid fa-check"></i>
+            </div>
+        {% else %}
+            <div
+                class="itinerary-add"
+                {% if itinerary_id %}
+                    hx-post="{% url 'add_performance_shared' itinerary_id %}"
+                {% else %}
+                    hx-post={% url 'add_performance' %}
+                {% endif %}
+                hx-trigger="click"
+                hx-vals='{"performance_id": "{{ performance.id }}"}'
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-target="#performance_{{ performance.id }}"
+                hx-swap="outerHTML"
+            >
+                <i class="fa-solid fa-plus"></i>
+            </div>
+        {% endif %}
     </div>
     <div class="performance-body">
-        <p><small><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</small></p>
+        <p>
+            <small>
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}"><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</a>
+            </small>
+        </p>
         <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
         <div class="genres">
             {% for genre in performance.performer.genres.all %}

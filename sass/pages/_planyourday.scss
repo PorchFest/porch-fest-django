@@ -37,6 +37,25 @@ main.plan-your-day {
             border-radius: 0.5rem 0.5rem 0 0;
             top: calc($header-height + 1rem);
         }
+
+        .filter-wrapper {
+            max-height: calc(100dvh - ($header-height + 50px + 3rem));
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            top: 67px;
+
+            .filter {
+                display: flex;
+                gap: 1rem;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            label {
+                font-weight: bold;
+            }
+        }
     }
 
     .search {
@@ -88,9 +107,16 @@ main.plan-your-day {
         }
     }
 
-    .itinerary_slideout.open {
-        top: calc($header-height + 1rem);
-        right: 1rem;
+    .itinerary_slideout {
+        top: $header-height;
+
+        @media screen and (min-width:600px) {
+            top: calc($header-height + 1em);
+        }
+
+        &.open {
+            right: 0;
+        }
     }
 
     #search_filters {
