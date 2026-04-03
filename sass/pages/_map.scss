@@ -161,6 +161,7 @@ $map-header-height: 40px;
                 background-color: $color-fg-accent;
                 border-radius: 1rem;
                 padding: 0 7px;
+                font-size: 0.87rem;
 
                 &.active {
                     i {
@@ -182,7 +183,9 @@ $map-header-height: 40px;
                 max-height: 100px;
                 overflow-y: scroll;
                 border: 1px solid rgb(33, 33, 51);
+                border-radius: 0.2rem;
                 background-color: white;
+                padding: 0.5rem;
             }
         }
 

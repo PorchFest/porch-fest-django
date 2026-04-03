@@ -55,6 +55,35 @@ main.plan-your-day {
             label {
                 font-weight: bold;
             }
+
+            .genres {
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem;
+
+                .title {
+                    display: flex;
+                    gap: 10px;
+
+                    span {
+                        background-color: white;
+                        border: 1px black solid;
+                        border-radius: 5px;
+                        padding: 2px;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                }
+
+                .chip {
+                    transition: all 0.2s ease;
+                    background-color: #f2b814;
+                    border-radius: 1rem;
+                    padding: 0 7px;
+                    font-size: 0.87rem;
+                }
+
+            }
         }
     }
 
