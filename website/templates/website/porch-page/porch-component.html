@@ -11,6 +11,10 @@
                     <img src="/media/{{ porch.porch_picture }}" alt="Porch Picture">
                 </div>
             {% endif %}
+            <div class="directions">
+                <a href="https://www.google.com/maps/dir/?api=1&destination={{ porch.street_address }}">Google Maps</a>
+                <a href="https://maps.apple.com/?q={{ porch.street_address }}">Apple Maps</a>
+            </div>
             <p>{{ porch.description }}</p>
         </div>
     </div>

@@ -32,6 +32,14 @@
                     max-width: 100%;
                 }
             }
+            .directions{
+                display: flex;
+                flex-direction: column;
+                a{
+                    color: blue;
+                    &:active{color: blue;}
+                }
+            }
 
             .title {
                 align-self: flex-start;
