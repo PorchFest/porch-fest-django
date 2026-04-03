@@ -92,7 +92,7 @@ def add_performance(request):
         itinerary.performances.add(performance)
     context = {
         "performance":  performance,
-        "itinerary_test":    set(item.id for item in itinerary.ordered_performances()),
+        "itinerary_test": set(item.id for item in itinerary.ordered_performances()),
         "itinerary":    itinerary.ordered_performances(),
     }
     return render(request, "website/porch-page/performance-detail-update.html", context)
