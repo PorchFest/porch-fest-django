@@ -24,7 +24,11 @@
         {% endif %}
     </div>
     <div class="performance-body">
-        <p><small><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</small></p>
+        <p>
+            <small>
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}"><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</a>
+            </small>
+        </p>
         <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}</small></p>
         <div class="genres">
             {% for genre in performance.performer.genres.all %}
