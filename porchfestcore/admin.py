@@ -83,6 +83,7 @@ class HasInvitationFilter(admin.SimpleListFilter):
 @admin.register(Porch)
 class PorchAdmin(admin.ModelAdmin):
     list_display			= ('name', 'number', 'owner_name', 'street_address', 'created_at',)
+    list_editable           = ('number',)
     search_fields 			= ('name', 'owner_name', 'owner_email', 'street_address', 'performances__performer__name')
     list_filter 			= ('approved', 'created_at', HasCoordinatesFilter, HasInvitationFilter, HasPerformancesFilter)
     formfield_overrides		= {
