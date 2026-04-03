@@ -42,8 +42,6 @@ class PerformancesListView(ListView):
             .select_related('porch', 'performer')
             .prefetch_related('performer__genres')
         )
-    # def get_queryset(self):
-    #     return get_filtered_performances(self.request)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.session.get('itinerary_id'):
