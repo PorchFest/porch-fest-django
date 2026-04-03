@@ -14,14 +14,6 @@ $map-header-height: 40px;
     overflow: hidden;
 }
 
-.porch-marker,
-.sponsor-logo {
-    height: 40px;
-    &.active{
-        height: 60px;
-    }
-}
-
 .sponsor-logo {
     border: black 3px solid;
     border-radius: 3px;

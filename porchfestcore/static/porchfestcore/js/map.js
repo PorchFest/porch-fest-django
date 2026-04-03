@@ -16,11 +16,6 @@ class PorchMap{
 			zoomControl: false
 		}).setView(this.center, 14)
 		this.activeMarker 	= null
-		this.icon 			= L.icon({
-			iconUrl: "/static/porchfestcore/images/glyph.svg",
-			className: "porch-marker",
-			iconAnchor:	[15, 40],
-		})
 	}
 	async init(){
 		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -56,54 +51,36 @@ class PorchMap{
 			const porches = response.data
 			porches.features.forEach(porch=>{
 				const [lon, lat] 	= porch.geometry.coordinates
-				let icon 			= this.icon
+				let iconObj = {
+					iconUrl: "/static/porchfestcore/images/glyph.svg",
+					className: "porch-marker",
+					iconSize: [40, 40],
+					iconAnchor:	[10, 40],
+				}
 				if(porch.properties.sponsor_logo){
 					if(!porch.properties.vendor){
-						icon 		= L.icon({
-							iconUrl: porch.properties.sponsor_logo,
-							className: "sponsor-logo",
-							iconAnchor:	[15, 40],
-						})
+						iconObj.iconUrl = porch.properties.sponsor_logo
+						iconObj.className = "sponsor-logo"
 					}else{
-						icon 		= L.icon({
-							iconUrl: "/static/porchfestcore/images/glyph-vendor-sponsor.svg",
-							className: "porch-marker",
-							iconAnchor:	[15, 40],
-						})
+						iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor-sponsor.svg"
 					}
 				}else if(porch.properties.porta_potty){
-					icon 			= L.icon({
-						iconUrl: "/static/porchfestcore/images/glyph-porta.svg",
-						className: "porch-marker",
-						iconAnchor:	[15, 40],
-					})
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-porta.svg"
 				}else if(porch.properties.vendor){
-					icon 			= L.icon({
-						iconUrl: "/static/porchfestcore/images/glyph-vendor.svg",
-						className: "porch-marker",
-						iconAnchor:	[15, 40],
-					})
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor.svg"
 				}else if(porch.properties.parking){
-					icon 			= L.icon({
-						iconUrl: "/static/porchfestcore/images/glyph-parking.svg",
-						className: "porch-marker",
-						iconAnchor:	[15, 40],
-					})
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-parking.svg"
 				}
 				const marker 		= L.marker([lat, lon], {
-					icon
+					icon: L.icon(iconObj)
 				}).addTo(this.map)
 				if(porch.properties.slug === this.activePorch){
-					L.DomUtil.addClass(marker._icon, "active")
+					this.setActiveMarker(marker)
 					this.map.panTo([lat, lon])
 				}
 				marker.on("click", e=>{
 					this.loadPorch(porch)
-					if(this.activeMarker){
-						L.DomUtil.removeClass(this.activeMarker._icon, "active")
-					}
-					L.DomUtil.addClass(marker._icon, "active");
-					this.activeMarker = marker
+					this.setActiveMarker(marker)
 					this.map.panTo([lat, lon])
 				})
 				this.markers.push(marker)
@@ -113,6 +90,20 @@ class PorchMap{
 			return null
 		}
 	}
+	setActiveMarker(marker){
+		if(this.activeMarker){
+			const activeIcon = this.activeMarker.options.icon
+			activeIcon.options.iconSize = [40,40]
+			activeIcon.options.iconAnchor = [10,40]
+			this.activeMarker.setIcon(activeIcon)
+		}
+		const icon = marker.options.icon
+		icon.options.iconSize = [60,60]
+		icon.options.iconAnchor = [20,60]
+		marker.setIcon(icon)
+		this.activeMarker = marker
+	}
+
 	async loadPorch(porch){
 		try{
 			const response = await axios.get(`/porches/${porch.properties.slug}`, {
