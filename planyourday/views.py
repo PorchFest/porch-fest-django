@@ -19,6 +19,7 @@ def plan_your_day(request, itinerary_id=None):
             'itinerary':    itinerary.ordered_performances(),
             'itinerary_id': itinerary.id,
             'genres':       genres,
+            "itinerary_test": set(item.id for item in itinerary.ordered_performances()),
         }
     else:
         context = {
