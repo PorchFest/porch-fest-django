@@ -95,11 +95,14 @@ $map-header-height: 40px;
         }
 
         input {
-            padding: 0.5rem;
+            padding: 0 0.5rem;
             flex-grow: 1;
+            height: 100%;
         }
 
         button {
+            height: 100%;
+
             @media(max-width: 400px) {
                 display: none;
             }
@@ -125,13 +128,10 @@ $map-header-height: 40px;
         border-radius: 5px;
         border: 1px solid black;
         max-width: 350px;
-
-        @media (max-width: 768px) {
-            height: 40dvh;
-            overflow-y: scroll;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-        }
+        max-height: calc(100dvh - ($map-header-height + 80px));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
 
         .genres {
             display: flex;
@@ -155,14 +155,16 @@ $map-header-height: 40px;
                 }
             }
 
-            .genre-list, #selected_genres {
+            .genre-list,
+            #selected_genres {
                 display: flex;
                 align-items: flex-start;
                 flex-wrap: wrap;
                 gap: 5px;
-                
+
             }
-            .genre-list{
+
+            .genre-list {
                 max-height: 100px;
                 overflow-y: scroll;
                 border: 1px solid rgb(33, 33, 51);
@@ -181,6 +183,10 @@ $map-header-height: 40px;
             display: flex;
             flex-direction: column;
 
+        }
+
+        label {
+            font-weight: bold;
         }
 
         input[type="text"] {

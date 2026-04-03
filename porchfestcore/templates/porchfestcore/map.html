@@ -57,7 +57,7 @@
 							id="search"
 							name="search"
 							type="text"
-							class="grow-1 padding-2"
+							class="grow-1"
 							placeholder="Search" />
 						<button
 							@click="$store.ui.showFilter = !$store.ui.showFilter"
@@ -99,7 +99,7 @@
 							<input type="checkbox" name="show_bus" id="show_bus">
 						</div>
 						<div class="genres">
-							<h4 class="margin-0">Genres</h4>
+							<b>Genres</b>
 							<div id="selected_genres">
 								<template x-for="genre in selectedGenres" :key="genre.slug">
 									<span

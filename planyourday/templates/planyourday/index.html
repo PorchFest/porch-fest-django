@@ -16,14 +16,13 @@
                 class="filters"
             >
                 <div class="field-group white rounded search">
-                    <label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
                     <input
                         @focus="search_filters = true"
                         @click="search_filters = true"
                         id="search"
                         name="search"
                         type="text"
-                        class="padding-2 grow-1"
+                        class="padding-x-2 grow-1"
                         placeholder="Search"
                     />
                 </div>
@@ -32,34 +31,31 @@
                     x-transition
                     @blur="search_filters = false"
                     id="search_filters"
-                    class="gutter-2 padding-3 border rounded-1 position-relative"
+                    class="filter-wrapper"
                 >
-                    <button
-                        @click="search_filters = false"
-                        class="small white padding-2 margin-1 position-absolute"
-                        style="top:0;right:0;"
-                    >
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                    <div class="timerange">
-                        {% comment %} <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4> {% endcomment %}
-                        <div class="row gutter-2 margin-y-2">
-                        <div class="col-6">
-                            <label>
-                                <h4 class="margin-0">After</h4>
-                                <input type="time" name="after"/>
-                            </label>
-                        </div>
-                        {% comment %} <div class="col-6">
-                            <label>
-                            <small>End Time</small><br />
-                                <input type="time" name="endtime" />
-                            </label>
-                        </div> {% endcomment %}
-                        </div>
+                    {% comment %}
+                    <div class="filter">
+                        <label for="before">Before:</label>
+                        <input type="time" name="before" />
+                    </div>
+                    {% endcomment %}
+                    <div class="filter">
+                        <label for="after">After:</label>
+                        <input type="time" name="after"/>
                     </div>
                     <div class="genres">
-                        <h4 class="margin-0">Genres</h4>
+                        <b>Genres:</b>
+                        <div id="selected_genres">
+                            <template x-for="genre in selectedGenres" :key="genre.slug">
+                                <span class="chip active" @click="
+                                    selectedGenres = selectedGenres.filter(g =&gt; g.slug !== genre.slug);
+                                    $dispatch('change')
+                                ">
+                                    <span x-text="genre.name"></span>
+                                    <i class="fa-solid fa-x"></i>
+                                </span>
+                            </template>
+                        </div>
                         <div class="margin-y-2 rounded-0 padding-2 genre-list border">
                             {% for genre in genres %}
                                 <span
@@ -78,25 +74,8 @@
                                     {{ genre.name }}
                                 </span>
                             {% endfor %}
-                            <template
-                                x-for="genre in selectedGenres"
-                                :key="genre"
-                            >
-                                <input
-                                    type="hidden"
-                                    name="genres"
-                                    :value="genre"
-                                >
-                            </template>
                         </div>
                     </div>
-                    <!--<div class"additionalfilters">
-                        <h4 class="margin-0">Additional Filters</h4>
-                        <div class="margin-y-2">
-                            <div><label><input type="checkbox" name="food-available"> Food available</label></div>
-                            <div><label><input type="checkbox" name="kid-friendly"> Kid Friendly</label></div>
-                        </div>
-                    </div>-->
                     <button
                         class="yellow small"
                         @click="$el.closest('form').reset(); $dispatch('change')"
