@@ -131,10 +131,10 @@
                                 if(navigator.share){
                                     navigator.share({
                                         title: document.title,
-                                        url: '{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
+                                        url: '{% url 'shared_itinerary' itinerary_id %}'
                                     })
                                 }else{
-                                    navigator.clipboard.writeText('{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}')
+                                    navigator.clipboard.writeText('{% url 'shared_itinerary' itinerary_id %}')
                                     .then(() => {
                                         alert('Itinerary address copied to clipboard');
                                     });
