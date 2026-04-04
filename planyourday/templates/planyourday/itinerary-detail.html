@@ -31,20 +31,28 @@
                 <span class="chip">{{ genre.name }}</span>
             {% endfor %}
         </div>
-        <p>
-            <small class="display-flex gutter-3">
-                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" class="text-left grow-1">
+        <div class="display-flex gutter-1">
+            <small class="text-left grow-1" style="line-height:1.5rem">
+                <a href="/porches/{{ performance.porch.slug }}" style="display:inline-block;text-align:center;width:16px;height:16px;">
+                    <i class="fa-solid fa-house-user"></i>
+                </a>
+                <a href="/porches/{{ performance.porch.slug }}" style="text-decoration:none">
+                    {{ performance.porch.name }}
+                </a>
+                <br>
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" style="display:inline-block;text-align:center;width:16px;height:16px;">
                     <i class="fa-solid fa-location-pin"></i>
-                    {{ performance.porch.name }}<br>
+                </a>
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" style="text-decoration:none">
                     {{ performance.porch.street_address }}
                 </a>
-                <a href="https://www.google.com/maps/dir/?api=1&destination={{ performance.porch.street_address|urlencode }}">
-                    <i class="google-maps small"></i>
-                </a>
-                <a href="https://maps.apple.com/?q={{ performance.porch.street_address|urlencode }}">
-                    <i class="apple-maps small"></i>
-                </a>
             </small>
-        </p>
+            <a href="https://www.google.com/maps/dir/?api=1&destination={{ performance.porch.street_address|urlencode }}">
+                <i class="google-maps small"></i>
+            </a>
+            <a href="https://maps.apple.com/?q={{ performance.porch.street_address|urlencode }}">
+                <i class="apple-maps small"></i>
+            </a>
+        </div>
     </div>
 </div>
