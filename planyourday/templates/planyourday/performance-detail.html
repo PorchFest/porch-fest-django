@@ -24,11 +24,6 @@
         {% endif %}
     </div>
     <div class="performance-body">
-        <p>
-            <small>
-                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}"><i class="fa-solid fa-location-pin"></i> {{ performance.porch.name }}</a>
-            </small>
-        </p>
         <p><small><i class="fa-regular fa-clock"></i> {{ performance.start_time|date:"g:i A" }} - {{ performance.end_time|date:"g:i A" }}</small></p>
         <div class="genres">
             {% with performance.performer.genres.all as genres %}
@@ -37,5 +32,20 @@
                 {% endfor %}
             {% endwith %}
         </div>
+        <p>
+            <small class="display-flex gutter-3">
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" class="text-left grow-1">
+                    <i class="fa-solid fa-location-pin"></i>
+                    {{ performance.porch.name }}<br>
+                    {{ performance.porch.street_address }}
+                </a>
+                <a href="https://www.google.com/maps/dir/?api=1&destination={{ performance.porch.street_address|urlencode }}">
+                    <i class="google-maps small"></i>
+                </a>
+                <a href="https://maps.apple.com/?q={{ performance.porch.street_address|urlencode }}">
+                    <i class="apple-maps small"></i>
+                </a>
+            </small>
+        </p>
     </div>
 </div>
