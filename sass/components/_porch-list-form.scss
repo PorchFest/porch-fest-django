@@ -1,20 +1,23 @@
 @use "../variables" as *;
 
-.form-container{
+.form-container {
     display: grid;
     place-items: center;
     transition: height .3s ease;
     height: 600px;
 }
-.swap-container.htmx-swapping{
+
+.swap-container.htmx-swapping {
     opacity: 0;
     transform: translateY(-20px);
 }
+
 .swap-container.htmx-added {
-opacity: 0;
-transform: translateY(80px);
+    opacity: 0;
+    transform: translateY(80px);
 }
-.swap-container{
+
+.swap-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,20 +28,23 @@ transform: translateY(80px);
     transform: translateY(0);
     transition: opacity .5s ease, transform .5s ease;
 
-    h1{
+    h1 {
         font-family: $font__headers;
         text-transform: uppercase;
     }
-    form{
+
+    form {
         width: 305px;
 
-        p{
+        p {
             width: 80%;
             margin: 0;
         }
+
         @include form;
     }
 }
+
 .google-maps {
     display: inline-block;
     width: 50px;

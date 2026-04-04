@@ -32,17 +32,20 @@
                     max-width: 100%;
                 }
             }
-            .directions{
+
+            .directions {
                 display: flex;
-                flex-direction: column;
-                a{
-                    color: blue;
-                    &:active{color: blue;}
+                align-items: center;
+                gap: 1em;
+
+                .address {
+                    flex-grow: 1;
                 }
             }
 
             .title {
                 align-self: flex-start;
+                width: 100%;
 
                 h1 {
                     font-family: $font__headers;

@@ -4,17 +4,17 @@
             {% comment %} <a class="map" href="{% url 'map' %}">< Map</a> {% endcomment %}
             <div class="title">
                 <h1>{{ porch.name }}</h1>
-                <p>{{ porch.street_address }}</p>
+            <div class="directions">
+                <p class="address">{{ porch.street_address }}</p>
+                <a href="https://www.google.com/maps/dir/?api=1&destination={{ porch.street_address|urlencode }}"><i class="google-maps small"></i></a>
+                <a href="https://maps.apple.com/?q={{ porch.street_address|urlencode }}"><i class="apple-maps small"></i></a>
+            </div>
             </div>
             {% if porch.porch_picture %}
                 <div class="img-wrapper">
                     <img src="/media/{{ porch.porch_picture }}" alt="Porch Picture">
                 </div>
             {% endif %}
-            <div class="directions">
-                <a href="https://www.google.com/maps/dir/?api=1&destination={{ porch.street_address }}">Google Maps</a>
-                <a href="https://maps.apple.com/?q={{ porch.street_address }}">Apple Maps</a>
-            </div>
             <p>{{ porch.description }}</p>
         </div>
     </div>
