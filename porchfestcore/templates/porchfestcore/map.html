@@ -32,13 +32,8 @@
 		</style>
 	</head>
 	<body>
-		<div id="root" x-data="{selectedGenres: []}">
-			<div class="map-header main-header">
-				<div class="button-wrap">
-					<a href="/" class="home-button">Home</a>
-				</div>
-				<a href="https://fresnoschoolwatch.com" target="_blank" class="header-ad"><img src="" alt=""></a>
-			</div>
+		<div id="root" class="map-header" x-data="{selectedGenres: []}">
+			{% include "website/header.html" %}
 			{% include "porchfestcore/map-toolbar.html" %}
 			<div id="map" @click="$store.ui.showFilter = false"></div>
 			<button id="use_location">Use My Location <img src="/static/porchfestcore/images/person.png" alt=""></button>
@@ -59,5 +54,6 @@
 		</div>
 		<script>const MAPBOX_PUBLIC_KEY = "{{ MAPBOX_PUBLIC_KEY|escapejs }}"</script>
 		<script src="{% static 'porchfestcore/js/map.js' %}"></script>
+		<script src="{% static 'website/js/mobile-menu.js' %}"></script>
 	</body>
 </html>
