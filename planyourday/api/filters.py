@@ -3,8 +3,8 @@ from porchfestcore.models   import Performance, Genre
 from django.db.models       import Q
 
 class PerformanceFilter(django_filters.FilterSet):
-    search = django_filters.CharFilter(method="filter_search")
-    genres = django_filters.MultipleChoiceFilter(
+    search          = django_filters.CharFilter(method="filter_search")
+    genres          = django_filters.MultipleChoiceFilter(
         field_name='performer__genres__slug',
         choices=[],  # placeholder
     )

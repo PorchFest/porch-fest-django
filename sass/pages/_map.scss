@@ -69,7 +69,7 @@ $map-header-height: 40px;
 }
 
 .toolbar {
-    z-index: 2000;
+    z-index: 1998;
     position: absolute;
     top: calc($map-header-height + 10px);
     left: 10px;
@@ -133,17 +133,21 @@ $map-header-height: 40px;
             flex-direction: column;
             gap: 0.2rem;
 
-            .title{
+            .title {
                 display: flex;
                 gap: 10px;
-                span{
+
+                span {
                     background-color: white;
                     border: 1px black solid;
                     border-radius: 5px;
                     padding: 2px;
                     font-size: 12px;
                     font-weight: bold;
-                    i{font-size: 10px;}
+
+                    i {
+                        font-size: 10px;
+                    }
                 }
             }
 
@@ -221,7 +225,7 @@ $map-header-height: 40px;
     }
 }
 
-#use_location{
+#use_location {
     position: fixed;
     z-index: 1001;
     bottom: 8px;
@@ -233,7 +237,10 @@ $map-header-height: 40px;
     background-color: white;
     font-size: 20px;
     font-size: 12px;
-    img{height: 30px;}
+
+    img {
+        height: 30px;
+    }
 }
 
 /* Map legend styles - glassmorphism, position fixed top left */

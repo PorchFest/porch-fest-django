@@ -47,7 +47,7 @@ $header-height: 64px;
 
 .itinerary_slideout {
     position: fixed;
-    z-index: 3000;
+    z-index: 1999;
     right: 0;
     top: calc($map-header-height + 10px);
     width: 500px;
@@ -69,9 +69,10 @@ $header-height: 64px;
     }
 
     @media(max-width:600px) {
-        &.open{
+        &.open {
             margin-right: 0;
         }
+
         top: $map-header-height;
         width: calc(100% - 2rem);
     }
