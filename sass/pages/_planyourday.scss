@@ -7,6 +7,16 @@ main.plan-your-day {
     padding: 1rem;
     font-family: $font__text;
 
+    #loading {
+        position: fixed;
+        bottom: 0;
+        left: calc(50% - 75px);
+        width: 100px;
+        background-color: $color-fg-accent;
+        border-radius: 0.5rem;
+        text-align: center;
+    }
+
     .toolbar {
         position: fixed;
         top: calc($header-height + 1rem);

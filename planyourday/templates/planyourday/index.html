@@ -11,6 +11,7 @@
                 @submit.prevent
                 hx-get="{% url 'performances' %}"
                 hx-target="#performances"
+                hx-swap="outerHTML"
                 hx-indicator="#loading"
                 {% comment %} hx-trigger="change delay:300ms, keyup delay:300ms" {% endcomment %}
                 {% comment %} hx-trigger="change delay:300ms, input delay:300ms" {% endcomment %}
@@ -179,22 +180,15 @@
         </div>
         <div
             class="performances-wrapper"
-            style="padding-top:5rem;"
+            style="padding-top:55px;"
             @click="search_filters = false"
             onclick="htmx.removeClass(htmx.find('#itinerary_slideout'), 'open');"
         >
-            <div class="row width-100">
-                <h4 class="margin-0 grow-1">Performances</h4>
-                <p class="htmx-indicator" id="loading">Loading Hold On</p>
-                <p class="margin-0 small">{{ performances|length }} results</p>
-            </div>
-            <div
-                id="performances"
-                class="performances border-ghost rounded-2 padding-3"
-            >
-                {% include "planyourday/performance-list.html" %}
-            </div>
+            {% include "planyourday/performance-list.html" %}
         </div>
     </div>
 
+    <div id="loading" class="htmx-indicator">
+        <p>Loading</p>
+    </div>
 {% endblock %}
