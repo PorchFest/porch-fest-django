@@ -11,6 +11,7 @@ def plan_your_day(request, itinerary_id=None):
         .select_related('porch', 'performer')
         .prefetch_related('performer__genres')
     )
+    performances = with_show_time(performances)
     genres              = Genre.objects.all()
     itinerary           = None
     if itinerary_id:
