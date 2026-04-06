@@ -53,6 +53,12 @@
         flex-direction: column;
         gap: 0.2rem;
 
+        .display-flex{
+            display: flex;
+            gap: .2rem;
+            .text-left{text-align: left;}
+        }
+
         .genres {
             display: flex;
             flex-wrap: wrap;
