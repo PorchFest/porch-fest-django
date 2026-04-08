@@ -38,7 +38,7 @@ $map-header-height: 40px;
     }
 
     header.main-header {
-        position: absolute;
+        position: fixed;
         width: 100%;
         height: $map-header-height;
         padding: 0 10px;
@@ -273,6 +273,7 @@ $map-header-height: 40px;
 }
 
 #legend-content {
+    font-family: $font__text;
     ul {
         list-style: none;
         padding: 0;

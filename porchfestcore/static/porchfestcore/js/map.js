@@ -62,12 +62,13 @@ class PorchMap{
 					iconSize: [40, 40],
 					iconAnchor:	[10, 40],
 				}
-				if(porch.properties.sponsor_logo){
-					if(!porch.properties.vendor){
+				if(porch.properties.sponsor_logo || porch.properties.sponsored){
+					if(porch.properties.sponsor_logo){
 						iconObj.iconUrl = porch.properties.sponsor_logo
-						iconObj.className = "sponsor-logo"
-					}else{
+					}else if(porch.properties.vendor){
 						iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor-sponsor.svg"
+					}else{
+						iconObj.iconUrl = "/static/porchfestcore/images/glyph-sponsor.svg"
 					}
 				}else if(porch.properties.porta_potty){
 					iconObj.iconUrl = "/static/porchfestcore/images/glyph-porta.svg"
