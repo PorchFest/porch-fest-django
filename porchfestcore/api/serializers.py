@@ -4,6 +4,7 @@ from porchfestcore.models               import Porch
 
 class PorchMapSerializer(GeoFeatureModelSerializer):
     sponsor_logo = serializers.SerializerMethodField()
+
     class Meta:
         model       = Porch
         geo_field   = "coordinates"
@@ -12,6 +13,7 @@ class PorchMapSerializer(GeoFeatureModelSerializer):
             "coordinates",
             "performances",
             "sponsor_logo",
+            "sponsored",
             "porta_potty",
             "vendor",
             "parking",
