@@ -95,7 +95,7 @@
                     </div>
                     <button
                         class="yellow small"
-                        @click="$el.closest('form').reset(); $dispatch('input')"
+                        @click="$el.closest('form').reset(); $dispatch('input'); selectedGenres = []"
                     >Reset Filters</button>
                 </div>
             </form>
@@ -110,7 +110,7 @@
         </div>
         <div
             id="itinerary_slideout"
-            class="itinerary_slideout plan-your-day-itinerary"
+            class="itinerary_slideout plan-your-day-itinerary {% if shared %}open{% endif %}"
         >
             <div class="slideout_header">
                 <h4>
@@ -132,10 +132,10 @@
                                 if(navigator.share){
                                     navigator.share({
                                         title: document.title,
-                                        url: '{% url 'shared_itinerary' itinerary_id %}'
+                                        url: '{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
                                     })
                                 }else{
-                                    navigator.clipboard.writeText('{% url 'shared_itinerary' itinerary_id %}')
+                                    navigator.clipboard.writeText('{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}')
                                     .then(() => {
                                         alert('Itinerary address copied to clipboard');
                                     });
