@@ -54,6 +54,8 @@ class PorchMap{
 				}
 			})
 			const porches = response.data
+			console.log(response.data.count)
+			Alpine.store("ui").filteredCount = response.data.count
 			porches.features.forEach(porch=>{
 				const [lon, lat] 	= porch.geometry.coordinates
 				let iconObj = {
