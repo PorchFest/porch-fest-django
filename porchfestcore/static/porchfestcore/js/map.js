@@ -211,7 +211,7 @@ function modalHistory(){
 				this.$nextTick(()=>this.isPopping = false)
 			})
 
-			this.$watch('$store.porch.open', (isOpen)=>{
+			this.$watch('$store.porch.open', isOpen=>{
 				if(this.isPopping) return
 
 				if(isOpen){
@@ -223,7 +223,7 @@ function modalHistory(){
 				}
 			})
 
-			this.$watch('$store.ui.showItinerary', (isOpen)=>{
+			this.$watch('$store.ui.showItinerary', isOpen=>{
 				if(this.isPopping) return
 
 				if(isOpen){
