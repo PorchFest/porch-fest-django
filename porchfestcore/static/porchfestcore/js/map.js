@@ -140,8 +140,8 @@ class PorchMap{
 					icon: L.icon({
 						iconUrl: "/static/porchfestcore/images/person.png",
 						className: "porch-marker",
-						iconSize: [16, 30],
-						iconAnchor:	[8, 30],
+						iconSize: [30, 60],
+						iconAnchor:	[15, 60],
 					})
 				}).addTo(this.map)
 				this.map.panTo([this.userLocation.latitude, this.userLocation.longitude])

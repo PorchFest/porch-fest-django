@@ -25,8 +25,21 @@ class Performer(models.Model):
     member_count 		= models.IntegerField(default=1)
     instruments 		= models.IntegerField(default=0)
     link 				= models.URLField(blank=True)
+    slug                = models.SlugField(unique=True, blank=True, max_length=255)
     profile_picture		= models.ImageField(upload_to='performers/', blank=True, null=True)
     created_by 		    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='performers')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            i = 1
+            # Make sure it's unique
+            while Performer.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{i}"
+                i += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

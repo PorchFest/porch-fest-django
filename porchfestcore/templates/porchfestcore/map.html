@@ -38,7 +38,14 @@
 			{% include "porchfestcore/map-toolbar.html" %}
 			<div id="map" @click="$store.ui.showFilter = false; $store.ui.showItinerary = false"></div>
 			<button id="use_location">Use My Location <img src="/static/porchfestcore/images/person.png" alt=""></button>
-			<div id="map-legend">
+			<div
+				id="map_legend"
+				class="map-legend"
+				x-data="{grow: false}"
+				@touchstart="grow = grow"
+				@touchend="grow = false"
+				:class="grow ? 'grow' : ''"
+			>
 				<div id="legend-content">
 					<ul>
 						<li data-filter-type="default" class="is-active"><img src="/static/porchfestcore/images/glyph.svg" alt="Porch" class="legend-icon"><span class="legend-label">Porch</span></li>

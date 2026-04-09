@@ -2,19 +2,18 @@ from django.db              import models
 from porchfestcore.models   import Porch
 
 class Sponsor(models.Model):
-    class SponsorLevel(models.TextChoices):
-        EVENT 	    = "event",      "Event"
-        DIAMOND     = "diamond",    "Diamond"
-        PLATINUM    = "platinum", 	"Platinum"
-        GOLD 		= "gold", 	    "Gold"
-        COMMUNITY   = "community",  "Community"
+    class SponsorLevel(models.IntegerChoices):
+        EVENT 	    = 0,    "Event"
+        DIAMOND     = 1,    "Diamond"
+        PLATINUM    = 2,    "Platinum"
+        GOLD 		= 3,    "Gold"
+        COMMUNITY   = 4,    "Community"
 
     name 			= models.CharField(max_length=200)
     website 		= models.URLField(blank=True)
     logo 			= models.ImageField(upload_to="sponsors/logos/")
     map_icon        = models.ImageField(blank=True, upload_to="sponsors/map_icons")
-    level 			= models.CharField(
-        max_length=20,
+    level 			= models.IntegerField(
         choices=SponsorLevel.choices,
         default=SponsorLevel.COMMUNITY,
     )
