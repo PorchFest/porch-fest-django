@@ -130,7 +130,7 @@ $map-header-height: 40px;
         border-radius: 5px;
         border: 1px solid black;
         max-width: 350px;
-        max-height: calc(100dvh - ($map-header-height + 80px));
+        max-height: 250px;
         overflow-y: auto;
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
@@ -186,7 +186,7 @@ $map-header-height: 40px;
             }
 
             .genre-list {
-                max-height: 100px;
+                max-height: 150px;
                 overflow-y: scroll;
                 border: 1px solid rgb(33, 33, 51);
                 border-radius: 0.2rem;
@@ -282,6 +282,10 @@ $map-header-height: 40px;
         transform: scale(1.5);
         right: 60px;
         bottom: 30px;
+        @media(max-width: 600px){
+            right: 40px;
+            bottom: 50px;
+        }
     }
 }
 .grow{
