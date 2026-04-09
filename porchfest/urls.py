@@ -9,7 +9,7 @@ admin.site.site_title			= 'Porchfest'
 
 urlpatterns = [
 	path('', include('website.urls')),
-    path('obscure-map/', include('porchfestcore.urls')),
+    path('map/', include('porchfestcore.urls')),
     path('plan-your-day-now/', include('planyourday.urls')),
     path('dashboard/', include('porchpanel.urls')),
     path('porchfestpeeps/', admin.site.urls),
