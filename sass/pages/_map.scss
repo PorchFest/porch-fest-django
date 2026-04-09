@@ -253,8 +253,9 @@ $map-header-height: 40px;
     gap: 5px;
     padding: 5px;
     background-color: white;
-    font-size: 20px;
+    font-family: $font__text;
     font-size: 12px;
+    font-weight: bold;
 
     img {
         height: 30px;
