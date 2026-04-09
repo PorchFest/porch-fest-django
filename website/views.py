@@ -2,7 +2,7 @@ from django.shortcuts 		import render, get_object_or_404
 from django.views.generic 	import TemplateView
 from .forms					import PorchInterestForm, PorchSignupForm
 from .models				import Sponsor
-from porchfestcore.models   import TempUpload, Porch, Performance
+from porchfestcore.models   import TempUpload, Porch, Performer, Performance
 from pathlib                import Path
 from django.core.files.base import ContentFile
 from django.core.mail       import EmailMessage
@@ -83,6 +83,21 @@ def porch_page(request, slug):
             context["performances"] = performances
         return render(request, 'website/porch-page/porch-component.html', context)
     return render(request, 'website/porch-page/porch-page.html', context)
+
+def performer_page(request, slug):
+    performer = get_object_or_404(Performer, slug=slug)
+    context = {"performer": performer}
+    # if request.session.get('itinerary_id'):
+    #     itinerary = get_or_create_itinerary(request).ordered_performances()
+    #     context["itinerary"] = itinerary
+        # context["itinerary_test"] = set(item.id for item in itinerary)
+    # if request.headers.get("HX-Request"):
+    #     performances = request.GET.get("performances")
+    #     if performances:
+    #         performances = Performance.objects.filter(id__in=performances.split(","))
+    #         context["performances"] = performances
+        # return render(request, 'website/porch-page/porch-component.html', context)
+    return render(request, 'website/performer-page/performer-page.html', context)
 
 def add_performance(request):
     itinerary       = get_or_create_itinerary(request)

@@ -1,0 +1,17 @@
+<div class="porch-wrapper">
+    <div class="hero">
+        <div class="wrapper">
+            <div class="title">
+                <div>
+                    <h1>{{ performer.name }}</h1>
+                </div>
+            </div>
+            {% if performer.profile_picture %}
+                <div class="img-wrapper">
+                    <img src="/media/{{ performer.profile_picture }}" alt="Performer Picture">
+                </div>
+            {% endif %}
+            <p>{{ performer.bio }}</p>
+        </div>
+    </div>
+</div>
