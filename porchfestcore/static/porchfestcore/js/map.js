@@ -140,8 +140,8 @@ class PorchMap{
 					icon: L.icon({
 						iconUrl: "/static/porchfestcore/images/person.png",
 						className: "porch-marker",
-						iconSize: [16, 30],
-						iconAnchor:	[8, 30],
+						iconSize: [30, 60],
+						iconAnchor:	[15, 60],
 					})
 				}).addTo(this.map)
 				this.map.panTo([this.userLocation.latitude, this.userLocation.longitude])
@@ -211,7 +211,7 @@ function modalHistory(){
 				this.$nextTick(()=>this.isPopping = false)
 			})
 
-			this.$watch('$store.porch.open', (isOpen)=>{
+			this.$watch('$store.porch.open', isOpen=>{
 				if(this.isPopping) return
 
 				if(isOpen){
@@ -223,7 +223,7 @@ function modalHistory(){
 				}
 			})
 
-			this.$watch('$store.ui.showItinerary', (isOpen)=>{
+			this.$watch('$store.ui.showItinerary', isOpen=>{
 				if(this.isPopping) return
 
 				if(isOpen){

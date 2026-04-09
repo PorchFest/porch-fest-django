@@ -13,9 +13,8 @@
                 hx-target="#performances"
                 hx-swap="outerHTML"
                 hx-indicator="#loading"
-                {% comment %} hx-trigger="change delay:300ms, keyup delay:300ms" {% endcomment %}
-                {% comment %} hx-trigger="change delay:300ms, input delay:300ms" {% endcomment %}
                 hx-trigger="input delay:300ms"
+                @keydown.enter.prevent="$dispatch('input')"
                 class="filters"
             >
                 <div class="field-group white rounded search">
