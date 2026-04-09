@@ -6,7 +6,7 @@ from .models                import Genre
 from planyourday.views import get_or_create_itinerary
 
 def map_page(request):
-    genres = Genre.objects.all()
+    genres = Genre.objects.filter(performer__isnull=False).distinct()
     context = {
         'genres': genres,
         'MAPBOX_PUBLIC_KEY': settings.MAPBOX_PUBLIC_KEY

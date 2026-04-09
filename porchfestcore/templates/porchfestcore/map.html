@@ -19,6 +19,7 @@
 				Alpine.store('ui', {
 					showFilter: false,
 					showItinerary: false,
+					filteredCount: null,
 				})
 			})
 		</script>
@@ -35,7 +36,7 @@
 		<div id="root" class="map-header" x-data="{selectedGenres: []}">
 			{% include "website/header.html" %}
 			{% include "porchfestcore/map-toolbar.html" %}
-			<div id="map" @click="$store.ui.showFilter = false"></div>
+			<div id="map" @click="$store.ui.showFilter = false; $store.ui.showItinerary = false"></div>
 			<button id="use_location">Use My Location <img src="/static/porchfestcore/images/person.png" alt=""></button>
 			<div id="map-legend">
 				<div id="legend-content">
@@ -43,7 +44,7 @@
 						<li data-filter-type="default" class="is-active"><img src="/static/porchfestcore/images/glyph.svg" alt="Porch" class="legend-icon"><span class="legend-label">Porch</span></li>
 						<li data-filter-type="sponsored" class="is-active"><img src="/static/porchfestcore/images/glyph-sponsor.svg" alt="Sponsor" class="legend-icon"><span class="legend-label">Sponsor</span></li>
 						<li data-filter-type="vendor" class="is-active"><img src="/static/porchfestcore/images/glyph-vendor.svg" alt="Vendor" class="legend-icon"><span class="legend-label">Vendor</span></li>
-						<li data-filter-type="porta" class="is-active"><img src="/static/porchfestcore/images/glyph-porta.svg" alt="Restroom" class="legend-icon"><span class="legend-label">Restroom</span></li>
+						<li data-filter-type="porta" class="is-active"><img src="/static/porchfestcore/images/glyph-porta.svg" alt="Restroom" class="legend-icon"><span class="legend-label">Porta Potty</span></li>
 						<li data-filter-type="info" class="is-active"><img src="/static/porchfestcore/images/glyph-info.svg" alt="Info Booth" class="legend-icon"><span class="legend-label">Info Booth</span></li>
 						<li data-filter-type="parking" class="is-active"><img src="/static/porchfestcore/images/glyph-parking.svg" alt="Parking" class="legend-icon"><span class="legend-label">Parking</span></li>
 					</ul>

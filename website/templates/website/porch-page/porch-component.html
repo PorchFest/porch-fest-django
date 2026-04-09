@@ -3,22 +3,28 @@
         <div class="wrapper">
             {% comment %} <a class="map" href="{% url 'map' %}">< Map</a> {% endcomment %}
             <div class="title">
-                <h1>{{ porch.name }}</h1>
-            <div class="directions">
-                <p class="address">{{ porch.street_address }}</p>
-                <a href="https://www.google.com/maps/dir/?api=1&destination={{ porch.street_address|urlencode }}"><i class="google-maps small"></i></a>
-                <a href="https://maps.apple.com/?q={{ porch.street_address|urlencode }}"><i class="apple-maps small"></i></a>
-            </div>
+                <div>
+                    <h1>{{ porch.name }}</h1>
+                    {% if porch.number %}
+                        <i><span>{{ porch.number }}</span></i>
+                    {% endif %}
+                </div>
+                <div class="directions">
+                    <p class="address">{{ porch.street_address }}</p>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ porch.street_address|urlencode }}"><i class="google-maps small"></i></a>
+                    <a href="https://maps.apple.com/?q={{ porch.street_address|urlencode }}"><i class="apple-maps small"></i></a>
+                </div>
             </div>
             {% if porch.porch_picture %}
                 <div class="img-wrapper">
                     <img src="/media/{{ porch.porch_picture }}" alt="Porch Picture">
                 </div>
             {% endif %}
+            <a href="#porch_lineup">See Lineup</a>
             <p>{{ porch.description }}</p>
         </div>
     </div>
-    <div class="lineup">
+    <div class="lineup" id="porch_lineup">
         <div class="performance-list">
             {% for performance in porch.performances.all %}
                 {% include 'website/porch-page/performance-detail.html' %}

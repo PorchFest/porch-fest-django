@@ -5,14 +5,13 @@ from planyourday.api.filters    import PerformanceFilter
 from planyourday.models         import Itinerary
 
 def plan_your_day(request, itinerary_id=None):
-    # performances        = with_show_time(get_filtered_performances(request))
     performances = (
         Performance.objects
         .select_related('porch', 'performer')
         .prefetch_related('performer__genres')
     )
-    performances = with_show_time(performances)
-    genres              = Genre.objects.all()
+    performances        = with_show_time(performances)
+    genres = Genre.objects.filter(performer__isnull=False).distinct()
     itinerary           = None
     if itinerary_id:
         itinerary       = get_object_or_404(Itinerary, id=itinerary_id)
@@ -27,6 +26,8 @@ def plan_your_day(request, itinerary_id=None):
             'genres':       genres,
             "itinerary_test": set(item.id for item in itinerary.ordered_performances()),
         }
+        if itinerary_id:
+            context["shared"] = True
     else:
         context = {
             'performances': performances,
