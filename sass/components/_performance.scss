@@ -58,6 +58,7 @@
         h4,
         h5 {
             flex-grow: 1;
+            font-family: $font__headers;
         }
     }
 
@@ -66,10 +67,13 @@
         flex-direction: column;
         gap: 0.2rem;
 
-        .display-flex{
+        .display-flex {
             display: flex;
             gap: .2rem;
-            .text-left{text-align: left;}
+
+            .text-left {
+                text-align: left;
+            }
         }
 
         .genres {
