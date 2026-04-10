@@ -5,6 +5,7 @@ from phonenumber_field.modelfields  import PhoneNumberField
 from django.conf 					import settings
 from django.contrib.auth.models		import User
 from django.utils.text              import slugify
+from django.core.exceptions         import ValidationError
 from django.template.loader         import render_to_string
 from django.core.mail               import EmailMessage
 from decouple                       import config
@@ -12,7 +13,20 @@ import os
 
 class Genre(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(blank=True, unique=True)
+
+    def clean(self):
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        if Genre.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
+            raise ValidationError({
+                "slug": "A genre with this slug already exists."
+            })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

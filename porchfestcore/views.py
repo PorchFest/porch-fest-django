@@ -15,3 +15,6 @@ def map_page(request):
         context['itinerary'] = get_or_create_itinerary(request).ordered_performances()
 
     return render(request, 'porchfestcore/map.html', context)
+
+def coming_soon(request):
+    return render(request, 'porchfestcore/coming-soon.html')
