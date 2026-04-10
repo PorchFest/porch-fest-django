@@ -308,6 +308,7 @@ $map-header-height: 40px;
 
 #legend-content {
     font-family: $font__text;
+    user-select: none;
 
     ul {
         list-style: none;
