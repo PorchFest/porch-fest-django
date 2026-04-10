@@ -2,5 +2,6 @@ from django.urls	import path
 from . 				import views
 
 urlpatterns = [
-	path('', views.map_page, name='map'),
+	path('', views.coming_soon, name='map'),
+	path('obscure-map', views.map_page, name='obscure_map'),
 ]
