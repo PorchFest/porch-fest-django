@@ -166,7 +166,7 @@ class PerformerAdmin(admin.ModelAdmin):
             ])
 
         return response
-    export_as_csv.short_description = "Export selected Porch to CSV"
+    export_as_csv.short_description = "Export selected Performers to CSV"
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
