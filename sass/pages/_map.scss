@@ -31,7 +31,10 @@ $map-header-height: 40px;
             right: 10px;
         }
 
-        & a,
+        & a:link,
+        & a:hover,
+        & a:active,
+        & a:visited,
         & button {
             font-size: 1rem;
         }
@@ -231,7 +234,7 @@ $map-header-height: 40px;
         @include pydbutton;
     }
 
-    #filtered_count_wrap{
+    #filtered_count_wrap {
         background-color: $color-bg-main;
         font-family: $font__text;
         border: 1px solid gray;
@@ -279,21 +282,25 @@ $map-header-height: 40px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     z-index: 1001;
     transition: all 0.1s ease-in-out;
-    &:hover{
+
+    &:hover {
         transform: scale(1.5);
         right: 60px;
         bottom: 30px;
-        @media(max-width: 600px){
+
+        @media(max-width: 600px) {
             right: 40px;
             bottom: 50px;
         }
     }
 }
-.grow{
+
+.grow {
     transform: scale(1.5);
     right: 60px;
     bottom: 30px;
-    @media(max-width: 600px){
+
+    @media(max-width: 600px) {
         right: 40px;
         bottom: 50px;
     }
@@ -301,6 +308,7 @@ $map-header-height: 40px;
 
 #legend-content {
     font-family: $font__text;
+
     ul {
         list-style: none;
         padding: 0;

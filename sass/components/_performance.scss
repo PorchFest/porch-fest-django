@@ -34,19 +34,6 @@
         margin: 0;
     }
 
-    a,
-    a:hover,
-    a:visited,
-    a:link,
-    a:active {
-        color: $color-fg-link;
-    }
-
-    a:hover,
-    a:active {
-        text-decoration: underline;
-    }
-
     .performance-header {
         display: flex;
         gap: 0.5rem;

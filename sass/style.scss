@@ -2,13 +2,26 @@
 @use "layout";
 @use "pages";
 @use "components";
-// @use "variables" as *;
+@use "variables" as *;
+@use "sass:color";
 
-body{
-	margin: 0;
-	padding: 0;
+body {
+    margin: 0;
+    padding: 0;
 }
 
 :root {
-	--vh: 100%;
+    --vh: 100%;
+}
+
+a:link,
+a:visited {
+    color: $color-fg-link;
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    color: color.adjust($color-fg-link, $lightness: -20%);
+    text-decoration: underline;
 }

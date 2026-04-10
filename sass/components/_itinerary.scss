@@ -68,19 +68,6 @@ $header-height: 64px;
         transform: translateX(0);
     }
 
-    a,
-    a:hover,
-    a:visited,
-    a:link,
-    a:active {
-        color: $color-fg-link;
-    }
-
-    a:hover,
-    a:active {
-        text-decoration: underline;
-    }
-
     @media(max-width:600px) {
         &.open {
             margin-right: 0;
