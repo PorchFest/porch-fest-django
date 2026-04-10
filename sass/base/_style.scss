@@ -1,4 +1,23 @@
+@use "../variables" as *;
+@use "sass:color";
+
 body, ul{
 	margin: 0;
 	padding: 0;
+}
+
+:root {
+    --vh: 100%;
+}
+
+a:link,
+a:visited {
+    color: $color-fg-link;
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    color: color.adjust($color-fg-link, $lightness: -20%);
+    text-decoration: underline;
 }

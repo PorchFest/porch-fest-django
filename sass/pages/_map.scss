@@ -31,7 +31,10 @@ $map-header-height: 40px;
             right: 10px;
         }
 
-        & a,
+        & a:link,
+        & a:hover,
+        & a:active,
+        & a:visited,
         & button {
             font-size: 1rem;
         }
@@ -87,7 +90,7 @@ $map-header-height: 40px;
     height: 50px;
 
     .map-search {
-        border-radius: 0.2rem;
+        border-radius: 0.5rem;
         height: 50px;
         position: relative;
 
@@ -130,10 +133,22 @@ $map-header-height: 40px;
         border-radius: 5px;
         border: 1px solid black;
         max-width: 350px;
-        max-height: 250px;
+        max-height: calc(100dvh - ($map-header-height + 50px + 1.4rem));
         overflow-y: auto;
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
+
+        .close {
+            align-self: flex-end;
+            padding: 0.5rem;
+            border-radius: 5px;
+            background-color: #fff;
+            border: solid 1px $color-bg-accent;
+            color: black;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
         .genres {
             display: flex;
@@ -231,7 +246,7 @@ $map-header-height: 40px;
         @include pydbutton;
     }
 
-    #filtered_count_wrap{
+    #filtered_count_wrap {
         background-color: $color-bg-main;
         font-family: $font__text;
         border: 1px solid gray;
@@ -253,6 +268,8 @@ $map-header-height: 40px;
     gap: 5px;
     padding: 5px;
     background-color: white;
+    border-width: 1px;
+    border-radius: 0.5rem;
     font-family: $font__text;
     font-size: 12px;
     font-weight: bold;
@@ -274,26 +291,30 @@ $map-header-height: 40px;
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
 
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
     z-index: 1001;
     transition: all 0.1s ease-in-out;
-    &:hover{
+
+    &:hover {
         transform: scale(1.5);
         right: 60px;
         bottom: 30px;
-        @media(max-width: 600px){
+
+        @media(max-width: 600px) {
             right: 40px;
             bottom: 50px;
         }
     }
 }
-.grow{
+
+.grow {
     transform: scale(1.5);
     right: 60px;
     bottom: 30px;
-    @media(max-width: 600px){
+
+    @media(max-width: 600px) {
         right: 40px;
         bottom: 50px;
     }
@@ -301,6 +322,8 @@ $map-header-height: 40px;
 
 #legend-content {
     font-family: $font__text;
+    user-select: none;
+
     ul {
         list-style: none;
         padding: 0;
@@ -347,7 +370,7 @@ $map-header-height: 40px;
 
 @media (max-width: 600px) {
     .map-legend {
-        padding: 6px;
+        padding: 0.5rem;
         max-width: 120px;
     }
 

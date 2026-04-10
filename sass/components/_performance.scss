@@ -34,19 +34,6 @@
         margin: 0;
     }
 
-    a,
-    a:hover,
-    a:visited,
-    a:link,
-    a:active {
-        color: $color-fg-link;
-    }
-
-    a:hover,
-    a:active {
-        text-decoration: underline;
-    }
-
     .performance-header {
         display: flex;
         gap: 0.5rem;
@@ -58,6 +45,7 @@
         h4,
         h5 {
             flex-grow: 1;
+            font-family: $font__headers;
         }
     }
 
@@ -66,10 +54,13 @@
         flex-direction: column;
         gap: 0.2rem;
 
-        .display-flex{
+        .display-flex {
             display: flex;
             gap: .2rem;
-            .text-left{text-align: left;}
+
+            .text-left {
+                text-align: left;
+            }
         }
 
         .genres {

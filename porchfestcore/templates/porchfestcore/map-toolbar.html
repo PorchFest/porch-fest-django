@@ -16,8 +16,7 @@
                 type="text"
                 class="grow-1 padding-2"
                 placeholder="Search"
-                @focus="$store.ui.showFilter = true"
-                @click="$store.ui.showFilter = true"
+                @click="$store.ui.showFilter = !$store.ui.showFilter"
             />
             <button
                 @click="$store.ui.showFilter = !$store.ui.showFilter"
@@ -32,6 +31,15 @@
             id="search_filters"
             class="gutter-2 margin-top-3 filter-wrapper"
         >
+            <div class="filter-time filter">
+                <div>Search Filters</div>
+                <button
+                    @click="$store.ui.showFilter = false"
+                    class="close"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
             <div class="filter-time filter">
                 <label for="after">Time:</label>
                 <input type="time" name="after" id="filter_time">

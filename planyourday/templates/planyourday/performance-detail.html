@@ -37,14 +37,14 @@
                 <a href="/porches/{{ performance.porch.slug }}" style="display:inline-block;text-align:center;font-size:14px;width:16px;height:16px;">
                     <i class="fa-solid fa-house-user"></i>
                 </a>
-                <a href="/porches/{{ performance.porch.slug }}" class="small" style="text-decoration:none">
+                <a href="/porches/{{ performance.porch.slug }}" class="small">
                     {{ performance.porch.name }}
                 </a>
                 <br>
                 <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" style="display:inline-block;text-align:center;font-size:14px;width:16px;height:16px;">
                     <i class="fa-solid fa-location-pin"></i>
                 </a>
-                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" class="small" style="text-decoration:none">
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" class="small">
                     {{ performance.porch.street_address }}
                 </a>
             </div>
