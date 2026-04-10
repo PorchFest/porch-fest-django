@@ -19,7 +19,8 @@
 - Add the username and password you created to your `.env` file
 - Download and install OSGeo4W from `https://trac.osgeo.org/osgeo4w/`
 - `pip install -r requirements.txt`
-- run `python manage.py migrate` to generate database tables
+- run `python manage.py makemigrations` to generate database tabe scripts
+- run `python manage.py migrate` to build database tables
 - `npm install -g sass`
 ## run project
 - `python manage.py runserver`
