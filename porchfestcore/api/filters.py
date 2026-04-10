@@ -6,7 +6,7 @@ class PorchMapFilter(django_filters.FilterSet):
     search          = django_filters.CharFilter(method="filter_search")
     genres          = django_filters.MultipleChoiceFilter(
         field_name='performances__performer__genres__slug',
-        choices=[],  # placeholder
+        choices=[],
     )
     after           = django_filters.TimeFilter(
         field_name  ='performances__start_time',
@@ -25,5 +25,6 @@ class PorchMapFilter(django_filters.FilterSet):
     def filter_search(self, queryset, name, value):
         return queryset.filter(
             Q(name__icontains=value) |
-            Q(performances__performer__name__icontains=value)
+            Q(performances__performer__name__icontains=value) |
+            Q(number__icontains=value)
         )
