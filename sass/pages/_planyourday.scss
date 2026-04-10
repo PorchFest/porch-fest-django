@@ -55,6 +55,18 @@ main.plan-your-day {
             overscroll-behavior: contain;
             top: 67px;
 
+            .close {
+                align-self: flex-end;
+                padding: 0.5rem;
+                border-radius: 5px;
+                background-color: #fff;
+                border: solid 1px $color-bg-accent;
+                color: black;
+                font-size: 0.85rem;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
             .filter {
                 display: flex;
                 gap: 1rem;

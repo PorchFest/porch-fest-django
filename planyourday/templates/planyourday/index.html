@@ -19,8 +19,7 @@
             >
                 <div class="field-group white rounded-2 search">
                     <input
-                        @focus="search_filters = true"
-                        @click="search_filters = true"
+                        @click="search_filters = !search_filters"
                         id="search"
                         name="search"
                         type="text"
@@ -35,6 +34,16 @@
                     id="search_filters"
                     class="filter-wrapper"
                 >
+                
+                    <div class="filter">
+                        <span>Search Filters</span>
+                        <button
+                            @click="search_filters = false"
+                            class="close"
+                        >
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
                     {% comment %}
                     <div class="filter">
                         <label for="before">Before:</label>

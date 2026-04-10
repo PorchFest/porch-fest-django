@@ -133,10 +133,22 @@ $map-header-height: 40px;
         border-radius: 5px;
         border: 1px solid black;
         max-width: 350px;
-        max-height: 250px;
+        max-height: calc(100dvh - ($map-header-height + 50px + 1.4rem));
         overflow-y: auto;
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
+
+        .close {
+            align-self: flex-end;
+            padding: 0.5rem;
+            border-radius: 5px;
+            background-color: #fff;
+            border: solid 1px $color-bg-accent;
+            color: black;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
         .genres {
             display: flex;
