@@ -67,7 +67,10 @@
             <div class="genres">
                 <div class="title">
                     <h4 class="margin-0">Genres</h4>
-                    <span x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')">Clear Genres <i class="fa-solid fa-x"></i></span>
+                    <span x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('change')">
+                        <i class="fa-solid fa-x"></i>
+                        Clear All Genres
+                    </span>
                 </div>
                 <div id="selected_genres">
                     <template x-for="genre in selectedGenres" :key="genre.slug">
@@ -78,8 +81,8 @@
                                 $dispatch('change')
                             "
                         >
-                            <span x-text="genre.name"></span>
                             <i class="fa-solid fa-x"></i>
+                            <span x-text="genre.name"></span>
                         </span>
                     </template>
                 </div>
@@ -111,7 +114,7 @@
             <button
                 class="yellow small"
                 @click="$el.closest('form').reset(); $dispatch('change'); $store.ui.showFilter = false; selectedGenres = []"
-            >Reset Filters</button>
+            >Reset All Filters</button>
         </div>
         <div
             id="filtered_count_wrap"

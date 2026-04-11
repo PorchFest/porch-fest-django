@@ -58,8 +58,8 @@
                         <div class="title">
                             <b>Genres:</b>
                             <span x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('input')" style="align-self: flex-start;">
-                                Clear Genres
                                 <i class="fa-solid fa-x"></i>
+                                Clear All Genres
                             </span>
                         </div>
                         <div id="selected_genres">
@@ -71,8 +71,8 @@
                                         $dispatch('input')
                                     "
                                 >
-                                    <span x-text="genre.name"></span>
                                     <i class="fa-solid fa-x"></i>
+                                    <span x-text="genre.name"></span>
                                 </span>
                             </template>
                         </div>
@@ -104,7 +104,7 @@
                     <button
                         class="yellow small"
                         @click="$el.closest('form').reset(); $dispatch('input'); selectedGenres = []"
-                    >Reset Filters</button>
+                    >Reset All Filters</button>
                 </div>
             </form>
             <button
