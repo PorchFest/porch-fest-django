@@ -5,16 +5,18 @@
 		<div class="sponsor-level">
 			{# 2. Use the first item in the list to pull the human-readable label #}
 			<h1>{{ group.list.0.get_level_display }} Sponsors</h1>
-			<div class="sponsors">
+			<div class="sponsors {{group.list.0.get_level_display}}">
 				{% for sponsor in group.list %}
 					{% if sponsor.website %}
-						<a href="{{ sponsor.website }}" target="_blank" rel="noopener noreferrer">
-							{% if sponsor.logo %}
-								<img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
-							{% else %}
-								<span>{{ sponsor.name }}</span>
-							{% endif %}
-						</a>
+                        <div>
+                            <a href="{{ sponsor.website }}" target="_blank" rel="noopener noreferrer">
+                                {% if sponsor.logo %}
+                                    <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}">
+                                {% else %}
+                                    <span>{{ sponsor.name }}</span>
+                                {% endif %}
+                            </a>
+                        </div>
 					{% else %}
 						<div>
 							{% if sponsor.logo %}
