@@ -107,6 +107,7 @@ class PorchAdmin(admin.ModelAdmin):
 
         for obj in queryset:
             writer.writerow([
+                obj.number,
                 obj.owner_name,
                 obj.owner_email,
                 obj.owner_phone,
