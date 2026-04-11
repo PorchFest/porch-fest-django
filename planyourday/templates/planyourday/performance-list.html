@@ -7,18 +7,24 @@
         <p class="margin-0 small">{{ performances|length }} results</p>
     </div>
     <div class="performances performance-list">
-    {% for performance in performances %}
-        {% if performance.show_time %}
-            <div class="background-light padding-x-3 padding-y-2 margin-top-2 rounded-2">
-                <small>
-                    <i class="fa-regular fa-clock"></i>
-                    {{ performance.start_time|date:"g:i A" }}
-                </small>
+    {% if performances|length %}
+        {% for performance in performances %}
+            {% if performance.show_time %}
+                <div class="background-light padding-x-3 padding-y-2 margin-top-2 rounded-2">
+                    <small>
+                        <i class="fa-regular fa-clock"></i>
+                        {{ performance.start_time|date:"g:i A" }}
+                    </small>
+                </div>
+            {% endif %}
+            <div id="performance_{{ performance.id }}">
+                {% include "planyourday/performance-detail.html" %}
             </div>
-        {% endif %}
-        <div id="performance_{{ performance.id }}">
-            {% include "planyourday/performance-detail.html" %}
+        {% endfor %}
+    {% else %}
+        <div style="padding:3em 0;>
+            <p>Hang tight while we add performances</p>
         </div>
-    {% endfor %}
+    {% endif %}
     </div>
 </div>
