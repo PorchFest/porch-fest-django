@@ -67,16 +67,20 @@ class PorchMap{
 				if(porch.properties.sponsor_logo || porch.properties.sponsored){
 					if(porch.properties.sponsor_logo){
 						iconObj.iconUrl = porch.properties.sponsor_logo
-					}else if(porch.properties.vendor){
-						iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor-sponsor.svg"
-					}else{
+					}
+					// else if(porch.properties.vendor){
+					// 	iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor-sponsor.svg"
+					// }
+					else{
 						iconObj.iconUrl = "/static/porchfestcore/images/glyph-sponsor.svg"
 					}
 				}else if(porch.properties.porta_potty){
 					iconObj.iconUrl = "/static/porchfestcore/images/glyph-porta.svg"
-				}else if(porch.properties.vendor){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor.svg"
-				}else if(porch.properties.parking){
+				}
+				// else if(porch.properties.vendor){
+				// 	iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor.svg"
+				// }
+				else if(porch.properties.parking){
 					iconObj.iconUrl = "/static/porchfestcore/images/glyph-parking.svg"
 				}
 				const marker 		= L.marker([lat, lon], {
