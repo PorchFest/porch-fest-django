@@ -16,5 +16,8 @@ def map_page(request):
 
     return render(request, 'porchfestcore/map.html', context)
 
+def bland_map(request):
+    return render(request, 'porchfestcore/bland-map.html', {'MAPBOX_PUBLIC_KEY': settings.MAPBOX_PUBLIC_KEY})
+
 def coming_soon(request):
     return render(request, 'porchfestcore/coming-soon.html')
