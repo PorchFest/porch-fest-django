@@ -91,7 +91,7 @@
         color: $color-button-fg;
         text-decoration: none;
 
-        @media(max-width: 900px) {
+        @media(max-width: 1010px) {
             font-size: $smaller-text;
         }
 
@@ -125,7 +125,7 @@ header.main-header {
             display: none;
         }
 
-        @media(max-width: 900px) {
+        @media(max-width: 1010px) {
             justify-content: flex-start;
 
             ul.main-menu {

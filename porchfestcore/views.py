@@ -3,7 +3,7 @@ from django.views.generic 	import TemplateView
 from django.http			import JsonResponse
 from django.conf 		    import settings
 from .models                import Genre
-from planyourday.views import get_or_create_itinerary
+from planyourday.views      import get_or_create_itinerary
 
 def map_page(request):
     genres = Genre.objects.filter(performer__isnull=False).distinct()

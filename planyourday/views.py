@@ -11,7 +11,7 @@ def plan_your_day(request, itinerary_id=None):
         .prefetch_related('performer__genres')
     )
     performances        = with_show_time(performances)
-    genres = Genre.objects.filter(performer__isnull=False).distinct()
+    genres              = Genre.objects.filter(performer__isnull=False).distinct()
     itinerary           = None
     if itinerary_id:
         itinerary       = get_object_or_404(Itinerary, id=itinerary_id)
