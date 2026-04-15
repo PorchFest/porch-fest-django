@@ -58,6 +58,10 @@
                         <label for="after">After:</label>
                         <input @change="$dispatch('input')" type="time" name="after"/>
                     </div>
+                    <div class="filter">
+                        <label for="number">Number:</label>
+                        <input style="max-width:50px;" @change="$dispatch('input')" type="number" name="number"/>
+                    </div>
                     <div class="genres">
                         <div class="title">
                             <b>Genres:</b>

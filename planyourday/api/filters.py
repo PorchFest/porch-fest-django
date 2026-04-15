@@ -12,9 +12,10 @@ class PerformanceFilter(django_filters.FilterSet):
         field_name  ='start_time',
         lookup_expr ='gte'
     )
+    number          = django_filters.NumberFilter(field_name='porch__number')
     class Meta:
         model   = Performance
-        fields  = ['genres']
+        fields  = ['genres', 'number']
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.filters['genres'].extra['choices'] = [

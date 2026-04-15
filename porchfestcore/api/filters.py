@@ -14,7 +14,7 @@ class PorchMapFilter(django_filters.FilterSet):
     )
     vendor          = django_filters.BooleanFilter(field_name='vendor')
     sponsored       = django_filters.BooleanFilter(field_name='sponsored')
-    number = django_filters.NumberFilter(field_name='number')
+    number          = django_filters.NumberFilter(field_name='number')
     class Meta:
         model       = Porch
         fields      = ['genres', 'after', 'vendor', 'sponsored', 'number']
