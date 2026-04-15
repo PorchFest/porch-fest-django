@@ -14,9 +14,10 @@ class PorchMapFilter(django_filters.FilterSet):
     )
     vendor          = django_filters.BooleanFilter(field_name='vendor')
     sponsored       = django_filters.BooleanFilter(field_name='sponsored')
+    number = django_filters.NumberFilter(field_name='number')
     class Meta:
         model       = Porch
-        fields      = ['genres', 'after', 'vendor', 'sponsored']
+        fields      = ['genres', 'after', 'vendor', 'sponsored', 'number']
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.filters['genres'].extra['choices'] = [
@@ -26,5 +27,6 @@ class PorchMapFilter(django_filters.FilterSet):
         return queryset.filter(
             Q(name__icontains=value) |
             Q(performances__performer__name__icontains=value) |
-            Q(number__icontains=value)
+            Q(street_address__icontains=value)
+            # Q(number__icontains=value)
         )

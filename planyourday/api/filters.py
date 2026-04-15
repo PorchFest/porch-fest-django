@@ -6,7 +6,7 @@ class PerformanceFilter(django_filters.FilterSet):
     search          = django_filters.CharFilter(method="filter_search")
     genres          = django_filters.MultipleChoiceFilter(
         field_name='performer__genres__slug',
-        choices=[],  # placeholder
+        choices=[],
     )
     after           = django_filters.TimeFilter(
         field_name  ='start_time',
@@ -23,5 +23,6 @@ class PerformanceFilter(django_filters.FilterSet):
     def filter_search(self, queryset, name, value):
         return queryset.filter(
             Q(performer__name__icontains=value) |
-            Q(porch__name__icontains=value)
+            Q(porch__name__icontains=value) |
+            Q(porch__street_address__icontains=value)
         )

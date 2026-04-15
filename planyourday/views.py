@@ -70,12 +70,9 @@ class PerformancesListView(ListView):
 # Helper Function
 def get_filtered_performances(request):
     qs = Performance.objects.filter(porch__approved=True)
-
     filterset = PerformanceFilter(request.GET, queryset=qs)
-
     if filterset.is_valid():
         return filterset.qs.order_by('start_time').distinct()
-
     return qs.distinct()
 
 # Helper Function
