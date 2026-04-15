@@ -9,7 +9,11 @@
         <div class="toolbar">
             <form
                 @submit.prevent
-                hx-get="{% url 'performances' %}"
+                {% if not itinerary_id %}
+                    hx-get="{% url 'performances' %}"
+                {% else %}
+                    hx-get="{% url 'performances' itinerary_id %}"
+                {% endif %}
                 hx-target="#performances"
                 hx-swap="outerHTML"
                 hx-indicator="#loading"

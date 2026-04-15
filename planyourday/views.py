@@ -38,18 +38,32 @@ def plan_your_day(request, itinerary_id=None):
 class PerformancesListView(ListView):
     template_name       = 'planyourday/performance-list.html'
     context_object_name = 'performances'
+
     def get_queryset(self):
         return (
             get_filtered_performances(self.request)
             .select_related('porch', 'performer')
             .prefetch_related('performer__genres')
         )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.session.get('itinerary_id'):
-            itinerary       = get_or_create_itinerary(self.request)
-            context["itinerary_test"] = set(item.id for item in itinerary.ordered_performances())
-            context['itinerary_id'] = self.request.session.get('itinerary_id')
+
+        itinerary = None
+        itinerary_id = self.kwargs.get("itinerary_id")
+
+        if itinerary_id:
+            itinerary = get_object_or_404(Itinerary, id=itinerary_id)
+            context["shared"] = True
+        elif self.request.session.get("itinerary_id"):
+            itinerary = get_or_create_itinerary(self.request)
+
+        if itinerary:
+            context["itinerary_test"] = {
+                item.id for item in itinerary.ordered_performances()
+            }
+            context["itinerary_id"] = itinerary.id
+
         context['performances'] = with_show_time(context['performances'])
         return context
 
@@ -115,6 +129,7 @@ def get_or_create_itinerary(request, id=None):
     itinerary_id = request.session.get("itinerary_id")
     if itinerary_id:
         try:
+            request.session.modified = True
             return Itinerary.objects.get(id=itinerary_id)
         except Itinerary.DoesNotExist:
             pass
