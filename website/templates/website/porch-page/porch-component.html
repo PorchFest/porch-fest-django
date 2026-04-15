@@ -35,5 +35,10 @@
             {% endfor %}
             <h3>Look at all performances in <a href="{% url 'plan_your_day' %}">Plan Your Day</a></h3>
         </div>
+        {% if porch.sponsor %}
+            <div class="sponsor">
+                <img src="/media/{{ porch.sponsor.logo }}" alt="Sponsor Logo">
+            </div>
+        {% endif %}
     </div>
 </div>

@@ -143,13 +143,19 @@
 
     .lineup {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         padding: 1rem 0;
         margin: 0 1rem;
 
         h2,
         h5 {
             font-family: $font__headers;
+        }
+
+        .sponsor img{
+            margin-top: 1rem;
+            max-width: 200px;
         }
     }
 
