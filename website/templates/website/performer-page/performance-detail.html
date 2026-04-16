@@ -1,6 +1,8 @@
 <div class="performance-card {% for filtered in performances %}{% if performance.id == filtered.id %}highlight{% endif %}{% endfor %}" id="performance_{{ performance.id }}">
     <div class="performance-header">
-        <h2><a href="/performers/{{ performance.performer.slug }}">{{ performance.performer.name }}</a></h2>
+        <h2>
+            <i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}
+        </h2>
         {% if performance.id in itinerary_test %}
             <div class="itinerary-add">
                 <i class="fa-solid fa-check"></i>
@@ -20,11 +22,6 @@
         {% endif %}
     </div>
     <div class="performance-body">
-        <p>
-            <small>
-                <i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}
-            </small>
-        </p>
         <div class="genres">
             {% for genre in performance.performer.genres.all %}
                 <span class="chip">{{ genre }}</span>
