@@ -1,6 +1,6 @@
 <div class="performance-card">
     <div class="performance-header">
-        <h4>{{ performance.performer.name }}</h4>
+        <h4><a href="/performers/{{ performance.performer.slug }}">{{ performance.performer.name }}</a></h4>
         {% if performance.id in itinerary_test %}
             <div class="itinerary-add">
                 <i class="fa-solid fa-check"></i>

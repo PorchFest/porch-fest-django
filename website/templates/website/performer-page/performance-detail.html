@@ -30,5 +30,28 @@
                 <span class="chip">{{ genre }}</span>
             {% endfor %}
         </div>
+        <div class="display-flex gutter-3">
+            <div class="text-left grow-1" style="line-height:1.5rem">
+                <a href="/porches/{{ performance.porch.slug }}" style="display:inline-block;text-align:center;font-size:14px;width:16px;height:16px;">
+                    <i class="fa-solid fa-house-user"></i>
+                </a>
+                <a href="/porches/{{ performance.porch.slug }}" class="small">
+                    {{ performance.porch.name }}
+                </a>
+                <br>
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" style="display:inline-block;text-align:center;font-size:14px;width:16px;height:16px;">
+                    <i class="fa-solid fa-location-pin"></i>
+                </a>
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" class="small">
+                    {{ performance.porch.street_address }}
+                </a>
+            </div>
+            <a href="https://www.google.com/maps/dir/?api=1&destination={{ performance.porch.street_address|urlencode }}">
+                <i class="google-maps small"></i>
+            </a>
+            <a href="https://maps.apple.com/?q={{ performance.porch.street_address|urlencode }}">
+                <i class="apple-maps small"></i>
+            </a>
+        </div>
     </div>
 </div>
