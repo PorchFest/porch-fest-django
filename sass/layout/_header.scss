@@ -47,8 +47,8 @@
 
     display: flex;
     justify-content: center;
+    align-items: center;
 
-    padding-top: 3rem;
     background-color: $color-main-bg;
     border-left: 5px black solid;
 
@@ -70,6 +70,7 @@
             background-color: $color-button-bg;
             padding: 8px 10px 5px 10px;
             border-radius: 5px;
+            font-family: $font__headers;
             font-size: 1.5rem;
             color: $color-button-fg;
             text-decoration: none;
@@ -82,7 +83,7 @@
 
     .mobile-close {
         position: absolute;
-        top: 1rem;
+        bottom: 1rem;
         right: 1rem;
         background-color: $color-button-bg;
         padding: 8px 10px 5px 10px;
