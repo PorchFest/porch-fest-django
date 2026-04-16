@@ -217,7 +217,8 @@ $map-header-height: 40px;
             justify-content: space-between;
             align-items: center;
         }
-        .filter-number input{
+
+        .filter-number input {
             max-width: 50px;
         }
 
@@ -341,7 +342,7 @@ $map-header-height: 40px;
         display: flex;
         align-items: center;
         gap: 4px;
-        cursor: pointer;
+        /*cursor: pointer;*/
         transition: opacity 0.2s;
 
         // Style for non-active items (when filtering is implemented)
@@ -349,9 +350,9 @@ $map-header-height: 40px;
             opacity: 0.5;
         }
 
-        &:hover {
+        /*&:hover {
             opacity: 0.8;
-        }
+        }*/
     }
 
     .legend-icon {

@@ -142,7 +142,7 @@ class PorchMap{
 				this.userLocation = position.coords
 				const marker = L.marker([this.userLocation.latitude, this.userLocation.longitude], {
 					icon: L.icon({
-						iconUrl: "/static/porchfestcore/images/person.png",
+						iconUrl: "/static/porchfestcore/images/person.svg",
 						className: "porch-marker",
 						iconSize: [30, 60],
 						iconAnchor:	[15, 60],
