@@ -252,14 +252,15 @@ $map-header-height: 40px;
     }
 
     #filtered_count_wrap {
+        position: relative;
+        z-index: 1999;
         background-color: $color-bg-main;
         font-family: $font__text;
         border: 1px solid gray;
         border-radius: 5px;
-        padding: 5px;
-        margin-top: 5px;
-        width: 100px;
-        text-align: center;
+        padding: 10px;
+        margin: -2px 0 0 0;
+        width: 80px;
     }
 }
 
