@@ -4,10 +4,10 @@
             {% comment %} <a class="map" href="{% url 'map' %}">< Map</a> {% endcomment %}
             <div class="title">
                 <div>
-                    <h1>{{ porch.name }}</h1>
                     {% if porch.number %}
                         <i class="fa-solid fa-star"><span>{{ porch.number }}</span></i>
                     {% endif %}
+                    <h1>{{ porch.name }}</h1>
                 </div>
                 <div class="directions">
                     <p class="address">{{ porch.street_address }}</p>
