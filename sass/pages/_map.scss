@@ -303,13 +303,13 @@ $map-header-height: 40px;
     transition: all 0.1s ease-in-out;
 
     &:hover {
-        transform: scale(1.5);
-        right: 60px;
-        bottom: 30px;
+        transform: scale(2);
+        right: 110px;
+        bottom: 52px;
 
         @media(max-width: 600px) {
-            right: 40px;
-            bottom: 50px;
+            right: 58px;
+            bottom: 88px;
         }
     }
 }
