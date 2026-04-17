@@ -48,7 +48,6 @@ class Performer(models.Model):
             base_slug = slugify(self.name)
             slug = base_slug
             i = 1
-            # Make sure it's unique
             while Performer.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base_slug}-{i}"
                 i += 1
@@ -87,6 +86,8 @@ class Porch(models.Model):
     info_booth              = models.BooleanField(default=False)
     porta_potty             = models.BooleanField(default=False)
     sponsored               = models.BooleanField(default=False)
+    drinking_water          = models.BooleanField(default=False)
+    bicycle_repair          = models.BooleanField(default=False)
     neighbors_hosting       = models.BooleanField(default=False)
     other_info 		        = models.TextField(blank=True)
     coordinates 		    = gis_models.PointField(blank=True, null=True, geography=True)

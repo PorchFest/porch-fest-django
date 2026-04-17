@@ -54,7 +54,6 @@ class PorchMap{
 				}
 			})
 			const porches = response.data
-			console.log(response.data.count)
 			Alpine.store("ui").filteredCount = response.data.count
 			porches.features.forEach(porch=>{
 				const [lon, lat] 	= porch.geometry.coordinates
@@ -64,7 +63,21 @@ class PorchMap{
 					iconSize: [40, 40],
 					iconAnchor:	[10, 40],
 				}
-				if(porch.properties.sponsor_logo || porch.properties.sponsored){
+				if(porch.properties.porta_potty){
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-porta.svg"
+				}
+				// else if(porch.properties.vendor){
+				// 	iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor.svg"
+				// }
+				else if(porch.properties.parking){
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-parking.svg"
+				}else if(porch.properties.drinking_water){
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-drinking-water.svg"
+				}else if(porch.properties.bicycle_repair){
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-bike-repair.svg"
+				}else if(porch.properties.info_booth){
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-info.svg"
+				}else if(porch.properties.sponsor_logo || porch.properties.sponsored){
 					// if(porch.properties.sponsor_logo){
 					// 	iconObj.iconUrl = porch.properties.sponsor_logo
 					// }
@@ -74,14 +87,6 @@ class PorchMap{
 					// else{
 					// }
 					iconObj.iconUrl = "/static/porchfestcore/images/glyph-sponsor.svg"
-				}else if(porch.properties.porta_potty){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-porta.svg"
-				}
-				// else if(porch.properties.vendor){
-				// 	iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor.svg"
-				// }
-				else if(porch.properties.parking){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-parking.svg"
 				}
 				const marker 		= L.marker([lat, lon], {
 					icon: L.icon(iconObj)

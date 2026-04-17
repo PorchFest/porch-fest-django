@@ -30,6 +30,9 @@ class PorchMapSerializer(GeoFeatureModelSerializer):
             "porta_potty",
             "vendor",
             "parking",
+            "info_booth",
+            "drinking_water",
+            "bicycle_repair",
         )
 
     def get_sponsor_logo(self, obj):
