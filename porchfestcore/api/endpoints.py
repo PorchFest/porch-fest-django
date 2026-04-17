@@ -9,7 +9,11 @@ class PorchMap(ListAPIView):
     serializer_class    = PorchMapSerializer
     def get_queryset(self):
         qs              = Porch.objects.filter(approved=True)
-        filterset       = PorchMapFilter(self.request.GET, queryset=qs)
+        filterset       = PorchMapFilter(
+            self.request.GET,
+            queryset=qs,
+            request=self.request
+        )
         performance_qs  = Performance.objects.none()
         if filterset.form.is_valid():
             active_filters = {
