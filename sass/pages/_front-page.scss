@@ -201,10 +201,10 @@ main.front-page-styles {
     section.cards {
         display: flex;
         justify-content: center;
-        gap: 1rem;
+        gap: 3rem;
         flex-wrap: wrap;
         background-color: $color-main-bg;
-        padding: 0 2rem 3rem 2rem;
+        padding: 3rem 2rem;
 
         .card {
             max-width: 320px;
@@ -224,6 +224,7 @@ main.front-page-styles {
                 justify-content: center;
                 align-items: center;
                 overflow: hidden;
+                margin-top: -27%;
 
                 .square {
                     display: flex;
@@ -257,12 +258,7 @@ main.front-page-styles {
                 }
 
                 a {
-                    font-size: 20px;
-                    color: $color-link-special;
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    margin-bottom: 50px;
-                    text-decoration: none;
+                    font-family: $font__headers;
                 }
             }
         }
