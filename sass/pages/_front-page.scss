@@ -204,7 +204,7 @@ main.front-page-styles {
         gap: 3rem;
         flex-wrap: wrap;
         background-color: $color-main-bg;
-        padding: 3rem 2rem;
+        padding: 3rem 1rem;
 
         .card {
             max-width: 320px;
@@ -269,6 +269,8 @@ main.front-page-styles {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        max-width: 1200px;
+        margin: auto;
 
         h1,
         h2 {
@@ -283,6 +285,17 @@ main.front-page-styles {
         }
 
         .sponsor-level {
+            border: solid 1px $color-fg-link;
+            border-radius: 1rem;
+            margin: 2rem 1rem 1rem 1rem;
+
+            h1 {
+                margin-top: -26px;
+                background-color: white;
+                display: inline-block;
+                padding: 0 0.25em;
+            }
+
             .sponsors {
                 display: flex;
                 justify-content: center;
@@ -291,7 +304,7 @@ main.front-page-styles {
 
                 img {
                     width: 100%;
-                    max-width: 600px;
+                    max-width: 1200px;
                 }
 
                 &.Event div {
@@ -300,33 +313,29 @@ main.front-page-styles {
 
                 &.Diamond div {
                     width: 50%;
+                }
+
+                &.Platinum div {
+                    width: 50%;
 
                     @media screen and (min-width:900px) {
                         width: 30%;
                     }
                 }
 
-                &.Platinum div {
-                    width: 45%;
+                &.Gold div {
+                    width: 50%;
 
                     @media screen and (min-width:900px) {
                         width: 25%;
                     }
                 }
 
-                &.Gold div {
-                    width: 40%;
-
-                    @media screen and (min-width:900px) {
-                        width: 22%;
-                    }
-                }
-
                 &.Community div {
-                    width: 33%;
+                    width: 50%;
 
                     @media screen and (min-width:900px) {
-                        width: 20%;
+                        width: 25%;
                     }
                 }
             }
