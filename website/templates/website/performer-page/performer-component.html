@@ -24,7 +24,7 @@
                     <img src="/media/{{ performer.profile_picture }}" alt="{{ performer.name }}">
                 </div>
             {% endif %}
-            <p>{{ performer.bio }}</p>
+            <p class="pre-wrap">{{ performer.bio }}</p>
             <div class="genres">
                 {% for genre in performer.genres.all %}
                     <span class="chip">{{ genre.name }}</span>
