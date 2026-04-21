@@ -37,6 +37,7 @@ $map-header-height: 40px;
         & a:visited,
         & button {
             font-size: 1rem;
+            white-space: nowrap;
         }
     }
 
@@ -56,9 +57,10 @@ $map-header-height: 40px;
 
         nav ul.main-menu li a {
             font-size: 1rem;
+            white-space: nowrap;
         }
 
-        .header-ad {
+        .map-top-image {
             display: block;
             align-items: center;
         }

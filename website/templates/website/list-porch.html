@@ -16,7 +16,7 @@
                         </h4>
                     </div>
                     <div class="porch-body">
-                        <p>{{ porch.description|truncatechars:100 }}</p>
+                        <p class="pre-wrap">{{ porch.description|truncatechars:100 }}</p>
                         <div class="text-left grow-1" style="line-height:1.5rem">
                             <a href="{% url 'map' %}?porch={{ porch.slug }}" style="display:inline-block;text-align:center;font-size:14px;width:16px;height:16px;">
                                 <i class="fa-solid fa-location-pin"></i>

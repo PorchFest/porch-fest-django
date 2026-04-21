@@ -21,7 +21,7 @@
                 </div>
             {% endif %}
             {% comment %} <a href="#porch_lineup">See Lineup</a> {% endcomment %}
-            <p>{{ porch.description }}</p>
+            <p class="pre-wrap">{{ porch.description }}</p>
         </div>
     </div>
     <div class="lineup" id="porch_lineup">
@@ -37,7 +37,13 @@
         </div>
         {% if porch.sponsor %}
             <div class="sponsor">
-                <img src="/media/{{ porch.sponsor.logo }}" alt="Sponsor Logo">
+                {% if porch.sponsor.website %}
+                    <a href="{{ porch.sponsor.website }}" target="_blank">
+                        <img src="/media/{{ porch.sponsor.logo }}" alt="Sponsor Logo">
+                    </a>
+                {% else %}
+                    <img src="/media/{{ porch.sponsor.logo }}" alt="Sponsor Logo">
+                {% endif %}
             </div>
         {% endif %}
     </div>
