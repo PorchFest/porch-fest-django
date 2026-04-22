@@ -18,6 +18,36 @@ class PorchMap{
 		}).setView(this.center, 14)
 		this.activeMarker 	= null
 		this.locationButton = document.getElementById("use_location")
+		this.trolleyPath	= L.polyline([
+			{lat: 36.76499756442535, 		lng: -119.79898676073246},
+			{lat: 36.76493481691089, 		lng: -119.7989826567562},
+			{lat: 36.76495642400253, 		lng: -119.79634088202028},
+			{lat: 36.76508606642457, 		lng: -119.79633491954776},
+			{lat: 36.76505957380197, 		lng: -119.79898258411826},
+			{lat: 36.76499756442535, 		lng: -119.79898676073246},
+			{lat: 36.76497392052814, 		lng: -119.8010560470801},
+			{lat: 36.757276833053425, 		lng: -119.80104330058255},
+			{lat: 36.75695599895826, 		lng: -119.80094172815676},
+			{lat: 36.75673524935291, 		lng: -119.80074325330153},
+			{lat: 36.75653040063636, 		lng: -119.80046655600141},
+			{lat: 36.7562301419388, 		lng: -119.800289096131},
+			{lat: 36.7504125518585, 		lng: -119.80036587536627},
+			{lat: 36.75039926645446, 		lng: -119.80285847982687},
+			{lat: 36.75063812285461, 		lng: -119.80283660334874},
+			{lat: 36.75765247439101, 		lng: -119.802858812864},
+			{lat: 36.7576463078158, 		lng: -119.80575299684742},
+			{lat: 36.762494940188596, 		lng: -119.80578027260596},
+			{lat: 36.762494940188596, 		lng: -119.805935},
+			{lat: 36.76498, 				lng: -119.805935},
+			{lat: 36.76498, 				lng: -119.80410004432838},
+			{lat: 36.7684952509903, 		lng: -119.80411777845197},
+			{lat: 36.768521259690694, 		lng: -119.80105965926045},
+			{lat: 36.76497392052814, 		lng: -119.8010560470801},
+		], {
+			color: "#FFA500",
+			opacity: 0.7,
+			weight: 12
+		})
 	}
 	async init(){
 		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -37,6 +67,13 @@ class PorchMap{
 		this.markers.forEach(marker=>{
 			this.map.removeLayer(marker)
 		})
+		if(data){
+			if(data.show_bus){
+				this.trolleyPath.addTo(this.map)
+			}else{
+				this.map.removeLayer(this.trolleyPath)
+			}
+		}
 		this.markers = []
 		try{
 			const response = await axios.get("/api/porches/porch-map", {
