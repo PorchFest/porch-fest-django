@@ -89,6 +89,7 @@
 
             .img-wrapper {
                 max-width: 500px;
+                text-align: center;
 
                 img {
                     max-width: 100%;
@@ -153,7 +154,7 @@
             font-family: $font__headers;
         }
 
-        .sponsor img{
+        .sponsor img {
             margin-top: 1rem;
             max-width: 200px;
         }
