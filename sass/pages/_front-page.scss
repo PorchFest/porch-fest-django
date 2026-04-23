@@ -259,7 +259,9 @@ main.front-page-styles {
 
                 a {
                     font-family: $font__headers;
+                    @include button;
                 }
+
             }
         }
     }
@@ -285,7 +287,7 @@ main.front-page-styles {
         }
 
         .sponsor-level {
-            border: solid 1px $color-fg-link;
+            border: solid 3px $color-fg-link;
             border-radius: 1rem;
             margin: 2rem 1rem 1rem 1rem;
 
@@ -305,6 +307,8 @@ main.front-page-styles {
                 a:link,
                 a:visited {
                     display: inline-block;
+                    border-radius: 1rem;
+                    overflow: hidden;
                     transform: scale(1);
                     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
                     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
