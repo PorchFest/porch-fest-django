@@ -259,7 +259,9 @@ main.front-page-styles {
 
                 a {
                     font-family: $font__headers;
+                    @include button;
                 }
+
             }
         }
     }
