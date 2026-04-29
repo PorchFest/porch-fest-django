@@ -4,13 +4,14 @@ from django.contrib.gis.db 	    import models
 from django.http		        import HttpResponse
 from mapwidgets.widgets 	    import GoogleMapPointFieldWidget
 from django.utils.translation   import gettext_lazy as _
-from .models 				    import Performer, Porch, Request, Performance, TempUpload
+from .models 				    import Performer, Porch, Genre, Request, Performance, TempUpload
 from porchpanel.models          import Invitation
 from .forms 				    import PerformanceForm, TimeInput
 
 class PerformanceInline(admin.TabularInline):
     model 					= Performance
     form 					= PerformanceForm
+    autocomplete_fields		= ['performer']
     extra 					= 1
 class InvitationInline(admin.TabularInline):
     model 					= Invitation
@@ -81,8 +82,9 @@ class HasInvitationFilter(admin.SimpleListFilter):
 
 @admin.register(Porch)
 class PorchAdmin(admin.ModelAdmin):
-    list_display			= ('name', 'owner_name', 'owner_email', 'street_address', 'created_at',)
-    search_fields 			= ('name', 'owner_name', 'owner_email', 'street_address',)
+    list_display			= ('name', 'number', 'owner_name', 'street_address', 'created_at',)
+    list_editable           = ('number',)
+    search_fields 			= ('name', 'owner_name', 'owner_email', 'street_address', 'performances__performer__name')
     list_filter 			= ('approved', 'created_at', HasCoordinatesFilter, HasInvitationFilter, HasPerformancesFilter)
     formfield_overrides		= {
         models.PointField: {"widget": GoogleMapPointFieldWidget},
@@ -93,6 +95,7 @@ class PorchAdmin(admin.ModelAdmin):
 
     class Media:
         js 					= ('porchfestcore/js/porch-admin.js',)
+        css					= {'all':['admin/css/porch-admin.css']}
     def approve_porches(self, request, queryset):
         queryset.update(approved=True)
     approve_porches.short_description = "Approve selected porches"
@@ -104,6 +107,7 @@ class PorchAdmin(admin.ModelAdmin):
 
         for obj in queryset:
             writer.writerow([
+                obj.number,
                 obj.owner_name,
                 obj.owner_email,
                 obj.owner_phone,
@@ -121,14 +125,53 @@ class PorchAdmin(admin.ModelAdmin):
         return response
     export_as_csv.short_description = "Export selected Porch to CSV"
   
+class PorchApprovedFilter(admin.SimpleListFilter):
+    title = _("Porch Approved")
+    parameter_name = "porch_approved"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("yes", _("Approved")),
+            ("no", _("Not Approved")),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == "yes":
+            return queryset.filter(porch__approved=True)
+        if self.value() == "no":
+            return queryset.filter(porch__approved=False)
+        return queryset
+
 @admin.register(Performance)
 class PerformanceAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TimeField: {'widget': TimeInput},
     }
+    autocomplete_fields		= ['performer']
+    list_filter = (PorchApprovedFilter,)
 
 @admin.register(Performer)
 class PerformerAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_by',)
+    search_fields = ['name']
+    actions = ['export_as_csv',]
+    list_filter = (HasPerformancesFilter,)
+    def export_as_csv(self, request, queryset):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="performers.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['Name',])
+        for obj in queryset:
+            writer.writerow([
+                obj.name,
+            ])
+
+        return response
+    export_as_csv.short_description = "Export selected Performers to CSV"
+
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Request)
 admin.site.register(TempUpload)

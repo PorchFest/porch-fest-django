@@ -9,7 +9,7 @@ class PorchSerializer(serializers.ModelSerializer):
 class PerformerSerializer(serializers.ModelSerializer):
     class Meta:
         model       = Performer
-        fields      = ("id", "name", "genre")
+        fields      = ("id", "name", "genres")
 
 class PerformanceSerializer(serializers.ModelSerializer):
     porch = PorchSerializer()

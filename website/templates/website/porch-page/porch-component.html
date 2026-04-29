@@ -2,29 +2,50 @@
     <div class="hero">
         <div class="wrapper">
             {% comment %} <a class="map" href="{% url 'map' %}">< Map</a> {% endcomment %}
+            <div class="title">
+                <div>
+                    {% if porch.number %}
+                        <i class="fa-solid fa-star"><span>{{ porch.number }}</span></i>
+                    {% endif %}
+                    <h1>{{ porch.name }}</h1>
+                </div>
+                <div class="directions">
+                    <p class="address">{{ porch.street_address }}</p>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ porch.street_address|urlencode }}"><i class="google-maps small"></i></a>
+                    <a href="https://maps.apple.com/?q={{ porch.street_address|urlencode }}"><i class="apple-maps small"></i></a>
+                </div>
+            </div>
             {% if porch.porch_picture %}
                 <div class="img-wrapper">
                     <img src="/media/{{ porch.porch_picture }}" alt="Porch Picture">
                 </div>
             {% endif %}
-            <div class="title">
-                <h1>{{ porch.name }}</h1>
-                <p>{{ porch.street_address }}</p>
-            </div>
-            <p>{{ porch.description }}</p>
+            {% comment %} <a href="#porch_lineup">See Lineup</a> {% endcomment %}
+            <p class="pre-wrap">{{ porch.description }}</p>
         </div>
     </div>
-    <div class="lineup">
-        <div class="wrapper">
+    <div class="lineup" id="porch_lineup">
+        {% if porch.sponsor %}
+            <div class="sponsor">
+                <h4>THANK YOU TO OUR SPONSORS</h4>
+                {% if porch.sponsor.website %}
+                    <a href="{{ porch.sponsor.website }}" target="_blank" style="display:inline-block">
+                        <img src="/media/{{ porch.sponsor.logo }}" alt="Sponsor Logo">
+                    </a>
+                {% else %}
+                    <img src="/media/{{ porch.sponsor.logo }}" alt="Sponsor Logo">
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="performance-list">
             {% for performance in porch.performances.all %}
-                <div class="card {% for filtered in performances %}{% if performance.id == filtered.id %}highlight{% endif %}{% endfor %}">
-                    <h2>{{ performance.performer.name }}</h2>
-                    <p>{{ performance.start_time }} - {{ performance.end_time }}</p>
-                    <p>{{ performance.performer.genre }}</p>
-                </div>
+                {% include 'website/porch-page/performance-detail.html' %}
             {% empty %}
-                <p>No performers scheduled.</p>
+                <div class="performance-card">
+                    <h2>No performers scheduled.</h2>
+                </div>
             {% endfor %}
+            <h3>Look at all performances in <a href="{% url 'plan_your_day' %}">Plan Your Day</a></h3>
         </div>
     </div>
 </div>

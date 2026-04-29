@@ -1,130 +1,158 @@
 @use "../variables" as *;
 
-@mixin menu{
-	display: flex;
-	list-style: none;
-	li a{@include button;}
+@mixin menu {
+    display: flex;
+    list-style: none;
+
+    li a {
+        @include button;
+    }
 }
 
-.login-section{
-	position: absolute;
-	top: 0;
-	right: 10px;
-	height: 100%;
+.login-section {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    height: 100%;
 
-	display: flex;
-	align-items: center;
-	gap: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
-	a,button{@include button;}
-	button{
-		border: none;
-		cursor: pointer;
-		font-family: $font__headers;
-		font-weight: 400;
-		font-style: normal;
-		text-transform: uppercase;
-	}
+    a:link,
+    a:hover,
+    a:active,
+    a:visited,
+    button {
+        @include button;
+    }
+
+    button {
+        border: none;
+        cursor: pointer;
+        font-family: $font__headers;
+        font-weight: 400;
+        font-style: normal;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
 }
 
 .mobile-menu {
-	position: fixed;
-	z-index: 2000;
-	top: 0;
-	right: 0;
-	height: calc(var(--vh, 1vh) * 100);
-	width: 100%;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: 100%;
 
-	display: flex;
-	justify-content: center;
-	
-	padding-top: 3rem;
-	background-color: $color-main-bg;
-	border-left: 5px black solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-	transform: translateX(100%);
-	transition: transform 0.1s ease;
+    background-color: $color-main-bg;
 
-	&.open {
-		transform: translateX(0);
-	}
+    transform: translateX(100%);
+    transition: transform 0.1s ease;
+    overscroll-behavior: contain;
 
-	ul.main-menu {
-		display: flex;
-		list-style: none;
-		flex-direction: column;
-		gap: 1rem;
-		text-align: center;
-		li a{
-			background-color: $color-button-bg;
-			padding: 8px 10px 5px 10px;
-			border-radius: 5px;
-			font-size: 1.5rem;
-			color: $color-button-fg;
-			text-decoration: none;
-			&:hover{
-				text-decoration: underline;
-			}
-		}
-	}
+    &.open {
+        transform: translateX(0);
+    }
 
-	.mobile-close {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-		background-color: $color-button-bg;
-		padding: 8px 10px 5px 10px;
-		border-radius: 5px;
-		font-size: 1.5rem;
-		color: $color-button-fg;
-		text-decoration: none;
-		@media(max-width: 900px){
-			font-size: $smaller-text;
-		}
+    ul.main-menu {
+        display: flex;
+        list-style: none;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
 
-		&:hover{
-			text-decoration: underline;
-		}
-	}
+        li a {
+            background-color: $color-button-bg;
+            padding: 8px 10px 5px 10px;
+            border-radius: 5px;
+            font-family: $font__headers;
+            font-size: 1.5rem;
+            color: $color-button-fg;
+            text-decoration: none;
+            white-space: nowrap;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .mobile-close {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        background-color: $color-button-bg;
+        padding: 8px 10px 5px 10px;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        font-family: $font__headers;
+        color: $color-button-fg;
+        text-decoration: none;
+
+        @media(max-width: 1010px) {
+            font-size: $smaller-text;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
-header.main-header{
-	position: sticky;
-	top: 0;
-	z-index: 1000;
-	background-color: $color-header-bg;
-	padding: 1rem;
-	font-family: $font__headers;
-	font-weight: 400;
-	font-style: normal;
-	text-transform: uppercase;
-	nav{
-		display: flex;
-		ul.main-menu{
-			justify-content: center;
-			gap: 1rem;
-			@include menu;
-		}
-		.mobile-menu-btn{
-			display: none;
-		}
-		@media(max-width: 900px){
-			justify-content: flex-start;
-			ul.main-menu{
-				display: none;
-			}
-			ul.secondary-menu{
-				grid-area: left;
-				justify-content: flex-start;
-			}
-			ul.secondary-menu li a{
-				font-size: $smaller-text;
-			}
-			.mobile-menu-btn{
-				display: block;
-				@include button;
-			}
-		}
-	}
+header.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: $color-header-bg;
+    padding: 1rem;
+    font-family: $font__headers;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
 
+    nav {
+        display: flex;
+
+        ul.main-menu {
+            justify-content: center;
+            gap: 1rem;
+            @include menu;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        @media(max-width: 1010px) {
+            justify-content: flex-start;
+
+            ul.main-menu {
+                display: none;
+            }
+
+            ul.secondary-menu {
+                grid-area: left;
+                justify-content: flex-start;
+            }
+
+            ul.secondary-menu li a {
+                font-size: $smaller-text;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                @include button;
+            }
+        }
+    }
+
+    .map-top-image {
+        display: none;
+    }
 }

@@ -3,197 +3,210 @@
 {% block title %}Plan Your Day{% endblock %}
 {% block mainclass %}plan-your-day{% endblock %}
 {% block content %}
-    <form class="filters border-ghost rounded-2 padding-3">
-    <div class="field-group white rounded">
-        <label for="search" class="padding-2 background-white"><i class="fa-solid fa-magnifying-glass"></i></label>
-        <input id="search" name="search" type="text" class="grow-1 padding-2" placeholder="Search" />
-        <button class="display-md-none"><i class="fa-solid fa-sliders"></i></button>
-    </div>
-    <div id="search-filters" class="display-sm-none display-md-flex gutter-2 margin-top-3">
-        <div class="timerange">
-        <h4 class="margin-0"><i class="fa-regular fa-clock"></i> Time Range</h4>
-        <div class="row gutter-2 margin-y-2">
-            <div class="col-6">
-                <label>
-                    <small>Start Time</small><br />
-                    <input type="time" name="starttime" />
-                </label>
-            </div>
-            <div class="col-6">
-                <label>
-                <small>End Time</small><br />
-                    <input type="time" name="endtime" />
-                </label>
-            </div>
-        </div>
-        </div>
-        <div class="genres">
-        <h4 class="margin-0">Genres</h4>
-        <div class="margin-y-2">
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Accoustic</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Americana</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Country</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">DJ</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Dance/Electric/House</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Folk</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Hip-Hop/Rap</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Indie</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Jazz</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Pop</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Punk</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Rock</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Singer Songwriter</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Ska</span>
-            <span class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1">Yoga</span>
-        </div>
-        </div>
-        <div class"additionalfilters">
-            <h4 class="margin-0">Additional Filters</h4>
-            <div class="margin-y-2">
-                <div><label><input type="checkbox" name="food-available"> Food available</label></div>
-                <div><label><input type="checkbox" name="kid-friendly"> Kid Friendly</label></div>
-            </div>
-        </div>
-        <button class="yellow small">Reset Filters</button>
-    </div>
-    </form>
-    <div class="performances border-ghost rounded-2 padding-3">
-    <div class="row width-100">
-        <h4 class="margin-0 grow-1">Performances</h4>
-        <p class="margin-0 small">29 results</p>
-    </div>
-    <div class="rounded-2 border-light margin-y-2 overflow-hidden">
-        <div class="background-light padding-2">
-            <small><i class="fa-regular fa-clock"></i> 10:00 AM</small>
-        </div>
-        <div class="row gutter-2 padding-2 border-bottom-1">
-            <div class="col grow-1">
-                <div class="column gutter-1">
-                    <h4 class="margin-0">Call Me James</h4>
-                    <div class="small"><i class="fa-solid fa-location-pin"></i> Great Porch!</div>
-                    <div>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Folk</span>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Indie</span>
+    <div
+        x-data="{ selectedGenres: [], search_filters: false }"
+    >
+        <div class="toolbar">
+            <form
+                @submit.prevent
+                {% if not itinerary_id %}
+                    hx-get="{% url 'performances' %}"
+                {% else %}
+                    hx-get="{% url 'performances' itinerary_id %}"
+                {% endif %}
+                hx-target="#performances"
+                hx-swap="outerHTML"
+                hx-indicator="#loading"
+                hx-trigger="input delay:300ms"
+                @keydown.enter.prevent="$dispatch('input')"
+                class="filters"
+            >
+                <div class="field-group white rounded-2 search">
+                    <input
+                        @click="search_filters = !search_filters"
+                        id="search"
+                        name="search"
+                        type="text"
+                        class="padding-x-2 grow-1"
+                        placeholder="Search"
+                    />
+                </div>
+                <div
+                    x-show="search_filters"
+                    x-transition
+                    @blur="search_filters = false"
+                    id="search_filters"
+                    class="filter-wrapper"
+                >
+                
+                    <div class="filter">
+                        <span>Search Filters</span>
+                        <button
+                            @click="search_filters = false"
+                            class="close"
+                        >
+                            <i class="fa-solid fa-xmark"></i> Close
+                        </button>
                     </div>
+                    {% comment %}
+                    <div class="filter">
+                        <label for="before">Before:</label>
+                        <input type="time" name="before" />
+                    </div>
+                    {% endcomment %}
+                    <div class="filter">
+                        <label for="after">After:</label>
+                        <input @change="$dispatch('input')" type="time" name="after"/>
+                    </div>
+                    <div class="filter">
+                        <label for="number">Number:</label>
+                        <input style="max-width:50px;" @change="$dispatch('input')" type="number" name="number"/>
+                    </div>
+                    <div class="genres">
+                        <div class="title">
+                            <b>Genres:</b>
+                            <span x-show="selectedGenres.length > 0" @click="selectedGenres = []; $dispatch('input')" style="align-self: flex-start;">
+                                <i class="fa-solid fa-x"></i>
+                                Clear All Genres
+                            </span>
+                        </div>
+                        <div id="selected_genres">
+                            <template x-for="genre in selectedGenres" :key="genre.slug">
+                                <span
+                                    class="chip active" 
+                                    @click="
+                                        selectedGenres = selectedGenres.filter(g => g.slug !== genre.slug);
+                                        $dispatch('input')
+                                    "
+                                >
+                                    <i class="fa-solid fa-x"></i>
+                                    <span x-text="genre.name"></span>
+                                </span>
+                            </template>
+                        </div>
+                        <div class="genre-list">
+                            {% for genre in genres %}
+                                <span
+                                    class="chip background-yellow small padding-x-2 padding-y-1 margin-y-1"
+                                    {% comment %} x-show="!selectedGenres.includes('{{ genre.slug }}')" {% endcomment %}
+                                    @click="
+                                        selectedGenres.push({
+                                            slug: '{{ genre.slug }}',
+                                            name: '{{ genre.name }}',
+                                        });
+                                        $dispatch('input')
+                                    "
+                                >
+                                    {{ genre.name }}
+                                </span>
+                            {% endfor %}
+                            <template x-for="genre in selectedGenres" :key="genre.slug">
+                                <input
+                                    type="hidden"
+                                    name="genres"
+                                    :value="genre.slug"
+                                >
+                            </template>
+                        </div>
+                    </div>
+                    <button
+                        class="yellow small"
+                        @click="$el.closest('form').reset(); $dispatch('input'); selectedGenres = []"
+                    >Reset All Filters</button>
+                </div>
+            </form>
+            <button
+                onclick="htmx.toggleClass(htmx.find('#itinerary_slideout'), 'open');"
+                id="itinerary_slideout_button"
+            >
+                <i class="fa-solid fa-angle-left"></i>
+                <i class="fa-solid fa-route"></i>
+                <span class="label">Itinerary</span>
+            </button>
+        </div>
+        <div
+            id="itinerary_slideout"
+            class="itinerary_slideout plan-your-day-itinerary {% if shared %}open{% endif %}"
+        >
+            <div class="slideout_header">
+                <h4>
+                    <i class="fa-solid fa-route"></i>
+                    My Itinerary
+                </h4>
+                {% if not itinerary_id %}
+                    <button
+                        id="share_itinerary"
+                        style="background-color: gray;cursor:default;"
+                    >
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                {% else %}
+                    <button
+                        id="share_itinerary"
+                        x-data="{
+                            share(){
+                                if(navigator.share){
+                                    navigator.share({
+                                        title: document.title,
+                                        url: '{{ request.scheme }}://{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
+                                    })
+                                }else{
+                                    navigator.clipboard.writeText(
+                                        '{{ request.scheme }}://{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
+                                    )
+                                    .then(() => {
+                                        alert('Itinerary address copied to clipboard');
+                                    });
+                                }
+                            }
+                        }"
+                        @click="share()"
+                    >
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                {% endif %}
+                {% comment %}
+                <button>
+                    <i class="fa-regular fa-calendar"></i>
+                    <span class="tooltiptext">Add to calendar</span>
+                </button>
+                {% endcomment %}
+                <div class="grow-1">
+                    <button
+                        onclick="htmx.toggleClass(htmx.find('#itinerary_slideout'), 'open');"
+                    >
+                        <i class="fa-solid fa-xmark"></i> Close
+                    </button>
                 </div>
             </div>
-            <div class="col">
-                <button class="small round yellow border-none padding-2 inline-block"><i class="fa-solid fa-plus"></i></button>
+            <div
+                id="itinerary_sidebar"
+                class="performance-list slideout_body"
+            >
+                {% include "planyourday/itinerary-list.html" %}
             </div>
+            {% comment %}
+            <div class="background-light rounded-2 padding-2">
+                <h5 class="margin-0 margin-bottom-2">Export Your Itinerary</h5>
+                <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Download .ics file</button>
+                <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Google Calendar</button>
+                <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Apple/Outlook</button>
+                <button class="white small padding-y-1 margin-y-1"><i class="fa-solid fa-download"></i> Export CSV</button>
+                <button class="white small padding-y-1 margin-y-1"><i class="fa-solid fa-print"></i> Print</button>
+            </div>
+            {% endcomment %}
         </div>
-        <div class="row gutter-2 padding-2">
-            <div class="col grow-1">
-                <div class="column gutter-1">
-                    <h4 class="margin-0">GypsyBeanYoga</h4>
-                    <div class="small"><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</div>
-                    <div>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Yoga</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <button class="small round light border-none padding-2 inline-block"><i class="fa-solid fa-check"></i></button>
-            </div>
-        </div>
-        <div class="background-light padding-2">
-            <small><i class="fa-regular fa-clock"></i> 11:00 AM</small>
-        </div>
-        <div class="row gutter-2 padding-2 border-bottom-1">
-            <div class="col grow-1">
-                <div class="column gutter-1">
-                    <h4 class="margin-0">Manny Kelsey</h4>
-                    <div class="small"><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</div>
-                    <div>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Country</span>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Folk</span>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Indie</span>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Singer Songwriter</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <button class="small round light border-none padding-2 inline-block"><i class="fa-solid fa-check"></i></button>
-            </div>
-        </div>
-        <div class="background-light padding-2">
-            <small><i class="fa-regular fa-clock"></i> 11:15 AM</small>
-        </div>
-        <div class="row gutter-2 padding-2 border-bottom-1">
-            <div class="col grow-1">
-                <div class="column gutter-1">
-                    <h4 class="margin-0">Private Tears</h4>
-                    <div class="small"><i class="fa-solid fa-location-pin"></i> Great Porch!</div>
-                    <div>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Rock</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <button class="small round light border-none padding-2 inline-block"><i class="fa-solid fa-check"></i></button>
-            </div>
-        </div>
-        <div class="background-light padding-2">
-            <small><i class="fa-regular fa-clock"></i> 11:30 AM</small>
-        </div>
-        <div class="row gutter-2 padding-2 border-bottom-1">
-            <div class="col grow-1">
-                <div class="column gutter-1">
-                    <h4 class="margin-0">Nas</h4>
-                    <div class="small"><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</div>
-                    <div>
-                        <span class="chip background-light tiny padding-y-1 padding-x-2 margin-y-1">Accoustic</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <button class="small round yellow border-none padding-2 inline-block"><i class="fa-solid fa-plus"></i></button>
-            </div>
+        <div
+            class="performances-wrapper"
+            style="padding-top:80px;"
+            @click="search_filters = false"
+            onclick="htmx.removeClass(htmx.find('#itinerary_slideout'), 'open');"
+        >
+            {% include "planyourday/performance-list.html" %}
         </div>
     </div>
-    </div>
-    <div class="itinerary border-ghost rounded-2 padding-3">
-    <div class="row gutter-2 width-100">
-        <h4 class="margin-0 margin-y-1 grow-1">My Itinerary</h4>
-        <button class="small white padding-2"><i class="fa-solid fa-share-nodes"></i></button>
-        <button class="small white padding-2"><i class="fa-regular fa-calendar"></i></button>
-        <button class="small yellow nowrap padding-2"><i class="fa-regular fa-floppy-disk"></i> Save</button>
-    </div>
-    <div class="column border rounded-2 margin-y-3">
-        <div class="padding-2 border-bottom-1">
-            <div class="row gutter-2 width-100">
-                <h5 class="margin-0 padding-1 grow-1">GypsyBeanYoga</h5>
-                <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
-                <button class="small white padding-1"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-            <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 10:00 AM - 10:30 AM</small></p>
-            <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</small></p>
-        </div>
-        <div class="padding-2 border-bottom-1">
-            <div class="row gutter-2 width-100">
-                <h5 class="margin-0 padding-1 grow-1">Many Kelsey</h5>
-                <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
-                <button class="small white padding-1"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-            <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 11:00 AM - 11:30 AM</small></p>
-            <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> The Gypsy Porch</small></p>
-        </div>
-        <div class="padding-2">
-            <div class="row gutter-2 width-100">
-                <h5 class="margin-0 padding-1 grow-1">Private Tears</h5>
-                <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
-                <button class="small white padding-1"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-            <p class="margin-1"><small><i class="fa-regular fa-clock"></i> 11:15 AM - 12:00 PM</small></p>
-            <p class="margin-1"><small><i class="fa-solid fa-location-pin"></i> Great Porch!</small></p>
-        </div>
-    </div>
-    <div class="background-light rounded-2 padding-2">
-        <h5 class="margin-0 margin-bottom-2">Export Your Itinerary</h5>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Download .ics file</button>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Google Calendar</button>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-regular fa-calendar"></i> Apple/Outlook</button>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-solid fa-download"></i> Export CSV</button>
-        <button class="white small padding-y-1 margin-y-1"><i class="fa-solid fa-print"></i> Print</button>
-    </div>
+
+    <div id="loading" class="htmx-indicator">
+        <p>Loading</p>
     </div>
 {% endblock %}

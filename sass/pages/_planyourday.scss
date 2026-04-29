@@ -1,47 +1,194 @@
 @use "../variables" as *;
 @use "sass:color";
+$header-height: 64px;
 
 main.plan-your-day {
-    // min-height: calc(var(--vh, 1vh) * 100);
-    min-height: calc(100vh - 240px);
     background-color: $color-bg-main;
     padding: 1rem;
-    gap: 1rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-        "filters"
-        "performances"
-        "itinerary";
-
     font-family: $font__text;
 
-    @media screen and (min-width: 900px) {
-        grid-template-columns: 1fr 2fr 1fr;
-        grid-template-areas: "filters performances itinerary";
+    #loading {
+        position: fixed;
+        bottom: 0;
+        left: calc(50% - 75px);
+        width: 100px;
+        background-color: $color-fg-accent;
+        border-radius: 0.5rem;
+        text-align: center;
+    }
+
+    .toolbar {
+        position: fixed;
+        top: calc($header-height + 1rem);
+        left: 1rem;
+        right: 1rem;
+        background-color: white;
+        padding: 1rem;
+
+        &::before {
+            content: '';
+            display: block;
+            position: fixed;
+            background-color: $color-bg-main;
+            top: $header-height;
+            left: 0;
+            right: 0;
+            height: 2rem;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            position: fixed;
+            background-color: white;
+            left: 1rem;
+            right: 1rem;
+            height: 1rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            top: calc($header-height + 1rem);
+        }
+
+        .filter-wrapper {
+            max-height: calc(100dvh - ($header-height + 50px + 3rem));
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            top: 67px;
+
+            .close {
+                align-self: flex-end;
+                padding: 0.5rem;
+                border-radius: 5px;
+                background-color: #fff;
+                border: solid 1px $color-bg-accent;
+                color: black;
+                font-size: 0.85rem;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .filter {
+                display: flex;
+                gap: 1rem;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            label {
+                font-weight: bold;
+            }
+
+            .genres {
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem;
+
+                .title {
+                    display: flex;
+                    gap: 10px;
+
+                    span {
+                        background-color: white;
+                        border: 1px black solid;
+                        border-radius: 5px;
+                        padding: 2px 6px;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                }
+
+                .chip {
+                    transition: all 0.2s ease;
+                    background-color: #f2b814;
+                    border-radius: 1rem;
+                    padding: 0 7px;
+                    font-size: 0.87rem;
+                }
+
+            }
+        }
+    }
+
+    .search {
+        height: 50px;
     }
 
     .filters {
         background-color: white;
-        grid-area: filters;
+
+        .genre-list {
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 5px;
+            max-height: 100px;
+            overflow-y: scroll;
+
+            .chip {
+                transition: all 0.2s ease;
+            }
+
+            .active {
+                background-color: green;
+                color: white;
+            }
+        }
     }
 
     .performances {
         background-color: white;
-        grid-area: performances;
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 
-    .itinerary {
+    .performance-card {
+        max-width: calc(100% - 2rem);
+    }
+
+    #itinerary {
         background-color: white;
-        grid-area: itinerary;
+        z-index: 1;
+        width: calc(100dvw - 4rem);
+        max-height: calc(100dvh - 116px);
+        overflow: hidden;
+        overflow-y: auto;
+
+        @media screen and (min-width:900px) {
+            width: 30%;
+        }
     }
 
-    #search-filters {
+    .itinerary_slideout {
+        top: $header-height;
+
+        @media screen and (min-width:600px) {
+            top: calc($header-height + 1em);
+        }
+
+        &.open {
+            right: 0;
+        }
+    }
+
+    #search_filters {
+        display: flex;
         flex-direction: column;
     }
 
     input {
         max-width: 100%;
+    }
+
+    .position-relative {
+        position: relative;
+    }
+
+    .position-absolute {
+        position: absolute;
+    }
+
+    .position-fixed {
+        position: fixed;
     }
 
     .display-none {
@@ -52,8 +199,16 @@ main.plan-your-day {
         display: block;
     }
 
+    .display-inline-block {
+        display: inline-block;
+    }
+
     .display-flex {
         display: flex;
+    }
+
+    .space-between {
+        justify-content: space-between;
     }
 
     .display-sm-none {
@@ -72,6 +227,12 @@ main.plan-your-day {
         }
     }
 
+    .display-md-inline-block {
+        @media screen and (min-width:900px) {
+            display: inline-block;
+        }
+    }
+
     .display-md-flex {
         @media screen and (min-width:900px) {
             display: block;
@@ -80,6 +241,18 @@ main.plan-your-day {
 
     .overflow-hidden {
         overflow: hidden;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
     }
 
     .border {
@@ -394,7 +567,6 @@ main.plan-your-day {
     .field-group {
         display: flex;
         gap: 0;
-        overflow: hidden;
 
         & input,
         & button {
@@ -412,5 +584,18 @@ main.plan-your-day {
                 background-color: color.adjust($color-fg-button, $lightness: -5%);
             }
         }
+
+        &.rounded *:first-child {
+            border-top-left-radius: 0.2rem;
+            border-bottom-left-radius: 0.2rem;
+        }
+
+        &.rounded *:last-child {
+            border-top-right-radius: 0.2rem;
+            border-bottom-right-radius: 0.2rem;
+        }
+
+        @include search;
     }
+
 }

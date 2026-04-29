@@ -5,28 +5,54 @@ from phonenumber_field.modelfields  import PhoneNumberField
 from django.conf 					import settings
 from django.contrib.auth.models		import User
 from django.utils.text              import slugify
+from django.core.exceptions         import ValidationError
 from django.template.loader         import render_to_string
 from django.core.mail               import EmailMessage
+from decouple                       import config
+import os
+
+class Genre(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(blank=True, unique=True)
+
+    def clean(self):
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        if Genre.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
+            raise ValidationError({
+                "slug": "A genre with this slug already exists."
+            })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 class Performer(models.Model):
-    class Genre(models.TextChoices):
-        ROCK 			= 'rock', 'Rock'
-        JAZZ 			= 'jazz', 'Jazz'
-        FOLK 			= 'folk', 'Folk'
-        POP 			= 'pop', 'Pop'
-        CLASSICAL		= 'classical', 'Classical'
-        HIPHOP 			= 'hiphop', 'Hip Hop'
-        OTHER 			= 'other', 'Other'
-
     id 					= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name 				= models.CharField(max_length=255)
     bio 				= models.TextField(blank=True)
-    genre				= models.CharField(max_length=20, choices=Genre.choices, default=Genre.OTHER)
+    genres              = models.ManyToManyField(Genre, blank=True)
     member_count 		= models.IntegerField(default=1)
     instruments 		= models.IntegerField(default=0)
     link 				= models.URLField(blank=True)
+    slug                = models.SlugField(unique=True, blank=True, max_length=255)
     profile_picture		= models.ImageField(upload_to='performers/', blank=True, null=True)
     created_by 		    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='performers')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            i = 1
+            while Performer.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{i}"
+                i += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -60,6 +86,8 @@ class Porch(models.Model):
     info_booth              = models.BooleanField(default=False)
     porta_potty             = models.BooleanField(default=False)
     sponsored               = models.BooleanField(default=False)
+    drinking_water          = models.BooleanField(default=False)
+    bicycle_repair          = models.BooleanField(default=False)
     neighbors_hosting       = models.BooleanField(default=False)
     other_info 		        = models.TextField(blank=True)
     coordinates 		    = gis_models.PointField(blank=True, null=True, geography=True)
@@ -72,6 +100,11 @@ class Porch(models.Model):
     created_at              = models.DateTimeField(auto_now_add=True)
     original_created_at     = models.DateTimeField(null=True, blank=True)
     slug                    = models.SlugField(unique=True, blank=True, max_length=255)
+    number                  = models.SmallIntegerField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Porch"
+        verbose_name_plural = "Porches"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -83,18 +116,19 @@ class Porch(models.Model):
 
         super().save(*args, **kwargs)
 
-        if is_approved:
-            html = render_to_string('website/emails/porch-approved-email.html', {
-                'name': self.owner_name,
-            })
-            email = EmailMessage(
-                subject="Your Porch Has Been Approved! 🎉",
-                body=html,
-                from_email="Tower Porchfest <info@towerporchfest.org>",
-                to=[self.owner_email],
-            )
-            email.content_subtype = "html"
-            email.send(fail_silently=False)
+        if config('DEBUG') == False:
+            if is_approved:
+                html = render_to_string('website/emails/porch-approved-email.html', {
+                    'name': self.owner_name,
+                })
+                email = EmailMessage(
+                    subject="Your Porch Has Been Approved! 🎉",
+                    body=html,
+                    from_email="Tower Porchfest <info@towerporchfest.org>",
+                    to=[self.owner_email],
+                )
+                email.content_subtype = "html"
+                email.send(fail_silently=False)
 
     def __str__(self):
         return self.name
@@ -142,7 +176,7 @@ class Request(models.Model):
 class Performance(models.Model):
     id 					= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     porch 				= models.ForeignKey(Porch, on_delete=models.CASCADE, related_name='performances')
-    performer 			= models.ForeignKey(Performer, on_delete=models.CASCADE)
+    performer 			= models.ForeignKey(Performer, on_delete=models.CASCADE, related_name='performances')
     created_by 			= models.ForeignKey(User, on_delete=models.CASCADE, related_name='performances')
     start_time 			= models.TimeField()
     end_time 			= models.TimeField()
@@ -152,7 +186,9 @@ class Performance(models.Model):
         ordering = ["start_time"]
         
     def __str__(self):
-        return f"{self.performer} at {self.porch} ({self.start_time.strftime('%-I:%M %p')})"
+        # conversion when using windows for local development
+        time_format = '%#I:%M %p' if os.name == 'nt' else '%-I:%M %p'
+        return f"{self.performer} at {self.porch} ({self.start_time.strftime(time_format)})"
 
 class TempUpload(models.Model):
     image 		= models.ImageField(upload_to='temp_uploads/')

@@ -25,7 +25,7 @@ class PorchForm(forms.ModelForm):
 class PerformerForm(forms.ModelForm):
     class Meta:
         model = Performer
-        fields = ('name', 'bio', 'genre', 'member_count', 'instruments', 'link', 'profile_picture',)
+        fields = ('name', 'bio', 'genres', 'member_count', 'instruments', 'link', 'profile_picture',)
 
 class PerformanceFormDashboard(forms.ModelForm):
     new_performer_name = forms.CharField(required=False, label="New Performer")

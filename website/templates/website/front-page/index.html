@@ -6,8 +6,14 @@
 	{% comment %} <div class="hero" style="background-image: url('{% static 'website/images/general-hero.png' %}');"></div> {% endcomment %}
 	<div class="hero">
 		<div class="img-wrapper">
-			<img src="{% static 'website/images/2026-hero-teaser.png' %}" alt="Tower Porchfest Hero Image">
+			<img src="{% static 'website/images/TPF-2026-Homepage-v2.png' %}" alt="Tower Porchfest Hero Image 2026">
 		</div>
+        <section style="padding: 0 50px 50px 50px;max-width:1200px;">
+            <h2>WHAT IS TOWER PORCHFEST?</h2>
+            {% comment %} Started in 2021 somewhere idk {% endcomment %}
+            <p style="font-size:21px;">The Tower Porchfest is a grassroots community music event in Fresno, California where front porches become stages, yards become venues, and radical generosity and good will rule the day. The mission of Tower Porchfest is to build community through music and art.</p>
+            <p>Tower Porchfest is much more an afternoon of coordinated yard performances than it is a conventional festival. There’s no real boss, no specific enclosed or protected area, and everything you see, eat, or experience exists only because someone decided to step up and make it happen. All of our day-of operations and oversight gets delegated to our hundreds of volunteering neighbors and thousands of guests, making every porch, porch host, performer, vendor and attendee a de facto co-creator and real-time manager of the event. The organizing committee, such that it is, exists only to manage basic front-end and day of logistics, coordinate performances, promote the day, and provide communication to all involved in support of a safe and successful day.</p>
+        </section>
 		<div class="countdown-wrapper">
 			<div class="left">
 				<h2 class="location">Fresno, CA</h2>
@@ -35,13 +41,18 @@
 			</div>
 		</div>
 	</div>
-	<section style="padding: 50px;">
+	{% comment %} <section style="padding: 50px;">
 		<h1>Porch Host Signups Are Now Open!</h1>
 		<p>Head <a href="{% url 'porch-signup' %}">here</a> to sign up your porch</p>
-	</section>
-	<section style="padding: 0 50px 50px 50px;">
+	</section> {% endcomment %}
+	{% comment %} <section style="padding: 0 50px 50px 50px;">
 		<h1>Sign Up to be a Volunteer!</h1>
 		<p>We are always looking for volunteers to help make Tower Porchfest a success! Sign up <a href="{% url 'volunteer' %}">here</a></p>
+	</section> {% endcomment %}
+	<section style="padding:50px;max-width:1200px;">
+		<h1>Plan Your Day at Porchfest!</h1>
+		<p>Head over to the <a href="{% url 'map' %}">map</a> to browse where every porch is and view their performances</p>
+		<p>Check out <a href="{% url 'plan_your_day' %}">Plan Your Day</a> to search for individual performances and share your itinerary with friends</p>
 	</section>
 	<section class="socials">
 		<h2>Follow us on Social Media!</h2>
@@ -56,7 +67,7 @@
 	</section>
 	{% comment %} {% include 'website/porch-list-form/form-wrapper.html' %} {% endcomment %}
 	{% include "website/front-page/ad-cards.html" %}
-	{% comment %} {% include "website/front-page/sponsors.html" %} {% endcomment %}
+	{% include "website/front-page/sponsors.html" %}
 	<section class="donate">
 		<h1>Support Tower Porchfest</h1>
 		<div style="position:relative;overflow:hidden;height:600px;width:100%;"><iframe title='Donation form powered by Zeffy' style='position: absolute; border: 0; top:0;left:0;bottom:0;right:0;width:100%;height:100%' src='https://www.zeffy.com/embed/donation-form/support-tower-porchfest' allowpaymentrequest allowTransparency="true"></iframe></div>

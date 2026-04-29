@@ -1,10 +1,13 @@
-<div class="mobile-menu hidden" id="mobile_menu">
-	<a href="#close" class="mobile-close" id="mobile_close">Close</a>
+<div class="mobile-menu" id="mobile_menu">
+	<a href="#close" class="mobile-close" id="mobile_close"><i class="fa-solid fa-xmark"></i> Close</a>
 	<nav>
 		<ul class="main-menu">
 			<li><a href="{% url 'index' %}">Home</a></li>
+			<li><a href="{% url 'map' %}">Map</a></li>
+			<li><a href="{% url 'plan_your_day' %}">Plan Your Day</a></li>
 			<li><a href="{% url 'about' %}">FAQ</a></li>
-			<li><a href="{% url 'porch-signup' %}">Porch Signups</a></li>
+			<li><a href="https://towerporchfest.bigcartel.com/" target="_blank">Merch</a></li>
+			{% comment %} <li><a href="{% url 'porch-signup' %}">Porch Signups</a></li> {% endcomment %}
 			<li><a href="{% url 'volunteer' %}">Volunteer</a></li>
 			<li><a href="{% url 'sponsorship' %}">Sponsorship</a></li>
 			<li><a href="{% url 'donate' %}">Donate</a></li>
@@ -15,14 +18,22 @@
 	<nav>
 		<ul class="main-menu">
 			<li><a href="{% url 'index' %}">Home</a></li>
+			<li><a href="{% url 'map' %}">Map</a></li>
+			<li><a href="{% url 'plan_your_day' %}">Plan Your Day</a></li>
 			<li><a href="{% url 'about' %}">FAQ</a></li>
-			<li><a href="{% url 'porch-signup' %}">Porch Signups</a></li>
+			<li><a href="https://towerporchfest.bigcartel.com/" target="_blank">Merch</a></li>
+			{% comment %} <li><a href="{% url 'porch-signup' %}">Porch Signups</a></li> {% endcomment %}
 			<li><a href="{% url 'volunteer' %}">Volunteer</a></li>
 			<li><a href="{% url 'sponsorship' %}">Sponsorship</a></li>
 			<li><a href="{% url 'donate' %}">Donate</a></li>
 		</ul>
 		<a href="#menu" class="mobile-menu-btn" id="mobile_toggle">Menu</a>
 	</nav>
+    <div class="map-top-image">
+        <a href="https://fresnoschoolwatch.com" target="_blank">
+            <img src="/static/porchfestcore/images/2026_fta_school_watch.gif" alt="Fresno Teachers Association" style="height:40px;max-width:100%;background-color:white;">
+        </a>
+    </div>
 	<div class="login-section">
 		{% if request.user.is_authenticated %}
 			<a href="{% url 'porchpanel:dashboard' %}">Dashboard</a>

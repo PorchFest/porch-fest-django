@@ -1,45 +1,53 @@
 {% load static %}
 <section class="cards">
 	<div class="card">
-		<div class="square">
-			<img class="icon" src="{% static 'website/images/ticket.png' %}" alt="">
+		<div class="square-wrapper">
+			<div class="square">
+				<img class="icon" src="{% static 'website/images/ticket.png' %}" alt="">
+			</div>
 		</div>
 		<div class="content-wrapper">
 			<h2>Tickets</h2>
 			<p class="max-char">Porchfest is a free community event made possible by Tower Neighborhood Association and hundreds of volunteers. No ticket required. Showing up IS your ticket to an amazing time!</p>
 			{% comment %} <a class="text-link" href="https://towerporchfest.square.site/">Support</a> {% endcomment %}
-			<p>Coming Soon...</p>
 		</div>
 	</div>
 	<div class="card">
-		<div class="square">
-			<img class="icon" src="{% static 'website/images/fast-food.png' %}" alt="">
+		<div class="square-wrapper">
+			<div class="square">
+				<img class="icon" src="{% static 'website/images/fast-food.png' %}" alt="">
+			</div>
 		</div>
 		<div class="content-wrapper">
 			<h2>Food & Drinks</h2>
-			<p class="max-char">Many porches are featuring food options - not to mention the many great restaurants in the Tower District! Explore the map or click the link below to browse food options at porches.</p>
+			<p class="max-char">Many porches are featuring food options - not to mention the many great restaurants in the Tower District!</p>
 			{% comment %} <a class="text-link" href="http://localhost:8000/map/?time-input=&genre=All&Food=Food&srch=">Porches with Food</a> {% endcomment %}
 		</div>
 	</div>
 	<div class="card">
-		<div class="square">
-			<img class="icon" src="{% static 'website/images/parking.png' %}" alt="">
+		<div class="square-wrapper">
+			<div class="square">
+				<img class="icon" src="{% static 'website/images/parking.png' %}" alt="">
+			</div>
 		</div>
 		<div class="content-wrapper">
 			<h2>Parking</h2>
-			<p class="max-char">Relaxed parking is available at Fresno City College in lots A, B, and C. Walking and biking into the neighborhood is strongly encouraged so we can keep the event as car-free as possible!</p>
+			<p class="max-char">Relaxed parking is available at Fresno City College in lot B. Walking and biking into the neighborhood is strongly encouraged so we can keep the event as car-free as possible!</p>
 			{% comment %} <a class="text-link" href="http://localhost:8000/map/?time-input=&genre=All&Food=Food&srch=">Porches with Food</a> {% endcomment %}
 		</div>
 	</div>
 	<div class="card">
-		<div class="square">
-			<img class="icon" src="{% static 'website/images/merch.png' %}" alt="">
+		<div class="square-wrapper">
+			<div class="square">
+				<img class="icon" src="{% static 'website/images/merch.png' %}" alt="">
+			</div>
 		</div>
 		<div class="content-wrapper">
 			<h2>Merch</h2>
 			<p>Visit our Merch Store! Also merch will be available at the Tower Porchfest info booth on the day of. All purchases go back towards supporting this annual event.</p>
-			{% comment %} <a href="https://towerporchfest.square.site/">Merch Store</a> {% endcomment %}
-			<p>2026 Merch Coming Soon</p>
+            <p>
+			    <a target="_blank" href="https://towerporchfest.bigcartel.com">Merch Store <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
 		</div>
 	</div>
 </section>

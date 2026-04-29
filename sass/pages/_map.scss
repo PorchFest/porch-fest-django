@@ -1,119 +1,456 @@
 @use "../variables" as *;
+@use "sass:color";
+$map-header-height: 40px;
 
 :root {
-	--vh: 100%;
+    --vh: 100%;
 }
 
-#map{
-	height: calc(var(--vh, 1vh) * 100);
+#map {
+    height: calc(var(--vh, 1vh) * 100);
 }
 
-.porch-marker{
-    height: 40px;
+#root {
+    overflow: hidden;
 }
 
-.map-header{
-	position: absolute;
-	z-index: 2000;
-	width: 100%;
-	height: 60px;
-	background-color: black;
-	color: white;
-
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
-
-	.fas{
-		font-size: 1.5rem;
-		cursor: pointer;
-	}
-	.fa-home{
-		margin-left: 10px;
-	}
-	.fa-bars{
-		margin-right: 10px;
-	}
-	a{
-		background-color: white;
-		width: 100%;
-		height: 100%;
-	}
+.sponsor-logo {
+    border: black 3px solid;
+    border-radius: 3px;
 }
 
-.menu, .porch-modal{
-	position: absolute;
-	z-index: 2500;
-	width: 100%;
-	height: 100%;
-	top: 0;
-}
+.map-header {
 
-.menu{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    .login-section {
+        display: none;
 
-	background-color: black;
-	color: white;
+        @media screen and (min-width:900px) {
+            display: flex;
+            position: relative;
+            padding-right: 10px;
+            right: 10px;
+        }
 
-	font-family: $font__text;
+        & a:link,
+        & a:hover,
+        & a:active,
+        & a:visited,
+        & button {
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+    }
 
-	#close_menu{
-		align-self: end;
-		margin: 1rem;
-		font-size: 1.5rem;
-		cursor: pointer;
-	}
-}
+    header.main-header {
+        position: fixed;
+        width: 100%;
+        height: $map-header-height;
+        padding: 0 10px;
 
-.porch-modal{
-	overflow-y: auto;
-    background-color: white;
-
-    header{
         display: flex;
-        justify-content: flex-end;
-        padding: 10px;
-        font-size: 1.5rem;
-        background-color: $color-bg-main;
-        .fas{cursor:pointer;}
+        align-items: center;
+        gap: 10px;
+
+        @media screen and (min-width:900px) {
+            justify-content: space-between;
+        }
+
+        nav ul.main-menu li a {
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .map-top-image {
+            display: block;
+            align-items: center;
+        }
+
+        .button-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100%;
+
+            a.home-button {
+                // padding: 5px;
+                @include button(5px);
+            }
+        }
     }
 }
 
-#map_filter{
-	display: flex;
-	flex-direction: column;
-	gap: 2rem;
-	margin: 1rem;
+.toolbar {
+    z-index: 1998;
+    position: absolute;
+    top: calc($map-header-height + 10px);
+    left: 10px;
+    right: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    height: 50px;
 
-	.search-and-time, .other-options{
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-	}
+    .map-search {
+        border-radius: 0.5rem;
+        height: 50px;
+        position: relative;
 
-	.filter{
-		display: flex;
-		gap: 1rem;
-		justify-content: space-between;
-		align-items: center;
-	}
-	
-	input[type="text"]{
-		width: 170px;
-		font-size: 2rem;
-	}
+        label {
+            padding: 0.5rem;
+            background-color: $color-fg-button;
+        }
 
-	input[type="checkbox"]{
-		transform: scale(1.5);
-		-ms-transform: scale(1.5); 
-		-webkit-transform: scale(1.5);
-	}
+        input {
+            padding: 0 0.5rem;
+            flex-grow: 1;
+            height: 100%;
+        }
 
-	input{
-		padding: 8px;
-		border-radius: 8px;
-	}
+        button {
+            height: 100%;
+
+            @media(max-width: 400px) {
+                display: none;
+            }
+        }
+
+        @include search;
+    }
+
+    .button-wrap {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .filter-wrapper {
+        position: absolute;
+        top: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: $color-bg-main;
+        font-family: $font__text;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        max-width: 350px;
+        // max-height: calc(100dvh - ($map-header-height + 50px + 1.4rem));
+        height: 200px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+
+        .close {
+            align-self: flex-end;
+            padding: 0.5rem;
+            border-radius: 5px;
+            background-color: #fff;
+            border: solid 1px $color-bg-accent;
+            color: black;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .genres {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+
+            .title {
+                display: flex;
+                gap: 10px;
+
+                span {
+                    background-color: white;
+                    border: 1px black solid;
+                    border-radius: 5px;
+                    padding: 2px 6px;
+                    font-size: 12px;
+                    font-weight: bold;
+
+                    i {
+                        font-size: 10px;
+                    }
+                }
+            }
+
+            h4 {
+                margin: 0;
+            }
+
+            .chip {
+                transition: all 0.2s ease;
+                background-color: $color-fg-accent;
+                border-radius: 1rem;
+                padding: 0 7px;
+                font-size: 0.87rem;
+
+                &.active {
+                    i {
+                        font-size: 10px;
+                    }
+                }
+            }
+
+            .genre-list,
+            #selected_genres {
+                display: flex;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 5px;
+
+            }
+
+            .genre-list {
+                max-height: 150px;
+                overflow-y: scroll;
+                border: 1px solid rgb(33, 33, 51);
+                border-radius: 0.2rem;
+                background-color: white;
+                padding: 0.5rem;
+            }
+        }
+
+        .filter {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-number input {
+            max-width: 50px;
+        }
+
+        .filter-column {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 170px;
+            font-size: 2rem;
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.5);
+            -ms-transform: scale(1.5);
+            -webkit-transform: scale(1.5);
+        }
+
+        input {
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        @include pydbutton;
+    }
+
+    #filtered_count_wrap {
+        position: relative;
+        z-index: 1999;
+        background-color: $color-bg-main;
+        font-family: $font__text;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 10px;
+        margin: -2px 0 0 0;
+        width: 80px;
+    }
+}
+
+#use_location {
+    position: fixed;
+    z-index: 1001;
+    bottom: 8px;
+    left: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    background-color: white;
+    border-width: 1px;
+    border-radius: 0.5rem;
+    font-family: $font__text;
+    font-size: 12px;
+    font-weight: bold;
+
+    img {
+        height: 30px;
+    }
+}
+
+.map-legend {
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    width: auto;
+    max-width: 300px;
+
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    transition: all 0.1s ease-in-out;
+    span{
+        overflow: hidden;
+        transition: width 0.1s;
+    }
+
+    @media(max-width:600px){
+        span{width: 0;}
+    }
+
+    &:hover {
+        transform: scale(2);
+        right: 110px;
+        bottom: 80px;
+
+        @media(max-width: 600px) {
+            right: 58px;
+            bottom: 125px;
+            span{width: 59px;}
+        }
+    }
+}
+
+.grow {
+    transform: scale(1.5);
+    right: 60px;
+    bottom: 30px;
+
+    @media(max-width: 600px) {
+        right: 40px;
+        bottom: 50px;
+        span{
+            width: auto;
+        }
+    }
+}
+
+#legend-content {
+    font-family: $font__text;
+    user-select: none;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); // Two columns for screens
+        gap: 5px 12px; // Increased column gap
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        /*cursor: pointer;*/
+        transition: opacity 0.2s;
+
+        // Style for non-active items (when filtering is implemented)
+        &:not(.is-active) {
+            opacity: 0.5;
+        }
+
+        /*&:hover {
+            opacity: 0.8;
+        }*/
+    }
+
+    .legend-icon {
+        width: 20px; // Slightly increased size
+        height: 20px; // Explicit height for consistency
+        display: block; // Ensure proper layout
+    }
+
+    // TODO: Specific style for cluster icon if needed
+    li img[src$="/porch.svg"] {
+        width: 20px; // Slightly larger? Adjust as needed
+        // Other specific styles
+    }
+
+    .legend-label {
+        font-size: 0.75rem;
+        color: #f0f0f0; // Light color for dark background
+    }
+}
+
+@media (max-width: 600px) {
+    .map-legend {
+        padding: 0.5rem;
+        max-width: 120px;
+    }
+
+    #legend-content {
+        ul {
+            grid-template-columns: 1fr; // Single column on small screens
+            gap: 4px;
+        }
+
+        .legend-label {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+.menu,
+.porch-modal {
+    position: absolute;
+    z-index: 2500;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: black;
+    color: white;
+
+    font-family: $font__text;
+
+    #close_menu {
+        align-self: end;
+        margin: 1rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+}
+
+.porch-modal {
+    overflow-y: auto;
+    background-color: white;
+
+    header {
+        display: flex;
+        justify-content: flex-end;
+        padding: 5px;
+        height: 15px;
+        font-size: 1.5rem;
+        background-color: $color-bg-main;
+
+        .fas {
+            position: fixed;
+            background-color: white;
+            padding: 2px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
 }

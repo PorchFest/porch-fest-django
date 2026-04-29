@@ -1,6 +1,11 @@
 from pathlib 	import Path
 from decouple 	import config
 
+import os
+if os.name == 'nt':
+    GDAL_LIBRARY_PATH = os.path.join(config('PROJECT_PATH'), r'porch-fest-django\venv\Lib\site-packages\osgeo\gdal.dll')
+    GEOS_LIBRARY_PATH = os.path.join(config('PROJECT_PATH'), r'porch-fest-django\venv\Lib\site-packages\osgeo\geos_c.dll')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,9 +14,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY 		= config('SECRET_KEY')
 DEBUG 			= config('DEBUG', default=False, cast=bool)
+# DEBUG = False
 ALLOWED_HOSTS 	= config('ALLOWED_HOSTS', default='towerporchfest.org,www.towerporchfest.org').split(',')
+# ALLOWED_HOSTS = ['localhost']
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,9 +45,14 @@ LOGOUT_REDIRECT_URL         = "porchpanel:login"
 RECAPTCHA_PUBLIC_KEY	    = config('RECAPTCHA_PUBLIC')
 RECAPTCHA_PRIVATE_KEY	    = config('RECAPTCHA_PRIVATE')
 
+MAPBOX_PUBLIC_KEY           = config('MAPBOX_PUBLIC_KEY')
+
 PHONENUMBER_DEFAULT_REGION  = "US"
 
-EMAIL_BACKEND               = "anymail.backends.brevo.EmailBackend"
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 ANYMAIL                     = {"BREVO_API_KEY": config('BREVO_API_KEY'),}
 DEFAULT_FROM_EMAIL          = "Porch Fest <info@towerporchfest.org>"
 REST_FRAMEWORK              = {
@@ -110,8 +121,8 @@ WSGI_APPLICATION = 'porchfest.wsgi.application'
 DATABASES = {
     'default': {
 		'ENGINE': 		'django.contrib.gis.db.backends.postgis',
-		'NAME': 		'porchfest',
-		'USER': 		'towerporchfest',
+		'NAME': 		config('DB_NAME'),
+		'USER': 		config('DATABASE_USER'),
 		'PASSWORD': 	config('DATABASE_PASS'),
 		'HOST': 		'localhost',
 		'PORT': 		'5432',

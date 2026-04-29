@@ -2,13 +2,5 @@
 @use "layout";
 @use "pages";
 @use "components";
-// @use "variables" as *;
-
-body{
-	margin: 0;
-	padding: 0;
-}
-
-:root {
-	--vh: 100%;
-}
+@use "variables" as *;
+@use "sass:color";

@@ -9,7 +9,11 @@ class PorchMap(ListAPIView):
     serializer_class    = PorchMapSerializer
     def get_queryset(self):
         qs              = Porch.objects.filter(approved=True)
-        filterset       = PorchMapFilter(self.request.GET, queryset=qs)
+        filterset       = PorchMapFilter(
+            self.request.GET,
+            queryset=qs,
+            request=self.request
+        )
         performance_qs  = Performance.objects.none()
         if filterset.form.is_valid():
             active_filters = {
@@ -19,8 +23,8 @@ class PorchMap(ListAPIView):
             qs = filterset.qs
             if active_filters:
                 performance_filters = {}
-                if "genre" in active_filters:
-                    performance_filters["performer__genre__iexact"] = active_filters["genre"]
+                if "genres" in active_filters:
+                    performance_filters["performer__genres__slug__in"] = active_filters["genres"]
                 if "after" in active_filters:
                     performance_filters["start_time__gte"]          = active_filters["after"]
                 if "search" in active_filters:

@@ -1,0 +1,118 @@
+@use "../variables" as *;
+@use "sass:color";
+$map-header-height: 40px;
+$header-height: 64px;
+
+.plan-your-day-itinerary {
+    position: fixed;
+    z-index: 2000;
+    width: calc(100dvw - 5rem);
+    max-height: calc(100dvh - 116px);
+    height: calc(100dvh - ($map-header-height + 2rem));
+
+    .grow-1 {
+        flex-grow: 1;
+        text-align: right;
+    }
+
+    @media screen and (min-width:900px) {
+        width: 30%;
+    }
+}
+.map-itinerary{
+    height: calc(100dvh - ($map-header-height + 3rem));
+}
+
+#itinerary_slideout_button {
+    height: 50px;
+    width: 50px;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: $color-fg-accent;
+    border: none;
+    border-radius: 0.5rem;
+    color: black;
+    font-size: 0.85rem;
+    text-decoration: none;
+    cursor: pointer;
+    justify-self: right;
+
+    @media screen and (min-width:600px) {
+        width: 110px;
+    }
+
+    .label {
+        display: none;
+
+        @media screen and (min-width:600px) {
+            display: inline-block;
+        }
+    }
+}
+
+.itinerary_slideout {
+    position: fixed;
+    z-index: 1999;
+    right: 0;
+    top: calc($map-header-height + 10px);
+    width: 500px;
+    background-color: white;
+    border: solid 1px $color-bg-accent;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    font-family: $font__text;
+    transform: translateX(100%);
+    transition: transform 0.1s ease;
+
+    &.open {
+        margin-right: 10px;
+        transform: translateX(0);
+    }
+
+    @media(max-width:600px) {
+        &.open {
+            margin-right: 0;
+        }
+
+        top: $map-header-height;
+        width: calc(100% - 2rem);
+    }
+
+    .grow-1 {
+        flex-grow: 1;
+        text-align: right;
+    }
+
+    .slideout_header {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
+
+        h4 {
+            margin: 0.2rem 0;
+        }
+
+        button {
+            padding: 0.5rem;
+            border-radius: 5px;
+            background-color: $color-fg-button;
+            border: solid 1px $color-bg-accent;
+            color: black;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+    .slideout_body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+}

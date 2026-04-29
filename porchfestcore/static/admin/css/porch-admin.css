@@ -2,9 +2,12 @@
     float: none !important;
 }
 
-.mw-header{
-    display: flex;
-    gap: 10px;
+/* .mw-header .mw-btn,.mw-coordinates-wrap{ */
+/* .mw-header .mw-btn{
+    display: none !important;
+} */
+.mw-header .mw-adress-input-wrap{
+    width: 100% !important;
 }
 
 .gm-style .transit-container{

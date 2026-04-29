@@ -2,96 +2,75 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		{% comment %} <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1XM2TE7QX"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-J1XM2TE7QX'); </script> {% endcomment %}
+		<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1XM2TE7QX"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-J1XM2TE7QX'); </script>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Map!</title>
 		<link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" >
+        <meta property="og:image" content="https://towerporchfest.org/static/website/images/2026-hero-teaser.png">
+        <meta name="twitter:card" content="Tower Porchfest: Building Community Through Music & Art. In the Fresno, CA Tower District on April 25h, 2026. A free music and art community festival.">
+        <meta name="twitter:image" content="https://towerporchfest.org/static/website/images/2026-hero-teaser.png">
+        <meta property="og:image:width" content="1000">
+        <meta property="og:image:height" content="1200">
+        <meta property="og:image:alt" content="Tower Porchfest: Building Community Through Music & Art. In the Fresno, CA Tower District on April 25h, 2026. A free music and art community festival.">
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
 		<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
 		<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-		<script src="https://kit.fontawesome.com/aebdbe8212.js" crossorigin="anonymous"></script>
-		<script src="https://unpkg.com/alpinejs" defer></script>
+		<script src="https://kit.fontawesome.com/630774b7c2.js" crossorigin="anonymous"></script>
     	<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+		<script>
+			document.addEventListener('alpine:init', ()=>{
+				Alpine.store('ui', {
+					showFilter: false,
+					showItinerary: false,
+					filteredCount: null,
+				})
+			})
+		</script>
+		<script src="https://unpkg.com/alpinejs" defer></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		{% comment %} <link rel="stylesheet" href="{% static 'porchfestcore/style.css' %}"> {% endcomment %}
-		<link rel="stylesheet" href="{% static "css/style.css" %}">
+		<link rel="stylesheet" href="{% static "css/style.css" %}?v=5">
 		<style>
-			body, html {
-				height: 100%;
-				margin: 0;
-				padding: 0;
+			body{
 				overflow: hidden;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="root" x-data="{open: false}">
-			<div class="map-header">
-				<i class="fas fa-home" id="home_icon"></i>
-				<a href="https://fresnoschoolwatch.com" target="_blank" class="header-ad"><img src="" alt=""></a>
-				<i class="fas fa-bars" @click="open = true"></i>
+		<div id="root" class="map-header" x-data="{selectedGenres: []}">
+			{% include "website/header.html" %}
+			{% include "porchfestcore/map-toolbar.html" %}
+			<div id="map" @click="$store.ui.showFilter = false; $store.ui.showItinerary = false"></div>
+			<button id="use_location">Refresh Location <img src="/static/porchfestcore/images/person.svg" alt=""></button>
+			<div
+				id="map_legend"
+				class="map-legend"
+				x-data="{grow: false}"
+				@touchstart="grow = grow"
+				@touchend="grow = false"
+				:class="grow ? 'grow' : ''"
+			>
+				<div id="legend-content">
+					<ul>
+						<li data-filter-type="default" class="is-active"><img src="/static/porchfestcore/images/glyph.svg" alt="Porch" class="legend-icon"><span class="legend-label">Porch</span></li>
+						<li data-filter-type="sponsored" class="is-active"><img src="/static/porchfestcore/images/glyph-sponsor.svg" alt="Sponsor" class="legend-icon"><span class="legend-label">Sponsor</span></li>
+						<li data-filter-type="vendor" class="is-active"><img src="/static/porchfestcore/images/glyph-vendor.svg" alt="Vendor" class="legend-icon"><span class="legend-label">Vendor</span></li>
+						<li data-filter-type="porta" class="is-active"><img src="/static/porchfestcore/images/glyph-porta.svg" alt="Restroom" class="legend-icon"><span class="legend-label">Porta Potty</span></li>
+						<li data-filter-type="info" class="is-active"><img src="/static/porchfestcore/images/glyph-info.svg" alt="Info Booth" class="legend-icon"><span class="legend-label">Info Booth</span></li>
+						<li data-filter-type="parking" class="is-active"><img src="/static/porchfestcore/images/glyph-parking.svg" alt="Parking" class="legend-icon"><span class="legend-label">Parking</span></li>
+						<li data-filter-type="Hydration" class="is-active"><img src="/static/porchfestcore/images/glyph-drinking-water.png" alt="Drinking Water" class="legend-icon"><span class="legend-label">Hydration</span></li>
+						<li data-filter-type="parking" class="is-active"><img src="/static/porchfestcore/images/glyph-bike-repair.png" alt="Bike Repair" class="legend-icon"><span class="legend-label">Bike Repair</span></li>
+						<li data-filter-type="after-party" class="is-active"><img src="/static/porchfestcore/images/glyph-after-party.png" alt="After Party" class="legend-icon"><span class="legend-label">After Party</span></li>
+					</ul>
+				</div>
 			</div>
-			<div id="map"></div>
-			<div class="menu" x-show="open" x-transition>
-				<i class="fas fa-times-circle" id="close_menu" @click="open = false"></i>
-				<form action="" id="map_filter">
-					<div class="search-and-time">
-						<div class="filter-search filter">
-							<label for="search">Search:</label>
-							<input type="text" name="search" id="filter_search">
-						</div>
-						<div class="filter-time filter">
-							<label for="after">Time:</label>
-							<input type="time" name="after" id="filter_time">
-						</div>
-						<div class="filter-now filter">
-							<label for="now_time">Playing Now:</label>
-							<input type="checkbox" name="now_time" id="filter_now_time">
-						</div>
-					</div>
-					<div class="other-options">
-						<div class="filter-vendor filter">
-							<label for="vendor">Vendor:</label>
-							<input type="checkbox" name="vendor" id="filter_vendor">
-						</div>
-						<div class="filter-porta filter">
-							<label for="porta">Bathroom:</label>
-							<input type="checkbox" name="porta" id="filter_porta">
-						</div>
-						<div class="filter-sponsored filter">
-							<label for="sponsored">Sponsored:</label>
-							<input type="checkbox" name="sponsored" id="filter_sponsor">
-						</div>
-						<div class="filter-genre filter">
-							<label for="genre">Genre:</label>
-							<select name="genre" id="filter_genre">
-								<option selected value="">Any</option>
-								{% for value, label in genres %}
-									<option value="{{ value }}">{{ label }}</option>
-								{% endfor %}
-							</select>
-						</div>
-					</div>
-					<div class="bus filter">
-						<label for="show_bus">Show Trolley:</label>
-						<input type="checkbox" name="show_bus" id="show_bus">
-					</div>
-					<div class="filter-submit">
-						<input type="submit" value="Filter" @click="open = false">
-						<input type="button" value="Reset" id="reset_filter" @click="open = false">
-					</div>
-				</form>
-			</div>
-			<div class="porch-modal" x-data x-show="$store.porch.open" x-transition>
-				<header>
-					<i class="fas fa-times-circle" @click="$store.porch.open = false"></i>
-				</header>
-				<div x-html="$store.porch.content"></div>
-			</div>
+			{% include "porchfestcore/porch-modal.html" %}
+			{% include "porchfestcore/itinerary.html" %}
 		</div>
+		<script>const MAPBOX_PUBLIC_KEY = "{{ MAPBOX_PUBLIC_KEY|escapejs }}"</script>
 		<script src="{% static 'porchfestcore/js/map.js' %}"></script>
+		<script src="{% static 'website/js/mobile-menu.js' %}"></script>
 	</body>
 </html>
