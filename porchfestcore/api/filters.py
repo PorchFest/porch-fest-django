@@ -16,7 +16,9 @@ class PorchMapFilter(django_filters.FilterSet):
     vendor          = django_filters.BooleanFilter(field_name='vendor')
     sponsored       = django_filters.BooleanFilter(field_name='sponsored')
     number          = django_filters.NumberFilter(field_name='number')
+    childrens_activities = django_filters.BooleanFilter(field_name='childrens_activities')
     itinerary       = django_filters.BooleanFilter(method="filter_itinerary")
+    porta_potty       = django_filters.BooleanFilter(field_name='porta_potty')
     class Meta:
         model       = Porch
         fields      = ['genres', 'after', 'vendor', 'sponsored', 'number', 'itinerary']

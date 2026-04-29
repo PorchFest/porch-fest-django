@@ -128,6 +128,8 @@ class PorchMap{
 				}
 				if(porch.properties.porta_potty){
 					iconObj.iconUrl = "/static/porchfestcore/images/glyph-porta.svg"
+					iconObj.iconSize = [30, 30]
+					iconAnchor: [0, 30]
 				}
 				// else if(porch.properties.vendor){
 				// 	iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor.svg"
@@ -135,12 +137,18 @@ class PorchMap{
 				else if(porch.properties.parking){
 					iconObj.iconUrl = "/static/porchfestcore/images/glyph-parking.svg"
 				}else if(porch.properties.drinking_water){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-drinking-water.svg"
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-drinking-water.png"
 				}else if(porch.properties.bicycle_repair){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-bike-repair.svg"
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-bike-repair.png"
 				}else if(porch.properties.info_booth){
 					iconObj.iconUrl = "/static/porchfestcore/images/glyph-info.svg"
-				}else if(porch.properties.sponsor_logo || porch.properties.sponsored){
+				}else if(porch.properties.after_party){
+					iconObj.iconUrl = "/static/porchfestcore/images/glyph-after-party.png"
+				}
+				// else if(porch.properties.childrens_activities){
+				// 	console.log("hahahahahaha")
+				// }
+				else if(porch.properties.sponsor_logo || porch.properties.sponsored){
 					// if(porch.properties.sponsor_logo){
 					// 	iconObj.iconUrl = porch.properties.sponsor_logo
 					// }

@@ -304,15 +304,24 @@ $map-header-height: 40px;
     box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
     z-index: 1001;
     transition: all 0.1s ease-in-out;
+    span{
+        overflow: hidden;
+        transition: width 0.1s;
+    }
+
+    @media(max-width:600px){
+        span{width: 0;}
+    }
 
     &:hover {
         transform: scale(2);
         right: 110px;
-        bottom: 52px;
+        bottom: 80px;
 
         @media(max-width: 600px) {
             right: 58px;
-            bottom: 88px;
+            bottom: 125px;
+            span{width: 59px;}
         }
     }
 }
@@ -325,6 +334,9 @@ $map-header-height: 40px;
     @media(max-width: 600px) {
         right: 40px;
         bottom: 50px;
+        span{
+            width: auto;
+        }
     }
 }
 
