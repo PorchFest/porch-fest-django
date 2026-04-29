@@ -1,0 +1,30 @@
+<div id="performance_{{ performance.id }}">
+    {% include "planyourday/performance-detail.html" %}
+</div>
+
+<div class="performance-list column rounded-2 margin-y-3" id="itinerary_sidebar" hx-swap-oob="true">
+    {% include "planyourday/itinerary-list.html" %}
+</div>
+
+<button
+    id="share_itinerary"
+    hx-swap-oob="true"
+    x-data="{
+        share(){
+            if(navigator.share){
+                navigator.share({
+                    title: document.title,
+                    url: '{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}'
+                })
+            }else{
+                navigator.clipboard.writeText('{{ request.get_host }}{% url 'shared_itinerary' itinerary_id %}')
+                .then(() => {
+                    alert('Itinerary address copied to clipboard');
+                });
+            }
+        }
+    }"
+    @click="share()"
+>
+    <i class="fa-solid fa-share-nodes"></i>
+</button>

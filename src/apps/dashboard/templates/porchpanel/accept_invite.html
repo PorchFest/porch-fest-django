@@ -1,0 +1,12 @@
+{% extends "website/base.html" %}
+{% block title %}Porch Host Invite{% endblock %}
+{% block mainclass %}porch-host-invite{% endblock %}
+{% block content %}
+<h2>Welcome! Create your account</h2>
+<h2>For: {{ email }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Account</button>
+</form>
+{% endblock %}

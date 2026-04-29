@@ -1,0 +1,46 @@
+<div class="porch-wrapper">
+    <div class="hero">
+        <div class="wrapper">
+            <div class="title">
+                <div>
+                    <h1>{{ performer.name }}</h1>
+                </div>
+            </div>
+            <div style="display:flex;gap:1em;align-items:center;">
+                {% if performer.link %}
+                    <a href="{{ performer.link }}" target="_blank">
+                        <i class="fa-solid fa-link"></i> Website
+                    </a>
+                {% endif %}
+                {% if performer.member_count %}
+                    <small>{{ performer.member_count }} Performers</small>
+                {% endif %}
+                {% if performer.instruments %}
+                    <small>{{ performer.instruments }} Instruments</small>
+                {% endif %}
+            </div>
+            {% if performer.profile_picture %}
+                <div class="img-wrapper">
+                    <img src="/media/{{ performer.profile_picture }}" alt="{{ performer.name }}">
+                </div>
+            {% endif %}
+            <p class="pre-wrap">{{ performer.bio }}</p>
+            <div class="genres">
+                {% for genre in performer.genres.all %}
+                    <span class="chip">{{ genre.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="lineup" id="porch_lineup">
+        <div class="performance-list">
+            {% for performance in performer.performances.all %}
+                {% include 'website/performer-page/performance-detail.html' %}
+            {% empty %}
+                <div class="performance-card">
+                    <h2>No performers scheduled.</h2>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

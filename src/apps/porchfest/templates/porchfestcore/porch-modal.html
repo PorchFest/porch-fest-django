@@ -1,0 +1,16 @@
+<div
+    x-data="modalHistory()"
+    x-show="$store.porch.open"
+    x-transition
+    class="porch-modal"
+    x-effect="
+        if($store.porch.content){
+            $nextTick(()=>htmx.process($el))
+        }
+    "
+>
+    <header>
+        <i class="fas fa-times-circle" @click="closeModal()"></i>
+    </header>
+    <div x-html="$store.porch.content"></div>
+</div>
