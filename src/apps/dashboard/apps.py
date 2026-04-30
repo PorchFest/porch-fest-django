@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class PorchpanelConfig(AppConfig):
+class DashboardConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'porchpanel'
+    name = 'src.apps.dashboard'
 
     def ready(self):
-        import porchpanel.signals
+        import src.apps.dashboard.signals

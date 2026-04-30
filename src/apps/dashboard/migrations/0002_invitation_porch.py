@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('porchfestcore', '0010_performer_created_by'),
-        ('porchpanel', '0001_initial'),
+        ('dashboard', '0001_initial'),
     ]
 
     operations = [

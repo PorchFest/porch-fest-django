@@ -87,16 +87,6 @@ def porch_page(request, slug):
 def performer_page(request, slug):
     performer = get_object_or_404(Performer, slug=slug)
     context = {"performer": performer}
-    # if request.session.get('itinerary_id'):
-    #     itinerary = get_or_create_itinerary(request).ordered_performances()
-    #     context["itinerary"] = itinerary
-        # context["itinerary_test"] = set(item.id for item in itinerary)
-    # if request.headers.get("HX-Request"):
-    #     performances = request.GET.get("performances")
-    #     if performances:
-    #         performances = Performance.objects.filter(id__in=performances.split(","))
-    #         context["performances"] = performances
-        # return render(request, 'website/porch-page/porch-component.html', context)
     return render(request, 'website/performer-page/performer-page.html', context)
 
 def add_performance(request):

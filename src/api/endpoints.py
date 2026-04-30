@@ -1,7 +1,7 @@
 from rest_framework.generics    import ListAPIView
 from .serializers               import PorchMapSerializer
 from .filters                   import PorchMapFilter
-from porchfestcore.models       import Porch, Performance
+from src.apps.porchfest.models       import Porch, Performance
 from django.db.models           import Prefetch
 
 class PorchMap(ListAPIView):

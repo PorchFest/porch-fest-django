@@ -29,13 +29,13 @@ INSTALLED_APPS = [
 	'django_recaptcha',
     'phonenumber_field',
 	'mapwidgets',
-	'porchfestcore',
-	'website',
-    'porchpanel',
-    'planyourday',
-    'anymail',
-    'rest_framework',
-    'rest_framework_gis',
+	'src.apps.porchfest',
+	# 'src.apps.website',
+    'src.apps.dashboard',
+    # 'planyourday',
+    # 'anymail',
+    # 'rest_framework',
+    # 'rest_framework_gis',
 ]
 
 LOGIN_URL                   = "porchpanel:login"
@@ -95,7 +95,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'porchfest.urls'
+ROOT_URLCONF = 'src.urls'
 
 TEMPLATES = [
     {
@@ -112,7 +112,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'porchfest.wsgi.application'
+WSGI_APPLICATION = 'src.wsgi.application'
 
 
 # Database

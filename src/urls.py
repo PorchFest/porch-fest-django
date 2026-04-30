@@ -8,13 +8,13 @@ admin.site.index_title			= 'Admin'
 admin.site.site_title			= 'Porchfest'
 
 urlpatterns = [
-	path('', include('website.urls')),
-    path('map/', include('porchfestcore.urls')),
-    path('plan-your-day/', include('planyourday.urls')),
-    path('dashboard/', include('porchpanel.urls')),
+	# path('', include('website.urls')),
+    path('map/', include('src.apps.porchfest.urls')),
+    # path('plan-your-day/', include('planyourday.urls')),
+    path('dashboard/', include('src.apps.dashboard.urls')),
     path('porchfestpeeps/', admin.site.urls),
-    path('api/porches/', include('porchfestcore.api.urls')),
-    path('api/plan-your-day/', include('planyourday.api.urls')),
+    path('api/', include('src.api.urls')),
+    # path('api/plan-your-day/', include('planyourday.api.urls')),
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(),

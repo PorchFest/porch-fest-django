@@ -5,7 +5,7 @@ from django.http		        import HttpResponse
 from mapwidgets.widgets 	    import GoogleMapPointFieldWidget
 from django.utils.translation   import gettext_lazy as _
 from .models 				    import Performer, Porch, Genre, Request, Performance, TempUpload
-from porchpanel.models          import Invitation
+from src.apps.dashboard.models  import Invitation
 from .forms 				    import PerformanceForm, TimeInput
 
 class PerformanceInline(admin.TabularInline):
