@@ -1,0 +1,58 @@
+<div class="performance-card">
+    <div class="performance-header">
+        <h4><a href="/performers/{{ performance.performer.slug }}">{{ performance.performer.name }}</a></h4>
+        <div class="buttons">
+            {% comment %}
+            <button class="small white padding-1"><i class="fa-regular fa-calendar"></i></button>
+            {% endcomment %}
+            <button 
+                class="small white padding-1"
+                {% if itinerary_id %}
+                    hx-post="{% url 'remove_performance_shared' itinerary_id %}"
+                {% else %}
+                    hx-post="{% url 'remove_performance' %}"
+                {% endif %}
+                hx-trigger="click"
+                hx-vals='{"performance_id": "{{ performance.id }}"}'
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-target="#itinerary_sidebar"
+                hx-swap="outerHTML"
+            ><i class="fa-regular fa-trash-can"></i></button>
+        </div>
+    </div>
+    <div class="performance-body">
+        <p>
+            <small>
+                <i class="fa-regular fa-clock"></i> {{ performance.start_time }} - {{ performance.end_time }}
+            </small>
+        </p>
+        <div class="genres">
+            {% for genre in performance.performer.genres.all %}
+                <span class="chip">{{ genre.name }}</span>
+            {% endfor %}
+        </div>
+        <div class="display-flex gutter-1">
+            <div class="text-left grow-1" style="line-height:1.5rem">
+                <a href="/porches/{{ performance.porch.slug }}" style="display:inline-block;text-align:center;width:16px;height:16px;">
+                    <i class="fa-solid fa-house-user"></i>
+                </a>
+                <a href="/porches/{{ performance.porch.slug }}">
+                    {{ performance.porch.name }}
+                </a>
+                <br>
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}" style="display:inline-block;text-align:center;width:16px;height:16px;">
+                    <i class="fa-solid fa-location-pin"></i>
+                </a>
+                <a href="{% url 'map' %}?porch={{ performance.porch.slug }}">
+                    {{ performance.porch.street_address }}
+                </a>
+            </div>
+            <a href="https://www.google.com/maps/dir/?api=1&destination={{ performance.porch.street_address|urlencode }}">
+                <i class="google-maps small"></i>
+            </a>
+            <a href="https://maps.apple.com/?q={{ performance.porch.street_address|urlencode }}">
+                <i class="apple-maps small"></i>
+            </a>
+        </div>
+    </div>
+</div>

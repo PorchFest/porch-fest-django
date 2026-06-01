@@ -1,0 +1,7 @@
+{% if itinerary|length %}
+    {% for performance in itinerary %}
+        {% include "planyourday/itinerary-detail.html" %}
+    {% endfor %}
+{% else %}
+    <p>Click the plus button next to a performance to begin your itinerary<p>
+{%endif %}
