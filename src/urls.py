@@ -8,7 +8,7 @@ admin.site.index_title			= 'Admin'
 admin.site.site_title			= 'Porchfest'
 
 urlpatterns = [
-	# path('', include('website.urls')),
+	path('', include('src.apps.website.urls')),
     path('map/', include('src.apps.porchfest.urls')),
     # path('plan-your-day/', include('planyourday.urls')),
     path('dashboard/', include('src.apps.dashboard.urls')),

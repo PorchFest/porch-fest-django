@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
 	'mapwidgets',
 	'src.apps.porchfest',
-	# 'src.apps.website',
+	'src.apps.website',
     'src.apps.dashboard',
     # 'planyourday',
     # 'anymail',

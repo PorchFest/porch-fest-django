@@ -1,18 +1,19 @@
 from django.shortcuts 		import render, get_object_or_404
 from django.views.generic 	import TemplateView
-from .forms					import PorchInterestForm, PorchSignupForm
+# from .forms					import PorchInterestForm, PorchSignupForm
 from .models				import Sponsor
-from porchfestcore.models   import TempUpload, Porch, Performer, Performance
+# from porchfestcore.models   import TempUpload, Porch, Performer, Performance
 from pathlib                import Path
 from django.core.files.base import ContentFile
 from django.core.mail       import EmailMessage
 from django.template.loader import render_to_string
-from planyourday.views      import get_or_create_itinerary
+# from planyourday.views      import get_or_create_itinerary
 
 def index(request):
-    sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
-    form		= PorchSignupForm()
-    return render(request, 'website/front-page/index.html', {"sponsors": sponsors, 'form': form})
+    # sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
+    # form		= PorchSignupForm()
+    # return render(request, 'website/front-page/index.html', {"sponsors": sponsors, 'form': form})
+    return render(request, 'website/front-page/index.html')
 
 def porch_signup(request):
     temp_image = None
