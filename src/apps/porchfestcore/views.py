@@ -1,0 +1,24 @@
+from django.shortcuts 		import render
+from django.views.generic 	import TemplateView
+from django.http			import JsonResponse
+from django.conf 		    import settings
+from .models                import Genre
+from src.apps.planyourday.views      import get_or_create_itinerary
+
+def map_page(request):
+    print("HELLOO FROM APPS")
+    genres = Genre.objects.order_by('name').filter(performer__isnull=False).distinct()
+    context = {
+        'genres': genres,
+        'MAPBOX_PUBLIC_KEY': settings.MAPBOX_PUBLIC_KEY
+    }
+    if request.session.get('itinerary_id'):
+        context['itinerary'] = get_or_create_itinerary(request).ordered_performances()
+
+    return render(request, 'porchfestcore/map.html', context)
+
+def bland_map(request):
+    return render(request, 'porchfestcore/bland-map.html', {'MAPBOX_PUBLIC_KEY': settings.MAPBOX_PUBLIC_KEY})
+
+def coming_soon(request):
+    return render(request, 'porchfestcore/coming-soon.html')
