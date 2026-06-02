@@ -8,12 +8,15 @@ from django.core.files.base import ContentFile
 from django.core.mail       import EmailMessage
 from django.template.loader import render_to_string
 # from planyourday.views      import get_or_create_itinerary
+from django.template.loader import get_template
 
 def index(request):
     # sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
     # form		= PorchSignupForm()
     # return render(request, 'website/front-page/index.html', {"sponsors": sponsors, 'form': form})
-    return render(request, 'website/front-page/index.html')
+    template = get_template("front-page/index.html")
+    print("resolved path: ", template.origin.name)
+    return render(request, 'front-page/index.html')
 
 def porch_signup(request):
     temp_image = None

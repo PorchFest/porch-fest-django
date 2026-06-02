@@ -102,7 +102,7 @@ class PorchMap{
 		}
 		this.markers = []
 		try{
-			const response = await axios.get("/api/porches/porch-map", {
+			const response = await axios.get("/api/porch-map", {
 				params: data,
 				paramsSerializer: params=>{
 					const searchParams = new URLSearchParams()

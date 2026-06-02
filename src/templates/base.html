@@ -18,11 +18,11 @@
 		{% block head %}{% endblock %}
 	</head>
 	<body>
-		{% include "website/header.html" %}
+		{% include "header.html" %}
 		<main class="{% block mainclass %}{% endblock %}">
 			{% block content %}{% endblock %}
 		</main>
-		{% include "website/footer.html" %}
+		{% include "footer.html" %}
 		<script src="{% static 'website/js/mobile-menu.js' %}"></script>
 		<script src="https://unpkg.com/htmx.org@1.9.3"></script>
 		<script src="https://unpkg.com/alpinejs" defer></script>
