@@ -12,7 +12,7 @@ from src.apps.planyourday.views      import get_or_create_itinerary
 def index(request):
     sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
     form		= PorchSignupForm()
-    return render(request, 'website/front-page/index.html', {"sponsors": sponsors, 'form': form})
+    return render(request, 'front-page/index.html', {"sponsors": sponsors, 'form': form})
 
 def porch_signup(request):
     temp_image = None
@@ -33,7 +33,7 @@ def porch_signup(request):
                 )
                 temp_image.delete()
             instance.save()
-            html = render_to_string('website/emails/porch-signup-email.html', {
+            html = render_to_string('emails/porch-signup-email.html', {
                 'name': instance.owner_name,
             })
             email = EmailMessage(
@@ -44,7 +44,7 @@ def porch_signup(request):
             )
             email.content_subtype = "html"
             email.send(fail_silently=False)
-            return render(request, 'website/porch-signup-page/success.html')
+            return render(request, 'porch-signup-page/success.html')
         else:
             if "porch_picture" in request.FILES:
                 temp_image = TempUpload.objects.create(
@@ -53,7 +53,7 @@ def porch_signup(request):
     else:
         form = PorchSignupForm()
 
-    return render(request, 'website/porch-signup-page/porch-signup.html', {
+    return render(request, 'porch-signup-page/porch-signup.html', {
         'form': form,
         "temp_image": temp_image,
     })
@@ -63,11 +63,11 @@ def porch_list_signup(request):
         form = PorchInterestForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'website/porch-list-form/success.html')
+            return render(request, 'porch-list-form/success.html')
     else:
         form = PorchInterestForm()
 
-    return render(request, 'website/porch-list-form/porch-list-form.html', {'form': form})
+    return render(request, 'porch-list-form/porch-list-form.html', {'form': form})
 
 def porch_page(request, slug):
     porch = get_object_or_404(Porch, slug=slug)
@@ -81,8 +81,8 @@ def porch_page(request, slug):
         if performances:
             performances = Performance.objects.filter(id__in=performances.split(","))
             context["performances"] = performances
-        return render(request, 'website/porch-page/porch-component.html', context)
-    return render(request, 'website/porch-page/porch-page.html', context)
+        return render(request, 'porch-page/porch-component.html', context)
+    return render(request, 'porch-page/porch-page.html', context)
 
 def performer_page(request, slug):
     performer = get_object_or_404(Performer, slug=slug)
@@ -96,8 +96,8 @@ def performer_page(request, slug):
     #     if performances:
     #         performances = Performance.objects.filter(id__in=performances.split(","))
     #         context["performances"] = performances
-        # return render(request, 'website/porch-page/porch-component.html', context)
-    return render(request, 'website/performer-page/performer-page.html', context)
+        # return render(request, 'porch-page/porch-component.html', context)
+    return render(request, 'performer-page/performer-page.html', context)
 
 def add_performance(request):
     itinerary       = get_or_create_itinerary(request)
@@ -110,17 +110,17 @@ def add_performance(request):
         "itinerary_test": set(item.id for item in itinerary.ordered_performances()),
         "itinerary":    itinerary.ordered_performances(),
     }
-    return render(request, "website/porch-page/performance-detail-update.html", context)
+    return render(request, "porch-page/performance-detail-update.html", context)
 
 def list_porch(request):
     porches = Porch.objects.filter(approved=True).order_by("name")
-    return render(request, 'website/list-porch.html', {"porches": porches})
+    return render(request, 'list-porch.html', {"porches": porches})
 
 def about(request):
-    return render(request, 'website/about.html')
+    return render(request, 'about.html')
 def volunteer(request):
-    return render(request, 'website/volunteer.html')
+    return render(request, 'volunteer.html')
 def sponsorship(request):
-    return render(request, 'website/sponsorship.html')
+    return render(request, 'sponsorship.html')
 def donate(request):
-    return render(request, 'website/donate.html')
+    return render(request, 'donate.html')

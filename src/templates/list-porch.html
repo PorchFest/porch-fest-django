@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Porches{% endblock %}
+{% block mainclass %}list-porch-styles{% endblock %}
+{% block content %}
+    <div class="porch-wrapper">
+        <h3>Porches</h2>
+        {% if porches|length %}
+            {% for porch in porches %}
+                <div class="porch-card">
+                    <div class="porch-head">
+                        <h4>
+                            <a href="{% url 'porch_page' porch.slug %}">
+                                <i class="fa-solid fa-house-user"></i> {{ porch.name }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="porch-body">
+                        <p class="pre-wrap">{{ porch.description|truncatechars:100 }}</p>
+                        <div class="text-left grow-1" style="line-height:1.5rem">
+                            <a href="{% url 'map' %}?porch={{ porch.slug }}" style="display:inline-block;text-align:center;font-size:14px;width:16px;height:16px;">
+                                <i class="fa-solid fa-location-pin"></i>
+                            </a>
+                            <a href="{% url 'map' %}?porch={{ porch.slug }}">
+                                <small>{{ porch.street_address }}</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div style="margin:3em 0">
+                <p>Hang tight while we add porches</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

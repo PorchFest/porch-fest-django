@@ -118,7 +118,7 @@ class Porch(models.Model):
 
         if config('DEBUG') == False:
             if is_approved:
-                html = render_to_string('website/emails/porch-approved-email.html', {
+                html = render_to_string('emails/porch-approved-email.html', {
                     'name': self.owner_name,
                 })
                 email = EmailMessage(

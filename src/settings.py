@@ -15,6 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY 		= config('SECRET_KEY')
 DEBUG 			= config('DEBUG', default=False, cast=bool)
 # DEBUG = False
+# DEBUG = False
 ALLOWED_HOSTS 	= config('ALLOWED_HOSTS', default='towerporchfest.org,www.towerporchfest.org').split(',')
 # ALLOWED_HOSTS = ['localhost']
 INSTALLED_APPS = [
@@ -99,7 +100,7 @@ ROOT_URLCONF = 'src.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [BASE_DIR / 'templates'],
+		'DIRS': [BASE_DIR / 'src/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,7 +112,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'porchfest.wsgi.application'
+WSGI_APPLICATION = 'src.wsgi.application'
 
 
 # Database
