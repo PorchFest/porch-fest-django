@@ -2,7 +2,7 @@ from django 					import forms
 from django_recaptcha.fields	import ReCaptchaField
 from django_recaptcha.widgets	import ReCaptchaV2Checkbox
 from .models					import PorchInterest
-from src.apps.porchfestcore.models       import Porch
+from src.apps.porchfestcore.models       import Porch, Performer
 
 class PorchInterestForm(forms.ModelForm):
     captcha		= ReCaptchaField(widget=ReCaptchaV2Checkbox)
@@ -72,5 +72,47 @@ class PorchSignupForm(forms.ModelForm):
 
         if email and Porch.objects.filter(owner_email__iexact=email).exists():
             self.add_error("owner_email", "This email has already been used.")
+
+        return cleaned_data
+
+class PerformerSignupForm(forms.ModelForm):
+    # captcha		= ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    class Meta:
+        model 	= Performer
+        fields  = [
+            'name',
+            'bio',
+            'genres',
+            'member_count',
+            'instruments',
+            'link',
+            'profile_picture',
+            # 'captcha',
+        ]
+        # widgets = {
+        #     'street_address': forms.TextInput(attrs={'placeholder': '1234 Street Ave'}),
+        #     'number_of_performances': forms.NumberInput(attrs={'min': 1,'max': 15,}),
+        # }
+    def __init__(self, *args, **kwargs):
+        self.temp_image = kwargs.pop('temp_image', None)
+        super().__init__(*args, **kwargs)
+
+    def clean_performer_picture(self):
+        performer_picture = self.cleaned_data.get("performer_picture")
+        if not performer_picture and self.temp_image:
+            return self.temp_image.image
+        return performer_picture
+
+    # def clean(self):
+    #     cleaned_data 	= super().clean()
+    #     owner_name 		= cleaned_data.get("owner_name")
+    #     street_address 	= cleaned_data.get("street_address")
+    #     email 			= cleaned_data.get("owner_email")
+
+        # if street_address and Porch.objects.filter(street_address__iexact=street_address).exists():
+        #     self.add_error("street_address", "This address is already registered.")
+
+        # if email and Porch.objects.filter(owner_email__iexact=email).exists():
+        #     self.add_error("owner_email", "This email has already been used.")
 
         return cleaned_data

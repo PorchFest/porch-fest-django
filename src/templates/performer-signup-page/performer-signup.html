@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Porch Signup!{% endblock %}
+{% block mainclass %}porch-signup{% endblock %}
+{% block content %}
+    <h1>Sign up to Perform at Porchfest!!</h1>
+	<form id="porch_signup_form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_name">Performer Name</label>
+                <p>What should we call you?</p>
+                {% comment %} <p>Have fun with your porch name! &#128540;</p> {% endcomment %}
+            </div>
+            {{ form.name }}
+        </div>
+        {% if form.name.errors %}
+            <ul class="errorlist">
+                {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_bio">Biography</label>
+                <p>Give us a feel for your performance &#128540</p>
+            </div>
+            {{ form.bio }}
+        </div>
+        {% if form.bio.errors %}
+            <ul class="errorlist">
+                {% for error in form.bio.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_genres">Genres</label>
+                <p>Don't box yourself in. Pick as many as you want.</p>
+            </div>
+            {{ form.genres }}
+        </div>
+        {% if form.genres.errors %}
+            <ul class="errorlist">
+                {% for error in form.genres.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_member_count">About How Many Are You?</label>
+                <p>We like to count how many performers show up for our events</p>
+            </div>
+            {{ form.member_count }}
+        </div>
+        {% if form.member_count.errors %}
+            <ul class="errorlist">
+                {% for error in form.member_count.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_instruments">And the Instruments Too</label>
+                <p>Pretty Please</p>
+            </div>
+            {{ form.instruments }}
+        </div>
+        {% if form.instruments.errors %}
+            <ul class="errorlist">
+                {% for error in form.instruments.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_link">Put a URL Here:</label>
+                <p>Instagram is fine or whatever</p>
+            </div>
+            {{ form.link }}
+        </div>
+        {% if form.link.errors %}
+            <ul class="errorlist">
+                {% for error in form.link.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_profile_picture">Post a Picture!</label>
+                <p>We love pictures!</p>
+            </div>
+            {{ form.profile_picture }}
+        </div>
+        {% if form.profile_picture.errors %}
+            <ul class="errorlist">
+                {% for error in form.profile_picture.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="captcha-container">
+            {{ form.captcha }}
+        </div>
+        {% if form.captcha.errors %}
+            <ul class="errorlist">
+                {% for error in form.captcha.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <button type="submit" id="form_submit">Submit</button>
+    </form>
+    <script src="{% static 'website/js/porch-signups.js' %}"></script>
+{% endblock %}

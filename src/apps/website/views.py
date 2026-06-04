@@ -1,6 +1,6 @@
 from django.shortcuts 		import render, get_object_or_404
 from django.views.generic 	import TemplateView
-from .forms					import PorchInterestForm, PorchSignupForm
+from .forms					import PorchInterestForm, PorchSignupForm, PerformerSignupForm
 from .models				import Sponsor
 from src.apps.porchfestcore.models   import TempUpload, Porch, Performer, Performance
 from pathlib                import Path
@@ -13,6 +13,50 @@ def index(request):
     sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
     form		= PorchSignupForm()
     return render(request, 'front-page/index.html', {"sponsors": sponsors, 'form': form})
+
+def performer_signup(request):
+    temp_image = None
+    if request.method == 'POST':
+        form = PerformerSignupForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            if request.POST.get("temp_image_id") and not request.FILES.get("performer_picture"):
+                temp_image = TempUpload.objects.filter(
+                    id=request.POST["temp_image_id"]
+                ).first()
+                temp_file = temp_image.image
+                filename = Path(temp_file.name).name
+                instance.performer_picture.save(
+                    filename,
+                    ContentFile(temp_file.read()),
+                    save=False
+                )
+                temp_image.delete()
+            instance.save()
+            html = render_to_string('emails/performer-signup-email.html', {
+                'name': instance.owner_name,
+            })
+            email = EmailMessage(
+                subject="New Performer Signup",
+                body=html,
+                from_email="Tower Porchfest <info@towerporchfest.org>",
+                to=[instance.owner_email],
+            )
+            email.content_subtype = "html"
+            email.send(fail_silently=False)
+            return render(request, 'performer-signup-page/success.html')
+        else:
+            if "performer_picture" in request.FILES:
+                temp_image = TempUpload.objects.create(
+                    image=request.FILES["porch_picture"]
+                )
+    else:
+        form = PerformerSignupForm()
+
+    return render(request, 'performer-signup-page/performer-signup.html', {
+        'form': form,
+        "temp_image": temp_image,
+    })
 
 def porch_signup(request):
     temp_image = None

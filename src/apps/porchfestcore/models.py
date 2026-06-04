@@ -41,7 +41,7 @@ class Performer(models.Model):
     link 				= models.URLField(blank=True)
     slug                = models.SlugField(unique=True, blank=True, max_length=255)
     profile_picture		= models.ImageField(upload_to='performers/', blank=True, null=True)
-    created_by 		    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='performers')
+    # created_by 		    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='performers')
 
     def save(self, *args, **kwargs):
         if not self.slug:

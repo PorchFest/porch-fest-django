@@ -152,7 +152,8 @@ class PerformanceAdmin(admin.ModelAdmin):
 
 @admin.register(Performer)
 class PerformerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_by',)
+    # list_display = ('name', 'created_by',)
+    list_display = ('name',)
     search_fields = ['name']
     actions = ['export_as_csv',]
     list_filter = (HasPerformancesFilter,)
