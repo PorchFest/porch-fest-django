@@ -96,8 +96,7 @@
             background-color: color.adjust($color-fg-accent, $lightness: 10%);
         }
     }
-}
-
-.highlight {
-    background-color: $color-bg-main;
+    .highlight {
+        background-color: $color-bg-main;
+    }
 }

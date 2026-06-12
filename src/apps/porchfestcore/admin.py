@@ -155,6 +155,7 @@ class PerformerAdmin(admin.ModelAdmin):
     # list_display = ('name', 'created_by',)
     list_display = ('name',)
     search_fields = ['name']
+    inlines = [PerformanceInline, InvitationInline]
     actions = ['export_as_csv',]
     list_filter = (HasPerformancesFilter,)
     def export_as_csv(self, request, queryset):

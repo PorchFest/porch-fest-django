@@ -1,18 +1,68 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Porch Signup!{% endblock %}
-{% block mainclass %}porch-signup{% endblock %}
+{% block mainclass %}performer-signup{% endblock %}
 {% block content %}
     <h1>Sign up to Perform at Porchfest!!</h1>
-	<form id="porch_signup_form" method="post" enctype="multipart/form-data">
+	<form
+        id="performer_signup_form"
+        class="performer-signup-form"
+        method="post"
+        enctype="multipart/form-data"
+    >
         {% csrf_token %}
-        <div class="form-group">
-            <div class="label">
-                <label for="id_name">Performer Name</label>
-                <p>What should we call you?</p>
-                {% comment %} <p>Have fun with your porch name! &#128540;</p> {% endcomment %}
+        
+        <div class="form-group performer" x-data="{selectedPerformer: '', highlightedIndex: 0, isSelected: null}">
+            <div class="label label-performer">
+                <div class="left">
+                    <label for="id_name">Performer Name</label>
+                    <p>What should we call you?</p>
+                    <p>(And check to see if you're already in here)</p>
+                </div>
+                <div class="right" x-show="isSelected">
+                    <p>You have selected an existing performer to claim as yours. The selected performer is highlighted <span style="background-color:red;color:white;padding:4px 4px 4px">green</span></p>
+                </div>
             </div>
-            {{ form.name }}
+            <div class="input">
+                <div class="wrapper">
+                    <input
+                        id="id_name"
+                        name="name"
+                        type="text"
+                        placeholder="Enter or Search"
+                        hx-get="{% url 'performer-search' %}"
+                        hx-trigger="input changed delay:500ms"
+                        hx-target="#performer_results"
+                        hx-swap="innerHTML"
+                        hx-params="*"
+                        @keydown.arrow-down.prevent="
+                            highlightedIndex = Math.min(
+                                highlightedIndex + 1,
+                                $refs.results.querySelectorAll('li').length - 1
+                            )
+                        "
+                        @keydown.arrow-up.prevent="
+                            highlightedIndex = Math.max(
+                                highlightedIndex - 1,
+                                0
+                            )
+                        "
+                        @keydown.enter.prevent="
+                            $refs.results.querySelectorAll('li')[highlightedIndex]?.click()
+                        "
+                    >
+                    <div
+                        class="performer-results"
+                        id="performer_results"
+                        x-ref="results"
+                    ></div>
+                </div>
+                <button
+                    class="clear"
+                    x-show="isSelected"
+                >Clear</button>
+            </div>
+            <input type="hidden" name="performer" id="id_performer" x-model="selectedPerformer">
         </div>
         {% if form.name.errors %}
             <ul class="errorlist">
@@ -21,6 +71,42 @@
                 {% endfor %}
             </ul>
         {% endif %}
+        {% if form.performer.errors %}
+            <ul class="errorlist">
+                {% for error in form.performer.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_email">An email for your account</label>
+                <p>We need your email to make an account, and to email you.</p>
+            </div>
+            {{ form.email }}
+        </div>
+        {% if form.email.errors %}
+            <ul class="errorlist">
+                {% for error in form.email.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="form-group">
+            <div class="label">
+                <label for="id_phone_number">Phone Number</label>
+                <p>In case this is a better way to get ahold of you. No pressure</p>
+            </div>
+            {{ form.phone_number }}
+        </div>
+        {% if form.phone_number.errors %}
+            <ul class="errorlist">
+                {% for error in form.phone_number.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         <div class="form-group">
             <div class="label">
                 <label for="id_bio">Biography</label>
@@ -87,20 +173,6 @@
         {% if form.link.errors %}
             <ul class="errorlist">
                 {% for error in form.link.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        <div class="form-group">
-            <div class="label">
-                <label for="id_profile_picture">Post a Picture!</label>
-                <p>We love pictures!</p>
-            </div>
-            {{ form.profile_picture }}
-        </div>
-        {% if form.profile_picture.errors %}
-            <ul class="errorlist">
-                {% for error in form.profile_picture.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>

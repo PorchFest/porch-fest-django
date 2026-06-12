@@ -1,0 +1,21 @@
+{% if performers %}
+    <ul>
+    {% for performer in performers %}
+        <li
+            :class="{
+                'highlight': highlightedIndex === {{ forloop.counter0 }} || isSelected == $el,
+                'selected': isSelected == $el
+            }"
+            data-performer-id="{{ performer.id }}"
+            @click="
+                highlightedIndex = {{ forloop.counter0 }};
+                selectedPerformer = '{{ performer.id }}';
+                isSelected = $el;
+            "
+            @mouseenter="highlightedIndex = {{ forloop.counter0 }}"
+        >
+            {{ performer.name }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}

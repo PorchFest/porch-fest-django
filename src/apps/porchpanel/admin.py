@@ -4,7 +4,7 @@ from django.utils.html  import format_html
 
 @admin.register(Invitation)
 class InvitationAdmin(admin.ModelAdmin):
-    list_display = ("owner_email", "accepted", "expires_at", "invite_link")
+    list_display = ("email", "accepted", "expires_at", "invite_link")
     readonly_fields = ("invite_link",)
 
     def invite_link(self, obj):

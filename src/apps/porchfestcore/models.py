@@ -41,7 +41,15 @@ class Performer(models.Model):
     link 				= models.URLField(blank=True)
     slug                = models.SlugField(unique=True, blank=True, max_length=255)
     profile_picture		= models.ImageField(upload_to='performers/', blank=True, null=True)
-    # created_by 		    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='performers')
+    email               = models.EmailField(null=True)
+    phone_number        = PhoneNumberField(null=True, blank=True)
+    user                = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+    created_by 		    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='performers', null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -68,7 +76,6 @@ class Porch(models.Model):
     user				    = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="performance_requests",
         blank=True,
         null=True,
     )
