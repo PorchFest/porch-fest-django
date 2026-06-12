@@ -121,9 +121,9 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
 		'ENGINE': 		'django.contrib.gis.db.backends.postgis',
-		'NAME': 		config('DB_NAME'),
-		'USER': 		config('DATABASE_USER'),
-		'PASSWORD': 	config('DATABASE_PASS'),
+		'NAME': 		config('POSTGRES_DB'),
+		'USER': 		config('POSTGRES_USER'),
+		'PASSWORD': 	config('POSTGRES_PASSWORD'),
 		'HOST': 		'localhost',
 		'PORT': 		'5432',
 	}
