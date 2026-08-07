@@ -82,8 +82,9 @@ class PerformerSignupForm(forms.ModelForm):
         required=False,
         widget=forms.HiddenInput(),
     )
+    name = forms.CharField(error_messages={"required":"You have to at least give us a name..."})
 
-    # captcha		= ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha		= ReCaptchaField(widget=ReCaptchaV2Checkbox)
     class Meta:
         model 	= Performer
         fields  = [
@@ -93,9 +94,8 @@ class PerformerSignupForm(forms.ModelForm):
             'bio',
             'genres',
             'member_count',
-            'instruments',
             'link',
-            # 'captcha',
+            'captcha',
         ]
 
     def clean_email(self):
@@ -112,34 +112,27 @@ class PerformerSignupForm(forms.ModelForm):
         cleaned_data 	= super().clean()
         name            = cleaned_data.get('name')
         email 			= cleaned_data.get('email')
-        # performer       = cleaned_data.get('performer')
-
         performer       = cleaned_data.get('performer')
         if not performer and Performer.objects.filter(name__iexact=name).exists():
             performer   = Performer.objects.get(name__iexact=name)
         if performer and performer.user:
             self.add_error(
                 "performer",
-                "This performer has already been claimed."
+                f"The performer '{performer.name}' has already been claimed. Email us if this seems like it could might possibly be a mistake."
             )
         if performer:
             if Invitation.objects.filter(performer=performer).exists():
                 self.add_error(
                     "performer",
-                    "This performer already has an invitation. Although it will expire in two weeks so maybe try again or email us with your demands"
+                    "This performer already has an invitation. Although it will expire in two weeks so maybe try again or email us with your demands."
                 )
 
         if email and Performer.objects.filter(email__iexact=email).exists():
-            self.add_error("email", "This email has already been used.")
+            self.add_error("email", "This email has already been used. Maybe you've already signed up in a past life.")
 
         return cleaned_data
     
     def get_or_create_performer(self):
-        selected = self.cleaned_data.get("performer")
-        if selected:
-            return selected
-        return super().save()
-
         selected = self.cleaned_data.get("performer")
         if selected:
             return selected

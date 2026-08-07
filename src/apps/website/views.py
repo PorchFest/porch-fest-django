@@ -26,6 +26,11 @@ def performer_signup(request):
                 performer=performer
             )
             return render(request, 'performer-signup-page/success.html')
+        else:
+            return render(request, 'performer-signup-page/form.html', {
+                'form': form,
+                "temp_image": temp_image,
+            })        
     else:
         form = PerformerSignupForm()
     return render(request, 'performer-signup-page/performer-signup.html', {

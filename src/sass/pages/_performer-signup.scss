@@ -44,10 +44,36 @@ main.performer-signup{
         .performer{
             flex-direction: column;
             align-items: center;
-            .label-performer{
+            .label-performer {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto; 
                 column-gap: 10px;
+                transition: grid-template-rows 0.5s ease; 
+                .right {
+                    min-height: 0;
+                    transition: opacity 0.3s ease;
+                    opacity: 0;
+                    visibility: hidden;
+                    pointer-events: none;
+                }
+                &.show {
+                    .right {
+                        opacity: 1;
+                        visibility: visible;
+                        pointer-events: auto;
+                    }
+                }
+                @media (max-width: 450px) {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: auto 0fr;
+                    gap: 10px;
+                }
+                &.show {
+                    @media (max-width: 450px) {
+                        grid-template-rows: auto 1fr;
+                    }
+                }
             }
             .input{
                 display: grid;
@@ -71,11 +97,15 @@ main.performer-signup{
             &:has(ul){padding:4px}
             ul{
                 list-style: none;
+                max-height: 200px;
+                overflow: auto;
                 li{
                     padding: 5px;
                     border-bottom: 2px solid black;
                     border-radius: 4px;
                     cursor: default;
+                    padding: 0 10px;
+                    animation: growItem 0.4s ease forwards;
                     &.highlight{
                         background-color: #4169E1;
                         color: white;
@@ -90,5 +120,23 @@ main.performer-signup{
                 }
             }
         }
+        select#id_genres{
+            min-width: 150px;
+        }
+    }
+}
+
+@keyframes growItem{
+    0%{
+        max-height: 0;
+        opacity: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    100%{
+        max-height: 100px;
+        opacity: 1;
+        // padding-top: 8px;
+        // padding-bottom: 8px;
     }
 }

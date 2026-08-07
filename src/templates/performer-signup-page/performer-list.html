@@ -4,13 +4,12 @@
         <li
             :class="{
                 'highlight': highlightedIndex === {{ forloop.counter0 }} || isSelected == $el,
-                'selected': isSelected == $el
+                'selected': selectedPerformer == '{{ performer.id }}'
             }"
             data-performer-id="{{ performer.id }}"
             @click="
                 highlightedIndex = {{ forloop.counter0 }};
                 selectedPerformer = '{{ performer.id }}';
-                isSelected = $el;
             "
             @mouseenter="highlightedIndex = {{ forloop.counter0 }}"
         >
