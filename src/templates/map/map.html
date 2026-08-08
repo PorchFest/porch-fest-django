@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1XM2TE7QX"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-J1XM2TE7QX'); </script>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Map!</title>
+		<link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" >
+        <meta property="og:image" content="https://towerporchfest.org/static/website/images/2026-hero-teaser.png">
+        <meta name="twitter:card" content="Tower Porchfest: Building Community Through Music & Art. In the Fresno, CA Tower District on April 25h, 2026. A free music and art community festival.">
+        <meta name="twitter:image" content="https://towerporchfest.org/static/website/images/2026-hero-teaser.png">
+        <meta property="og:image:width" content="1000">
+        <meta property="og:image:height" content="1200">
+        <meta property="og:image:alt" content="Tower Porchfest: Building Community Through Music & Art. In the Fresno, CA Tower District on April 25h, 2026. A free music and art community festival.">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+		<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+		<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+		<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+		<script src="https://kit.fontawesome.com/630774b7c2.js" crossorigin="anonymous"></script>
+    	<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+		<script>
+			document.addEventListener('alpine:init', ()=>{
+				Alpine.store('ui', {
+					showFilter: false,
+					showItinerary: false,
+					filteredCount: null,
+				})
+			})
+		</script>
+		<script src="https://unpkg.com/alpinejs" defer></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<link rel="stylesheet" href="{% static "css/style.css" %}?v=5">
+		<style>
+			body{
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root" class="map-header" x-data="{selectedGenres: []}">
+			{% include "header.html" %}
+			{% include "map/map-toolbar.html" %}
+			<div id="map" @click="$store.ui.showFilter = false; $store.ui.showItinerary = false"></div>
+			<button id="use_location">Refresh Location <img src="/static/porchfestcore/images/person.svg" alt=""></button>
+			<div
+				id="map_legend"
+				class="map-legend"
+				x-data="{grow: false}"
+				@touchstart="grow = grow"
+				@touchend="grow = false"
+				:class="grow ? 'grow' : ''"
+			>
+				<div id="legend-content">
+					<ul>
+						<li data-filter-type="default" class="is-active"><img src="/static/porchfestcore/images/glyph.svg" alt="Porch" class="legend-icon"><span class="legend-label">Porch</span></li>
+						<li data-filter-type="sponsored" class="is-active"><img src="/static/porchfestcore/images/glyph-sponsor.svg" alt="Sponsor" class="legend-icon"><span class="legend-label">Sponsor</span></li>
+						<li data-filter-type="vendor" class="is-active"><img src="/static/porchfestcore/images/glyph-vendor.svg" alt="Vendor" class="legend-icon"><span class="legend-label">Vendor</span></li>
+						<li data-filter-type="porta" class="is-active"><img src="/static/porchfestcore/images/glyph-porta.svg" alt="Restroom" class="legend-icon"><span class="legend-label">Porta Potty</span></li>
+						<li data-filter-type="info" class="is-active"><img src="/static/porchfestcore/images/glyph-info.svg" alt="Info Booth" class="legend-icon"><span class="legend-label">Info Booth</span></li>
+						<li data-filter-type="parking" class="is-active"><img src="/static/porchfestcore/images/glyph-parking.svg" alt="Parking" class="legend-icon"><span class="legend-label">Parking</span></li>
+						<li data-filter-type="Hydration" class="is-active"><img src="/static/porchfestcore/images/glyph-drinking-water.png" alt="Drinking Water" class="legend-icon"><span class="legend-label">Hydration</span></li>
+						<li data-filter-type="parking" class="is-active"><img src="/static/porchfestcore/images/glyph-bike-repair.png" alt="Bike Repair" class="legend-icon"><span class="legend-label">Bike Repair</span></li>
+						<li data-filter-type="after-party" class="is-active"><img src="/static/porchfestcore/images/glyph-after-party.png" alt="After Party" class="legend-icon"><span class="legend-label">After Party</span></li>
+					</ul>
+				</div>
+			</div>
+			{% include "map/porch-modal.html" %}
+			{% include "map/itinerary.html" %}
+		</div>
+		<script>const MAPBOX_PUBLIC_KEY = "{{ MAPBOX_PUBLIC_KEY|escapejs }}"</script>
+		<script src="{% static 'porchfestcore/js/map.js' %}"></script>
+		<script src="{% static 'website/js/mobile-menu.js' %}"></script>
+	</body>
+</html>

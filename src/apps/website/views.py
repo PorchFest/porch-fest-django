@@ -1,0 +1,150 @@
+from django.shortcuts 		import render, get_object_or_404
+from django.views.generic 	import TemplateView
+from .forms					import PorchInterestForm, PorchSignupForm, PerformerSignupForm
+from .models				import Sponsor
+from src.apps.porchfestcore.models   import TempUpload, Porch, Performer, Performance
+from src.apps.porchpanel.models import Invitation
+from pathlib                import Path
+from django.core.files.base import ContentFile
+from django.core.mail       import EmailMessage
+from django.template.loader import render_to_string
+from src.apps.planyourday.views      import get_or_create_itinerary
+
+def index(request):
+    sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
+    form		= PorchSignupForm()
+    return render(request, 'front-page/index.html', {"sponsors": sponsors, 'form': form})
+
+def performer_signup(request):
+    temp_image = None
+    if request.method == 'POST':
+        form = PerformerSignupForm(request.POST, request.FILES)
+        if form.is_valid():
+            performer = form.get_or_create_performer()
+            Invitation.objects.create(
+                email=form.cleaned_data["email"],
+                performer=performer
+            )
+            return render(request, 'performer-signup-page/success.html')
+        else:
+            return render(request, 'performer-signup-page/form.html', {
+                'form': form,
+                "temp_image": temp_image,
+            })        
+    else:
+        form = PerformerSignupForm()
+    return render(request, 'performer-signup-page/performer-signup.html', {
+        'form': form,
+        "temp_image": temp_image,
+    })
+
+def porch_signup(request):
+    temp_image = None
+    if request.method == 'POST':
+        form = PorchSignupForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            if request.POST.get("temp_image_id") and not request.FILES.get("porch_picture"):
+                temp_image = TempUpload.objects.filter(
+                    id=request.POST["temp_image_id"]
+                ).first()
+                temp_file = temp_image.image
+                filename = Path(temp_file.name).name
+                instance.porch_picture.save(
+                    filename,
+                    ContentFile(temp_file.read()),
+                    save=False
+                )
+                temp_image.delete()
+            instance.save()
+            html = render_to_string('emails/porch-signup-email.html', {
+                'name': instance.owner_name,
+            })
+            email = EmailMessage(
+                subject="New Porch Signup",
+                body=html,
+                from_email="Tower Porchfest <info@towerporchfest.org>",
+                to=[instance.owner_email],
+            )
+            email.content_subtype = "html"
+            email.send(fail_silently=False)
+            return render(request, 'porch-signup-page/success.html')
+        else:
+            if "porch_picture" in request.FILES:
+                temp_image = TempUpload.objects.create(
+                    image=request.FILES["porch_picture"]
+                )
+    else:
+        form = PorchSignupForm()
+
+    return render(request, 'porch-signup-page/porch-signup.html', {
+        'form': form,
+        "temp_image": temp_image,
+    })
+
+def porch_list_signup(request):
+    if request.method == 'POST':
+        form = PorchInterestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'porch-list-form/success.html')
+    else:
+        form = PorchInterestForm()
+
+    return render(request, 'porch-list-form/porch-list-form.html', {'form': form})
+
+def porch_page(request, slug):
+    porch = get_object_or_404(Porch, slug=slug)
+    context = {"porch": porch}
+    if request.session.get('itinerary_id'):
+        itinerary = get_or_create_itinerary(request).ordered_performances()
+        context["itinerary"] = itinerary
+        context["itinerary_test"] = set(item.id for item in itinerary)
+    if request.headers.get("HX-Request"):
+        performances = request.GET.get("performances")
+        if performances:
+            performances = Performance.objects.filter(id__in=performances.split(","))
+            context["performances"] = performances
+        return render(request, 'porch-page/porch-component.html', context)
+    return render(request, 'porch-page/porch-page.html', context)
+
+def performer_page(request, slug):
+    performer = get_object_or_404(Performer, slug=slug)
+    context = {"performer": performer}
+    # if request.session.get('itinerary_id'):
+    #     itinerary = get_or_create_itinerary(request).ordered_performances()
+    #     context["itinerary"] = itinerary
+        # context["itinerary_test"] = set(item.id for item in itinerary)
+    # if request.headers.get("HX-Request"):
+    #     performances = request.GET.get("performances")
+    #     if performances:
+    #         performances = Performance.objects.filter(id__in=performances.split(","))
+    #         context["performances"] = performances
+        # return render(request, 'porch-page/porch-component.html', context)
+    return render(request, 'performer-page/performer-page.html', context)
+
+def add_performance(request):
+    itinerary       = get_or_create_itinerary(request)
+    performance_id  = request.POST.get('performance_id')
+    performance     = get_object_or_404(Performance, id=performance_id)
+    if not itinerary.performances.filter(id=performance.id).exists():
+        itinerary.performances.add(performance)
+    context = {
+        "performance":  performance,
+        "itinerary_test": set(item.id for item in itinerary.ordered_performances()),
+        "itinerary":    itinerary.ordered_performances(),
+    }
+    return render(request, "porch-page/performance-detail-update.html", context)
+
+def list_porch(request):
+    porches = Porch.objects.filter(approved=True).order_by("name")
+    return render(request, 'list-porch.html', {"porches": porches})
+
+def about(request):
+    return render(request, 'about.html')
+def volunteer(request):
+    return render(request, 'volunteer.html')
+def sponsorship(request):
+    return render(request, 'sponsorship.html')
+def donate(request):
+    return render(request, 'donate.html')

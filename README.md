@@ -27,4 +27,4 @@
 - `npm install -g sass`
 ## run project
 - `python manage.py runserver`
-- `sass --watch sass/style.scss static/css/style.css`
+- `sass --watch src/sass/style.scss static/css/style.css`

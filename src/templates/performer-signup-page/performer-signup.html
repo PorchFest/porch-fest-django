@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Porch Signup!{% endblock %}
+{% block mainclass %}performer-signup{% endblock %}
+{% block content %}
+    <h1>Sign up to Perform at Porchfest!!</h1>
+	{% include "performer-signup-page/form.html" %}
+    <script src="{% static 'website/js/porch-signups.js' %}"></script>
+{% endblock %}
