@@ -2,7 +2,7 @@
 import json
 from django.core.management.base    import BaseCommand
 from django.contrib.auth.models     import User
-from porchfestcore.models           import Porch
+from porches.models           import Porch
 from django.utils.dateparse         import parse_datetime
 from datetime                       import datetime
 from django.contrib.gis.geos        import Point

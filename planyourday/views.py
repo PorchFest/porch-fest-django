@@ -1,6 +1,6 @@
 from django.shortcuts           import render, get_object_or_404
 from django.views.generic       import ListView
-from porchfestcore.models       import Performance, Genre
+from porches.models       import Performance, Genre
 from planyourday.api.filters    import PerformanceFilter
 from planyourday.models         import Itinerary
 

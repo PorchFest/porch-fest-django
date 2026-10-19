@@ -1,5 +1,5 @@
 from django                 import forms
-from porchfestcore.models   import Porch, Performer, Performance
+from porches.models   import Porch, Performer, Performance
 from mapwidgets.widgets 	import GoogleMapPointFieldWidget
 
 class PorchForm(forms.ModelForm):

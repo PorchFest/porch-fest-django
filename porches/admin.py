@@ -94,7 +94,7 @@ class PorchAdmin(admin.ModelAdmin):
     actions                 = ['export_as_csv', 'approve_porches']
 
     class Media:
-        js 					= ('porchfestcore/js/porch-admin.js',)
+        js 					= ('porches/js/porch-admin.js',)
         css					= {'all':['admin/css/porch-admin.css']}
     def approve_porches(self, request, queryset):
         queryset.update(approved=True)

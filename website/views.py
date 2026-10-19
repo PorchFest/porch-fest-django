@@ -2,7 +2,7 @@ from django.shortcuts 		import render, get_object_or_404
 from django.views.generic 	import TemplateView
 from .forms					import PorchInterestForm, PorchSignupForm
 from .models				import Sponsor
-from porchfestcore.models   import TempUpload, Porch, Performer, Performance
+from porches.models   import TempUpload, Porch, Performer, Performance
 from pathlib                import Path
 from django.core.files.base import ContentFile
 from django.core.mail       import EmailMessage

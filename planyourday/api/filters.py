@@ -1,5 +1,5 @@
 import django_filters
-from porchfestcore.models   import Performance, Genre
+from porches.models   import Performance, Genre
 from django.db.models       import Q
 
 class PerformanceFilter(django_filters.FilterSet):

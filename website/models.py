@@ -1,5 +1,5 @@
 from django.db              import models
-from porchfestcore.models   import Porch
+from porches.models   import Porch
 
 class Sponsor(models.Model):
     class SponsorLevel(models.IntegerChoices):

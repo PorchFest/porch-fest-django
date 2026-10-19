@@ -14,10 +14,10 @@ def map_page(request):
     if request.session.get('itinerary_id'):
         context['itinerary'] = get_or_create_itinerary(request).ordered_performances()
 
-    return render(request, 'porchfestcore/map.html', context)
+    return render(request, 'porches/map.html', context)
 
 def bland_map(request):
-    return render(request, 'porchfestcore/bland-map.html', {'MAPBOX_PUBLIC_KEY': settings.MAPBOX_PUBLIC_KEY})
+    return render(request, 'porches/bland-map.html', {'MAPBOX_PUBLIC_KEY': settings.MAPBOX_PUBLIC_KEY})
 
 def coming_soon(request):
-    return render(request, 'porchfestcore/coming-soon.html')
+    return render(request, 'porches/coming-soon.html')

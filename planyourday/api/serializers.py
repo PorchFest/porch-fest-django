@@ -1,5 +1,5 @@
 from rest_framework         import serializers
-from porchfestcore.models   import Performance, Performer, Porch
+from porches.models   import Performance, Performer, Porch
 
 class PorchSerializer(serializers.ModelSerializer):
     class Meta:

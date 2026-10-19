@@ -1,10 +1,17 @@
 from pathlib 	import Path
 from decouple 	import config
-
+import sys
+import platform
 import os
 if os.name == 'nt':
     GDAL_LIBRARY_PATH = os.path.join(config('PROJECT_PATH'), r'porch-fest-django\venv\Lib\site-packages\osgeo\gdal.dll')
     GEOS_LIBRARY_PATH = os.path.join(config('PROJECT_PATH'), r'porch-fest-django\venv\Lib\site-packages\osgeo\geos_c.dll')
+if sys.platform == 'darwin':
+    if platform.machine() == 'x86_64':
+        # Intel Mac, or Python running under Rosetta
+        GDAL_LIBRARY_PATH = "/opt/local/lib/libgdal.dylib"
+        GEOS_LIBRARY_PATH = "/opt/local/lib/libgeos_c.dylib"
+    # elif platform.machine() == 'arm64':
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +36,7 @@ INSTALLED_APPS = [
 	'django_recaptcha',
     'phonenumber_field',
 	'mapwidgets',
-	'porchfestcore',
+	'porches.apps.PorchesConfig',
 	'website',
     'porchpanel',
     'planyourday',
@@ -95,7 +102,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'porchfest.urls'
+ROOT_URLCONF = 'settings.urls'
 
 TEMPLATES = [
     {
@@ -112,7 +119,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'porchfest.wsgi.application'
+WSGI_APPLICATION = 'settings.wsgi.application'
 
 
 # Database
@@ -121,9 +128,9 @@ WSGI_APPLICATION = 'porchfest.wsgi.application'
 DATABASES = {
     'default': {
 		'ENGINE': 		'django.contrib.gis.db.backends.postgis',
-		'NAME': 		config('DB_NAME'),
-		'USER': 		config('DATABASE_USER'),
-		'PASSWORD': 	config('DATABASE_PASS'),
+		'NAME': 		config('POSTGRES_DB'),
+		'USER': 		config('POSTGRES_USER'),
+		'PASSWORD': 	config('POSTGRES_PASSWORD'),
 		'HOST': 		'localhost',
 		'PORT': 		'5432',
 	}

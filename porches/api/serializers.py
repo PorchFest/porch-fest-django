@@ -3,7 +3,7 @@ from rest_framework_gis.serializers     import (
     GeoFeatureModelListSerializer
 )
 from rest_framework                     import serializers
-from porchfestcore.models               import Porch
+from porches.models               import Porch
 
 
 class FeatureCollectionListSerializer(GeoFeatureModelListSerializer):

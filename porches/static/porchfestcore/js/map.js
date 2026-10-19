@@ -80,7 +80,7 @@ class PorchMap{
 		this.trolleyMarkers = this.trolleyStops.map(stop=>{
 			const marker 		= L.marker(stop, {
 				icon: L.icon({
-					iconUrl: "/static/porchfestcore/images/glyph-bus.svg",
+					iconUrl: "/static/porches/images/glyph-bus.svg",
 					className: "porch-marker",
 					iconSize: [40, 40],
 					iconAnchor:	[10, 40],
@@ -121,29 +121,29 @@ class PorchMap{
 			porches.features.forEach(porch=>{
 				const [lon, lat] 	= porch.geometry.coordinates
 				let iconObj = {
-					iconUrl: "/static/porchfestcore/images/glyph.svg",
+					iconUrl: "/static/porches/images/glyph.svg",
 					className: "porch-marker",
 					iconSize: [40, 40],
 					iconAnchor:	[10, 40],
 				}
 				if(porch.properties.porta_potty){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-porta.svg"
+					iconObj.iconUrl = "/static/porches/images/glyph-porta.svg"
 					iconObj.iconSize = [30, 30]
 					iconAnchor: [0, 30]
 				}
 				// else if(porch.properties.vendor){
-				// 	iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor.svg"
+				// 	iconObj.iconUrl = "/static/porches/images/glyph-vendor.svg"
 				// }
 				else if(porch.properties.parking){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-parking.svg"
+					iconObj.iconUrl = "/static/porches/images/glyph-parking.svg"
 				}else if(porch.properties.drinking_water){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-drinking-water.png"
+					iconObj.iconUrl = "/static/porches/images/glyph-drinking-water.png"
 				}else if(porch.properties.bicycle_repair){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-bike-repair.png"
+					iconObj.iconUrl = "/static/porches/images/glyph-bike-repair.png"
 				}else if(porch.properties.info_booth){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-info.svg"
+					iconObj.iconUrl = "/static/porches/images/glyph-info.svg"
 				}else if(porch.properties.after_party){
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-after-party.png"
+					iconObj.iconUrl = "/static/porches/images/glyph-after-party.png"
 				}
 				// else if(porch.properties.childrens_activities){
 				// 	console.log("hahahahahaha")
@@ -153,11 +153,11 @@ class PorchMap{
 					// 	iconObj.iconUrl = porch.properties.sponsor_logo
 					// }
 					// // else if(porch.properties.vendor){
-					// // 	iconObj.iconUrl = "/static/porchfestcore/images/glyph-vendor-sponsor.svg"
+					// // 	iconObj.iconUrl = "/static/porches/images/glyph-vendor-sponsor.svg"
 					// // }
 					// else{
 					// }
-					iconObj.iconUrl = "/static/porchfestcore/images/glyph-sponsor.svg"
+					iconObj.iconUrl = "/static/porches/images/glyph-sponsor.svg"
 				}
 				const marker 		= L.marker([lat, lon], {
 					icon: L.icon(iconObj)
@@ -218,7 +218,7 @@ class PorchMap{
 				this.userLocation = position.coords
 				const marker = L.marker([this.userLocation.latitude, this.userLocation.longitude], {
 					icon: L.icon({
-						iconUrl: "/static/porchfestcore/images/person.svg",
+						iconUrl: "/static/porches/images/person.svg",
 						className: "porch-marker",
 						iconSize: [30, 60],
 						iconAnchor:	[15, 60],

@@ -1,5 +1,5 @@
 import django_filters
-from porchfestcore.models   import Porch, Genre
+from porches.models   import Porch, Genre
 from django.db.models       import Q
 from planyourday.views      import get_or_create_itinerary
 

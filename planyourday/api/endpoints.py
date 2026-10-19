@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from planyourday.views import get_or_create_itinerary
 from .serializers               import PerformanceSerializer
 from .filters                   import PerformanceFilter
-from porchfestcore.models       import Performance
+from porches.models       import Performance
 from planyourday.models         import Itinerary
 from django.views.decorators.csrf import csrf_exempt
 

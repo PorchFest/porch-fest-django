@@ -32,7 +32,7 @@ class PorchMap{
 				const [lon, lat] 	= porch.geometry.coordinates
 				const marker 		= L.marker([lat, lon], {
 					icon: L.icon({
-                        iconUrl: "/static/porchfestcore/images/glyph.svg",
+                        iconUrl: "/static/porches/images/glyph.svg",
                         className: "porch-marker",
                         iconSize: [40, 40],
                         iconAnchor:	[10, 40],
