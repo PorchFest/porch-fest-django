@@ -10,13 +10,13 @@
     {% csrf_token %}
     
     <div class="form-group performer" x-data="{selectedPerformer: '', highlightedIndex: 0, isSelected: null}">
-        <div class="label label-performer" :class="{show: selectedPerformer}">
-            <div class="left">
+        <div class="label label-performer" :class="{open: selectedPerformer}">
+            <div>
                 <label for="id_name">Performer Name</label>
                 <p>What should we call you?</p>
                 <p>(And check to see if you're already in here)</p>
             </div>
-            <div class="right">
+            <div class="message-selected" :class="{open: selectedPerformer}">
                 <p>You have selected an existing performer to claim as yours. The selected performer is highlighted <span style="background-color:red;color:white;padding:0 4px 4px 4px">green</span></p>
             </div>
         </div>
