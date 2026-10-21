@@ -1,8 +1,8 @@
 from django.shortcuts 		import render
-from django.views.generic 	import TemplateView
+from django.views.generic 	import TemplateView, ListView
 from django.http			import JsonResponse
 from django.conf 		    import settings
-from .models                import Genre
+from .models                import Genre, Performer
 from planyourday.views      import get_or_create_itinerary
 
 def map_page(request):
@@ -15,6 +15,18 @@ def map_page(request):
         context['itinerary'] = get_or_create_itinerary(request).ordered_performances()
 
     return render(request, 'porches/map.html', context)
+
+class PerformerListView(ListView):
+    template_name = 'performer-signup-page/performer-list.html'
+    context_object_name = 'performers'
+
+    def get_queryset(self):
+        q = self.request.GET.get("name", "").strip()
+
+        if not q:
+            return Performer.objects.none()
+
+        return Performer.objects.filter(name__icontains=q)
 
 def bland_map(request):
     return render(request, 'porches/bland-map.html', {'MAPBOX_PUBLIC_KEY': settings.MAPBOX_PUBLIC_KEY})
