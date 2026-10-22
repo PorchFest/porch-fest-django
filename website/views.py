@@ -3,7 +3,7 @@ from django.views.generic 	import TemplateView
 from .forms					import PorchInterestForm, PorchSignupForm, PerformerSignupForm
 from .models				import Sponsor
 from porches.models         import TempUpload, Porch, Performer, Performance
-from porchpanel.models      import Invitation
+from dashboard.models      import Invitation
 from pathlib                import Path
 from django.core.files.base import ContentFile
 from django.core.mail       import EmailMessage

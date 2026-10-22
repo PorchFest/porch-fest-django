@@ -1,4 +1,4 @@
-{% extends "website/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}Edit Porch{% endblock %}
 {% block head %}
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block mainclass %}porch-edit-page{% endblock %}
 {% block content %}
-<a href="{% url "porchpanel:dashboard" %}" class="back-btn">Back to Dashboard</a>
+<a href="{% url "dashboard:dashboard" %}" class="back-btn">Back to Dashboard</a>
 <h2>Edit Porch: {{ porch.name }}</h2>
 <a href="{% url "porch_page" porch.slug %}" target="_blank">View Porch</a>
 <form method="post" enctype="multipart/form-data">
@@ -40,5 +40,5 @@
     </fieldset>
     <button type="submit" name="save_porch">Save Porch Details</button>
 </form>
-{% include "porchpanel/components/performances_edit_form.html" %}
+{% include "dashboard/components/performances_edit_form.html" %}
 {% endblock %}

@@ -11,7 +11,7 @@ urlpatterns = [
 	path('', include('website.urls')),
     path('map/', include('porches.urls')),
     path('plan-your-day/', include('planyourday.urls')),
-    path('dashboard/', include('porchpanel.urls')),
+    path('dashboard/', include('dashboard.urls')),
     path('porchfestpeeps/', admin.site.urls),
     path('api/porches/', include('porches.api.urls')),
     path('api/plan-your-day/', include('planyourday.api.urls')),

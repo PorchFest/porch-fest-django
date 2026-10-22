@@ -38,16 +38,16 @@ INSTALLED_APPS = [
 	'mapwidgets',
 	'porches.apps.PorchesConfig',
 	'website',
-    'porchpanel',
+    'dashboard.apps.DashboardConfig',
     'planyourday',
     'anymail',
     'rest_framework',
     'rest_framework_gis',
 ]
 
-LOGIN_URL                   = "porchpanel:login"
-LOGIN_REDIRECT_URL          = "porchpanel:dashboard"
-LOGOUT_REDIRECT_URL         = "porchpanel:login"
+LOGIN_URL                   = "dashboard:login"
+LOGIN_REDIRECT_URL          = "dashboard:dashboard"
+LOGOUT_REDIRECT_URL         = "dashboard:login"
 
 RECAPTCHA_PUBLIC_KEY	    = config('RECAPTCHA_PUBLIC')
 RECAPTCHA_PRIVATE_KEY	    = config('RECAPTCHA_PRIVATE')

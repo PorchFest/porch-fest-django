@@ -24,7 +24,7 @@ def accept_invite(request, token):
     invitation = get_object_or_404(Invitation, token=token)
 
     if not invitation.is_valid():
-        return render(request, "porchpanel/invite_invalid.html")
+        return render(request, "dashboard/invite_invalid.html")
 
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -42,11 +42,11 @@ def accept_invite(request, token):
             invitation.accepted = True
             invitation.save()
             login(request, user)
-            return redirect("porchpanel:dashboard")
+            return redirect("dashboard:dashboard")
     else:
         form = UserCreationForm()
 
-    return render(request, "porchpanel/accept_invite.html", {"form": form, "email": invitation.owner_email})
+    return render(request, "dashboard/accept_invite.html", {"form": form, "email": invitation.owner_email})
 
 
 def porch_login(request):
@@ -57,12 +57,12 @@ def porch_login(request):
         if user is not None:
             if user.is_superuser or user.groups.filter(name="Porch Host").exists():
                 login(request, user)
-                return redirect("porchpanel:dashboard")
+                return redirect("dashboard:dashboard")
             else:
                 messages.error(request, "You don’t have permission to access the Porch Panel.")
         else:
             messages.error(request, "Invalid username or password.")
-    return render(request, "porchpanel/login.html")
+    return render(request, "dashboard/login.html")
 
 @login_required
 def dashboard(request):
@@ -74,7 +74,7 @@ def dashboard(request):
     if Performer.objects.filter(created_by=request.user).exists():
         has_performer = True
     performers = Performer.objects.filter(created_by=request.user)
-    return render(request, 'porchpanel/dashboard.html', {'porches': porches, 'has_porch': has_porch if 'has_porch' in locals() else False, 'performers': performers})
+    return render(request, 'dashboard/dashboard.html', {'porches': porches, 'has_porch': has_porch if 'has_porch' in locals() else False, 'performers': performers})
 
 @login_required
 def performer_edit(request, pk):
@@ -88,14 +88,14 @@ def performer_edit(request, pk):
         if performer_form.is_valid():
             performer_form.save()
             messages.success(request, 'Performer details updated successfully')
-            return redirect('porchpanel:performer_edit', performer.id)
+            return redirect('dashboard:performer_edit', performer.id)
         else:
             messages.error(request, 'Please correct the errors below')
     else:
         performer_form = PerformerForm(instance=performer)
     return render(
         request,
-        "porchpanel/performer_edit.html",
+        "dashboard/performer_edit.html",
         {
             "performer_form": performer_form,
             "performer": performer,
@@ -126,7 +126,7 @@ def porch_edit(request, pk):
                 formset = PerformanceFormSet(instance=porch)
                 return render(
                     request,
-                    "porchpanel/porch_edit.html",
+                    "dashboard/porch_edit.html",
                     {
                         "porch_form": porch_form,
                         "formset": formset,
@@ -136,7 +136,7 @@ def porch_edit(request, pk):
             else:
                 return render(
                     request,
-                    "porchpanel/porch_edit.html",
+                    "dashboard/porch_edit.html",
                     {
                         "porch_form": porch_form,
                         "formset": formset,
@@ -156,7 +156,7 @@ def porch_edit(request, pk):
                 formset = PerformanceFormSet(instance=porch)
                 return render(
                     request,
-                    "porchpanel/components/performances_edit_form.html",
+                    "dashboard/components/performances_edit_form.html",
                     {
                         "formset": formset,
                         "porch": porch,
@@ -165,7 +165,7 @@ def porch_edit(request, pk):
             else:
                 return render(
                     request,
-                    "porchpanel/components/performances_edit_form.html",
+                    "dashboard/components/performances_edit_form.html",
                     {
                         "formset": formset,
                         "porch": porch,
@@ -176,7 +176,7 @@ def porch_edit(request, pk):
         formset = PerformanceFormSet(instance=porch)
     return render(
         request,
-        "porchpanel/porch_edit.html",
+        "dashboard/porch_edit.html",
         {
             "porch_form": porch_form,
             "formset": formset,
@@ -187,7 +187,7 @@ def porch_edit(request, pk):
 @login_required
 def create_porch(request):
     if Porch.objects.filter(user=request.user).exists():
-        return redirect('porchpanel:porch_edit', Porch.objects.get(user=request.user).id)
+        return redirect('dashboard:porch_edit', Porch.objects.get(user=request.user).id)
     if request.method == 'POST':
         form 				= PorchForm(request.POST)
         if form.is_valid():
@@ -195,7 +195,7 @@ def create_porch(request):
             porch.user		= request.user
             porch.save()
             messages.success(request, 'Your porch has been created')
-            return redirect('porchpanel:porch_edit', porch.id)
+            return redirect('dashboard:porch_edit', porch.id)
     else:
         form 				= PorchForm()
-    return render(request, 'porchpanel/create_porch.html', {'form': form})
+    return render(request, 'dashboard/create_porch.html', {'form': form})

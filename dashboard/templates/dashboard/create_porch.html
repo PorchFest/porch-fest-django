@@ -1,4 +1,4 @@
-{% extends "website/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}Create Porch{% endblock %}
 {% block head %}
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block mainclass %}porch-edit-page{% endblock %}
 {% block content %}
-<a href="{% url "porchpanel:dashboard" %}" class="back-btn">Back to Dashboard</a>
+<a href="{% url "dashboard:dashboard" %}" class="back-btn">Back to Dashboard</a>
 <form method="post">
     {% csrf_token %}
     {% if form.non_field_errors %}

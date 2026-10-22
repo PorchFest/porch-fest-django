@@ -1,4 +1,4 @@
-{% extends "website/base.html" %}
+{% extends "base.html" %}
 {% block title %}Porch Host Dashboard{% endblock %}
 {% block mainclass %}porch-host-dashboard{% endblock %}
 {% block content %}
@@ -9,13 +9,13 @@
     <ul>
       {% for porch in porches %}
         <li>
-          <a href="{% url 'porchpanel:porch_edit' porch.pk %}">Edit {{ porch.name }} — {{ porch.street_address }}</a>
+          <a href="{% url 'dashboard:porch_edit' porch.pk %}">Edit {{ porch.name }} — {{ porch.street_address }}</a>
         </li>
       {% empty %}
         <li>No porches yet.</li>
       {% endfor %}
       {% if not has_porch %}
-        <a href="{% url 'porchpanel:create_porch' %}">Create Your Porch</a>
+        <a href="{% url 'dashboard:create_porch' %}">Create Your Porch</a>
         {% comment %} <li>Your porch will be assigned to you soon.</li> {% endcomment %}
       {% endif %}
     </ul>
@@ -25,14 +25,14 @@
     <ul>
       {% for performer in performers %}
         <li>
-          <a href="{% url 'porchpanel:performer_edit' performer.pk %}">Edit {{ performer.name }}</a>
+          <a href="{% url 'dashboard:performer_edit' performer.pk %}">Edit {{ performer.name }}</a>
         </li>
       {% empty %}
         <li>No performers yet.</li>
       {% endfor %}
     </ul>
     {% comment %} {% if not has_performer %}
-      <a href="{% url 'porchpanel:create_performer' %}">Create Your Performer</a>
+      <a href="{% url 'dashboard:create_performer' %}">Create Your Performer</a>
     {% endif %}  {% endcomment %}
   </div>
 </div>

@@ -21,7 +21,7 @@ class Invitation(models.Model):
         return not self.accepted and timezone.now() < self.expires_at
     
     def invite_url(self, request=None):
-        path = reverse("porchpanel:accept_invite", args=[self.token])
+        path = reverse("dashboard:accept_invite", args=[self.token])
         base_url = settings.BASE_URL
         path = f"{base_url}{path}"
         if request:
