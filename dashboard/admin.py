@@ -1,6 +1,8 @@
 from django.contrib     import admin
-from .models            import Invitation
+from .models            import Invitation, Request
 from django.utils.html  import format_html
+
+admin.site.register(Request)
 
 @admin.register(Invitation)
 class InvitationAdmin(admin.ModelAdmin):

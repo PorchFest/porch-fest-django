@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
 	'mapwidgets',
 	'porches.apps.PorchesConfig',
+    'performers',
 	'website',
     'dashboard.apps.DashboardConfig',
     'planyourday',

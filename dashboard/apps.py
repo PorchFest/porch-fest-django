@@ -5,6 +5,7 @@ class DashboardConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'dashboard'
     label = 'porchpanel'
+    verbose_name = 'Dashboard'
 
     def ready(self):
         import dashboard.signals
