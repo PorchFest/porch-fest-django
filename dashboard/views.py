@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth            import authenticate, login
 from django.contrib                 import messages
 from django.contrib.auth.models     import Group, User
-from porches.models           import Porch, Performance, Performer
+from porches.models                 import Porch, Performance, Performer
 from django.contrib.auth.forms      import UserCreationForm
 from .forms                         import PorchForm, PerformerForm, PerformanceFormDashboard
 from .models                        import Invitation
@@ -30,14 +30,19 @@ def accept_invite(request, token):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user                = form.save(commit=False)
-            user.email          = invitation.owner_email
+            user.email          = invitation.email
             user.save()
 
-            group = Group.objects.get(name="Porch Host")
-            user.groups.add(group)
-
-            invitation.porch.user = user
-            invitation.porch.save()
+            if(invitation.is_porch_invite):
+                group = Group.objects.get(name="Porch Host")
+                user.groups.add(group)
+                invitation.porch.user = user
+                invitation.porch.save()
+            elif(invitation.is_performer_invite):
+                group = Group.objects.get(name="Performer")
+                user.groups.add(group)
+                invitation.performer.user = user
+                invitation.performer.save()
 
             invitation.accepted = True
             invitation.save()
@@ -46,7 +51,7 @@ def accept_invite(request, token):
     else:
         form = UserCreationForm()
 
-    return render(request, "dashboard/accept_invite.html", {"form": form, "email": invitation.owner_email})
+    return render(request, "dashboard/accept_invite.html", {"form": form, "email": invitation.email})
 
 
 def porch_login(request):
@@ -55,7 +60,7 @@ def porch_login(request):
         password = request.POST.get("password")
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            if user.is_superuser or user.groups.filter(name="Porch Host").exists():
+            if user.is_superuser or user.groups.filter(name="Porch Host").exists() or user.groups.filter(name="Performer").exists():
                 login(request, user)
                 return redirect("dashboard:dashboard")
             else:
@@ -73,7 +78,10 @@ def dashboard(request):
     ).distinct()
     if Performer.objects.filter(created_by=request.user).exists():
         has_performer = True
-    performers = Performer.objects.filter(created_by=request.user)
+        performers = Performer.objects.filter(created_by=request.user)
+    elif Performer.objects.filter(user=request.user).exists():
+        has_performer = True
+        performers = Performer.objects.filter(user=request.user)
     return render(request, 'dashboard/dashboard.html', {'porches': porches, 'has_porch': has_porch if 'has_porch' in locals() else False, 'performers': performers})
 
 @login_required
@@ -81,7 +89,8 @@ def performer_edit(request, pk):
     performer = get_object_or_404(
         Performer,
         Q(pk=pk),
-        Q(created_by=request.user),
+        Q(created_by=request.user) |
+        Q(user=request.user),
     )
     if request.method == "POST":
         performer_form = PerformerForm(request.POST, request.FILES, instance=performer)
@@ -186,6 +195,22 @@ def porch_edit(request, pk):
 
 @login_required
 def create_porch(request):
+    if Porch.objects.filter(user=request.user).exists():
+        return redirect('dashboard:porch_edit', Porch.objects.get(user=request.user).id)
+    if request.method == 'POST':
+        form 				= PorchForm(request.POST)
+        if form.is_valid():
+            porch 			= form.save(commit=False)
+            porch.user		= request.user
+            porch.save()
+            messages.success(request, 'Your porch has been created')
+            return redirect('dashboard:porch_edit', porch.id)
+    else:
+        form 				= PorchForm()
+    return render(request, 'dashboard/create_porch.html', {'form': form})
+
+@login_required
+def create_performer(request):
     if Porch.objects.filter(user=request.user).exists():
         return redirect('dashboard:porch_edit', Porch.objects.get(user=request.user).id)
     if request.method == 'POST':

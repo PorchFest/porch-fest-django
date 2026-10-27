@@ -13,13 +13,21 @@ def default_expiration():
     return timezone.now() + timedelta(days=7)
 
 class Invitation(models.Model):
-    email = models.EmailField(unique=True)
+    email       = models.EmailField(unique=True)
     porch       = models.ForeignKey('porchfestcore.Porch', on_delete=models.CASCADE, related_name='invitations', null=True, blank=True)
     performer   = models.ForeignKey('performers.Performer', on_delete=models.CASCADE, related_name='invitations', null=True, blank=True)
     token       = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     created_at  = models.DateTimeField(auto_now_add=True)
     expires_at  = models.DateTimeField(default=default_expiration)
     accepted    = models.BooleanField(default=False)
+
+    @property
+    def is_porch_invite(self):
+        return self.porch_id is not None
+
+    @property
+    def is_performer_invite(self):
+        return self.performer_id is not None
 
     def is_valid(self):
         return not self.accepted and timezone.now() < self.expires_at

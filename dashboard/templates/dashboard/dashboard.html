@@ -4,7 +4,7 @@
 {% block content %}
 <div class="dashboard-wrapper">
   <h1>Welcome, {{ request.user.username }}</h1>
-  <div class="porch">
+  {% comment %} <div class="porch">
     <h2>Your Porch:</h2>
     <ul>
       {% for porch in porches %}
@@ -15,11 +15,11 @@
         <li>No porches yet.</li>
       {% endfor %}
       {% if not has_porch %}
-        <a href="{% url 'dashboard:create_porch' %}">Create Your Porch</a>
+        <a href="{% url 'dashboard:create_porch' %}">Create Your Porch</a> {% endcomment %}
         {% comment %} <li>Your porch will be assigned to you soon.</li> {% endcomment %}
-      {% endif %}
+      {% comment %} {% endif %}
     </ul>
-  </div>
+  </div> {% endcomment %}
   <div class="performer">
     <h2>Your Performers:</h2>
     <ul>
