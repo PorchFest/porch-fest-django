@@ -83,7 +83,6 @@ class PerformerSignupForm(forms.ModelForm):
         widget=forms.HiddenInput(),
     )
     name = forms.CharField(error_messages={"required":"You have to at least give us a name..."})
-
     captcha		= ReCaptchaField(widget=ReCaptchaV2Checkbox)
     class Meta:
         model 	= Performer
