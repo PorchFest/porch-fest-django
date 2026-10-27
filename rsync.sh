@@ -82,7 +82,7 @@ deploycore(){
         DRY="n"
 		echo "DRY DEPLOY"
     fi
-	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' porchfestcore/ porchfest:/home/django/porchfest/porchfestcore/
+	rsync -avz${DRY} --delete --exclude '__pycache__/' --exclude 'migrations/' porches/ porchfest:/home/django/porchfest/porches/
 }
 
 deployapp(){

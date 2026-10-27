@@ -1,8 +1,9 @@
 from django.shortcuts 		import render, get_object_or_404
 from django.views.generic 	import TemplateView
-from .forms					import PorchInterestForm, PorchSignupForm
+from .forms					import PorchInterestForm, PorchSignupForm, PerformerSignupForm
 from .models				import Sponsor
-from porchfestcore.models   import TempUpload, Porch, Performer, Performance
+from porches.models         import TempUpload, Porch, Performer, Performance
+from dashboard.models      import Invitation
 from pathlib                import Path
 from django.core.files.base import ContentFile
 from django.core.mail       import EmailMessage
@@ -13,6 +14,29 @@ def index(request):
     sponsors 	= Sponsor.objects.filter(is_active=True).order_by("level", "name")
     form		= PorchSignupForm()
     return render(request, 'website/front-page/index.html', {"sponsors": sponsors, 'form': form})
+
+def performer_signup(request):
+    temp_image = None
+    if request.method == 'POST':
+        form = PerformerSignupForm(request.POST, request.FILES)
+        if form.is_valid():
+            performer = form.get_or_create_performer()
+            Invitation.objects.create(
+                email=form.cleaned_data["email"],
+                performer=performer
+            )
+            return render(request, 'performer-signup-page/success.html')
+        else:
+            return render(request, 'performer-signup-page/form.html', {
+                "form": form,
+                "temp_image": temp_image,
+            })        
+    else:
+        form = PerformerSignupForm()
+    return render(request, 'performer-signup-page/performer-signup.html', {
+        "form": form,
+        "temp_image": temp_image,
+    })
 
 def porch_signup(request):
     temp_image = None
