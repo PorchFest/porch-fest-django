@@ -1,19 +1,19 @@
 porchfest=# BEGIN;
 BEGIN
-porchfest=*# INSERT INTO performers_performer (
+INSERT INTO performers_performer (
     id, name, bio, member_count, instruments, link, slug,
     profile_picture, email, phone_number, created_by_id, user_id
 )
-porchfest-*# SELECT
+SELECT
     id, name, bio, member_count, instruments, link, slug,
     profile_picture, email, phone_number, created_by_id, user_id
 FROM porchfestcore_performer;
 INSERT 0 502
-porchfest=*# INSERT INTO performers_genre (id, name, slug)
+INSERT INTO performers_genre (id, name, slug)
 SELECT id, name, slug
 FROM porchfestcore_genre;
 INSERT 0 51
-porchfest=*# INSERT INTO performers_performer_genres (performer_id, genre_id)
+INSERT INTO performers_performer_genres (performer_id, genre_id)
 SELECT performer_id, genre_id
 FROM porchfestcore_performer_genres;
 INSERT 0 373
