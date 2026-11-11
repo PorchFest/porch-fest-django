@@ -1,7 +1,9 @@
 import                              uuid
 from django.conf                    import settings
 from django.contrib.auth.models     import User
+from django.core.exceptions         import ValidationError
 from django.db                      import models
+from django.utils.text              import slugify
 from phonenumber_field.modelfields  import PhoneNumberField
 
 class Genre(models.Model):
