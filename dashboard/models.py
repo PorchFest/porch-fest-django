@@ -4,7 +4,7 @@ from django.db      import models
 from django.utils   import timezone
 from django.urls    import reverse
 from datetime       import timedelta
-from porches.models import Porch
+from porches.models import Porch, Performance
 from performers.models import Performer
 from django.contrib.auth.models import User
 
